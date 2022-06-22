@@ -1,6 +1,6 @@
-# your_papers
+# Custom Base
 
-
+Custom Flutter Base
 
 ## Getting started
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/aait_flutter/projects2022/your_papers.git
+git remote add origin https://gitlab.com/shikopk2014/custom-base.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/aait_flutter/projects2022/your_papers/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.com/shikopk2014/custom-base/-/settings/integrations)
 
 ## Collaborate with your team
 
