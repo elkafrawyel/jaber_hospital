@@ -7,7 +7,7 @@ class Utils {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     initDio(lang: "ar");
     initCustomWidgets(language: "ar");
-    GlobalState.instance.set("token","");
+    GlobalState.instance.set("token", "");
     // await GeneralRepository(context).getHomeConstData();
     await location.requestPermission();
     var strUser = prefs.get("user");
@@ -35,7 +35,7 @@ class Utils {
       dismissFunc: EasyLoading.dismiss,
       showLoadingFunc: LoadingDialog.showLoadingDialog,
       branch: ApiNames.branch,
-      authClick: () {  },
+      authClick: () {},
     );
   }
 
@@ -45,16 +45,18 @@ class Utils {
         primary: MyColors.primary,
         language: language,
         inputStyle: (
-                {String? label,
-                  String? hint,
-                  Widget? prefixIcon,
-                  Widget? suffixIcon,
-                  Color? hintColor,
-                  Color? fillColor,
-                  BorderRadius? radius,
-                  Color? focusBorderColor,
-                  EdgeInsets? padding,
-                  Color? enableColor}) =>
+                {Color? enableColor,
+                Color? fillColor,
+                Color? focusBorderColor,
+                String? hint,
+                Color? hintColor,
+                String? label,
+                EdgeInsets? padding,
+                Widget? prefixIcon,
+                Widget? prefixWidget,
+                BorderRadius? radius,
+                Widget? suffixIcon,
+                Widget? suffixWidget}) =>
             CustomInputDecoration(
                 lang: language,
                 labelTxt: label,
@@ -280,13 +282,12 @@ class Utils {
     if (permission == LocationPermission.deniedForever) {
       CustomToast.showSimpleToast(
           msg:
-          'Location permissions are permanently denied, we cannot request permissions');
+              'Location permissions are permanently denied, we cannot request permissions');
       return null;
     }
 
     return await Geolocator.getCurrentPosition();
   }
-
 
   static void navigateToMapWithDirection(
       {required String lat,
@@ -345,15 +346,13 @@ class Utils {
   // }
 
   static Future<String> getAddress(LatLng latLng, BuildContext context) async {
-    final coordinates = new Coordinates(latLng.latitude,latLng.longitude);
+    final coordinates = new Coordinates(latLng.latitude, latLng.longitude);
     List<Address> addresses =
-    await Geocoder.local.findAddressesFromCoordinates(coordinates);
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = addresses.first;
     print("${first.featureName} : ${first.addressLine}");
     return first.addressLine;
   }
-
-
 
   static String convertDigitsToLatin(String s) {
     var sb = new StringBuffer();
@@ -406,7 +405,7 @@ class Utils {
     LocationModel locationModel = locCubit.state.model!;
     if (current != null) {
       locationModel = LocationModel(
-          lat: current.latitude , lng: current.longitude , address: "");
+          lat: current.latitude, lng: current.longitude, address: "");
     }
     double lat = locationModel.lat;
     double lng = locationModel.lng;

@@ -1,4 +1,4 @@
-import 'package:tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
+import 'package:base_flutter/general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import 'package:base_flutter/general/utilities/utils_functions/LoadingDialog.dart';
 import 'package:base_flutter/general/models/UserModel.dart';
 import 'package:base_flutter/general/resources/GeneralRepoImports.dart';
