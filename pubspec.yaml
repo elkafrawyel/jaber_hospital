@@ -129,17 +129,59 @@ flutter:
     - assets/anim/delivery.json
     - assets/anim/empty_cart.json
     - assets/anim/success.json
+    - assets/images/america.png
+    - assets/images/appIcon.png
+    - assets/images/arrow.png
+    - assets/images/arrow_forward.png
+    - assets/images/calendar.png
+    - assets/images/call.png
+    - assets/images/camera-1.png
+    - assets/images/camera-2.png
+    - assets/images/camera.png
+    - assets/images/check.png
+    - assets/images/check_circle.png
+    - assets/images/discount.gif
+    - assets/images/edit.png
+    - assets/images/facebook.png
+    - assets/images/fav.png
+    - assets/images/favPress.PNG
+    - assets/images/favPressed.png
+    - assets/images/favUnPress.PNG
+    - assets/images/fire_empty.png
+    - assets/images/fire_fill.png
     - assets/images/following.png
+    - assets/images/Group.png
     - assets/images/hands.png
+    - assets/images/home_empty.png
+    - assets/images/home_fill.png
     - assets/images/icon.png
+    - assets/images/Iconly-Light-Location.png
+    - assets/images/instagram.png
+    - assets/images/linkedin.png
     - assets/images/location.png
     - assets/images/logo.png
-    - assets/images/logoWhite.png
+    - assets/images/logo4.svg
+    - assets/images/logoIcon.png
+    - assets/images/logoIcon1.png
+    - assets/images/logout.png
+    - assets/images/Logout1.png
+    - assets/images/Mada_Logo.png
     - assets/images/marker.png
+    - assets/images/master-card.png
+    - assets/images/more_empty.png
+    - assets/images/more_fill.png
     - assets/images/nodata.png
+    - assets/images/notification.png
     - assets/images/placeholder.png
     - assets/images/plus.png
+    - assets/images/saudi-arabia.png
+    - assets/images/search.png
     - assets/images/splash.png
+    - assets/images/switch1.png
+    - assets/images/time.png
+    - assets/images/twitter.png
+    - assets/images/visa.png
+    - assets/images/visibility.png
     - assets/lang/ar.json
     - assets/lang/en.json
   # An image asset can refer to one or more resolution-specific "variants", see

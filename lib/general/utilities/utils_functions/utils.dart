@@ -20,7 +20,7 @@ class Utils {
       final LocationCubit locationCubit = new LocationCubit();
       changeLanguage("ar", context);
       // Navigator.push(context, MaterialPageRoute(builder: (_)=>SearchPlacesScreen()));
-      AutoRouter.of(context).push(ContactUsRoute());
+      AutoRouter.of(context).push(LoginRoute());
       // Utils.navigateToLocationAddress(context,locationCubit);
     }
   }
