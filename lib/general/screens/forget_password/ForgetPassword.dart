@@ -11,7 +11,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-      child: ListView(
+      body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         physics: BouncingScrollPhysics(
           parent: AlwaysScrollableScrollPhysics(),
@@ -22,7 +22,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           BuildFormInputs(forgerPasswordData: forgerPasswordData),
           BuildButton(forgerPasswordData: forgerPasswordData),
         ],
-      ),
+      ), title: '', back: true,
     );
   }
 }

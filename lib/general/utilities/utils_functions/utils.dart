@@ -1,14 +1,18 @@
 part of 'UtilsImports.dart';
 
+
 class Utils {
   static Location location = new Location();
 
   static Future<void> manipulateSplashData(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    // bool? initTheme = prefs.getBool("dark")??false;
+    // Utils.changeAppTheme(context,initTheme: initTheme) ;
     initDio(lang: "ar");
     initCustomWidgets(language: "ar");
     GlobalState.instance.set("token", "");
     // await GeneralRepository(context).getHomeConstData();
+
     await location.requestPermission();
     var strUser = prefs.get("user");
     if (strUser != null) {
@@ -19,8 +23,10 @@ class Utils {
     } else {
       final LocationCubit locationCubit = new LocationCubit();
       changeLanguage("ar", context);
-      // Navigator.push(context, MaterialPageRoute(builder: (_)=>SearchPlacesScreen()));
-      AutoRouter.of(context).push(LoginRoute());
+      Navigator.push(context, MaterialPageRoute(builder: (_) => Login()));
+      // navigatorKey.currentState?.push(MaterialPageRoute(builder: (BuildContext context)=>Login()));
+
+      // AutoRouter.of(context).push(LoginRoute());
       // Utils.navigateToLocationAddress(context,locationCubit);
     }
   }
@@ -58,6 +64,8 @@ class Utils {
                 Widget? suffixIcon,
                 Widget? suffixWidget}) =>
             CustomInputDecoration(
+              focusColor: focusBorderColor,
+              hintColor: hintColor,
                 lang: language,
                 labelTxt: label,
                 hint: hint,
@@ -94,6 +102,18 @@ class Utils {
   static void setCurrentUserData(UserModel model, BuildContext context) async {
     // context.read<UserCubit>().onUpdateUserData(model);
     // ExtendedNavigator.of(context).push(Routes.home,arguments: HomeArguments(parentCount: parentCount));
+  }
+
+  static changeAppTheme(BuildContext context, {bool? initTheme}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var dark = context.read<ThemeCubit>().state.isDark;
+    if (initTheme != null) {
+      context.read<ThemeCubit>().onUpdateTheme(initTheme);
+    } else {
+      context.read<ThemeCubit>().onUpdateTheme(!dark);
+      dark = context.read<ThemeCubit>().state.isDark;
+      prefs.setBool("dark", dark);
+    }
   }
 
   static Future<void> saveUserData(UserModel model) async {
@@ -234,32 +254,8 @@ class Utils {
     }
   }
 
-  // static Future<LocationData?> getCurrentLocation(BuildContext context) async {
-  //   Location location = new Location();
-  //
-  //   bool _serviceEnabled;
-  //   PermissionStatus _permissionGranted;
-  //   LocationData _loc;
-  //
-  //   _serviceEnabled = await location.serviceEnabled();
-  //   if (!_serviceEnabled) {
-  //     _serviceEnabled = await location.requestService();
-  //     if (!_serviceEnabled) {
-  //       return null;
-  //     }
-  //   }
-  //
-  //   _permissionGranted = await location.hasPermission();
-  //   if (_permissionGranted == PermissionStatus.denied) {
-  //     _permissionGranted = await location.requestPermission();
-  //     if (_permissionGranted != PermissionStatus.granted) {
-  //       return null;
-  //     }
-  //   }
-  //
-  //   _loc = await location.getLocation();
-  //   return _loc;
-  // }
+
+
   static Future<Position?> getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;

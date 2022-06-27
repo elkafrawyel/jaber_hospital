@@ -6,7 +6,7 @@ class BuildText extends StatelessWidget {
     return MyText(
       title: tr(context,"login"),
       size: 16,
-      color: MyColors.primary,
+      // color: MyColors.primary,
     );
   }
 }

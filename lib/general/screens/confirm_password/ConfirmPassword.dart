@@ -11,7 +11,7 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-      child: ListView(
+      body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         physics: BouncingScrollPhysics(
           parent: AlwaysScrollableScrollPhysics(),
@@ -27,7 +27,7 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
             userId: "",
           ),
         ],
-      ),
+      ), title: 'تغيير كلمة المرور', back: true,
     );
   }
 }

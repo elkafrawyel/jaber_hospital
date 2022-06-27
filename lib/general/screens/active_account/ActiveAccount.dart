@@ -15,7 +15,7 @@ class _ActiveAccountState extends State<ActiveAccount> {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-      child: ListView(
+      body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         physics: BouncingScrollPhysics(
           parent: AlwaysScrollableScrollPhysics(),
@@ -26,7 +26,7 @@ class _ActiveAccountState extends State<ActiveAccount> {
           BuildFormInputs(activeAccountData: activeAccountData),
           BuildButtonList(activeAccountData: activeAccountData,userId: widget.userId,),
         ],
-      ),
+      ), title: '', back: true,
     );
   }
 }

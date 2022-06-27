@@ -68,19 +68,19 @@ class CustomInputDecoration extends InputDecoration {
 
   @override
   // TODO: implement label
-  Widget? get label => labelTxt==null?super.label:Text(labelTxt??"",style: labelStyle,);
+  Widget? get label => labelTxt==null?super.label:Text(labelTxt??"",style: labelStyle);
 
   @override
   // TODO: implement labelStyle
   TextStyle get labelStyle => lang != "ar"
-      ? GoogleFonts.roboto(fontSize: 16, color: hintColor ?? Colors.black54)
-      : GoogleFonts.cairo(fontSize: 14, color: hintColor ?? Colors.black54);
+      ? GoogleFonts.roboto(fontSize: 11, color: hintColor ?? Colors.black54)
+      : GoogleFonts.cairo(fontSize: 12, color: hintColor ?? Colors.black54);
 
   @override
   // TODO: implement hintStyle
   TextStyle? get hintStyle => lang != "ar"
-      ? GoogleFonts.roboto(fontSize: 16, color: hintColor ?? Colors.black54)
-      : GoogleFonts.cairo(fontSize: 14, color: hintColor ?? Colors.black54);
+      ? GoogleFonts.roboto(fontSize: 11, color: hintColor ?? Colors.black54)
+      : GoogleFonts.cairo(fontSize: 12, color: hintColor ?? Colors.black54);
 
   @override
   // TODO: implement contentPadding

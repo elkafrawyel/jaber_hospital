@@ -8,17 +8,25 @@ class BuildNewRegister extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(child: Divider(color: MyColors.grey.withOpacity(.5),thickness: 1.5)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: MyText(
               title:tr(context,"don'tHaveAccount"),
-              size: 12,
+              size: 10,
               alien: TextAlign.center,
-              color: MyColors.grey,
+              color: MyColors.primary,
             ),
           ),
-          Expanded(child: Divider(color: MyColors.grey.withOpacity(.5),thickness: 1.5)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: MyText(
+              title:'قم بأنشاء حساب',
+              size: 10,
+              decoration: TextDecoration.underline,
+              alien: TextAlign.center,
+              color: MyColors.primary,
+            ),
+          ),
         ],
       ),
     );

@@ -12,7 +12,7 @@ class _SelectLangState extends State<SelectLang> {
   Widget build(BuildContext context) {
     return WillPopScope(
       child: AuthScaffold(
-        child: ListView(
+        body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
           physics: BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
@@ -21,7 +21,7 @@ class _SelectLangState extends State<SelectLang> {
             BuildLangText(),
             BuildButtonList(selectLangData: selectLangData),
           ],
-        ),
+        ), back: true, title: '',
       ),
       onWillPop: selectLangData.onBackPressed,
     );

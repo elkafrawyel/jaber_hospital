@@ -17,7 +17,7 @@ class MyText extends StatelessWidget {
 
   MyText(
       {required this.title,
-      required this.color,
+        this.color,
       required this.size,
       this.alien,
       this.fontFamily,
@@ -34,7 +34,7 @@ class MyText extends StatelessWidget {
       textAlign: alien ?? TextAlign.start,
       textScaleFactor: 1.2,
       style: TextStyle(
-          color: color??Colors.black,
+          color:color?? Theme.of(context).textTheme.subtitle1?.color,
           fontSize: size??16,
           letterSpacing: letterSpace,
           wordSpacing: wordSpace,

@@ -82,12 +82,14 @@ dependencies:
   flutter_rounded_date_picker: ^2.0.2
   material_design_icons_flutter: ^5.0.6595
   flutter_html: ^2.2.1
+  animations: ^2.0.2
   pin_code_fields: ^7.3.0
   image_picker: ^0.8.4+9
   flutter_svg: ^0.23.0+1
   json_serializable: ^6.1.4
   json_annotation: ^4.4.0
   platform: ^3.1.0
+
 
 
 
@@ -101,8 +103,8 @@ dependencies:
 
 flutter_icons:
   android: "launcher_icon"
-  ios: false
-  image_path: "assets/images/logo.png"
+  ios: true
+  image_path: "assets/images/appIcon.png"
 
 
 
@@ -111,6 +113,14 @@ dev_dependencies:
     sdk: flutter
   auto_route_generator: ^3.2.0
   build_runner: ^2.1.7
+#  flutter_native_splash:
+#flutter_native_splash:
+#  image: assets/images/fav.png
+#  color: "#2885BF"
+#  android: true
+#  ios: false
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -129,59 +139,82 @@ flutter:
     - assets/anim/delivery.json
     - assets/anim/empty_cart.json
     - assets/anim/success.json
-    - assets/images/america.png
+    - assets/images/aboutus.png
+    - assets/images/add.png
+    - assets/images/addd.png
     - assets/images/appIcon.png
     - assets/images/arrow.png
-    - assets/images/arrow_forward.png
-    - assets/images/calendar.png
-    - assets/images/call.png
-    - assets/images/camera-1.png
-    - assets/images/camera-2.png
-    - assets/images/camera.png
-    - assets/images/check.png
-    - assets/images/check_circle.png
-    - assets/images/discount.gif
-    - assets/images/edit.png
-    - assets/images/facebook.png
-    - assets/images/fav.png
-    - assets/images/favPress.PNG
-    - assets/images/favPressed.png
-    - assets/images/favUnPress.PNG
-    - assets/images/fire_empty.png
-    - assets/images/fire_fill.png
-    - assets/images/following.png
-    - assets/images/Group.png
-    - assets/images/hands.png
-    - assets/images/home_empty.png
-    - assets/images/home_fill.png
+    - assets/images/arrow_poin.png
+    - assets/images/arrowpfofile.png
+    - assets/images/bell.png
+    - assets/images/biin.png
+    - assets/images/bin.png
+    - assets/images/calll.png
+    - assets/images/cam.png
+    - assets/images/cards.png
+    - assets/images/cart.png
+    - assets/images/checkd.png
+    - assets/images/clock.png
+    - assets/images/close.png
+    - assets/images/deleteee.png
+    - assets/images/doc.png
+    - assets/images/excel.png
+    - assets/images/exit.png
+    - assets/images/face.png
+    - assets/images/feather-share.png
+    - assets/images/file.png
+    - assets/images/filter.png
+    - assets/images/flow.png
+    - assets/images/follow.png
+    - assets/images/group.png
+    - assets/images/heart.png
+    - assets/images/hearts.png
+    - assets/images/heartt.png
+    - assets/images/home.png
     - assets/images/icon.png
-    - assets/images/Iconly-Light-Location.png
-    - assets/images/instagram.png
-    - assets/images/linkedin.png
+    - assets/images/image.png
+    - assets/images/information.png
     - assets/images/location.png
     - assets/images/logo.png
-    - assets/images/logo4.svg
-    - assets/images/logoIcon.png
-    - assets/images/logoIcon1.png
-    - assets/images/logout.png
-    - assets/images/Logout1.png
-    - assets/images/Mada_Logo.png
-    - assets/images/marker.png
-    - assets/images/master-card.png
-    - assets/images/more_empty.png
-    - assets/images/more_fill.png
-    - assets/images/nodata.png
-    - assets/images/notification.png
-    - assets/images/placeholder.png
-    - assets/images/plus.png
-    - assets/images/saudi-arabia.png
+    - assets/images/mastercard.png
+    - assets/images/medal.png
+    - assets/images/minus.png
+    - assets/images/more.png
+    - assets/images/noti.png
+    - assets/images/pdf.png
+    - assets/images/person.png
+    - assets/images/picture.png
+    - assets/images/pocket.png
+    - assets/images/poket.png
+    - assets/images/purchases.png
+    - assets/images/purchese.png
+    - assets/images/Questionsbro.png
+    - assets/images/radio.png
+    - assets/images/radiobuttonon.png
+    - assets/images/Rectangle.png
+    - assets/images/report.png
+    - assets/images/saudi.png
     - assets/images/search.png
-    - assets/images/splash.png
-    - assets/images/switch1.png
-    - assets/images/time.png
+    - assets/images/setting.png
+    - assets/images/share.png
+    - assets/images/shopping-cart.png
+    - assets/images/sim.png
+    - assets/images/smallstar.png
+    - assets/images/snapchat.png
+    - assets/images/sound.png
+    - assets/images/staar.png
+    - assets/images/star.png
+    - assets/images/starr.png
+    - assets/images/starrr.png
+    - assets/images/starrrr.png
+    - assets/images/toggle.png
     - assets/images/twitter.png
-    - assets/images/visa.png
-    - assets/images/visibility.png
+    - assets/images/unfollow.png
+    - assets/images/user.png
+    - assets/images/video-player.png
+    - assets/images/view.png
+    - assets/images/word.png
+    - assets/images/zip.png
     - assets/lang/ar.json
     - assets/lang/en.json
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -11,21 +11,27 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-      child: GestureDetector(
-        onTap: ()=> FocusScope.of(context).requestFocus(FocusNode()),
+      back: false,
+      title: 'تسجيل الدخول',
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           physics: BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
           ),
           children: [
-            HeaderLogo(),
-            BuildText(),
+            InkWell(
+                onTap: () {
+                  Utils.changeAppTheme(context);
+                },
+                child: HeaderLogo()),
+            // BuildText(),
             BuildFormInputs(loginData: loginData),
             BuildForgetText(),
             BuildLoginButton(loginData: loginData),
+            BuildVisitorButton(),
             BuildNewRegister(),
-            BuildRegisterButton(),
           ],
         ),
       ),

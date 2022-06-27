@@ -17,8 +17,9 @@ class MainData {
     ),
     fontFamily: GoogleFonts.cairo().fontFamily,
     textTheme: TextTheme(
-      subtitle1:GoogleFonts.cairo(fontSize: 14,),
+      subtitle1:GoogleFonts.cairo(fontSize: 14,color: Colors.black),
     ),
+    splashColor: Colors.white,
   );
 
   static ThemeData darkThem=ThemeData(
@@ -27,14 +28,16 @@ class MainData {
     primarySwatch: Colors.grey,
     focusColor: MyColors.white,
     accentColor: MyColors.white,
-    primaryColor: MyColors.white,
+    primaryColor: Colors.black,
+    primaryColorDark: Colors.black,
     appBarTheme: AppBarTheme(
       color: MyColors.primary,
     ),
     fontFamily: GoogleFonts.cairo().fontFamily,
     textTheme: TextTheme(
-      subtitle1:GoogleFonts.cairo(fontSize: 14,),
+      subtitle1:GoogleFonts.cairo(fontSize: 14,color: Colors.white),
     ),
+      splashColor: Colors.black
   );
 
   static List<BlocProvider>  providers(BuildContext context)=>[

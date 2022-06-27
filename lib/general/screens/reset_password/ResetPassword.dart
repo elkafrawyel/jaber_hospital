@@ -15,7 +15,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-      child: ListView(
+      body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         physics: BouncingScrollPhysics(
           parent: AlwaysScrollableScrollPhysics(),
@@ -32,7 +32,7 @@ class _ResetPasswordState extends State<ResetPassword> {
             userId: widget.userId,
           ),
         ],
-      ),
+      ), title: '', back: true,
     );
   }
 }

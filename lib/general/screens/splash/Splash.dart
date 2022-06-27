@@ -27,34 +27,29 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+
+    // bool dark = context.watch<ThemeCubit>().state.isDark;
     return Scaffold(
-        body: Container(
-            color: MyColors.white,
-            child: Center(
-              child: TweenAnimationBuilder<double>(
-                  tween: Tween(begin: 5.0, end: 0.0),
-                  duration:  Duration(milliseconds: 1200),
-                  curve: Curves.elasticOut,
-                  builder: (_, double value, child) {
-                    return Transform.translate(
-                      offset: Offset(value *1000 , 0),
-                      child: child,
-                    );
-                  },
-                child:Hero(
-                  tag: Res.logo,
-                  child: Image.asset(
-                    Res.logo,
-                    width: 200,
-                    height: 150,
-                  ),
-                ),
-                 ),
-            )
-
-
-
-            ));
+      // backgroundColor: dark?Colors.black:Colors.white,
+        body: Center(
+          child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 3.0, end: 0.0),
+              duration: const Duration(milliseconds: 1000),
+              curve: Curves.elasticOut,
+              builder: (_, double value, child) {
+                return Transform.translate(
+                  offset: Offset(value *500 , 0),
+                  child: child,
+                );
+              },
+            child:Image.asset(
+              Res.logo,
+              width: 200,
+              height: 150,
+              fit: BoxFit.contain,
+            ),
+             ),
+        ));
   }
 }
 //   // child: AnimationContainer(

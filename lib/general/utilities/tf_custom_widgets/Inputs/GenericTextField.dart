@@ -64,23 +64,23 @@ class GenericTextField extends StatelessWidget {
       margin: margin ?? EdgeInsets.all(0),
       child: Visibility(
         visible: fieldTypes==FieldTypes.clickable,
-        child: buildClickableView(),
-        replacement: buildFormFiled(),
+        child: buildClickableView(context),
+        replacement: buildFormFiled(context),
       ),
     );
   }
 
-  Widget buildClickableView(){
+  Widget buildClickableView(BuildContext context){
     return InkWell(
       onTap: onTab,
       child: AbsorbPointer(
         absorbing: true,
-        child: buildFormFiled(),
+        child: buildFormFiled(context),
       ),
     );
   }
 
-  Widget buildFormFiled(){
+  Widget buildFormFiled(BuildContext context){
     return TextFormField(
       controller: controller,
       keyboardType: type ,
@@ -101,7 +101,8 @@ class GenericTextField extends StatelessWidget {
       onEditingComplete: onSubmit,
       onChanged: onChange,
       validator: (value) => validate(value),
-      style: WidgetUtils.textStyle.copyWith(color: textColor??WidgetUtils.textStyle.color),
+      style: TextStyle(color:textColor?? Theme.of(context).textTheme.subtitle1?.color,fontSize:10 ),
+      // style: WidgetUtils.textStyle.copyWith(color: textColor??WidgetUtils.textStyle.color),
       decoration: WidgetUtils.setInputDecoration(
         label: label,
         hint: hint,
@@ -111,7 +112,7 @@ class GenericTextField extends StatelessWidget {
         focusBorderColor: focusBorderColor,
         fillColor: fillColor,
         padding: contentPadding,
-        hintColor: hintColor,
+        hintColor:hintColor?? Theme.of(context).textTheme.subtitle1?.color,
         radius: radius,
         prefixWidget: prefixWidget,
         suffixWidget: suffixWidget,

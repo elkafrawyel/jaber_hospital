@@ -90,7 +90,7 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
         selectedItem: widget.selectedItem,
         itemAsString: widget.itemAsString,
         showSelectedItem: widget.showSelectedItem,
-        style: WidgetUtils.textStyle.copyWith(fontSize: widget.textSize??WidgetUtils.textStyle.fontSize),
+        style: WidgetUtils.textStyle.copyWith(fontSize: widget.textSize??WidgetUtils.textStyle.fontSize,color:Theme.of(context).textTheme.subtitle1?.color),
         searchBoxStyle: WidgetUtils.textStyle,
         searchBoxDecoration: WidgetUtils.setInputDecoration(
             hint: widget.searchHint??"بحث",

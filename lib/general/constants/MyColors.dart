@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class MyColors{
-  static Color primary =  Color(0xff3D9B72);
+  static Color primary =  Color(0xff178a58);
   static Color secondary =  Color(0xff2885BF);
   static Color textFields =  Color(0xffF9F9F9);
   static Color headerColor =  Color(0xff6e7c87);
@@ -15,7 +15,6 @@ class MyColors{
   static Color blackOpacity=Colors.black54;
   static Color white=Colors.white;
   static Color notifyColor=Colors.black54;
-
 
 
 }

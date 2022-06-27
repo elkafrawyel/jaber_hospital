@@ -4,10 +4,10 @@ import 'package:base_flutter/res.dart';
 class HeaderLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container( height: 120,
-      width: 140,
+    return Container(
+      height: 50,
       margin: EdgeInsets.symmetric(vertical: 50),
-      child: Image.asset(Res.logo,fit: BoxFit.contain),
+      child: Image.asset(Res.logo, fit: BoxFit.scaleDown,scale: 1,),
     );
   }
 }
