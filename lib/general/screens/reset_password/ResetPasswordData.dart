@@ -4,6 +4,8 @@ class ResetPasswordData {
   GlobalKey<ScaffoldState> scaffold = new GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
   final GlobalKey<CustomButtonState> btnKey = new GlobalKey<CustomButtonState>();
+  final GenericBloc<bool> passwordBloc =GenericBloc(true);
+  final GenericBloc<bool> confirmPasswordBloc =GenericBloc(true);
 
 
   final TextEditingController newPassword = new TextEditingController();

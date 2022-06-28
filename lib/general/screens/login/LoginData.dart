@@ -4,7 +4,7 @@ class LoginData {
   GlobalKey<ScaffoldState> scaffold = new GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
   final GlobalKey<CustomButtonState> btnKey = new GlobalKey<CustomButtonState>();
-
+  final GenericBloc<bool> passwordBloc =GenericBloc(true);
   final TextEditingController password = new TextEditingController();
   final TextEditingController phone = new TextEditingController();
 

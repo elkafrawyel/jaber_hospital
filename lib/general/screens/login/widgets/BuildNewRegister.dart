@@ -4,27 +4,36 @@ class BuildNewRegister extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 6),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: MyText(
-              title:tr(context,"don'tHaveAccount"),
-              size: 10,
+              title: tr(context, "don'tHaveAccount"),
+              size: 11,
               alien: TextAlign.center,
               color: MyColors.primary,
+              // fontWeight: FontWeight.bold,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: MyText(
-              title:'قم بأنشاء حساب',
-              size: 10,
-              decoration: TextDecoration.underline,
-              alien: TextAlign.center,
-              color: MyColors.primary,
+          InkWell(
+            onTap: () => Nav.navigateTo(
+              context,
+              Register(),
+              navigatorType: NavigatorType.push,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: MyText(
+                title: 'قم بأنشاء حساب',
+                size: 11,
+                decoration: TextDecoration.underline,
+                alien: TextAlign.center,
+                color: MyColors.primary,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],

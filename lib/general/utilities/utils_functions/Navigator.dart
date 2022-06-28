@@ -10,7 +10,7 @@ class Nav {
   // GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   // late AnimationController controller;
 
-  static navigateTo(
+  static navigateTo<T>(
     BuildContext context,
     dynamic navigateTo, {
     required NavigatorType navigatorType,
@@ -23,7 +23,23 @@ class Nav {
               context, CupertinoPageRoute(builder: (context) => navigateTo));
         } else {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => navigateTo));
+              context,
+              PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 500),
+                  transitionsBuilder: (BuildContext context,
+                      Animation<double> animation,
+                      Animation<double> secondaryAnimation,
+                      Widget child) {
+                    animation = CurvedAnimation(
+                        parent: animation, curve: Curves.fastOutSlowIn, reverseCurve: Curves.easeInOutBack);
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                  pageBuilder: (BuildContext context, Animation<double> animation,
+                      Animation<double> secondaryAnimation) =>
+                  navigateTo));
         }
         break;
       case NavigatorType.pushAndPopUntil:

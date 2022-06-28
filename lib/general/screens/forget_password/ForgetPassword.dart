@@ -11,18 +11,23 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        physics: BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
+      title: 'استعادة كلمة المرور',
+      back: true,
+      body: GestureDetector(
+        onTap: ()=>FocusScope.of(context).requestFocus(FocusNode()),
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          physics: BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
+          children: [
+            HeaderLogo(),
+            BuildText(),
+            BuildFormInputs(forgerPasswordData: forgerPasswordData),
+            BuildButton(forgerPasswordData: forgerPasswordData),
+          ],
         ),
-        children: [
-          HeaderLogo(),
-          BuildText(),
-          BuildFormInputs(forgerPasswordData: forgerPasswordData),
-          BuildButton(forgerPasswordData: forgerPasswordData),
-        ],
-      ), title: '', back: true,
+      ),
     );
   }
 }

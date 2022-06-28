@@ -6,7 +6,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  LoginData loginData = new LoginData();
+  final loginData = new LoginData();
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +21,7 @@ class _LoginState extends State<Login> {
             parent: AlwaysScrollableScrollPhysics(),
           ),
           children: [
-            InkWell(
-                onTap: () {
-                  Utils.changeAppTheme(context);
-                },
-                child: HeaderLogo()),
+            HeaderLogo(),
             // BuildText(),
             BuildFormInputs(loginData: loginData),
             BuildForgetText(),

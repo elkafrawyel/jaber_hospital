@@ -15,24 +15,27 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        physics: BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
+      body: GestureDetector(
+        onTap: ()=>FocusScope.of(context).requestFocus(FocusNode()),
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          physics: BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
+          children: [
+            HeaderLogo(),
+            BuildText(),
+            BuildFormInputs(
+              resetPasswordData: resetPasswordData,
+              userId: widget.userId,
+            ),
+            BuildButton(
+              resetPasswordData: resetPasswordData,
+              userId: widget.userId,
+            ),
+          ],
         ),
-        children: [
-          HeaderLogo(),
-          BuildText(),
-          BuildFormInputs(
-            resetPasswordData: resetPasswordData,
-            userId: widget.userId,
-          ),
-          BuildButton(
-            resetPasswordData: resetPasswordData,
-            userId: widget.userId,
-          ),
-        ],
-      ), title: '', back: true,
+      ), title: 'استعادة كلمة المرور', back: true,
     );
   }
 }

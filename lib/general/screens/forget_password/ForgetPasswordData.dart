@@ -8,10 +8,11 @@ class ForgerPasswordData {
 
 
   void onForgetPassword(BuildContext context) async {
-    if (formKey.currentState!.validate()) {
-      btnKey.currentState!.animateForward();
-      await GeneralRepository(context).forgetPassword(phone.text);
-      btnKey.currentState!.animateReverse();
-    }
+    Nav.navigateTo(context, ResetPassword(userId: 'userId'), navigatorType: NavigatorType.push);
+    // if (formKey.currentState!.validate()) {
+    //   btnKey.currentState!.animateForward();
+    //   await GeneralRepository(context).forgetPassword(phone.text);
+    //   btnKey.currentState!.animateReverse();
+    // }
   }
 }

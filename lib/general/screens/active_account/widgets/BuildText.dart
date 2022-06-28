@@ -4,21 +4,12 @@ class BuildText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MyText(
-            title:tr(context,"activeAccount"),
-            size: 18,
-            color: MyColors.primary,
-          ),
-          MyText(
-            title: tr(context,"codeSendToPhone"),
-            size: 13,
-            color: MyColors.black.withOpacity(.6),
-          ),
-        ],
+      margin: const EdgeInsets.only(bottom: 20,left: 50,right: 50),
+      child: MyText(
+        alien: TextAlign.center,
+        title: 'من فضلك قم بتفعيل حسابك وادخل كود التعفيل',
+        size: 10,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

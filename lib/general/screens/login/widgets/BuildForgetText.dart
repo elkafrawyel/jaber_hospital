@@ -6,12 +6,16 @@ class BuildForgetText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: InkWell(
-        onTap: () =>AutoRouter.of(context).push(ForgetPasswordRoute()),
+        onTap: () => Nav.navigateTo(
+          context,
+          ForgetPassword(),
+          navigatorType: NavigatorType.push,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             MyText(
-              title: tr(context,"forgetPassword"),
+              title: tr(context, "forgetPassword"),
               size: 10,
               decoration: TextDecoration.underline,
               color: MyColors.primary,
