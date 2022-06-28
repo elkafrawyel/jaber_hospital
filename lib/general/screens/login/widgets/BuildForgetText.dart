@@ -10,6 +10,7 @@ class BuildForgetText extends StatelessWidget {
           context,
           ForgetPassword(),
           navigatorType: NavigatorType.push,
+
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,

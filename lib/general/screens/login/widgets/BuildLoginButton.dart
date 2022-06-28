@@ -7,9 +7,12 @@ class BuildLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return DefaultButton(title: 'title',onTap: (){
+    //   Nav.navigateTo(context, Home(), navigatorType: NavigatorType.push);
+    // },);
     return LoadingButton(
       btnKey: loginData.btnKey,
-      title: tr(context,"continue"),
+      title: 'تسجيل الدخول',
       onTap: () => loginData.userLogin(context),
       color: MyColors.primary,
       textColor: MyColors.white,

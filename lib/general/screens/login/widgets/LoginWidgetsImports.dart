@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:base_flutter/customer/screens/home/HomeImports.dart';
 import 'package:base_flutter/customer/screens/register/RegisterImports.dart';
 import 'package:base_flutter/general/blocks/theme_cubit/theme_cubit.dart';
 import 'package:base_flutter/general/screens/forget_password/ForgetPasswordImports.dart';

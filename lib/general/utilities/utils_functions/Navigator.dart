@@ -10,7 +10,7 @@ class Nav {
   // GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   // late AnimationController controller;
 
-  static navigateTo<T>(
+  static  navigateTo<T>(
     BuildContext context,
     dynamic navigateTo, {
     required NavigatorType navigatorType,
