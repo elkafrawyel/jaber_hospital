@@ -44,6 +44,9 @@ class MainData {
     BlocProvider<AuthCubit>(
       create: (BuildContext context)=> AuthCubit(),
     ),
+    BlocProvider<BottomNavCubit>(
+      create: (BuildContext context)=> BottomNavCubit(),
+    ),
   ];
 
 

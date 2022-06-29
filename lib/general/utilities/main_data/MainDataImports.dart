@@ -1,4 +1,6 @@
 import 'package:base_flutter/general/blocks/auth_cubit/auth_cubit.dart';
+import 'package:base_flutter/general/blocks/buttom_nav_cubit/bottom_nav_cubit.dart';
+import 'package:base_flutter/general/blocks/buttom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:base_flutter/general/blocks/theme_cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

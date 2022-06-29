@@ -6,8 +6,11 @@ class BuildNotificationIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Image.asset(Res.noti,scale: 5),
+    return InkWell(
+      onTap: (){},
+      child: Container(
+        child: Image.asset(Res.noti,scale: 5),
+      ),
     );
   }
 }

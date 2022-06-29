@@ -12,7 +12,7 @@ class LoginData {
   void userLogin(BuildContext context) async {
     Nav.navigateTo(
       context,
-      Home(),
+      Home(index: 0),
       navigatorType: NavigatorType.push,
     );
     // FocusScope.of(context).requestFocus(FocusNode());

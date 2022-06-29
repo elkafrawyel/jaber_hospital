@@ -12,6 +12,7 @@ class AuthScaffold extends StatelessWidget {
   final List<Widget>? actions;
   final bool notificationIcon;
   final VoidCallback? onLeadingPressed;
+  final Widget? bottomNavigationBar;
 
   AuthScaffold({
     required this.title,
@@ -19,12 +20,13 @@ class AuthScaffold extends StatelessWidget {
     required this.back,
     this.actions,
     this.onLeadingPressed,
-    this.notificationIcon =false,
+    this.notificationIcon =false, this.bottomNavigationBar,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    bottomNavigationBar: bottomNavigationBar,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         centerTitle: true,
