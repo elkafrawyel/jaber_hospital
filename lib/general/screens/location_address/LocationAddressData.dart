@@ -81,7 +81,7 @@ class LocationAddressData {
     showMainMarker.onUpdateData(false);
     showModalBottomSheet(
       context: context,
-      builder: (_) => MarkerDetailsButtonSheet(address: address, title: "${latLng.latitude},${latLng.longitude}",),
+      builder: (_) => MarkerDetailsButtonSheet(address: 'address', title: "${latLng.latitude},${latLng.longitude}",),
       isDismissible: true,
       backgroundColor: Colors.transparent,
       barrierColor: Colors.transparent,

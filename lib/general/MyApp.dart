@@ -1,7 +1,7 @@
 import 'package:base_flutter/general/blocks/theme_cubit/theme_cubit.dart';
 import 'package:base_flutter/general/constants/MyColors.dart';
 import 'package:base_flutter/general/screens/splash/SplashImports.dart';
-import 'package:base_flutter/general/utilities/routers/RouterImports.gr.dart';
+
 import 'package:base_flutter/general/utilities/utils_functions/UtilsImports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final navigatorKey = new GlobalKey<NavigatorState>();
-  final _appRouter = AppRouter();
+  // final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {

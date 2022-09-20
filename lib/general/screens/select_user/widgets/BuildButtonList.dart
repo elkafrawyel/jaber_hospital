@@ -7,13 +7,13 @@ class BuildButtonList extends StatelessWidget {
       children: [
         DefaultButton(
           title: tr(context,"customer"),
-          onTap: () => AutoRouter.of(context).push(LoginRoute()),
+          onTap: () => Nav.navigateTo(context, Login(), navigatorType: NavigatorType.push),
           margin: const EdgeInsets.symmetric(vertical: 15),
           color: MyColors.primary,
         ),
         DefaultButton(
           title:tr(context,"agency"),
-          onTap: () => AutoRouter.of(context).push(LoginRoute()),
+          onTap: () => Nav.navigateTo(context, Login(), navigatorType: NavigatorType.push),
           margin: const EdgeInsets.symmetric(horizontal: 0),
           color: MyColors.white,
           borderColor: MyColors.primary,

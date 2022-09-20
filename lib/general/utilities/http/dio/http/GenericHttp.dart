@@ -15,17 +15,19 @@ class GenericHttp<T> {
       required MethodType methodType,
       required String name,
       Function(dynamic data)? returnDataFun,
-      Map<String, dynamic>? json,
-      bool? showLoader,
+      Map<String, dynamic>? jsonBody,
+        Map<String, dynamic>? query ,
+        bool? showLoader,
       Function(dynamic data)? toJsonFunc,
       bool refresh = true}) async {
-    var dataJson = json ?? {};
+    var dataJson = jsonBody ?? {};
     dataJson.addAll({"lang": DioUtils.lang});
 
     switch (methodType) {
       case MethodType.Get:
         return _getData(
             name: name,
+            query: query,
             returnType: returnType,
             refresh: refresh,
             dataKeyFun: returnDataFun,
@@ -36,12 +38,14 @@ class GenericHttp<T> {
             name: name,
             returnType: returnType,
             json: dataJson,
+            query: query,
             showLoader: showLoader,
             dataKeyFun: returnDataFun,
             toJsonFunc: toJsonFunc);
       case MethodType.Patch:
         return _patchData(
             name: name,
+            query: query,
             returnType: returnType,
             json: dataJson,
             showLoader: showLoader,
@@ -52,6 +56,7 @@ class GenericHttp<T> {
             name: name,
             returnType: returnType,
             json: dataJson,
+            query: query,
             showLoader: showLoader,
             dataKeyFun: returnDataFun,
             toJsonFunc: toJsonFunc);
@@ -60,6 +65,7 @@ class GenericHttp<T> {
             name: name,
             returnType: returnType,
             json: dataJson,
+            query: query,
             showLoader: showLoader,
             dataKeyFun: returnDataFun,
             toJsonFunc: toJsonFunc);
@@ -69,13 +75,14 @@ class GenericHttp<T> {
   Future<dynamic> _getData({
     required ReturnType returnType,
     Map<String, dynamic> json = const {},
+    Map<String, dynamic>? query ,
     required String name,
     Function(dynamic data)? dataKeyFun,
     bool refresh = true,
     Function(dynamic data)? toJsonFunc,
   }) async {
     var data = await DioHelper(context: context, forceRefresh: refresh).get(
-      url: name, data: json,
+      url: name,  query: query,
     );
     return _returnDataFromType(
         data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
@@ -83,6 +90,7 @@ class GenericHttp<T> {
   Future<dynamic> _postData({
     required ReturnType returnType,
     required String name,
+    Map<String, dynamic>? query ,
     Function(dynamic data)? dataKeyFun,
     Map<String, dynamic> json = const {},
     bool? showLoader,
@@ -90,12 +98,13 @@ class GenericHttp<T> {
   }) async {
     var data = await DioHelper(
       context: context,
-    ).post(url: name, body: json, showLoader: showLoader ?? true);
+    ).post(url: name, body: json, showLoader: showLoader ?? true,query: query);
     return _returnDataFromType(
         data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
   }
 
   Future<dynamic> _putData({
+    Map<String, dynamic>? query ,
     required ReturnType returnType,
     required String name,
     Function(dynamic data)? dataKeyFun,
@@ -111,6 +120,7 @@ class GenericHttp<T> {
   }
 
   Future<dynamic> _patchData({
+    Map<String, dynamic>? query ,
     required ReturnType returnType,
     required String name,
     Function(dynamic data)? dataKeyFun,
@@ -126,6 +136,7 @@ class GenericHttp<T> {
   }
 
   Future<dynamic> _deleteData({
+    Map<String, dynamic>? query ,
     required ReturnType returnType,
     required String name,
     Function(dynamic data)? dataKeyFun,

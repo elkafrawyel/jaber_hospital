@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:auto_route/auto_route.dart';
-import 'package:base_flutter/general/utilities/routers/RouterImports.gr.dart';
+import 'package:base_flutter/general/screens/login/LoginImports.dart';
+import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
 import 'package:base_flutter/general/utilities/utils_functions/UtilsImports.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +27,7 @@ class GlobalNotification {
     context = cxt;
     _flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
     var android = new AndroidInitializationSettings("@mipmap/launcher_icon");
+
     var ios = new IOSInitializationSettings();
     var initSettings = new InitializationSettings(android: android, iOS: ios);
     _flutterLocalNotificationsPlugin.initialize(
@@ -48,7 +49,8 @@ class GlobalNotification {
         _onMessageStreamController.add(message.data);
         if (int.parse(message.data["type"]??"0") == -1) {
           Utils.clearSavedData();
-          AutoRouter.of(context).push(LoginRoute());
+          Nav.navigateTo(context, Login(), navigatorType: NavigatorType.push);
+          // AutoRouter.of(context).push(LoginRoute());
         }
       });
       FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {

@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:base_flutter/general/constants/MyColors.dart';
 import 'package:base_flutter/general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,7 @@ class AuthHeaderText extends StatelessWidget {
                   color: MyColors.black,
                   size: 25,
                 ),
-                onPressed: ()=> AutoRouter.of(context).pop(),
+                onPressed: ()=> Navigator.of(context).pop(),
             ),
           )
         ],

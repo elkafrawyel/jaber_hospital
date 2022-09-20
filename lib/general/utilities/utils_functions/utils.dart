@@ -1,8 +1,6 @@
 part of 'UtilsImports.dart';
 
-
 class Utils {
-  static Location location = new Location();
 
   static Future<void> manipulateSplashData(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -11,9 +9,6 @@ class Utils {
     initDio(lang: "ar");
     initCustomWidgets(language: "ar");
     GlobalState.instance.set("token", "");
-    // await GeneralRepository(context).getHomeConstData();
-
-    await location.requestPermission();
     var strUser = prefs.get("user");
     if (strUser != null) {
       UserModel data = UserModel.fromJson(json.decode("$strUser"));
@@ -21,13 +16,7 @@ class Utils {
       changeLanguage(data.lang, context);
       setCurrentUserData(data, context);
     } else {
-      final LocationCubit locationCubit = new LocationCubit();
-      changeLanguage("ar", context);
-      Navigator.push(context, MaterialPageRoute(builder: (_) => Login()));
-      // navigatorKey.currentState?.push(MaterialPageRoute(builder: (BuildContext context)=>Login()));
-
-      // AutoRouter.of(context).push(LoginRoute());
-      // Utils.navigateToLocationAddress(context,locationCubit);
+      Nav.navigateTo(context, ContactUs(), navigatorType: NavigatorType.push);
     }
   }
 
@@ -36,12 +25,12 @@ class Utils {
       baseUrl: ApiNames.baseUrl,
       style: CustomInputTextStyle(lang: lang),
       primary: MyColors.primary,
-      authLink: LoginRoute.name,
       language: lang,
       dismissFunc: EasyLoading.dismiss,
       showLoadingFunc: LoadingDialog.showLoadingDialog,
       branch: ApiNames.branch,
       authClick: () {},
+      authLink: '',
     );
   }
 
@@ -64,8 +53,8 @@ class Utils {
                 Widget? suffixIcon,
                 Widget? suffixWidget}) =>
             CustomInputDecoration(
-              focusColor: focusBorderColor,
-              hintColor: hintColor,
+                focusColor: focusBorderColor,
+                hintColor: hintColor,
                 lang: language,
                 labelTxt: label,
                 hint: hint,
@@ -91,8 +80,10 @@ class Utils {
         await Utils.saveUserData(user);
         Utils.setCurrentUserData(user, context);
       } else if (status == 2) {
-        AutoRouter.of(context)
-            .push(ActiveAccountRoute(userId: data["data"]["id"]));
+        Nav.navigateTo(context, ActiveAccount(userId: data["data"]["id"]),
+            navigatorType: NavigatorType.push);
+        // AutoRouter.of(context)
+        //     .push(ActiveAccountRoute(userId: data["data"]["id"]));
       }
       return true;
     }
@@ -254,8 +245,6 @@ class Utils {
     }
   }
 
-
-
   static Future<Position?> getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -328,6 +317,19 @@ class Utils {
     }
   }
 
+  static Future<String> getAddress(LatLng latLng, BuildContext context) async {
+    try {
+      List<Placemark> placeMarks = await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+
+      // List<geocoding.Placemark> placeMarks = await geocoding
+      //     .placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+      var data = "${placeMarks[0].country ?? ""}  ${placeMarks[0].administrativeArea ?? ""}  ${placeMarks[0].subAdministrativeArea ?? ""} ${placeMarks[0].street ?? ""}";
+      print(data);
+      return data;
+    } catch (e) {
+      return "";
+    }
+  }
   // static Future<String> getAddress(LatLng latLng, BuildContext context) async {
   //   GeoCode geoCode = GeoCode();
   //
@@ -341,14 +343,14 @@ class Utils {
   //   }
   // }
 
-  static Future<String> getAddress(LatLng latLng, BuildContext context) async {
-    final coordinates = new Coordinates(latLng.latitude, latLng.longitude);
-    List<Address> addresses =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    var first = addresses.first;
-    print("${first.featureName} : ${first.addressLine}");
-    return first.addressLine;
-  }
+  // static Future<String> getAddress(LatLng latLng, BuildContext context) async {
+  //   final coordinates = new Coordinates(latLng.latitude, latLng.longitude);
+  //   List<Address> addresses =
+  //       await Geocoder.local.findAddressesFromCoordinates(coordinates);
+  //   var first = addresses.first;
+  //   print("${first.featureName} : ${first.addressLine}");
+  //   return first.addressLine;
+  // }
 
   static String convertDigitsToLatin(String s) {
     var sb = new StringBuffer();

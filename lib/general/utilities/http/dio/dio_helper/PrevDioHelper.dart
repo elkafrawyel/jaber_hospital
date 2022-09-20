@@ -217,7 +217,7 @@ class PrevDioHelper {
   void tokenExpired()async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
-    AutoRouter.of(context).popUntilRouteWithName(DioUtils.authRoute);
+    Nav.navigateTo(context, Login(), navigatorType: NavigatorType.push);
   }
 }
 

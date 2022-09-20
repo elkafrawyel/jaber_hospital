@@ -18,7 +18,7 @@ class GeneralHttpMethods {
 
     var data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.login,
-      json: body,
+      jsonBody: body,
       returnType: ReturnType.List,
       methodType: MethodType.Post,
       returnDataFun: (data)=>data["userData"],
@@ -46,7 +46,7 @@ class GeneralHttpMethods {
     Map<String, dynamic> body = {"code": code, "userId": userId};
     dynamic data = await GenericHttp<dynamic>(context).callApi(
         name: ApiNames.sendCode,
-        json: body,
+        jsonBody: body,
         returnType: ReturnType.Type,
         showLoader: false,
         methodType: MethodType.Post,
@@ -58,7 +58,7 @@ class GeneralHttpMethods {
     Map<String, dynamic> body = {"userId": userId};
     dynamic data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.resendCode,
-      json: body,
+      jsonBody: body,
       returnType: ReturnType.Type,
       showLoader: false,
       methodType: MethodType.Post,
@@ -102,7 +102,7 @@ class GeneralHttpMethods {
     dynamic data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.forgetPassword,
       returnType: ReturnType.Type,
-      json: body,
+      jsonBody: body,
       showLoader: false,
       methodType: MethodType.Post,
     );
@@ -118,7 +118,7 @@ class GeneralHttpMethods {
     dynamic data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.resetPassword,
       returnType: ReturnType.Type,
-      json: body,
+      jsonBody: body,
       showLoader: false,
       methodType: MethodType.Post,
     );
@@ -134,7 +134,7 @@ class GeneralHttpMethods {
     dynamic data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.contactUs,
       returnType: ReturnType.Type,
-      json: body,
+      jsonBody: body,
       showLoader: false,
       methodType: MethodType.Post,
     );

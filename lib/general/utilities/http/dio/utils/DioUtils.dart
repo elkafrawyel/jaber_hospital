@@ -34,7 +34,7 @@ class DioUtils{
     authRoute=authLink;
     lang=language;
     dismissDialog=dismissFunc;
-    onAuthClick=authClick;
+    // onAuthClick=authClick;
     DioUtils.authConfirm=authConfirm;
     DioUtils.authBack=authBack;
     DioUtils.authSentence=authSentence;

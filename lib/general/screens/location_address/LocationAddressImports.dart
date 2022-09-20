@@ -3,7 +3,6 @@ import 'dart:collection';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
-import 'package:auto_route/auto_route.dart';
 import 'package:base_flutter/general/blocks/lang_cubit/lang_cubit.dart';
 import 'package:base_flutter/general/constants/MyColors.dart';
 import 'package:base_flutter/general/models/LocationModel.dart';
@@ -16,7 +15,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 

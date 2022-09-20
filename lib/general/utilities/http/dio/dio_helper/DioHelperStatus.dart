@@ -41,10 +41,10 @@ class DioHelper {
     );
   }
 
-  Future<dynamic> get({required String url,required Map<String, dynamic> data}) async {
+  Future<dynamic> get({required String url, Map<String, dynamic>? query}) async {
     _dio.options.headers = DioUtils.header??await _getHeader();
     try {
-      var response = await _dio.get("$url",queryParameters: data, options: _buildCacheOptions());
+      var response = await _dio.get("$url",queryParameters: query, options: _buildCacheOptions());
       log("response ${response.statusCode}");
       if (response.statusCode==200||response.statusCode==201) {
         return response.data;
@@ -58,7 +58,7 @@ class DioHelper {
   }
 
   Future<dynamic> post(
-      {required String url, required Map<String, dynamic> body,bool showLoader = true}) async {
+      {required String url, required Map<String, dynamic> body,bool showLoader = true,Map<String, dynamic>? query}) async {
     if (showLoader) DioUtils.showLoadingDialog();
     body.addAll({_branchKey: _branch});
     _printRequestBody(body);
@@ -95,7 +95,7 @@ class DioHelper {
     //create multipart request for POST or PATCH method
 
     try {
-      var response = await _dio.post("$url", data: haveFile? formData : body);
+      var response = await _dio.post("$url", data: haveFile? formData : body,queryParameters: query);
       log("response ${response.statusCode}");
       if (showLoader) DioUtils.dismissDialog();
       if (response.statusCode==200||response.statusCode==201) {
@@ -113,7 +113,7 @@ class DioHelper {
 
 
   Future<dynamic> put(
-      {required String url, required Map<String, dynamic> body,bool showLoader = true}) async {
+      {required String url, required Map<String, dynamic> body,bool showLoader = true,Map<String, dynamic>? query}) async {
     if (showLoader) DioUtils.showLoadingDialog();
     body.addAll({_branchKey: _branch});
     _printRequestBody(body);
@@ -150,7 +150,7 @@ class DioHelper {
     //create multipart request for POST or PATCH method
 
     try {
-      var response = await _dio.put("$url", data: haveFile? formData : body);
+      var response = await _dio.put("$url", data: haveFile? formData : body,queryParameters: query);
       log("response ${response.statusCode}");
       if (showLoader) DioUtils.dismissDialog();
       if (response.statusCode==200||response.statusCode==201) {
@@ -166,14 +166,14 @@ class DioHelper {
     return null;
   }
 
-  Future<dynamic> patch({required String url,required Map<String, dynamic> body,bool showLoader = true}) async {
+  Future<dynamic> patch({required String url,required Map<String, dynamic> body,bool showLoader = true,Map<String, dynamic>? query}) async {
     if (showLoader) DioUtils.showLoadingDialog();
     body.addAll({_branchKey: _branch});
     _printRequestBody(body);
     _dio.options.headers = DioUtils.header??await _getHeader();
     try {
       var response =
-      await _dio.patch("$url", data: body);
+      await _dio.patch("$url", data: body,queryParameters: query);
       log("response ${response.statusCode}");
       if (showLoader) DioUtils.dismissDialog();
       if (response.statusCode==200||response.statusCode==201) {
@@ -189,14 +189,14 @@ class DioHelper {
     return null;
   }
 
-  Future<dynamic> delete({required String url,required Map<String, dynamic> body,bool showLoader = true}) async {
+  Future<dynamic> delete({required String url,required Map<String, dynamic> body,bool showLoader = true,Map<String, dynamic>? query}) async {
     if (showLoader) DioUtils.showLoadingDialog();
     body.addAll({_branchKey: _branch});
     _printRequestBody(body);
     _dio.options.headers = DioUtils.header??await _getHeader();
     try {
       var response =
-      await _dio.delete("$url", data: body);
+      await _dio.delete("$url", data: body,queryParameters: query);
       log("body response ${response.statusCode}");
       if (showLoader) DioUtils.dismissDialog();
       if (response.statusCode==200||response.statusCode==201) {
@@ -328,6 +328,5 @@ class DioHelper {
   void tokenExpired()async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
-    AutoRouter.of(context).popUntilRouteWithName(DioUtils.authRoute);
-  }
+    Nav.navigateTo(context, Login(), navigatorType: NavigatorType.push) ; }
 }
