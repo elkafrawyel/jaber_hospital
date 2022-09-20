@@ -1,7 +1,10 @@
 import 'package:base_flutter/general/models/LocationModel.dart';
+import 'package:base_flutter/general/screens/image_zoom/ImageZoom.dart';
 import 'package:base_flutter/general/screens/location_address/LocationAddressImports.dart';
 import 'package:base_flutter/general/screens/location_address/location_cubit/location_cubit.dart';
 import 'package:base_flutter/general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
+import 'package:base_flutter/general/utilities/tf_custom_widgets/tf_custom_widgets.dart';
+import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
 import 'package:base_flutter/general/utilities/utils_functions/UtilsImports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

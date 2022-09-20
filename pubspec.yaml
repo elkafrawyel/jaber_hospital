@@ -91,6 +91,7 @@ dependencies:
   json_serializable: ^6.3.1
   json_annotation: ^4.6.0
   platform: ^3.1.0
+#  dismissible_page: ^0.7.3
 
 
 
