@@ -20,7 +20,6 @@ class BuildNewRegister extends StatelessWidget {
           ),
           InkWell(
             onTap: () => Nav.navigateTo(
-              context,
               Register(),
               navigatorType: NavigatorType.push,
             ),

@@ -16,7 +16,7 @@ class DropdownTextField<DataType> extends StatefulWidget {
   final double? fontSize;
   final double? labelSize;
   final double? textSize;
-  final String Function(dynamic) itemAsString;
+  final String Function(dynamic)? itemAsString;
   final String? Function(dynamic) validate;
   final dynamic onChange;
   final dynamic finData;
@@ -88,7 +88,7 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
           child: Icon(Icons.arrow_drop_down, size: 24,color: widget.buttonsColor?? Colors.black),
         ),
         selectedItem: widget.selectedItem,
-        itemAsString: widget.itemAsString,
+        itemAsString: widget.itemAsString ?? (dynamic u) => u.name,
         showSelectedItem: widget.showSelectedItem,
         style: WidgetUtils.textStyle.copyWith(fontSize: widget.textSize??WidgetUtils.textStyle.fontSize,color:Theme.of(context).textTheme.subtitle1?.color),
         searchBoxStyle: WidgetUtils.textStyle,

@@ -1,73 +1,94 @@
 import 'dart:io';
 
+import 'package:base_flutter/general/MyApp.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 enum NavigatorType { animation, push, pushAndPopUntil }
 enum AnimationType { fade, scale }
 
 class Nav {
-  // GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-  // late AnimationController controller;
 
-  static  navigateTo<T>(
-    BuildContext context,
-    dynamic navigateTo, {
-    required NavigatorType navigatorType,
-    AnimationType animationType = AnimationType.fade,
-  }) {
+  static Future navigateTo<T>(
+      Widget navigateTo, {
+        required NavigatorType navigatorType,
+        AnimationType animationType = AnimationType.fade,
+        Duration duration = const Duration(milliseconds: 600),
+      }) async {
     switch (navigatorType) {
       case NavigatorType.push:
         if (Platform.isIOS) {
-          Navigator.push(
-              context, CupertinoPageRoute(builder: (context) => navigateTo));
+          await  navigationKey.currentState?.push<T>(CupertinoPageRoute(builder: (context) => navigateTo));
         } else {
-          Navigator.push(
-              context,
+          await navigationKey.currentState?.push<T>(
               PageRouteBuilder(
-                  transitionDuration: const Duration(milliseconds: 500),
+                  transitionDuration: duration,
                   transitionsBuilder: (BuildContext context,
                       Animation<double> animation,
                       Animation<double> secondaryAnimation,
                       Widget child) {
                     animation = CurvedAnimation(
-                        parent: animation, curve: Curves.fastOutSlowIn, reverseCurve: Curves.easeInOutBack);
+                        parent: animation,
+                        curve: Curves.fastOutSlowIn,
+                        reverseCurve: Curves.easeInOutBack);
                     return FadeTransition(
                       opacity: animation,
                       child: child,
                     );
                   },
-                  pageBuilder: (BuildContext context, Animation<double> animation,
+                  pageBuilder: (BuildContext context,
+                      Animation<double> animation,
                       Animation<double> secondaryAnimation) =>
                   navigateTo));
         }
         break;
       case NavigatorType.pushAndPopUntil:
         if (Platform.isIOS) {
-        Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context)=>navigateTo), (route) => false);
-        }else{
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>navigateTo), (route) => false);
+          await navigationKey.currentState?.pushAndRemoveUntil<T>(CupertinoPageRoute(builder: (context) => navigateTo),
+                  (route) => false);
+        } else {
+          await navigationKey.currentState?.pushAndRemoveUntil<T>(PageRouteBuilder(
+            transitionDuration: duration,
+            transitionsBuilder: (BuildContext context,
+                Animation<double> animation,
+                Animation<double> secondaryAnimation,
+                Widget child) {
+              animation = CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.fastOutSlowIn,
+                  reverseCurve: Curves.easeInOutBack);
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+            pageBuilder: (BuildContext context, Animation<double> animation,
+                Animation<double> secondaryAnimation) =>
+            navigateTo,
+          ),
+                  (route) => false);
         }
         break;
       case NavigatorType.animation:
-        Navigator.push(
-            context,
+        await navigationKey.currentState!.push<T>(
             PageRouteBuilder(
-                transitionDuration: const Duration(milliseconds: 500),
+                transitionDuration: duration,
                 transitionsBuilder: (BuildContext context,
                     Animation<double> animation,
                     Animation<double> secondaryAnimation,
                     Widget child) {
                   if (animationType == AnimationType.fade) {
                     animation = CurvedAnimation(
-                        parent: animation, curve: Curves.fastOutSlowIn, reverseCurve: Curves.easeInOutBack);
+                        parent: animation,
+                        curve: Curves.fastOutSlowIn,
+                        reverseCurve: Curves.easeInOutBack);
                     return FadeTransition(
                       opacity: animation,
                       child: child,
                     );
                   } else {
                     animation = CurvedAnimation(
-                        parent: animation, curve: Curves.elasticInOut,reverseCurve: Curves.elasticIn);
+                        parent: animation,
+                        curve: Curves.elasticInOut,
+                        reverseCurve: Curves.elasticIn);
                     return ScaleTransition(
                       alignment: Alignment.center,
                       scale: animation,
@@ -76,37 +97,9 @@ class Nav {
                   }
                 },
                 pageBuilder: (BuildContext context, Animation<double> animation,
-                        Animation<double> secondaryAnimation) =>
-                    navigateTo));
+                    Animation<double> secondaryAnimation) =>
+                navigateTo));
     }
-
-    // default:
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => navigateTo));
   }
 }
 
-// static navigateToButtonSheet(BuildContext context,
-//     TickerProviderStateMixin tickerProviderStateMixin, Widget widget, {double? sheetHeight}) {
-//   showModalBottomSheet(
-//       backgroundColor: Colors.transparent,
-//       transitionAnimationController: AnimationController(
-//           vsync: tickerProviderStateMixin,
-//           duration: Duration(milliseconds: 800)),
-//       context: context,
-//       builder: (context) =>
-//           GeneralButtonSheet(
-//               height: sheetHeight ?? MediaQuery.of(context).size.height / 1.5,
-//               body: widget));
-// }
-//
-//
-// static navigateToDialog(BuildContext context, TickerProviderStateMixin tickerProviderStateMixin, Widget widget,{bool? barrierDismissible}) {
-//   showModal(
-//     configuration:  FadeScaleTransitionConfiguration(
-//       transitionDuration: Duration(milliseconds: 700,),
-//       barrierDismissible: barrierDismissible??true
-//     ),
-//       context: context,
-//       builder: (context) =>widget);
-// }

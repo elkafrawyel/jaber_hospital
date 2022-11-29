@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:base_flutter/res.dart';
-
+import '../../res/res.dart';
 import '../utilities/utils_functions/UtilsImports.dart';
 
 class HeaderLogo extends StatelessWidget {
@@ -13,7 +12,7 @@ class HeaderLogo extends StatelessWidget {
       child: Container(
         height: 50,
         margin: EdgeInsets.symmetric(vertical: 50),
-        child: Image.asset(Res.logo, fit: BoxFit.scaleDown,scale: 1,),
+        child: Image.asset(Res.imagesLogo, fit: BoxFit.scaleDown,scale: 1,),
       ),
     );
   }

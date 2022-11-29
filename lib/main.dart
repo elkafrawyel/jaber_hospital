@@ -6,7 +6,6 @@ import 'package:base_flutter/general/blocks/theme_cubit/theme_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'general/MyApp.dart';
 
@@ -17,7 +16,6 @@ void main() async {
   }
   runApp(
       MultiBlocProvider(
-        // create: (BuildContext context) => LangCubit(),
         providers: [
           BlocProvider<ThemeCubit>(
             create: (BuildContext context) => ThemeCubit(),
@@ -29,7 +27,7 @@ void main() async {
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, themeState) {
-            return Phoenix(child: MyApp(isDark: themeState.isDark));
+            return MyApp(isDark: themeState.isDark);
           },
         ),
       )

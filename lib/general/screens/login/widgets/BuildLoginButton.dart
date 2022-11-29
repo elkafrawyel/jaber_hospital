@@ -8,7 +8,7 @@ class BuildLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // return DefaultButton(title: 'title',onTap: (){
-    //   Nav.navigateTo(context, Home(), navigatorType: NavigatorType.push);
+    //   Nav.navigateTo( Home(), navigatorType: NavigatorType.push);
     // },);
     return LoadingButton(
       btnKey: loginData.btnKey,

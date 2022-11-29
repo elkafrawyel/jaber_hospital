@@ -6,9 +6,7 @@ class BuildForgetText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: InkWell(
-        onTap: () => Nav.navigateTo(
-          context,
-          ForgetPassword(),
+        onTap: () => Nav.navigateTo(ForgetPassword(),
           navigatorType: NavigatorType.push,
 
         ),

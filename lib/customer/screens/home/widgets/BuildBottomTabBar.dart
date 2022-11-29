@@ -33,20 +33,20 @@ class BuildBottomTabBar extends StatelessWidget {
         tabs: <Widget>[
           BuildTabItem(
             title: 'الرئيسية',
-            bNVIcon: Res.home,
+            bNVIcon: Res.imagesHome,
             isClicked: bnv.state.index==0?true:false,
           ),
           BuildTabItem(
             title: 'السلة',
-            bNVIcon: Res.cart,
+            bNVIcon: Res.imagesCart,
             isClicked: bnv.state.index==1?true:false,
           ), BuildTabItem(
             title: 'مشترياتي',
-            bNVIcon: Res.purchases,
+            bNVIcon: Res.imagesPurchases,
             isClicked: bnv.state.index==2?true:false,
           ), BuildTabItem(
             title: 'المزيد',
-            bNVIcon: Res.home,
+            bNVIcon: Res.imagesMore,
             isClicked: bnv.state.index==3?true:false,
           ),
         ],

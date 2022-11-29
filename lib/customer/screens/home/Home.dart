@@ -13,6 +13,17 @@ class _HomeState extends State<Home>with TickerProviderStateMixin {
   @override
   void initState() {
     homeData.controller = TabController(length: 4, vsync: this);
+     FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+      log(' =========== >>>>> message $message');
+      log('where r u 4');
+      if (message != null) {
+        if (message.data != {}) {
+          handleNotificationsTap(
+            message.data.toString(),
+          );
+        }
+      }
+    });
     super.initState();
   }
   @override

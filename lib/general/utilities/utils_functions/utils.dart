@@ -16,7 +16,7 @@ class Utils {
       changeLanguage(data.lang, context);
       setCurrentUserData(data, context);
     } else {
-      Nav.navigateTo(context, ContactUs(), navigatorType: NavigatorType.push);
+      Nav.navigateTo( ContactUs(), navigatorType: NavigatorType.push);
     }
   }
 
@@ -80,7 +80,7 @@ class Utils {
         await Utils.saveUserData(user);
         Utils.setCurrentUserData(user, context);
       } else if (status == 2) {
-        Nav.navigateTo(context, ActiveAccount(userId: data["data"]["id"]),
+        Nav.navigateTo( ActiveAccount(userId: data["data"]["id"]),
             navigatorType: NavigatorType.push);
         // AutoRouter.of(context)
         //     .push(ActiveAccountRoute(userId: data["data"]["id"]));

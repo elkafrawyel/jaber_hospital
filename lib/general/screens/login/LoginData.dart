@@ -10,9 +10,7 @@ class LoginData {
   final TextEditingController phone = new TextEditingController();
 
   void userLogin(BuildContext context) async {
-    Nav.navigateTo(
-      context,
-      Home(index: 0),
+    Nav.navigateTo(Home(index: 0),
       navigatorType: NavigatorType.push,
     );
     // FocusScope.of(context).requestFocus(FocusNode());

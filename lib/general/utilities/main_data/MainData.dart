@@ -17,6 +17,7 @@ class MainData {
     ),
     fontFamily: GoogleFonts.cairo().fontFamily,
     textTheme: TextTheme(
+
       subtitle1:GoogleFonts.cairo(fontSize: 14,color: Colors.black),
     ),
     splashColor: Colors.white,

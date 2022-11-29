@@ -1,5 +1,7 @@
-import 'package:base_flutter/res.dart';
+import 'package:base_flutter/general/MyApp.dart';
 import 'package:flutter/material.dart';
+
+import '../../res/res.dart';
 
 class BuildNotificationIcon extends StatelessWidget {
   const BuildNotificationIcon({Key? key}) : super(key: key);
@@ -7,9 +9,10 @@ class BuildNotificationIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){},
+      onTap: (){
+      },
       child: Container(
-        child: Image.asset(Res.noti,scale: 5),
+        child: Image.asset(Res.imagesNoti,scale: 5),
       ),
     );
   }

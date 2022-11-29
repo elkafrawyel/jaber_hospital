@@ -1,9 +1,9 @@
 part of 'SplashImports.dart';
 
 class Splash extends StatefulWidget {
-  final GlobalKey<NavigatorState> navigatorKey;
 
-  const Splash({required this.navigatorKey});
+
+  const Splash();
 
   @override
   _SplashState createState() => _SplashState();
@@ -18,7 +18,8 @@ class _SplashState extends State<Splash> {
 
   _checkingData() async {
     if (!kIsWeb) {
-      GlobalNotification.instance.setupNotification(context);
+      setupNotifications();
+      // GlobalNotification.instance.setupNotification(context);
     }
     Future.delayed(Duration(milliseconds: 2000), () {
       Utils.manipulateSplashData(context);
@@ -38,9 +39,9 @@ class _SplashState extends State<Splash> {
               duration: Duration(milliseconds: 2000),
               distance: MediaQuery.of(context).size.height * .3,
               child: Hero(
-                tag: Res.logo,
+                tag: Res.imagesLogo,
                 child: Image.asset(
-                  Res.logo,
+                  Res.imagesLogo,
                   width: 200,
                   height: 150,
                 ),

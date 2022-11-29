@@ -17,7 +17,7 @@ class BuildMainMarker extends StatelessWidget {
           visible: state.data,
           child: TranslateAnimation(
               duration: Duration(milliseconds: 800),
-              child: Image.asset(Res.location, scale: 2.5)),
+              child: Image.asset(Res.imagesLocation, scale: 2.5)),
         );
       },
     );
