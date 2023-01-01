@@ -16,14 +16,14 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     return AuthScaffold(
       body: GestureDetector(
-        onTap: ()=>FocusScope.of(context).requestFocus(FocusNode()),
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           physics: BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
           ),
           children: [
-            HeaderLogo(),
+            HeaderLogo(title: 'Reset Password'),
             BuildText(),
             BuildFormInputs(
               resetPasswordData: resetPasswordData,
@@ -35,7 +35,8 @@ class _ResetPasswordState extends State<ResetPassword> {
             ),
           ],
         ),
-      ), title: 'استعادة كلمة المرور', back: true,
+      ),
+      back: true,
     );
   }
 }

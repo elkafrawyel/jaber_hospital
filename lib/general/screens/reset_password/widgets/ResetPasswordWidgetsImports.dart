@@ -10,8 +10,16 @@ import 'package:base_flutter/general/screens/reset_password/ResetPasswordImports
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tf_validator/tf_validator.dart';
 
+import '../../../../res/res.dart';
+import '../../../MyApp.dart';
+import '../../../utilities/utils_functions/Navigator.dart';
+import '../../../widgets/GeneralAlertDialog.dart';
+import '../../login/LoginImports.dart';
+
 part 'BuildFormInputs.dart';
 
 part 'BuildText.dart';
 
 part 'BuildButton.dart';
+
+part 'BuildPassResetSuccess.dart';

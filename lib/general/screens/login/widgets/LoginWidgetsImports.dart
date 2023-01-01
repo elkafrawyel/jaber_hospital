@@ -28,4 +28,4 @@ part 'BuildNewRegister.dart';
 
 part 'BuildText.dart';
 
-part 'BuildRegisterButton.dart';
+part 'BuildSelectAuthType.dart';

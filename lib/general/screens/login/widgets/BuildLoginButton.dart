@@ -12,11 +12,11 @@ class BuildLoginButton extends StatelessWidget {
     // },);
     return LoadingButton(
       btnKey: loginData.btnKey,
-      title: 'تسجيل الدخول',
+      title: 'Sign In',
       onTap: () => loginData.userLogin(context),
       color: MyColors.primary,
       textColor: MyColors.white,
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 100),
     );
   }
 }

@@ -13,15 +13,11 @@ class BuildFormInputs extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MyText(
-              title: 'رقم الجوال / البريد الالكتروني',
-              size: 10,
-              fontWeight: FontWeight.bold),
           GenericTextField(
             fieldTypes: FieldTypes.normal,
             fillColor: dark ? Colors.transparent : MyColors.textFields,
             margin: const EdgeInsets.symmetric(vertical: 10),
-            hint: tr(context, "phone"),
+            hint: 'Please Enter Your Phone Number',
             controller: forgerPasswordData.phone,
             action: TextInputAction.done,
             type: TextInputType.number,

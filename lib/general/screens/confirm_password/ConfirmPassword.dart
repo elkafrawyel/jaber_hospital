@@ -17,7 +17,7 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
           parent: AlwaysScrollableScrollPhysics(),
         ),
         children: [
-          HeaderLogo(),
+          HeaderLogo(title: "OTP Verification "),
           BuildText(),
           BuildFormInputs(
             confirmPasswordData: confirmPasswordData,
@@ -27,7 +27,8 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
             userId: "",
           ),
         ],
-      ), title: 'تغيير كلمة المرور', back: true,
+      ),
+      back: true,
     );
   }
 }

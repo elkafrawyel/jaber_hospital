@@ -5,7 +5,7 @@ import 'package:base_flutter/general/widgets/DefaultAppBar.dart';
 import 'package:flutter/material.dart';
 
 class AuthScaffold extends StatelessWidget {
-  final String title;
+  final String? title;
   final Widget body;
   final bool back;
   final List<Widget>? actions;
@@ -14,30 +14,32 @@ class AuthScaffold extends StatelessWidget {
   final Widget? bottomNavigationBar;
 
   AuthScaffold({
-    required this.title,
-    required this.body,
+    this.title,
     required this.back,
+    required this.body,
     this.actions,
     this.onLeadingPressed,
-    this.notificationIcon =false, this.bottomNavigationBar,
+    this.notificationIcon = false,
+    this.bottomNavigationBar,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    bottomNavigationBar: bottomNavigationBar,
+      bottomNavigationBar: bottomNavigationBar,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: MyColors.primary,
+      appBar:title !=null? AppBar(
+        centerTitle: false,
+        backgroundColor: MyColors.white,
         toolbarHeight: 70,
+        elevation: 0,
         title: MyText(
-          title: title,
+          title: title??'',
           size: 12,
-          color: Colors.white,
+          color: MyColors.primary,
           fontWeight: FontWeight.bold,
         ),
-        actions:notificationIcon?[BuildNotificationIcon()] :actions ?? [],
+        actions: notificationIcon ? [BuildNotificationIcon()] : actions ?? [],
         leading: back
             ? IconButton(
                 icon: Icon(Icons.arrow_back),
@@ -46,12 +48,7 @@ class AuthScaffold extends StatelessWidget {
                 onPressed: onLeadingPressed ?? () => Navigator.pop(context),
               )
             : SizedBox(),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(30),
-          bottomLeft: Radius.circular(30),
-        )),
-      ),
+      ):null,
       body: body,
     );
   }

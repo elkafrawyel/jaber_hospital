@@ -12,7 +12,6 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return AuthScaffold(
       back: false,
-      title: 'تسجيل الدخول',
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: ListView(
@@ -21,11 +20,13 @@ class _LoginState extends State<Login> {
             parent: AlwaysScrollableScrollPhysics(),
           ),
           children: [
-            HeaderLogo(),
+            Hero(
+                tag: Res.imagesLogo,
+            child: HeaderLogo(back: false,title: 'Sign In',)),
+            BuildSelectAuthType(loginData: loginData),
             BuildFormInputs(loginData: loginData),
             BuildForgetText(),
             BuildLoginButton(loginData: loginData),
-            BuildVisitorButton(),
             BuildNewRegister(),
           ],
         ),

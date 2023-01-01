@@ -11,7 +11,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-      title: 'استعادة كلمة المرور',
       back: true,
       body: GestureDetector(
         onTap: ()=>FocusScope.of(context).requestFocus(FocusNode()),
@@ -21,7 +20,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             parent: AlwaysScrollableScrollPhysics(),
           ),
           children: [
-            HeaderLogo(),
+            HeaderLogo(title: "Forget Password"),
             BuildText(),
             BuildFormInputs(forgerPasswordData: forgerPasswordData),
             BuildButton(forgerPasswordData: forgerPasswordData),

@@ -6,8 +6,8 @@ class Utils {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // bool? initTheme = prefs.getBool("dark")??false;
     // Utils.changeAppTheme(context,initTheme: initTheme) ;
-    initDio(lang: "ar");
-    initCustomWidgets(language: "ar");
+    initDio(lang: "en");
+    initCustomWidgets(language: "en");
     GlobalState.instance.set("token", "");
     var strUser = prefs.get("user");
     if (strUser != null) {
@@ -16,7 +16,7 @@ class Utils {
       changeLanguage(data.lang, context);
       setCurrentUserData(data, context);
     } else {
-      Nav.navigateTo( ContactUs(), navigatorType: NavigatorType.push);
+      Nav.navigateTo( Login(), navigatorType: NavigatorType.pushAndPopUntil);
     }
   }
 

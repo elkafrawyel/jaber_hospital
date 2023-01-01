@@ -10,10 +10,10 @@ class BuildButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return LoadingButton(
       btnKey: resetPasswordData.btnKey,
-      title: tr(context,"confirm"),
+      title: "Reset Password",
       onTap: () => resetPasswordData.onResetPassword(context, userId),
       color: MyColors.primary,
-      margin: const EdgeInsets.symmetric( vertical: 30),
+      margin: const EdgeInsets.symmetric( vertical: 30,horizontal: 100),
     );
   }
 }

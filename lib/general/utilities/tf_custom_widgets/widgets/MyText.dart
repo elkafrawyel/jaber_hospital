@@ -40,9 +40,8 @@ class MyText extends StatelessWidget {
           wordSpacing: wordSpace,
           decoration: decoration??TextDecoration.none,
           fontWeight: fontWeight??(WidgetUtils.lang=="ar"?FontWeight.w500:FontWeight.w200),
-        fontFamily: fontFamily??WidgetUtils.fontFamily?? (WidgetUtils.lang=="ar"? GoogleFonts.cairo().fontFamily : GoogleFonts.almarai().fontFamily)
-      ),
+        fontFamily: fontFamily??WidgetUtils.fontFamily?? (WidgetUtils.lang=="ar"? GoogleFonts.cairo().fontFamily : GoogleFonts.nunito().fontFamily),
       overflow: overflow,
-    );
+    ));
   }
 }

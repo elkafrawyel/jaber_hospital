@@ -9,10 +9,10 @@ class BuildButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return LoadingButton(
       btnKey: forgerPasswordData.btnKey,
-      title: tr(context,"continue"),
+      title: "Send",
       onTap: () => forgerPasswordData.onForgetPassword(context),
       color: MyColors.primary,
-      margin: const EdgeInsets.symmetric(vertical: 30),
+      margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 100),
     );
   }
 }

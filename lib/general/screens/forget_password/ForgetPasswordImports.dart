@@ -3,6 +3,7 @@ import 'package:base_flutter/general/utilities/tf_custom_widgets/utils/CustomBut
 import 'package:base_flutter/general/resources/GeneralRepoImports.dart';
 import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
 import 'package:base_flutter/general/widgets/AuthScaffold.dart';
+import '../confirm_password/ConfirmPasswordImports.dart';
 import 'widgets/ForgetPasswordWidgetsImports.dart';
 import 'package:flutter/material.dart';
 import 'package:base_flutter/general/widgets/HeaderLogo.dart';

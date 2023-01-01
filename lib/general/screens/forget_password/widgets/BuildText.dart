@@ -7,9 +7,8 @@ class BuildText extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       child: MyText(
         alien: TextAlign.center,
-        title: 'من فضلك ادخل رقم جوالك',
-        size: 10,
-        fontWeight: FontWeight.bold,
+        title: "An OTP code will be sent to your phone number to help you reset password",
+        size: 11,
       ),
     );
   }

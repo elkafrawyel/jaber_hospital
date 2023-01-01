@@ -11,28 +11,31 @@ class BuildButtonList extends StatelessWidget {
     return Column(
       children: [
         DefaultButton(
-          title: tr(context,"confirm"),
-          onTap: (){},
-          // onTap: () => activeAccountData.onActiveAccount(context, userId),
+          title: "Confirm",
+          onTap: ()=>Nav.navigateTo(ResetPassword(userId: userId), navigatorType: NavigatorType.push),
+          // onTap: () => confirmPasswordData.onActiveAccount(context, userId),
           color: MyColors.primary,
           margin: const EdgeInsets.symmetric(
-            vertical: 30,
+            horizontal: 100,
           ),
+        ),
+       const  SizedBox(
+          height: 20,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MyText(
               title:tr(context,"noReceiveCode"),
-              size: 13,
-              color: MyColors.grey,
+              size: 12,
+              color: MyColors.blackOpacity,
             ),
             InkWell(
               // onTap: () =>
               // activeAccountData.onResendCode(context, userId),
               child: MyText(
                 title: tr(context,"sendCode"),
-                size: 13,
+                size: 12,
                 color: MyColors.primary,
                 decoration: TextDecoration.underline,
               ),

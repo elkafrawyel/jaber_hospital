@@ -20,10 +20,11 @@ class _SplashState extends State<Splash> {
     if (!kIsWeb) {
       setupNotifications();
       // GlobalNotification.instance.setupNotification(context);
+      Future.delayed(Duration(milliseconds: 2000), () {
+        Utils.manipulateSplashData(context);
+      });
     }
-    Future.delayed(Duration(milliseconds: 2000), () {
-      Utils.manipulateSplashData(context);
-    });
+
   }
 
   @override
@@ -31,7 +32,6 @@ class _SplashState extends State<Splash> {
 
     // bool dark = context.watch<ThemeCubit>().state.isDark;
     return Scaffold(
-      // backgroundColor: dark?Colors.black:Colors.white,
         body: Center(
           child: AnimationContainer(
               index: 0,
@@ -41,9 +41,9 @@ class _SplashState extends State<Splash> {
               child: Hero(
                 tag: Res.imagesLogo,
                 child: Image.asset(
-                  Res.imagesLogo,
-                  width: 200,
-                  height: 150,
+                  Res.imagesLogoTeal,
+                  width: 250,
+                  height: 250,
                 ),
               )),
         ),

@@ -15,26 +15,6 @@ class BuildFormInputs extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MyText(
-            title: tr(context, "code"),
-            size: 10,
-            fontWeight: FontWeight.bold,
-          ),
-          GenericTextField(
-            fieldTypes: FieldTypes.normal,
-            hint: tr(context, "code"),
-            controller: resetPasswordData.code,
-            action: TextInputAction.next,
-            fillColor: dark ? Colors.transparent : MyColors.textFields,
-            type: TextInputType.number,
-            validate: (value) => value!.validateEmpty(context),
-            margin: const EdgeInsets.symmetric(vertical: 10),
-          ),
-          MyText(
-            title: tr(context, "newPass"),
-            size: 10,
-            fontWeight: FontWeight.bold,
-          ),
           BlocBuilder<GenericBloc, GenericState>(
             bloc: resetPasswordData.passwordBloc,
             builder: (context, state) {
@@ -64,47 +44,6 @@ class BuildFormInputs extends StatelessWidget {
                   },
                 ),
                 margin: const EdgeInsets.symmetric(vertical: 10),
-              );
-            },
-          ),
-          MyText(
-            title: tr(context, "confirmPassword"),
-            size: 10,
-            fontWeight: FontWeight.bold,
-          ),
-          BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-            bloc: resetPasswordData.confirmPasswordBloc,
-            builder: (context, state) {
-              return GenericTextField(
-                fieldTypes:
-                    state.data ? FieldTypes.password : FieldTypes.normal,
-                hint: tr(context, "confirmPassword"),
-                controller: resetPasswordData.confirmNewPassword,
-                action: TextInputAction.done,
-                type: TextInputType.text,
-                fillColor: dark ? Colors.transparent : MyColors.textFields,
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                validate: (value) => value!.validatePasswordConfirm(context,
-                    pass: resetPasswordData.newPassword.text),
-                suffixIcon: IconButton(
-                  icon: state.data
-                      ? Icon(
-                          Icons.visibility,
-                          size: 20,
-                          color: Colors.grey,
-                        )
-                      : Icon(
-                          Icons.visibility_off,
-                          size: 20,
-                          color: Colors.grey,
-                        ),
-                  onPressed: () {
-                    resetPasswordData.confirmPasswordBloc
-                        .onUpdateData(!state.data);
-                  },
-                ),
-                onSubmit: () =>
-                    resetPasswordData.onResetPassword(context, userId),
               );
             },
           ),

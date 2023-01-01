@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
                   ? MainData.defaultThem
                   : MainData.darkThem,
               home: Splash(),
-              title: "ورقكم",
+              title: "Jaber",
               supportedLocales: [Locale('en', 'US'), Locale('ar', 'EG')],
               localizationsDelegates: [
                 SetLocalization.localizationsDelegate,

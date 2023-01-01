@@ -11,7 +11,7 @@ class Res {
   static const String imagesAdd = 'assets/images/add.png';
   static const String imagesAddd = 'assets/images/addd.png';
   static const String imagesAmerica = 'assets/images/america.png';
-  static const String imagesAppIcon = 'assets/images/appicon.png';
+  static const String imagesAppIcon = 'assets/images/appIcon.png';
   static const String imagesArrow = 'assets/images/arrow.png';
   static const String imagesArrowForward = 'assets/images/arrow_forward.png';
   static const String imagesArrowPoin = 'assets/images/arrow_poin.png';
@@ -70,8 +70,10 @@ class Res {
   static const String imagesLocation = 'assets/images/location.png';
   static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesLogo4 = 'assets/images/logo4.svg';
+  static const String imagesLogoBlue = 'assets/images/LogoBlue.png';
   static const String imagesLogoIcon = 'assets/images/logoIcon.png';
   static const String imagesLogoIcon1 = 'assets/images/logoIcon1.png';
+  static const String imagesLogoTeal = 'assets/images/LogoTeal.png';
   static const String imagesLogoWhite = 'assets/images/logoWhite.png';
   static const String imagesLogout = 'assets/images/logout.png';
   static const String imagesLogout1 = 'assets/images/Logout1.png';
@@ -101,6 +103,7 @@ class Res {
   static const String imagesRadiobuttonon = 'assets/images/radiobuttonon.png';
   static const String imagesRectangle = 'assets/images/Rectangle.png';
   static const String imagesReport = 'assets/images/report.png';
+  static const String imagesResetPassword = 'assets/images/ResetPassword.png';
   static const String imagesSaudi = 'assets/images/saudi.png';
   static const String imagesSaudiArabia = 'assets/images/saudi-arabia.png';
   static const String imagesSearch = 'assets/images/search.png';
