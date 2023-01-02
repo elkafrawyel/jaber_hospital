@@ -80,7 +80,7 @@ class Utils {
         await Utils.saveUserData(user);
         Utils.setCurrentUserData(user, context);
       } else if (status == 2) {
-        Nav.navigateTo( ActiveAccount(userId: data["data"]["id"]),
+        Nav.navigateTo( ActiveAccount(userId: data["data"]["id"], email: '',),
             navigatorType: NavigatorType.push);
         // AutoRouter.of(context)
         //     .push(ActiveAccountRoute(userId: data["data"]["id"]));

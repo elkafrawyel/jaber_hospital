@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../../constants/MyColors.dart';
+import '../../../tf_custom_widgets/widgets/MyText.dart';
+
 class CustomToast{
 
   static showConfirmDialog(
@@ -86,4 +89,26 @@ class CustomToast{
         textColor: textColor ?? Colors.white,
         fontSize: 16.0);
   }
+
+  static showSnackBar(BuildContext context, String message, {Color backgroundColor = Colors.black54}) {
+    final snackBar = SnackBar(
+      backgroundColor:backgroundColor,
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      content: MyText(
+        title: message,
+        color: Colors.white,
+        size: 12,
+        fontWeight: FontWeight.bold,
+      ),
+      action: SnackBarAction(
+        textColor: MyColors.white,
+        label: "Hide",
+        onPressed: () {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
 }

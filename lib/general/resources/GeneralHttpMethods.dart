@@ -21,49 +21,59 @@ class GeneralHttpMethods {
       jsonBody: body,
       returnType: ReturnType.List,
       methodType: MethodType.Post,
-      returnDataFun: (data)=>data["userData"],
-      toJsonFunc: (json)=>UserModel.fromJson(json),
+      returnDataFun: (data) => data["userData"],
+      toJsonFunc: (json) => UserModel.fromJson(json),
       showLoader: false,
-
     );
 
     return Utils.manipulateLoginData(context, data, _token ?? "");
   }
 
-
   Future<List<QuestionModel>> frequentQuestions() async {
     return await GenericHttp<QuestionModel>(context).callApi(
-        name: ApiNames.repeatedQuestions,
-        returnType: ReturnType.List,
-        showLoader: false,
-        methodType: MethodType.Get,
-        returnDataFun: (data)=> data["data"],
-        toJsonFunc: (json)=> QuestionModel.fromJson(json)
-    ) as List<QuestionModel>;
+            name: ApiNames.repeatedQuestions,
+            returnType: ReturnType.List,
+            showLoader: false,
+            methodType: MethodType.Get,
+            returnDataFun: (data) => data["data"],
+            toJsonFunc: (json) => QuestionModel.fromJson(json))
+        as List<QuestionModel>;
   }
 
   Future<bool> sendCode(String code, String userId) async {
-    Map<String, dynamic> body = {"code": code, "userId": userId};
+    Map<String, dynamic> body = {"otp": code, "userId": userId};
     dynamic data = await GenericHttp<dynamic>(context).callApi(
-        name: ApiNames.sendCode,
-        jsonBody: body,
-        returnType: ReturnType.Type,
-        showLoader: false,
-        methodType: MethodType.Post,
+      name: ApiNames.verifyOtp,
+      jsonBody: body,
+      returnType: ReturnType.Type,
+      showLoader: false,
+      methodType: MethodType.Post,
+      // returnDataFun: (data) => HandleData.instance.handlePostData(data, context,showMsg: true,fullData: true),
     );
-    return (data != null);
+    if(data!=null){
+      HandleData.instance.handlePostData(data, context,showMsg: true,fullData: true);
+      return true;
+    }
+    return false;
   }
 
-  Future<bool> resendCode(String userId) async {
-    Map<String, dynamic> body = {"userId": userId};
+  Future<bool> resendCode(String userId,String email) async {
+    Map<String, dynamic> body = {
+      "userId": userId,
+      "email": email,
+    };
     dynamic data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.resendCode,
       jsonBody: body,
       returnType: ReturnType.Type,
       showLoader: false,
       methodType: MethodType.Post,
+      returnDataFun: (data) => HandleData.instance.handlePostData(data, context,showMsg: true),
     );
-    return (data != null);
+    if(data!=null){
+      return true;
+    }
+    return false;
   }
 
   Future<String?> aboutApp() async {
@@ -84,7 +94,6 @@ class GeneralHttpMethods {
     );
   }
 
-
   Future<bool> switchNotify() async {
     dynamic data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.switchNotify,
@@ -95,25 +104,31 @@ class GeneralHttpMethods {
     return (data != null);
   }
 
-  Future<bool> forgetPassword(String phone) async {
+  Future<dynamic> forgetPassword(String email) async {
     Map<String, dynamic> body = {
-      "phone": "$phone",
+      "email": "$email",
     };
-    dynamic data = await GenericHttp<dynamic>(context).callApi(
+    dynamic result = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.forgetPassword,
       returnType: ReturnType.Type,
       jsonBody: body,
       showLoader: false,
       methodType: MethodType.Post,
+      returnDataFun: (data) =>
+          HandleData.instance.handlePostData(data, context, showMsg: true),
     );
-    return (data != null);
+    if (result != null) {
+      return result;
+    } else {
+      return null;
+    }
   }
 
-  Future<bool> resetUserPassword(String userId, String code, String pass) async {
+  Future<bool> resetUserPassword(
+      String userId ,String pass) async {
     Map<String, dynamic> body = {
-      "userId": "$userId",
-      "code": "$code",
-      "newPassword": "$pass",
+      "id": "$userId",
+      "password": "$pass",
     };
     dynamic data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.resetPassword,
@@ -122,7 +137,11 @@ class GeneralHttpMethods {
       showLoader: false,
       methodType: MethodType.Post,
     );
-    return (data != null);
+    if(data!=null){
+      HandleData.instance.handlePostData(data, context,fullData: true,showMsg: true);
+      return true;
+    }
+    return false;
   }
 
   Future<bool> sendMessage(String? name, String? mail, String? message) async {
@@ -140,5 +159,4 @@ class GeneralHttpMethods {
     );
     return (data != null);
   }
-
 }

@@ -1,17 +1,19 @@
 class ApiNames{
 
-  static const String baseUrl = "https://dalel.ip4s.com/api/v1/";
+  static const String baseUrl = "http://34.163.160.147/backend/api/";
   static const String branch = "1";
 
   static const String aboutApp = "AboutApp";
   static const String terms = "conditions";
   static const String login = "login";
   static const String sendCode = "ConfirmCodeRegister";
-  static const String resendCode = "ResendCode";
+  static const String resendCode = "resend_otp";
   static const String repeatedQuestions = "FrequentlyAskedQuestions";
   static const String switchNotify = "SwitchNotify";
-  static const String forgetPassword = "ForgetPassword";
-  static const String resetPassword = "ChangePasswordByCode";
+  static const String forgetPassword = "forgot_password";
+  static const String resetPassword = "reset_password";
   static const String contactUs = "ContactUs";
+
+  static const String verifyOtp = "verify_otp";
 
 }

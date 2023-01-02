@@ -20,7 +20,7 @@ class ActiveAccountData {
     }
   }
 
-  void onResendCode(BuildContext context, String userId) async {
-    await GeneralRepository(context).resendCode(userId);
+  void onResendCode(BuildContext context, String userId,String email) async {
+    await GeneralRepository(context).resendCode(userId: userId, email: email);
   }
 }

@@ -7,22 +7,22 @@ class ResetPasswordData {
       new GlobalKey<CustomButtonState>();
   final GenericBloc<bool> passwordBloc = GenericBloc(true);
 
-  final TextEditingController newPassword = new TextEditingController();
+  final TextEditingController password = new TextEditingController();
 
   void onResetPassword(BuildContext context, String userId) async {
-    // FocusScope.of(context).requestFocus(FocusNode());
-    showDialog(
-      context: context,
-      builder: (context) => BuildPassResetSuccess(),
-    );
-    // if (formKey.currentState!.validate()) {
-    //   btnKey.currentState!.animateForward();
-    //   bool result = await GeneralRepository(context).resetUserPassword(userId, 'code', newPassword.text);
-    //   btnKey.currentState!.animateReverse();
-    //   if (result) {
-    //     // ExtendedNavigator.of(context).popUntilPath(Routes.login);
-    //   }
-    // }
+    FocusScope.of(context).requestFocus(FocusNode());
+    if (formKey.currentState!.validate()) {
+      btnKey.currentState!.animateForward();
+      bool result = await GeneralRepository(context).resetUserPassword(userId: userId, pass: password.text);
+      btnKey.currentState!.animateReverse();
+      if (result) {
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) => BuildPassResetSuccess(),
+        );
+      }
+    }
   }
 }
 

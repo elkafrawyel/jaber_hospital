@@ -22,7 +22,7 @@ class BuildFormInputs extends StatelessWidget {
                 fieldTypes:
                     state.data ? FieldTypes.password : FieldTypes.normal,
                 hint: tr(context, "newPass"),
-                controller: resetPasswordData.newPassword,
+                controller: resetPasswordData.password,
                 action: TextInputAction.next,
                 fillColor: dark ? Colors.transparent : MyColors.textFields,
                 type: TextInputType.text,

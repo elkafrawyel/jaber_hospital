@@ -13,7 +13,7 @@ class DioHelper {
   static init({required String base, String? branch, String? branchKey}){
     baseUrl=base;
     _branch = branch??"1";
-    _branchKey = branchKey??"branchId";
+    // _branchKey = branchKey??"branchId";
   }
 
   DioHelper({this.forceRefresh = true,required this.context}){
@@ -46,7 +46,7 @@ class DioHelper {
     try {
       var response = await _dio.get("$url",queryParameters: query, options: _buildCacheOptions());
       log("response ${response.statusCode}");
-      if (response.statusCode==200||response.statusCode==201) {
+      if (response.statusCode! >=200 && response.statusCode! <300) {
         return response.data;
       } else{
         showErrorMessage(response);
@@ -60,7 +60,6 @@ class DioHelper {
   Future<dynamic> post(
       {required String url, required Map<String, dynamic> body,bool showLoader = true,Map<String, dynamic>? query}) async {
     if (showLoader) DioUtils.showLoadingDialog();
-    body.addAll({_branchKey: _branch});
     _printRequestBody(body);
     FormData formData = FormData.fromMap(body);
     bool haveFile = false;
@@ -98,7 +97,7 @@ class DioHelper {
       var response = await _dio.post("$url", data: haveFile? formData : body,queryParameters: query);
       log("response ${response.statusCode}");
       if (showLoader) DioUtils.dismissDialog();
-      if (response.statusCode==200||response.statusCode==201) {
+      if (response.statusCode! >=200 && response.statusCode! <300) {
         return response.data;
       } else{
         showErrorMessage(response);
@@ -115,7 +114,6 @@ class DioHelper {
   Future<dynamic> put(
       {required String url, required Map<String, dynamic> body,bool showLoader = true,Map<String, dynamic>? query}) async {
     if (showLoader) DioUtils.showLoadingDialog();
-    body.addAll({_branchKey: _branch});
     _printRequestBody(body);
     FormData formData = FormData.fromMap(body);
     bool haveFile = false;
@@ -153,7 +151,7 @@ class DioHelper {
       var response = await _dio.put("$url", data: haveFile? formData : body,queryParameters: query);
       log("response ${response.statusCode}");
       if (showLoader) DioUtils.dismissDialog();
-      if (response.statusCode==200||response.statusCode==201) {
+      if (response.statusCode! >=200 && response.statusCode! <300) {
         return response.data;
       } else{
         showErrorMessage(response);
@@ -168,7 +166,6 @@ class DioHelper {
 
   Future<dynamic> patch({required String url,required Map<String, dynamic> body,bool showLoader = true,Map<String, dynamic>? query}) async {
     if (showLoader) DioUtils.showLoadingDialog();
-    body.addAll({_branchKey: _branch});
     _printRequestBody(body);
     _dio.options.headers = DioUtils.header??await _getHeader();
     try {
@@ -176,7 +173,7 @@ class DioHelper {
       await _dio.patch("$url", data: body,queryParameters: query);
       log("response ${response.statusCode}");
       if (showLoader) DioUtils.dismissDialog();
-      if (response.statusCode==200||response.statusCode==201) {
+      if (response.statusCode! >=200 && response.statusCode! <300) {
         return response.data;
       } else{
         showErrorMessage(response);
@@ -191,7 +188,6 @@ class DioHelper {
 
   Future<dynamic> delete({required String url,required Map<String, dynamic> body,bool showLoader = true,Map<String, dynamic>? query}) async {
     if (showLoader) DioUtils.showLoadingDialog();
-    body.addAll({_branchKey: _branch});
     _printRequestBody(body);
     _dio.options.headers = DioUtils.header??await _getHeader();
     try {
@@ -199,7 +195,7 @@ class DioHelper {
       await _dio.delete("$url", data: body,queryParameters: query);
       log("body response ${response.statusCode}");
       if (showLoader) DioUtils.dismissDialog();
-      if (response.statusCode==200||response.statusCode==201) {
+      if (response.statusCode! >=200 && response.statusCode! <300) {
         return response.data;
       } else{
         showErrorMessage(response);
@@ -216,7 +212,6 @@ class DioHelper {
       {bool showLoader = true}) async {
     if (showLoader) DioUtils.showLoadingDialog();
     _printRequestBody(body);
-    body.addAll({_branchKey: _branch});
     FormData formData = FormData.fromMap(body);
     body.forEach((key, value) async {
       if ((value) is File) {
@@ -253,7 +248,7 @@ class DioHelper {
       var response = await _dio.post("$url", data: formData);
       log("response ${response.statusCode}");
       if (showLoader) DioUtils.dismissDialog();
-      if (response.statusCode==200||response.statusCode==201) {
+      if (response.statusCode! >=200 && response.statusCode! <300) {
         return response.data;
       } else{
         showErrorMessage(response);
@@ -278,7 +273,7 @@ class DioHelper {
   showErrorMessage(Response? response){
     if (response==null) {
       log("failed response Check Server");
-      CustomToast.showToastNotification("Check Server");
+      CustomToast.showToastNotification("Server Error,Check Server");
     }else{
       log("failed response ${response.statusCode}");
       log("failed response ${response.data}");
@@ -286,7 +281,7 @@ class DioHelper {
       if(data is String) data = json.decode(response.data);
       switch(response.statusCode){
         case 500:
-          CustomToast.showToastNotification(data["msg"].toString());
+          CustomToast.showToastNotification(DioUtils.lang=="en"? data["message"]["message_en"].toString():data["message"]["message_ar"].toString());
           break;
         case 400:
           if(data["errors"]!=null){
@@ -299,7 +294,7 @@ class DioHelper {
               });
             });
           }else{
-            CustomToast.showToastNotification(data["msg"].toString());
+            CustomToast.showToastNotification(DioUtils.lang=="en"? data["message"]["message_en"].toString():data["message"]["message_ar"].toString());
           }
           break;
         case 401:

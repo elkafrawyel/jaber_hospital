@@ -22,7 +22,7 @@ class RegisterData {
   }
 
   userRegister(BuildContext context) {
-    Nav.navigateTo(ActiveAccount(userId: "userId"),
+    Nav.navigateTo(ActiveAccount(userId: "userId", email: '',),
         navigatorType: NavigatorType.push);
   }
 }

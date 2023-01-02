@@ -1,6 +1,9 @@
 part of 'ChangePasswordImports.dart';
 
 class ChangePassword extends StatefulWidget {
+  final String userId;
+
+  const ChangePassword({super.key, required this.userId});
   @override
   _ChangePasswordState createState() => _ChangePasswordState();
 }

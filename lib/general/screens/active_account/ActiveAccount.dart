@@ -2,8 +2,9 @@ part of 'ActiveAccountImports.dart';
 
 class ActiveAccount extends StatefulWidget {
   final String userId;
+  final  String email;
 
-  const ActiveAccount({required this.userId});
+  const ActiveAccount({required this.userId, required this.email});
 
   @override
   _ActiveAccountState createState() => _ActiveAccountState();
@@ -30,7 +31,7 @@ class _ActiveAccountState extends State<ActiveAccount> {
             BuildFormInputs(activeAccountData: activeAccountData),
             BuildButtonList(
               activeAccountData: activeAccountData,
-              userId: widget.userId,
+              userId: widget.userId, email: widget.email,
             ),
           ],
         ),

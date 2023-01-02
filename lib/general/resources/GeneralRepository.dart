@@ -11,11 +11,11 @@ class GeneralRepository {
 
   Future<bool> setUserLogin(String phone, String pass)=> _generalHttpMethods.userLogin(phone, pass);
 
-  Future<bool> sendCode(String code, String userId) =>
+  Future<bool> sendCode({required String code, required String userId}) =>
       _generalHttpMethods.sendCode(code, userId);
 
-  Future<bool> resendCode(String userId) =>
-      _generalHttpMethods.resendCode(userId);
+  Future<bool> resendCode({required String userId, required String email}) =>
+      _generalHttpMethods.resendCode(userId,email);
 
   Future<String?> aboutApp() => _generalHttpMethods.aboutApp();
 
@@ -23,11 +23,11 @@ class GeneralRepository {
 
   Future<bool> switchNotify() => _generalHttpMethods.switchNotify();
 
-  Future<bool> forgetPassword(String phone) =>
-      _generalHttpMethods.forgetPassword(phone);
+  Future<dynamic> forgetPassword(String email) =>
+      _generalHttpMethods.forgetPassword(email);
 
-  Future<bool> resetUserPassword(String userId, String code, String pass) =>
-      _generalHttpMethods.resetUserPassword(userId, code, pass);
+  Future<bool> resetUserPassword({required String userId, required String pass}) =>
+      _generalHttpMethods.resetUserPassword(userId, pass);
 
   Future<List<QuestionModel>> frequentQuestions() =>
       _generalHttpMethods.frequentQuestions();

@@ -1,12 +1,22 @@
 part of 'ConfirmPasswordImports.dart';
 
 class ConfirmPassword extends StatefulWidget {
+  final String userId;
+  final String email;
+
+  const ConfirmPassword({super.key, required this.userId, required this.email});
   @override
   _ConfirmPasswordState createState() => _ConfirmPasswordState();
 }
 
 class _ConfirmPasswordState extends State<ConfirmPassword> {
   final ConfirmPasswordData confirmPasswordData = new ConfirmPasswordData();
+  @override
+  void initState() {
+    confirmPasswordData.startTimeout();
+    confirmPasswordData.checkSendCubit.onUpdateData(true);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +30,12 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
           HeaderLogo(title: "OTP Verification "),
           BuildText(),
           BuildFormInputs(
-            confirmPasswordData: confirmPasswordData,
+            confirmPasswordData: confirmPasswordData, userId: widget.userId,
           ),
           BuildButtonList(
             confirmPasswordData: confirmPasswordData,
-            userId: "",
+            userId: widget.userId,
+            email: widget.email,
           ),
         ],
       ),

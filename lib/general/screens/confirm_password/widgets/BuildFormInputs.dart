@@ -2,8 +2,9 @@ part of 'ConfirmPasswordWidgetsImports.dart';
 
 class BuildFormInputs extends StatelessWidget {
   final ConfirmPasswordData confirmPasswordData;
+  final String userId;
 
-  const BuildFormInputs({required this.confirmPasswordData});
+  const BuildFormInputs({required this.confirmPasswordData, required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,17 @@ class BuildFormInputs extends StatelessWidget {
             activeFillColor: MyColors.textFields,
             disabledColor: MyColors.black,
           ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "Please enter OTP";
+            } else if (value.length < 4) {
+              return "Please enter valid OTP";
+            }
+            return null;
+          },
+          onCompleted: (String value) {
+            confirmPasswordData.onSendCode(context, userId: userId);
+          },
           animationDuration: Duration(milliseconds: 300),
           enableActiveFill: true,
           controller: confirmPasswordData.code,

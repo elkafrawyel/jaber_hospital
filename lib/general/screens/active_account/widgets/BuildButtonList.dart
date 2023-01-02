@@ -3,8 +3,9 @@ part of 'ActiveAccountWidgetsImports.dart';
 class BuildButtonList extends StatelessWidget {
   final ActiveAccountData activeAccountData;
   final String userId;
+  final String email;
 
-  const BuildButtonList({required this.activeAccountData,required this.userId});
+  const BuildButtonList({required this.activeAccountData,required this.userId, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class BuildButtonList extends StatelessWidget {
               color: MyColors.grey,
             ),
             InkWell(
-              onTap: () => activeAccountData.onResendCode(context, userId),
+              onTap: () => activeAccountData.onResendCode(context, userId, email),
               child: MyText(
                   title:tr(context,"sendCode"),
                   size: 13,
