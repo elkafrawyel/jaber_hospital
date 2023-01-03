@@ -310,15 +310,21 @@ class DioHelper {
   }
 
   _getHeader() async {
-    var lang = context.read<LangCubit>().state.locale.languageCode;
+    var auth = context.read<AuthCubit>().state.authorized;
     String? token = GlobalState.instance.get("token");
-    return {
-      // 'Accept-Language': '${DioUtils.lang}',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
+    Map<String,dynamic> header ={} ;
+    header = {
+      "Accept": "application/json",
+      'Authorization': token,
     };
+    header.removeWhere((key, value) => value == null|| value == "");
+    return header;
   }
-
+  // return {
+  //   'Accept': 'application/json',
+  //   if(auth)
+  //     'Authorization': '$token',
+  // };
 
   void tokenExpired()async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

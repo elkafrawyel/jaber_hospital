@@ -7,26 +7,23 @@ class GeneralHttpMethods {
 
   GeneralHttpMethods(this.context);
 
-  Future<bool> userLogin(String phone, String pass) async {
-    String? _token = await messaging.getToken();
+  Future<bool> userLogin(String email, String pass,String role) async {
+    String? _deviceId = await messaging.getToken();
     Map<String, dynamic> body = {
-      "phone": "$phone",
+      "email": "$email",
+      "role": "$role",
       "password": "$pass",
-      "deviceId": "$_token",
-      "deviceType": Platform.isIOS ? "ios" : "android",
     };
-
     var data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.login,
       jsonBody: body,
-      returnType: ReturnType.List,
+      returnType: ReturnType.Type,
       methodType: MethodType.Post,
-      returnDataFun: (data) => data["userData"],
-      toJsonFunc: (json) => UserModel.fromJson(json),
+      returnDataFun: (data) => HandleData.instance.handlePostData(data, context,fullData: true,showMsg: true),
+      // toJsonFunc: (json) => UserModel.fromJson(json),
       showLoader: false,
     );
-
-    return Utils.manipulateLoginData(context, data, _token ?? "");
+    return Utils.manipulateLoginData(context, data);
   }
 
   Future<List<QuestionModel>> frequentQuestions() async {

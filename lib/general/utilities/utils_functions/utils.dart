@@ -12,8 +12,8 @@ class Utils {
     var strUser = prefs.get("user");
     if (strUser != null) {
       UserModel data = UserModel.fromJson(json.decode("$strUser"));
-      GlobalState.instance.set("token", data.token);
-      changeLanguage(data.lang, context);
+      GlobalState.instance.set("token", data.accessToken);
+      changeLanguage("en", context);
       setCurrentUserData(data, context);
     } else {
       Nav.navigateTo( Login(), navigatorType: NavigatorType.pushAndPopUntil);
@@ -66,24 +66,19 @@ class Utils {
   }
 
   static Future<bool> manipulateLoginData(
-      BuildContext context, dynamic data, String token) async {
+      BuildContext context, dynamic data) async {
     if (data != null) {
-      int status = data["status"];
-      if (status == 1) {
-        await Utils.setDeviceId("$token");
+      bool verified = data["data"]["user"][0]["verified"];
+      if (verified == true) {
         UserModel user = UserModel.fromJson(data["data"]);
-        int type = data["data"]["type"];
-        user.type = type == 1 ? "user" : "company";
-        user.token = data["token"];
-        user.lang = context.read<LangCubit>().state.locale.languageCode;
-        GlobalState.instance.set("token", user.token);
+        GlobalState.instance.set("token", user.accessToken);
         await Utils.saveUserData(user);
         Utils.setCurrentUserData(user, context);
-      } else if (status == 2) {
-        Nav.navigateTo( ActiveAccount(userId: data["data"]["id"], email: '',),
-            navigatorType: NavigatorType.push);
-        // AutoRouter.of(context)
-        //     .push(ActiveAccountRoute(userId: data["data"]["id"]));
+
+      } else if (verified == false) {
+        CustomToast.showSnackBar(context, "please verify your account first");
+        // Nav.navigateTo( ActiveAccount(userId: data["data"]["user"][0]["_id"], email: data["data"]["user"][0]["email"],),
+        //     navigatorType: NavigatorType.push);
       }
       return true;
     }
@@ -91,8 +86,8 @@ class Utils {
   }
 
   static void setCurrentUserData(UserModel model, BuildContext context) async {
-    // context.read<UserCubit>().onUpdateUserData(model);
-    // ExtendedNavigator.of(context).push(Routes.home,arguments: HomeArguments(parentCount: parentCount));
+    context.read<UserCubit>().onUpdateUserData(model);
+    Nav.navigateTo( Login(), navigatorType: NavigatorType.pushAndPopUntil);
   }
 
   static changeAppTheme(BuildContext context, {bool? initTheme}) async {
@@ -110,6 +105,8 @@ class Utils {
   static Future<void> saveUserData(UserModel model) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("user", json.encode(model.toJson()));
+    log("====s=s==s=ss==ss==s ${model.accessToken}- ${model.refreshToken} - ${model.toJson()}");
+
   }
 
   static void changeLanguage(String lang, BuildContext context) {
@@ -138,8 +135,8 @@ class Utils {
   }
 
   static String getCurrentUserId({required BuildContext context}) {
-    var provider = context.watch<UserCubit>().state.model;
-    return provider.id;
+    var user = context.watch<UserCubit>().state.model;
+    return user.userData?[0].id.toString()??'';
   }
 
   static void launchURL({required String url}) async {

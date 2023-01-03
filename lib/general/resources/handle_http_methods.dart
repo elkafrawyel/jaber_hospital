@@ -38,7 +38,7 @@ class HandleData {
       if(showMsg){
         CustomToast.showSnackBar(context, DioUtils.lang =="en" ? data['message']["message_en"]: data['message']["message_ar"]);
       }
-      log("++++++++++++++++++++++++++++++++ data ${data.toString()}");
+      log("++++++++++++++++++++++++++++++++ received data: ${data.toString()}");
       if (fullData) {
         return data;
       }
@@ -69,7 +69,7 @@ class HandleData {
       if (data["data"] != null) {
         log("<>>>>>>>>>>>> data1 ${data.toString()}");
         UserModel user = UserModel.fromJson(data["data"]["user"]);
-        user.token = GlobalState.instance.get("token");
+        user.userData = GlobalState.instance.get("token");
         await Utils.saveUserData(user);
         context.read<UserCubit>().onUpdateUserData(user);
         log("<>>>>>>>>>>>> data2 ${data.toString()}");

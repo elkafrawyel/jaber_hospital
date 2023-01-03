@@ -16,26 +16,21 @@ class BuildFormInputs extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GenericTextField(
-              hintColor:
-                  Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
               fieldTypes: FieldTypes.normal,
               fillColor: dark ? Colors.transparent : MyColors.textFields,
               hint: "Enter Your Email",
-              controller: loginData.phone,
+              controller: loginData.email,
               margin: const EdgeInsets.symmetric(vertical: 10),
               action: TextInputAction.next,
               type: TextInputType.text,
-              validate: (value) => value!.validateEmpty(context),
+              validate: (value) => value!.validateEmail(context),
             ),
             BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
               bloc: loginData.passwordBloc,
               builder: (context, state) {
                 return GenericTextField(
-                  hintColor: Theme.of(context)
-                      .textTheme
-                      .subtitle1
-                      ?.color
-                      ?.withOpacity(.8),
+                  hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                   fieldTypes:
                       state.data ? FieldTypes.password : FieldTypes.normal,
                   fillColor: dark ? Colors.transparent : MyColors.textFields,

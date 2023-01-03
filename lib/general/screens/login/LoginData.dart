@@ -6,7 +6,7 @@ class LoginData {
   final GlobalKey<CustomButtonState> btnKey =
       new GlobalKey<CustomButtonState>();
   final TextEditingController password = new TextEditingController();
-  final TextEditingController phone = new TextEditingController();
+  final TextEditingController email = new TextEditingController();
   final GenericBloc<bool> passwordBloc = GenericBloc(true);
   final GenericBloc<int> selectAuthType = GenericBloc(-1);
 
@@ -15,17 +15,14 @@ class LoginData {
   //AuthTypeModel
 
   void userLogin(BuildContext context) async {
-    Nav.navigateTo(
-      Home(index: 0),
-      navigatorType: NavigatorType.push,
-    );
-    // FocusScope.of(context).requestFocus(FocusNode());
-    // if (formKey.currentState!.validate()) {
-    //   btnKey.currentState!.animateForward();
-    //   String phoneEn = Utils.convertDigitsToLatin(phone.text);
-    //   String passEn = Utils.convertDigitsToLatin(password.text);
-    //   await GeneralRepository(context).setUserLogin(phoneEn, passEn);
-    //   btnKey.currentState!.animateReverse();
-    // }
+    var user = context.read<UserCubit>().state.model;
+    FocusScope.of(context).requestFocus(FocusNode());
+    if (formKey.currentState!.validate()) {
+      btnKey.currentState!.animateForward();
+      await GeneralRepository(context).userLogin(email: email.text, pass: password.text, role:"doctor" );
+      btnKey.currentState!.animateReverse();
+    }
+    log("====s=s==s=ss==ss==s ${user.accessToken}- ${user.refreshToken} - ${user.userData?.length}");
   }
+
 }

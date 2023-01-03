@@ -48,6 +48,9 @@ class MainData {
     BlocProvider<BottomNavCubit>(
       create: (BuildContext context)=> BottomNavCubit(),
     ),
+    BlocProvider<UserCubit>(
+      create: (BuildContext context)=> UserCubit(),
+    ),
   ];
 
 
