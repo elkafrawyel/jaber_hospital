@@ -6,7 +6,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final loginData = new LoginData();
+  @override
+  void initState() {
+    LoginData().init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +27,10 @@ class _LoginState extends State<Login> {
             Hero(
                 tag: Res.imagesLogo,
             child: HeaderLogo(back: false,title: 'Sign In',)),
-            BuildSelectAuthType(loginData: loginData),
-            BuildFormInputs(loginData: loginData),
+            BuildSelectAuthType(loginData: LoginData()),
+            BuildFormInputs(loginData: LoginData()),
             BuildForgetText(),
-            BuildLoginButton(loginData: loginData),
+            BuildLoginButton(loginData: LoginData()),
             // BuildNewRegister(),
           ],
         ),

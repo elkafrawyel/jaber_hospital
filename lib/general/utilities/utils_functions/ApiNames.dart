@@ -15,5 +15,6 @@ class ApiNames{
   static const String contactUs = "ContactUs";
 
   static const String verifyOtp = "verify_otp";
+  static const String logout = "logout";
 
 }

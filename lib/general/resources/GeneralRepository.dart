@@ -23,7 +23,7 @@ class GeneralRepository {
 
   Future<bool> switchNotify() => _generalHttpMethods.switchNotify();
 
-  Future<dynamic> forgetPassword(String email) =>
+  Future<bool> forgetPassword(String email) =>
       _generalHttpMethods.forgetPassword(email);
 
   Future<bool> resetUserPassword({required String userId, required String pass}) =>

@@ -12,12 +12,10 @@ class ForgerPasswordData {
       btnKey.currentState!.animateForward();
       dynamic result =
           await GeneralRepository(context).forgetPassword(email.text);
-      Nav.navigateTo(
-          ConfirmPassword(
-            userId: result["user_id"], email: result["email"],
-          ),
-          navigatorType: NavigatorType.push);
+      if (result) {
       btnKey.currentState!.animateReverse();
+    }
+    btnKey.currentState!.animateReverse();
     }
     btnKey.currentState!.animateReverse();
   }

@@ -44,7 +44,7 @@ class HandleData {
       }
       return data["data"];
     }
-    // return failure(data, context);
+    return null;
   }
 
   /// ********************* get Request ************************

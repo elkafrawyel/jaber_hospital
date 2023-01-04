@@ -1,28 +1,52 @@
 part of 'LoginImports.dart';
 
 class LoginData {
-  GlobalKey<ScaffoldState> scaffold = new GlobalKey<ScaffoldState>();
-  final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
-  final GlobalKey<CustomButtonState> btnKey =
-      new GlobalKey<CustomButtonState>();
-  final TextEditingController password = new TextEditingController();
-  final TextEditingController email = new TextEditingController();
-  final GenericBloc<bool> passwordBloc = GenericBloc(true);
-  final GenericBloc<int> selectAuthType = GenericBloc(-1);
+  //singleton
+  LoginData._();
+  static final LoginData _instance = LoginData._();
 
-  // list AuthTypes for test
+  factory LoginData() => _instance;
+
+  late GlobalKey<FormState> formKey ;
+  late GlobalKey<CustomButtonState> btnKey ;
+  late TextEditingController password ;
+  late TextEditingController email ;
+  late GenericBloc<bool> passwordBloc;
+  late GenericBloc<bool> rememberMeBloc;
+  late GenericBloc<int> selectAuthType;
+
+  void init (){
+    formKey = GlobalKey<FormState>();
+    btnKey = GlobalKey<CustomButtonState>();
+    password = TextEditingController();
+    email = TextEditingController();
+    passwordBloc = GenericBloc(true);
+    rememberMeBloc = GenericBloc(false);
+    selectAuthType = GenericBloc(-1);
+
+  }
   List<String> authTypesList = ['Doctor', "Patient", "Pharmacy"];
-  //AuthTypeModel
+  String get _getAuthType =>
+      authTypesList[selectAuthType.state.data].toLowerCase();
 
   void userLogin(BuildContext context) async {
-    var user = context.read<UserCubit>().state.model;
     FocusScope.of(context).requestFocus(FocusNode());
+    var user = context.read<UserCubit>().state.model;
+    if (selectAuthType.state.data == -1) {
+      CustomToast.showSnackBar(context, "Please select your Account Type",
+          backgroundColor: Colors.redAccent);
+      return;
+    }
     if (formKey.currentState!.validate()) {
       btnKey.currentState!.animateForward();
-      await GeneralRepository(context).userLogin(email: email.text, pass: password.text, role:"doctor" );
+      var result = await GeneralRepository(context).userLogin(
+          email: email.text, pass: password.text, role: _getAuthType);
+      if (result) {
+        btnKey.currentState!.animateReverse();
+      }
       btnKey.currentState!.animateReverse();
     }
+    btnKey.currentState!.animateReverse();
     log("====s=s==s=ss==ss==s ${user.accessToken}- ${user.refreshToken} - ${user.userData?.length}");
   }
-
 }

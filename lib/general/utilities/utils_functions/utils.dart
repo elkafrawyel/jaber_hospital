@@ -72,13 +72,13 @@ class Utils {
       if (verified == true) {
         UserModel user = UserModel.fromJson(data["data"]);
         GlobalState.instance.set("token", user.accessToken);
-        await Utils.saveUserData(user);
+        if(LoginData().rememberMeBloc.state.data){
+          await Utils.saveUserData(user);
+        }
         Utils.setCurrentUserData(user, context);
-
+        CustomToast.showSimpleToast(msg: 'Signed in successfully');
       } else if (verified == false) {
-        CustomToast.showSnackBar(context, "please verify your account first");
-        // Nav.navigateTo( ActiveAccount(userId: data["data"]["user"][0]["_id"], email: data["data"]["user"][0]["email"],),
-        //     navigatorType: NavigatorType.push);
+        CustomToast.showSnackBar(context, "please verify your account first",backgroundColor: Colors.deepOrangeAccent);
       }
       return true;
     }
@@ -87,7 +87,7 @@ class Utils {
 
   static void setCurrentUserData(UserModel model, BuildContext context) async {
     context.read<UserCubit>().onUpdateUserData(model);
-    Nav.navigateTo( Login(), navigatorType: NavigatorType.pushAndPopUntil);
+    Nav.navigateTo( Home(index: 0,), navigatorType: NavigatorType.pushAndPopUntil);
   }
 
   static changeAppTheme(BuildContext context, {bool? initTheme}) async {
