@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../blocks/auth_cubit/auth_cubit.dart';
+import '../blocks/lang_cubit/lang_cubit.dart';
 import '../constants/MyColors.dart';
 import '../screens/confirm_password/ConfirmPasswordImports.dart';
 import '../screens/login/LoginImports.dart';

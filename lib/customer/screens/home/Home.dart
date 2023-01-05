@@ -26,21 +26,115 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         }
       }
     });
+    final user = context.read<UserCubit>().state.model;
+    if (user.userData![0].role == "patient") {
+      context.read<LangCubit>().onUpdateLanguage("ar");
+      Future.delayed(Duration(microseconds: 100), () {
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) => BuildTermsDialog(),
+        );
+      });
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final user = context.read<UserCubit>().state.model;
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            MyText(title: 'Home', size: 15),
+            MyText(
+                title: user.userData![0].role == "patient"
+                    ? "الرئيسية لل ${user.userData?[0].role}"
+                    : 'Home for ${user.userData?[0].role}',
+                size: 15,
+                fontWeight: FontWeight.bold),
             const SizedBox(height: 20),
             DefaultButton(
-              title: 'sign out',
+              title: tr(context, "signOut"),
               onTap: () => GeneralHttpMethods(context).logOut(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BuildTermsDialog extends StatelessWidget {
+  const BuildTermsDialog({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GeneralAlertDialog(
+      alertButtonType: AlertButtonType.dueButton,
+      alertTextType: AlertContentType.noTitle,
+      alertImageType: AlertImageType.noImg,
+      onTapRightButton: () => navigationKey.currentState!.pop(),
+      onTapLeftButton: () => navigationKey.currentState!.pop(),
+      rightButtonTitle: "موافق",
+      leftButtonTitle: "غير موافق",
+      customWidget: Flexible(
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: CloseButton(
+                color: MyColors.primary,
+                onPressed: () => navigationKey.currentState!.pop(),
+              ),
+            ),
+            MyText(
+              alien: TextAlign.center,
+              title: 'إقرار',
+              size: 17,
+              fontWeight: FontWeight.bold,
+              color: MyColors.primary,
+            ),
+            MyText(
+              alien: TextAlign.center,
+              title:
+                  '-ان دخولك علي هذه القواعد يعني قبولك في جميع الشروط والأحكام الواردة هنا، واي شروط اخري يتم نشرها وتحديثها علي صفحات لقواعد او موقع الشركة.',
+              size: 12,
+              // fontWeight: FontWeight.bold,
+            ),
+            MyText(
+              alien: TextAlign.center,
+              title:
+                  '-إذا كنت غير موافق علي الشروط والأحكام يرجي عدم استخدام قواعد الموقع.',
+              size: 12,
+            ),
+            MyText(
+              alien: TextAlign.center,
+              title:
+                  'تحتفظ شركة المنظومة لنفسها بحق تغيير أو تعديل او إضافة او إزالة اجزاء من هذه الشروط والاحكام وفقا لتقديرها في اي وقت بدون اشعار مسبق.',
+              size: 12,
+            ),
+            MyText(
+              alien: TextAlign.center,
+              title:
+                  '-يرجي مراجعة هذه الصفحة بشكل دوري لاي تعديلات، علما بأن ستمرار استخدامك لهذا الموقع بعد شر اي تغييرات سوف يعني انك قد قبلت هذه التغييرات .',
+              size: 12,
+            ),
+            MyText(
+              alien: TextAlign.center,
+              title:
+                  'حقوق التأليف والنشروالملكية الفكرية والقيود المفروضة علي الإستخدام :',
+              size: 12,
+            ),
+            MyText(
+              alien: TextAlign.center,
+              title:
+                  '1. جميع المحويات في هذا الموقع ، بما ان في ذلكالنصوص الكاملة للوثائق ، والتصميم والصور والبرامج النصوص وغيرها من المعلومات (اجمالا، "المحتوي" ) هي من ممتلكات شركة المنظومة أو الجهات المرخص بموجب العقود الموقعة معها ، وجميع هذه المحتوايات محمية بموجب قوانين وانظمة قوق المؤلف غيرها من قوانين الملكية الفكرية .',
+              size: 12,
             ),
           ],
         ),

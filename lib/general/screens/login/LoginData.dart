@@ -25,7 +25,7 @@ class LoginData {
     selectAuthType = GenericBloc(-1);
 
   }
-  List<String> authTypesList = ['Doctor', "Patient", "Pharmacy"];
+  List<String> authTypesList = ['Doctor', "Patient", "Company"];
   String get _getAuthType =>
       authTypesList[selectAuthType.state.data].toLowerCase();
 

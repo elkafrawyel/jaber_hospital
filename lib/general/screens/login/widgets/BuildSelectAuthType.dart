@@ -32,8 +32,7 @@ class BuildSelectAuthType extends StatelessWidget {
                           },
                           child: Container(
                             margin: const EdgeInsets.symmetric(horizontal: 10),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                             decoration: BoxDecoration(
                               color: MyColors.textFields,
                               borderRadius: BorderRadius.circular(10),
@@ -67,15 +66,20 @@ class BuildSelectAuthType extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 5),
                                 Expanded(
-                                  child: MyText(
-                                    title: loginData.authTypesList[index],
-                                    size: 10,
-                                    color: index == state.data
-                                        ? MyColors.primary
-                                        : MyColors.blackOpacity,
-                                    fontWeight: index == state.data
-                                        ? FontWeight.bold
-                                        : null,
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Center(
+                                      child: MyText(
+                                        title: loginData.authTypesList[index],
+                                        size: 10,
+                                        color: index == state.data
+                                            ? MyColors.primary
+                                            : MyColors.blackOpacity,
+                                        fontWeight: index == state.data
+                                            ? FontWeight.bold
+                                            : null,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],

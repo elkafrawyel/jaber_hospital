@@ -343,6 +343,7 @@
   "finishChat": "Finish Chat",
   "travelCityDestination": "The city you want to travel to",
   "noOffers": "No offers",
-  "myLoc": "My Location"
+  "myLoc": "My Location",
+  "signOut": "sign out"
 
 }

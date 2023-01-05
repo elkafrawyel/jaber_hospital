@@ -181,6 +181,7 @@ class GeneralHttpMethods {
       context.read<AuthCubit>().onUpdateAuth(false);
       CustomToast.showSimpleToast(
           msg: 'Sign Out Successfully', color: MyColors.primary);
+      context.read<LangCubit>().onUpdateLanguage("en");
       return true;
     }
     EasyLoading.dismiss();

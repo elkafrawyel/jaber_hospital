@@ -156,8 +156,8 @@ class GeneralAlertDialog extends StatelessWidget {
                     Expanded(
                       child: DefaultButton(
                         color: Colors.white,
-                        textColor: MyColors.black.withOpacity(.7),
-                        borderColor: MyColors.greyWhite.withOpacity(.5),
+                        textColor: MyColors.primary,
+                        borderColor: MyColors.primary,
                         title: leftButtonTitle ?? '',
                         onTap: onTapLeftButton ?? () {},
                       ),
