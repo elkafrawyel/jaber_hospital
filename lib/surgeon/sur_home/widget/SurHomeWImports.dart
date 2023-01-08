@@ -1,0 +1,27 @@
+import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
+import 'package:base_flutter/res/res.dart';
+import 'package:base_flutter/surgeon/sur_account_settings/SurAccountSettingWImports.dart';
+import 'package:base_flutter/surgeon/sur_notifications/SurNotificationsImports.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tf_validator/tf_validator.dart';
+
+import '../../../general/MyApp.dart';
+import '../../../general/blocks/user_cubit/user_cubit.dart';
+import '../../../general/constants/MyColors.dart';
+import '../../../general/models/UserModel.dart';
+import '../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
+import '../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
+import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/widgets/BuildNotificationIcon.dart';
+import '../../../general/widgets/GeneralAlertDialog.dart';
+import '../SurHomeImports.dart';
+
+part 'BuildHomeAppBar.dart';
+part 'BuildHomeDrawer.dart';
+part 'BuildUpcomingAppointment.dart';
+part 'BuildUpcomingAppointmentItem.dart';
+part 'BuildHomeSearchPatient.dart';
+part 'BuildSurHomePatients.dart';

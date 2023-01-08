@@ -28,6 +28,10 @@ class _MyAppState extends State<MyApp> {
       child:  BlocBuilder<LangCubit, LangState>(
         builder: (context, state) {
           return MaterialApp(
+              scrollBehavior: const MaterialScrollBehavior(
+                // ignore: deprecated_member_use
+                androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
+              ),
             navigatorKey: navigationKey,
               debugShowCheckedModeBanner: false,
               theme: !widget.isDark

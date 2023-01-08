@@ -1,7 +1,6 @@
 part of 'UtilsImports.dart';
 
 class Utils {
-
   static Future<void> manipulateSplashData(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // bool? initTheme = prefs.getBool("dark")??false;
@@ -16,7 +15,7 @@ class Utils {
       changeLanguage("en", context);
       setCurrentUserData(data, context);
     } else {
-      Nav.navigateTo( Login(), navigatorType: NavigatorType.pushAndPopUntil);
+      Nav.navigateTo(Login(), navigatorType: NavigatorType.pushAndPopUntil);
     }
   }
 
@@ -72,13 +71,14 @@ class Utils {
       if (verified == true) {
         UserModel user = UserModel.fromJson(data["data"]);
         GlobalState.instance.set("token", user.accessToken);
-        if(LoginData().rememberMeBloc.state.data){
+        if (LoginData().rememberMeBloc.state.data) {
           await Utils.saveUserData(user);
         }
         Utils.setCurrentUserData(user, context);
         CustomToast.showSimpleToast(msg: 'Signed in successfully');
       } else if (verified == false) {
-        CustomToast.showSnackBar(context, "please verify your account first",backgroundColor: Colors.deepOrangeAccent);
+        CustomToast.showSnackBar(context, "please verify your account first",
+            backgroundColor: Colors.deepOrangeAccent);
       }
       return true;
     }
@@ -87,7 +87,15 @@ class Utils {
 
   static void setCurrentUserData(UserModel model, BuildContext context) async {
     context.read<UserCubit>().onUpdateUserData(model);
-    Nav.navigateTo( Home(index: 0,), navigatorType: NavigatorType.pushAndPopUntil);
+    if (model.userData?[0].role == "doctor") {
+      Nav.navigateTo(SurHome(), navigatorType: NavigatorType.pushAndPopUntil);
+    } else {
+      Nav.navigateTo(
+          Home(
+            index: 0,
+          ),
+          navigatorType: NavigatorType.pushAndPopUntil);
+    }
   }
 
   static changeAppTheme(BuildContext context, {bool? initTheme}) async {
@@ -106,7 +114,6 @@ class Utils {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("user", json.encode(model.toJson()));
     log("====s=s==s=ss==ss==s ${model.accessToken}- ${model.refreshToken} - ${model.toJson()}");
-
   }
 
   static void changeLanguage(String lang, BuildContext context) {
@@ -136,7 +143,7 @@ class Utils {
 
   static String getCurrentUserId({required BuildContext context}) {
     var user = context.watch<UserCubit>().state.model;
-    return user.userData?[0].id.toString()??'';
+    return user.userData?[0].id.toString() ?? '';
   }
 
   static void launchURL({required String url}) async {
@@ -316,11 +323,13 @@ class Utils {
 
   static Future<String> getAddress(LatLng latLng, BuildContext context) async {
     try {
-      List<Placemark> placeMarks = await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+      List<Placemark> placeMarks =
+          await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
 
       // List<geocoding.Placemark> placeMarks = await geocoding
       //     .placemarkFromCoordinates(latLng.latitude, latLng.longitude);
-      var data = "${placeMarks[0].country ?? ""}  ${placeMarks[0].administrativeArea ?? ""}  ${placeMarks[0].subAdministrativeArea ?? ""} ${placeMarks[0].street ?? ""}";
+      var data =
+          "${placeMarks[0].country ?? ""}  ${placeMarks[0].administrativeArea ?? ""}  ${placeMarks[0].subAdministrativeArea ?? ""} ${placeMarks[0].street ?? ""}";
       print(data);
       return data;
     } catch (e) {

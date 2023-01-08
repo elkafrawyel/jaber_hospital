@@ -79,7 +79,7 @@ class CustomInputDecoration extends InputDecoration {
   @override
   // TODO: implement hintStyle
   TextStyle? get hintStyle => lang != "ar"
-      ? GoogleFonts.roboto(fontSize: 11, color: hintColor ?? Colors.black54)
+      ? GoogleFonts.roboto(fontSize: 13, color: hintColor ?? Colors.black54)
       : GoogleFonts.cairo(fontSize: 12, color: hintColor ?? Colors.black54);
 
   @override
