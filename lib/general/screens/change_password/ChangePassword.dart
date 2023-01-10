@@ -13,18 +13,15 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: DefaultAppBar(title: 'تغيير كلمة المرور') ,
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        physics: BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
-        ),
-        children: [
-          BuildChangeForm(changePasswordData: changePasswordData),
-          BuildSaveButton(changePasswordData: changePasswordData),
-        ],
-      ),
-    );
+    return GeneralScaffold(
+        back: true,
+        title: "Change Password",
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          children: [
+            BuildChangeForm(changePasswordData: changePasswordData),
+            BuildSaveButton(changePasswordData: changePasswordData),
+          ],
+        ));
   }
 }

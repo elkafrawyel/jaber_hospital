@@ -1,5 +1,4 @@
-part  of 'SurPatientWImports.dart';
-
+part of 'SurPatientWImports.dart';
 
 class BuildPreOpItem extends StatelessWidget {
   const BuildPreOpItem({
@@ -12,9 +11,9 @@ class BuildPreOpItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-          color: Color(0xfff2f2f2),
-          borderRadius: BorderRadius.circular(15)),
+          color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -95,221 +94,196 @@ class BuildPreOpItem extends StatelessWidget {
           ),
           Divider(color: MyColors.grey),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                      5,
+                      (index) => Stack(
+                            alignment: Alignment.centerLeft,
+                            children: [
+                              if (index <= 3)
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 6,
+                                  height: 5,
+                                  color: MyColors.primary,
+                                ),
+                              CircleAvatar(
+                                backgroundColor: MyColors.primary,
+                                radius: 12.0,
+                                child: Icon(Icons.check,
+                                    color: Colors.white, size: 15),
+                              ),
+                            ],
+                          )),
+                ),
+              ),
+              InkWell(
+                onTap: (){},
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Icon(Icons.arrow_forward_ios, size: 15),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 20,bottom: 30,top: 30),
-                        child: Stack(
-                          clipBehavior: Clip.none,
+                        padding: const EdgeInsets.only(left: 2),
+                        child: Column(
                           children: [
-                            Positioned(
-                              child: Container(
-                                color: MyColors.primary,
-                                height: 2,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: -10,
-                              left: -30,
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                margin: const EdgeInsets.only(left: 20),
-                                decoration: BoxDecoration(
-                                  color: MyColors.primary,
-                                  borderRadius:
-                                  BorderRadius.circular(100),
-                                ),
-                                child: Icon(Icons.check,color: Colors.white,size: 20),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: -30,
-                              left: -20,
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
                               child: MyText(
-                                title: 'Surgery OPD',
+                                alien: TextAlign.center,
+                                title: "Surgery OPD",
                                 size: 9,
                                 color: MyColors.primary,
-                                fontWeight: FontWeight.bold,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(bottom: 30,top: 30),
-                        child: Stack(
-                          clipBehavior: Clip.none,
+                        padding: const EdgeInsets.only(left: 2),
+                        child: Column(
                           children: [
-                            Positioned(
-                              child: Container(
-                                color: MyColors.primary,
-                                height: 2,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: -10,
-                              left: -30,
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                margin: const EdgeInsets.only(left: 20),
-                                decoration: BoxDecoration(
-                                  color: MyColors.primary,
-                                  borderRadius:
-                                  BorderRadius.circular(100),
-                                ),
-                                child: Icon(Icons.check,color: Colors.white,size: 20),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: -30,
-                              left: -20,
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
                               child: MyText(
-                                title: 'Surgery OPD',
+                                alien: TextAlign.center,
+                                title: "Dietitian",
                                 size: 9,
                                 color: MyColors.primary,
-                                fontWeight: FontWeight.bold,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(bottom: 30,top: 30),
-                        child: Stack(
-                          clipBehavior: Clip.none,
+                        padding: const EdgeInsets.only(left: 2),
+                        child: Column(
                           children: [
-                            Positioned(
-                              child: Container(
-                                color: MyColors.primary,
-                                height: 2,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: -10,
-                              left: -30,
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                margin: const EdgeInsets.only(left: 20),
-                                decoration: BoxDecoration(
-                                  color: MyColors.primary,
-                                  borderRadius:
-                                  BorderRadius.circular(100),
-                                ),
-                                child: Icon(Icons.check,color: Colors.white,size: 20),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: -30,
-                              left: -20,
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
                               child: MyText(
-                                title: 'Surgery OPD',
+                                alien: TextAlign.center,
+                                title: "Physiotherapy",
                                 size: 9,
                                 color: MyColors.primary,
-                                fontWeight: FontWeight.bold,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(bottom: 30,top: 30),
-                        child: Stack(
-                          clipBehavior: Clip.none,
+                        padding: const EdgeInsets.only(left: 2),
+                        child: Column(
                           children: [
-                            Positioned(
-                              child: Container(
-                                color: MyColors.primary,
-                                height: 2,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: -10,
-                              left: -30,
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                margin: const EdgeInsets.only(left: 20),
-                                decoration: BoxDecoration(
-                                  color: MyColors.primary,
-                                  borderRadius:
-                                  BorderRadius.circular(100),
-                                ),
-                                child: Icon(Icons.check,color: Colors.white,size: 20),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: -30,
-                              left: -20,
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
                               child: MyText(
-                                title: 'Surgery OPD',
+                                alien: TextAlign.center,
+                                title: "Education",
                                 size: 9,
                                 color: MyColors.primary,
-                                fontWeight: FontWeight.bold,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 30,top: 30),
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Positioned(
-                            child: Container(
-                              color: MyColors.primary,
-                              height: 2,
-                            ),
-                          ),
-                          Positioned(
-                            bottom: -10,
-                            left: -30,
-                            child: Container(
-                              height: 30,
-                              width: 30,
-                              margin: const EdgeInsets.only(left: 20),
-                              decoration: BoxDecoration(
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 2),
+                        child: Column(
+                          children: [
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: MyText(
+                                alien: TextAlign.center,
+                                title: "Psychology",
+                                size: 9,
                                 color: MyColors.primary,
-                                borderRadius:
-                                BorderRadius.circular(100),
                               ),
-                              child: Icon(Icons.check,color: Colors.white,size: 20),
                             ),
-                          ),
-                          Positioned(
-                            bottom: -30,
-                            left: -20,
-                            child: MyText(
-                              title: 'Surgery OPD',
-                              size: 9,
-                              color: MyColors.primary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              Icon(Icons.arrow_forward_ios,color: MyColors.black,size: 20,)
+              const SizedBox(
+                width: 10,
+              )
             ],
+          ),
+          Divider(color: MyColors.grey),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MyText(
+                    title: "Surgery OPD Details;",
+                    size: 10,
+                    fontWeight: FontWeight.bold),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: MyColors.primary,
+                          radius: 12.0,
+                          child: Icon(Icons.check, color: Colors.white, size: 15),
+                        ),
+                        const SizedBox(width: 10),
+                        MyText(title: "EGD", size: 9),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: MyColors.primary,
+                          radius: 12.0,
+                          child: Icon(Icons.check, color: Colors.white, size: 15),
+                        ),
+                        const SizedBox(width: 10),
+                        MyText(title: "EGD", size: 9),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: MyColors.primary,
+                          radius: 12.0,
+                          child: Icon(Icons.check, color: Colors.white, size: 15),
+                        ),
+                        const SizedBox(width: 10),
+                        MyText(title: "EGD", size: 9),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
           )
         ],
       ),

@@ -40,29 +40,32 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
             const SizedBox(
               height: 20,
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                color: MyColors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: MyColors.greyWhite),
-              ),
-              child: Row(
-                children: [
-                  Image.asset(
-                    Res.imagesUserIcon,
-                    scale: 2.8,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  MyText(
-                    title: 'Edit Profile',
-                    size: 12,
-                    fontWeight: FontWeight.bold,
-                  )
-                ],
+            InkWell(
+              onTap: () => Nav.navigateTo( SurProfile(), navigatorType: NavigatorType.push),
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                decoration: BoxDecoration(
+                  color: MyColors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: MyColors.greyWhite),
+                ),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      Res.imagesUserIcon,
+                      scale: 2.8,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    MyText(
+                      title: 'Edit Profile',
+                      size: 12,
+                      fontWeight: FontWeight.bold,
+                    )
+                  ],
+                ),
               ),
             ),
             GestureDetector(

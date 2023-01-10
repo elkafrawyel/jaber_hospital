@@ -24,7 +24,7 @@ class BuildPrePostView extends StatelessWidget {
                 child: Row(
                   children: [
                     CachedImage(
-                      url: 'https://picsum.photos/180',
+                      url: 'https://picsum.photos/182',
                       height: 60,
                       width: 60,
                       borderRadius: BorderRadius.circular(10),

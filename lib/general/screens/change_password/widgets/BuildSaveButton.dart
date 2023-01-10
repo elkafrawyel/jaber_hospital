@@ -10,10 +10,10 @@ class BuildSaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return LoadingButton(
       btnKey: changePasswordData.btnKey,
-      title: 'حفظ ',
+      title: 'Save Changes',
       textColor: MyColors.white,
       color: MyColors.primary,
-      margin: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+      margin: EdgeInsets.symmetric(vertical: 30, horizontal: 100),
       onTap: () => changePasswordData.setChangePassword(context),
     );
   }

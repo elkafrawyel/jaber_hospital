@@ -97,6 +97,7 @@ class Res {
   static const String imagesMoreEmpty = 'assets/images/more_empty.png';
   static const String imagesMoreFill = 'assets/images/more_fill.png';
   static const String imagesMyPatients = 'assets/images/MyPatients.png';
+  static const String imagesNoResult = 'assets/images/noResult.png';
   static const String imagesNodata = 'assets/images/nodata.png';
   static const String imagesNoti = 'assets/images/noti.png';
   static const String imagesNotification = 'assets/images/notification.png';
@@ -104,6 +105,7 @@ class Res {
   static const String imagesNotifications = 'assets/images/Notifications.png';
   static const String imagesOperationsIcon = 'assets/images/OperationsIcon.png';
   static const String imagesOperationsdrawer = 'assets/images/Operationsdrawer.png';
+  static const String imagesPasswardChanged = 'assets/images/passwardChanged.png';
   static const String imagesPatientDrawer = 'assets/images/patientDrawer.png';
   static const String imagesPdf = 'assets/images/pdf.png';
   static const String imagesPerson = 'assets/images/person.png';
