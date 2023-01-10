@@ -74,7 +74,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                   ),
                   ListTile(
                     leading: Image.asset(Res.imagesPatientDrawer, scale: 2.8),
-                    onTap: () {},
+                    onTap: () => Nav.navigateTo(SurPatient(index: 0,), navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "Patients",
                       size: 12,
@@ -84,7 +84,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                   ),
                   ListTile(
                     leading: Image.asset(Res.imagesMdtopdrawer, scale: 2.5),
-                    onTap: () {},
+                    onTap: () => Nav.navigateTo(SurMdtDiscussions(), navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "MDT Discussions",
                       size: 12,
@@ -95,7 +95,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                   ListTile(
                     leading:
                         Image.asset(Res.imagesOperationsdrawer, scale: 2.8),
-                    onTap: () {},
+                    onTap: () => Nav.navigateTo(SurOperations(), navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "Operations",
                       size: 12,
@@ -106,7 +106,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                   ListTile(
                     leading:
                         Image.asset(Res.imagesAppointmentsdrawer, scale: 2.8),
-                    onTap: () {},
+                    onTap: () => Nav.navigateTo(SurFollowUps(), navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "Follow-ups",
                       size: 12,

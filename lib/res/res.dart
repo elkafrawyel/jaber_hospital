@@ -10,6 +10,7 @@ class Res {
   static const String imagesAboutus = 'assets/images/aboutus.png';
   static const String imagesAdd = 'assets/images/add.png';
   static const String imagesAddd = 'assets/images/addd.png';
+  static const String imagesAllPatient = 'assets/images/AllPatient.png';
   static const String imagesAllPatients = 'assets/images/AllPatients.png';
   static const String imagesAmerica = 'assets/images/america.png';
   static const String imagesAppIcon = 'assets/images/appIcon.png';
