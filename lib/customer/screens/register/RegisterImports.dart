@@ -13,5 +13,4 @@ import 'package:flutter/material.dart';
 import '../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 
 part 'Register.dart';
-
 part 'RegisterData.dart';

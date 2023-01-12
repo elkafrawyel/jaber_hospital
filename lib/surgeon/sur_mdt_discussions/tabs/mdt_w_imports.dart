@@ -7,7 +7,7 @@ import '../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../SurMdtDiscussionsImports.dart';
 
+part 'BuildNoResultDecision.dart';
 part 'booked_mdt.dart';
 part 'decision_mdt.dart';
 part 'ready_mdt.dart';
-part 'BuildNoResultDecision.dart';

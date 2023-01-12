@@ -10,6 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tf_validator/validator/Validator.dart';
 
+part 'BuildRegisterButton.dart';
 part 'BuildRegisterInputs.dart';
 part 'BuildRegisterPic.dart';
-part 'BuildRegisterButton.dart';

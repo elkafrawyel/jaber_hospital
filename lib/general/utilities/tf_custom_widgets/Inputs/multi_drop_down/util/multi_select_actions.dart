@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'multi_select_item.dart';
 
 /// Contains common actions that are used by different multi select classes.

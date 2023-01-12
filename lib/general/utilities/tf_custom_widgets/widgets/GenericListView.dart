@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
+import '../utils/generic_cubit/generic_cubit.dart';
 import 'GridFixedHeightDelegate.dart';
 import 'MyText.dart';
-import '../utils/generic_cubit/generic_cubit.dart';
 
 enum ListViewType { normal, api, separated, grid, gridApi }
 

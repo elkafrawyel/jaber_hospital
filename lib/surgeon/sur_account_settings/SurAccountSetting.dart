@@ -19,7 +19,6 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
             Column(
               children: [
                 CachedImage(
-                  //doctor image
                     url: 'https://www.w3schools.com/w3images/avatar6.png',
                     height: 100,
                     width: 100,

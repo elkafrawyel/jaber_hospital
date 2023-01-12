@@ -1,6 +1,5 @@
 import 'dart:collection';
 
-
 import 'package:base_flutter/general/utilities/http/dio/dio_cache_helper/dio_http_cache.dart';
 import 'package:quiver/cache.dart';
 

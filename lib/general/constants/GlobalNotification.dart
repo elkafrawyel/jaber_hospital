@@ -1,24 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-import 'package:base_flutter/general/screens/login/LoginImports.dart';
-import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
-import 'package:base_flutter/general/utilities/utils_functions/UtilsImports.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:dio/dio.dart';
-import 'dart:async';
-import 'dart:convert';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 import "dart:developer";
-import "package:firebase_core/firebase_core.dart";
 
-import '../MyApp.dart';
+import "package:firebase_core/firebase_core.dart";
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 
 /// --------------- old notification --------------

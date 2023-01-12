@@ -10,10 +10,9 @@ class SurMdtDiscussionsData {
 
 
   void init (){
-    // selectedTabCubit = GenericBloc(0);
+
     decisionType = GenericBloc(0);
 
-    // selectedTabCubit.onUpdateData(index);
   }
 
 

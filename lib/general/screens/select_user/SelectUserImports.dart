@@ -4,5 +4,4 @@ import 'package:base_flutter/general/widgets/HeaderLogo.dart';
 import 'package:flutter/material.dart';
 
 part 'SelectUser.dart';
-
 part 'SelectUserData.dart';

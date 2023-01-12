@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:ui' show lerpDouble;
+
+import 'package:flutter/material.dart';
 
 enum ButtonState { Busy, Idle }
 

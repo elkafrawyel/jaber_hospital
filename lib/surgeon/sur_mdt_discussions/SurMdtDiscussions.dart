@@ -22,28 +22,7 @@ class _SurMdtDiscussionsState extends State<SurMdtDiscussions> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TabBar(
-              onTap: (index) {},
-              indicatorColor: MyColors.primary,
-              labelColor: MyColors.primary,
-              indicatorWeight: 3,
-              indicatorSize: TabBarIndicatorSize.tab,
-              unselectedLabelStyle:
-              WidgetUtils.textStyle.copyWith(color: MyColors.grey,fontSize: 14),
-              labelStyle:
-              WidgetUtils.textStyle.copyWith(color: MyColors.primary,fontSize: 14,fontWeight: FontWeight.bold),
-              unselectedLabelColor: MyColors.grey,
-              tabs: [
-                Tab(
-                  child: Text("Ready"),
-                ),
-                Tab(
-                  child: Text("Booked"),
-                ),
-                Tab(
-                  child: Text("Decision"),
-                ),
-              ]),
+          BuildSurMdtTabBar(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
             child: MyText(
@@ -62,3 +41,4 @@ class _SurMdtDiscussionsState extends State<SurMdtDiscussions> {
     ));
   }
 }
+

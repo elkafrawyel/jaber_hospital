@@ -26,7 +26,8 @@ import '../SurHomeImports.dart';
 
 part 'BuildHomeAppBar.dart';
 part 'BuildHomeDrawer.dart';
+part 'BuildHomeSearchPatient.dart';
+part 'BuildOverallProgress.dart';
+part 'BuildSurHomePatients.dart';
 part 'BuildUpcomingAppointment.dart';
 part 'BuildUpcomingAppointmentItem.dart';
-part 'BuildHomeSearchPatient.dart';
-part 'BuildSurHomePatients.dart';

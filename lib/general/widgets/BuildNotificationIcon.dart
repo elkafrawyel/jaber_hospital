@@ -1,4 +1,3 @@
-import 'package:base_flutter/general/MyApp.dart';
 import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
 import 'package:base_flutter/surgeon/sur_notifications/SurNotificationsImports.dart';
 import 'package:flutter/material.dart';

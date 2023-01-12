@@ -1,7 +1,8 @@
 import 'package:base_flutter/general/utilities/tf_custom_widgets/utils/WidgetUtils.dart';
 import 'package:flutter/material.dart';
-import '../util/multi_select_item.dart';
+
 import '../util/multi_select_actions.dart';
+import '../util/multi_select_item.dart';
 import '../util/multi_select_list_type.dart';
 
 /// A bottom sheet widget containing either a classic checkbox style list, or a chip style list.

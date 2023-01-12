@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
-import './text_field_props.dart';
-import './scrollbar_props.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import './scrollbar_props.dart';
+import './text_field_props.dart';
 import '../CustomDropDown.dart';
 
 class SelectDialog<T> extends StatefulWidget {

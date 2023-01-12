@@ -1,6 +1,5 @@
 import 'dart:io';
 
-
 import 'package:base_flutter/general/utilities/http/dio/dio_cache_helper/dio_http_cache.dart';
 import 'package:base_flutter/general/utilities/http/dio/dio_cache_helper/src/core/config.dart';
 import 'package:base_flutter/general/utilities/http/dio/dio_cache_helper/src/store/store_impl.dart';

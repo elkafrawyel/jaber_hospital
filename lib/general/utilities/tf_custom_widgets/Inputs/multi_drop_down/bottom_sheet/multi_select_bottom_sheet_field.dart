@@ -5,6 +5,7 @@ import 'package:base_flutter/general/utilities/tf_custom_widgets/utils/generic_c
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../chip_display/multi_select_chip_display.dart';
 import '../util/multi_select_item.dart';
 import '../util/multi_select_list_type.dart';
