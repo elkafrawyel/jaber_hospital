@@ -143,7 +143,7 @@ class Utils {
 
   static String getCurrentUserId({required BuildContext context}) {
     var user = context.watch<UserCubit>().state.model;
-    return user.userData?[0].id.toString() ?? '';
+    return user.userData?[0].fullNameAr.toString() ?? '';
   }
 
   static void launchURL({required String url}) async {

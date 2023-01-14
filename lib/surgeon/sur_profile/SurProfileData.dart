@@ -31,7 +31,7 @@ class SurProfileData {
 
   void initProfile(BuildContext context) {
     UserModel user = context.read<UserCubit>().state.model;
-    name.text = user.userData?[0].name ?? '';
+    name.text = user.userData?[0].fullNameAr ?? '';
     email.text =user.userData?[0].email ?? '';
     // age.text = user.userData?[0].age ?? '';
     job.text = user.userData?[0].role ?? '';

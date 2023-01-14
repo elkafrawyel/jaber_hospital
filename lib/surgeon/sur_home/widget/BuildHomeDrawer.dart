@@ -22,7 +22,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                       child: Row(
                         children: [
                           CachedImage(
-                            url: user?.image ?? "https://picsum.photos/203",
+                            url: user?.email ?? "https://picsum.photos/203",
                             height: 80,
                             width: 80,
                             fit: BoxFit.cover,
@@ -35,7 +35,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               MyText(
-                                title: user?.name ?? "Samer Hany",
+                                title: user?.gender ?? "Samer Hany",
                                 size: 14,
                                 color: MyColors.primary,
                                 fontWeight: FontWeight.bold,
@@ -143,7 +143,7 @@ class LogoutDialog extends StatelessWidget {
       alertButtonType: AlertButtonType.dueButton,
       alertTextType: AlertContentType.noTitle,
       alertImageType: AlertImageType.noImg,
-      onTapRightButton: () => navigationKey.currentState!.pop(),
+      onTapRightButton: () => GeneralHttpMethods(context).logOut(),
       onTapLeftButton: () => navigationKey.currentState!.pop(),
       rightButtonTitle: "Logout",
       leftButtonTitle: "Cancel",
