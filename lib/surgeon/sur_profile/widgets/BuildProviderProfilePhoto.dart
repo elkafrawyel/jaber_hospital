@@ -20,7 +20,7 @@ class BuildProviderProfilePhoto extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CachedImage(
-                        url:  user.userData?[0].fullNameAr??'https://picsum.photos/212',
+                        url:  user.userData?[0].image??'https://picsum.photos/212',
                         width: 120,
                         height: 120,
                         boxShape: BoxShape.circle,

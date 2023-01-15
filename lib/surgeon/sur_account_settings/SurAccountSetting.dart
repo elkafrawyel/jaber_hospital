@@ -10,6 +10,7 @@ class SurAccountSetting extends StatefulWidget {
 class _SurAccountSettingState extends State<SurAccountSetting> {
   @override
   Widget build(BuildContext context) {
+    UserModel model = context.watch<UserCubit>().state.model;
     return GeneralScaffold(
         back: true,
         title: "Account Settings",
@@ -19,18 +20,18 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
             Column(
               children: [
                 CachedImage(
-                    url: 'https://www.w3schools.com/w3images/avatar6.png',
+                    url:model.userData?[0].image?? 'https://www.w3schools.com/w3images/avatar6.png',
                     height: 100,
                     width: 100,
                     borderRadius: BorderRadius.circular(100)),
                 const SizedBox(height: 10),
                 MyText(
-                  title: "Samer Hany",
+                  title: model.userData?[0].fullNameEn??'',
                   size: 12,
                   fontWeight: FontWeight.bold,
                 ),
                 MyText(
-                  title: "Surgeon",
+                  title: model.userData?[0].role??'',
                   size: 11,
                   color: MyColors.grey,
                 ),

@@ -22,7 +22,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                       child: Row(
                         children: [
                           CachedImage(
-                            url: user?.email ?? "https://picsum.photos/203",
+                            url: user?.image ?? "https://picsum.photos/203",
                             height: 80,
                             width: 80,
                             fit: BoxFit.cover,
@@ -35,7 +35,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               MyText(
-                                title: user?.gender ?? "Samer Hany",
+                                title: user?.fullNameEn ?? "Samer Hany",
                                 size: 14,
                                 color: MyColors.primary,
                                 fontWeight: FontWeight.bold,

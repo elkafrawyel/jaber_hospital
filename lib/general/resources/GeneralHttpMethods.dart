@@ -162,9 +162,6 @@ class GeneralHttpMethods {
 
 
   Future<bool> logOut() async {
-    // var bnv = context.read<BottomNavCubit>();
-    // var lang = context.read<LangCubit>().state.locale.languageCode;
-    // String? deviceId = await Utils.getDeviceId();
     LoadingDialog.showLoadingDialog();
     var data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.logout,
@@ -185,6 +182,26 @@ class GeneralHttpMethods {
       return true;
     }
     EasyLoading.dismiss();
+    return false;
+  }
+
+
+  Future<bool> changePass(String password) async {
+    Map<String, dynamic> body = {
+      "password": "$password",
+
+    };
+    dynamic data = await GenericHttp<dynamic>(context).callApi(
+      name: ApiNames.changePassword,
+      returnType: ReturnType.Type,
+      jsonBody: body,
+      showLoader: false,
+      methodType: MethodType.Post,
+    );
+    if(data!=null){
+      HandleData.instance.handlePostData(data, context,fullData: true,showMsg: true);
+      return true;
+    }
     return false;
   }
 }

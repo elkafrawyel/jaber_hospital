@@ -35,4 +35,6 @@ class GeneralRepository {
   Future<bool> sendMessage({ String? name, String? mail, String? message}) =>
       _generalHttpMethods.sendMessage(name, mail, message);
 
+  Future<bool> changePass({required String password})=> _generalHttpMethods.changePass(password);
+
 }

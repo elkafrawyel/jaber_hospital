@@ -14,15 +14,16 @@ class ChangePasswordData {
   final GenericBloc<bool> showConfirmNewPassBloc = GenericBloc(true);
 
   void setChangePassword(BuildContext context)async{
-    showDialog(context: context, builder: (context)=>BuildChangePassDialog());
-    // if(formKey.currentState!.validate()){
-      // btnKey.currentState.animateForward();
-      // var result = await CustomerRepository(context).changePassword(newPass: newPassword.text,oldPass: oldPassword.text);
-      // btnKey.currentState.animateReverse();
-      // if(result){
-      //   ExtendedNavigator.of(context).pop();
-      // }
-    // }
+    FocusScope.of(context).requestFocus(FocusNode());
+    if(formKey.currentState!.validate()){
+      btnKey.currentState?.animateForward();
+      var result = await GeneralRepository(context).changePass(password: newPassword.text);
+      btnKey.currentState?.animateReverse();
+      if(result){
+        navigationKey.currentState!.pop();
+        showDialog(context: context, builder: (context)=>BuildChangePassDialog());
+      }
+    }
   }
 
 }

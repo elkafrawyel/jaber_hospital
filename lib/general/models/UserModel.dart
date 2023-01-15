@@ -34,9 +34,12 @@ class UserData {
   String? fullNameAr;
   String? fullNameEn;
   String? gender;
+  String? image;
   String? role;
   bool? status;
   DoctorRoleId? doctorRoleId;
+  int? age;
+  String? drPhone;
 
   UserData(
       {this.sId,
@@ -45,9 +48,12 @@ class UserData {
         this.fullNameAr,
         this.fullNameEn,
         this.gender,
+        this.image,
         this.role,
         this.status,
-        this.doctorRoleId});
+        this.doctorRoleId,
+        this.age,
+        this.drPhone});
 
   UserData.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -56,11 +62,14 @@ class UserData {
     fullNameAr = json['full_name_ar'];
     fullNameEn = json['full_name_en'];
     gender = json['gender'];
+    image = json['image'];
     role = json['role'];
     status = json['status'];
     doctorRoleId = json['doctor_role_id'] != null
         ? new DoctorRoleId.fromJson(json['doctor_role_id'])
         : null;
+    age = json['age'];
+    drPhone = json['dr_phone'];
   }
 
   Map<String, dynamic> toJson() {
@@ -71,11 +80,14 @@ class UserData {
     data['full_name_ar'] = this.fullNameAr;
     data['full_name_en'] = this.fullNameEn;
     data['gender'] = this.gender;
+    data['image'] = this.image;
     data['role'] = this.role;
     data['status'] = this.status;
     if (this.doctorRoleId != null) {
       data['doctor_role_id'] = this.doctorRoleId!.toJson();
     }
+    data['age'] = this.age;
+    data['dr_phone'] = this.drPhone;
     return data;
   }
 }
@@ -116,4 +128,5 @@ class DoctorRoleId {
     return data;
   }
 }
+
 
