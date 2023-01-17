@@ -27,7 +27,7 @@ class _SurPatientState extends State<SurPatient> {
                 icon: Icon(Icons.search, color: MyColors.primary, size: 30),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () =>Nav.navigateTo(SurAddPatient(), navigatorType: NavigatorType.push),
                 icon: Container(
                     decoration: BoxDecoration(
                         color: MyColors.primary,

@@ -7,5 +7,5 @@ import '../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../res/res.dart';
 
-part  'BuildSurOperationsTabBar.dart';
 part 'BuildSurOperationsItem.dart';
+part  'BuildSurOperationsTabBar.dart';
