@@ -9,6 +9,7 @@ class AddPatientFirstPage extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       children: [
+
         GenericTextField(
           hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
           fieldTypes: FieldTypes.normal,
