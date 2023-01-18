@@ -1,0 +1,34 @@
+import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
+import 'package:base_flutter/res/res.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tf_validator/tf_validator.dart';
+
+import '../../../../general/MyApp.dart';
+import '../../../../general/blocks/user_cubit/user_cubit.dart';
+import '../../../../general/constants/MyColors.dart';
+import '../../../../general/models/UserModel.dart';
+import '../../../../general/resources/GeneralRepoImports.dart';
+import '../../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
+import '../../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
+import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../../general/widgets/BuildNotificationIcon.dart';
+import '../../../../general/widgets/GeneralAlertDialog.dart';
+import '../../sur_account_settings/SurAccountSettingWImports.dart';
+import '../../sur_follow_ups/SurFollowUpsImports.dart';
+import '../../sur_home_patient/SurHomePatientImports.dart';
+import '../../sur_mdt_discussions/SurMdtDiscussionsImports.dart';
+import '../../sur_notifications/SurNotificationsImports.dart';
+import '../../sur_oprations/SurOperationsImports.dart';
+import '../../sur_patient/SurPatientImports.dart';
+import '../SurHomeImports.dart';
+
+part 'BuildHomeAppBar.dart';
+part 'BuildHomeDrawer.dart';
+part 'BuildHomeSearchPatient.dart';
+part 'BuildOverallProgress.dart';
+part 'BuildSurHomePatients.dart';
+part 'BuildUpcomingAppointment.dart';
+part 'BuildUpcomingAppointmentItem.dart';

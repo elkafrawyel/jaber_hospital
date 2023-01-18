@@ -18,7 +18,6 @@ import 'package:base_flutter/general/utilities/http/dio/utils/GlobalState.dart';
 import 'package:base_flutter/general/utilities/tf_custom_widgets/utils/WidgetUtils.dart';
 import 'package:base_flutter/general/utilities/utils_functions/ApiNames.dart';
 import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
-import 'package:base_flutter/surgeon/sur_home/SurHomeImports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,6 +34,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../customer/screens/home/HomeImports.dart';
+import '../../../surgeon/screens/sur_home/SurHomeImports.dart';
 import '../../blocks/theme_cubit/theme_cubit.dart';
 import 'LoadingDialog.dart';
 

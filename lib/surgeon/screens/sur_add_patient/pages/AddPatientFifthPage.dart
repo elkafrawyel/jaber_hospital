@@ -1,0 +1,154 @@
+part of 'PagesWImports.dart';
+
+class AddPatientFifthPage extends StatelessWidget {
+  const AddPatientFifthPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      children: [
+        MyText(
+          title: "Procedures:",
+          size: 12,
+          fontWeight: FontWeight.bold,
+          color: MyColors.primary,
+        ),
+        const SizedBox(height: 10),
+        MyText(
+          title: "Previous bariatric revisional procedures:",
+          size: 12,
+          fontWeight: FontWeight.bold,
+          color: MyColors.black,
+        ),
+        BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+          bloc: SurAddPatientData().ProceduresSelectionCubit,
+          builder: (context, state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RadioListTile(
+                    title: MyText(
+                      title: "Yes",
+                      size: 12,
+                      color: MyColors.black,
+                    ),
+                    value: true,
+                    groupValue: state.data,
+                    onChanged: (value) => SurAddPatientData()
+                        .ProceduresSelectionCubit
+                        .onUpdateData(value!)),
+                RadioListTile(
+                    title: MyText(
+                      title: "No",
+                      size: 12,
+                      color: MyColors.black,
+                    ),
+                    value: false,
+                    groupValue: state.data,
+                    onChanged: (value) => SurAddPatientData()
+                        .ProceduresSelectionCubit
+                        .onUpdateData(value!)),
+                Offstage(
+                  offstage: !state.data,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MyText(
+                          title: "Outcome Result",
+                          size: 12,
+                          fontWeight: FontWeight.bold),
+                      GenericTextField(
+                        hintColor: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            ?.color
+                            ?.withOpacity(.8),
+                        fieldTypes: FieldTypes.normal,
+                        fillColor: MyColors.textFields,
+                        hint: "Outcome weight loss result",
+                        controller:
+                        SurAddPatientData().proceduresOutcomeResultCubit,
+                        margin:
+                        const EdgeInsets.symmetric(vertical: 10),
+                        action: TextInputAction.next,
+                        type: TextInputType.text,
+                        validate: (value) =>
+                            value!.validateEmpty(context),
+                      ),
+                      MyText(
+                          title: "Outcome Date",
+                          size: 12,
+                          fontWeight: FontWeight.bold),
+                      GenericTextField(
+                        hintColor: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            ?.color
+                            ?.withOpacity(.8),
+                        fieldTypes: FieldTypes.normal,
+                        fillColor: MyColors.textFields,
+                        hint: "Outcome date",
+                        controller: SurAddPatientData().proceduresOutcomeDateCubit,
+                        margin:
+                        const EdgeInsets.symmetric(vertical: 10),
+                        action: TextInputAction.next,
+                        type: TextInputType.text,
+                        validate: (value) =>
+                            value!.validateEmpty(context),
+                      ),
+                      MyText(
+                          title: "Surgery Type:",
+                          size: 12,
+                          fontWeight: FontWeight.bold),
+                      BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                        bloc: SurAddPatientData().surgeryTypeCubit,
+                        builder: (context, state) {
+                          return Wrap(
+                            direction: Axis.horizontal,
+                            children: List.generate(
+                              SurAddPatientData().surgeryTypes.length,
+                                  (index) => Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Radio(
+                                      value: SurAddPatientData()
+                                          .surgeryTypes[index],
+                                      groupValue: state.data,
+                                      onChanged: (value) => SurAddPatientData()
+                                          .surgeryTypeCubit
+                                          .onUpdateData(value!),
+                                    ),
+                                    MyText(
+                                      title: SurAddPatientData()
+                                          .surgeryTypes[index],
+                                      size: 12,
+                                      color: MyColors.black,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+
+
+        DefaultButton(
+          title: "Next",
+          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+          onTap: () => SurAddPatientData().nextPage(),
+        ),
+      ],
+    );
+  }
+}

@@ -32,5 +32,22 @@ class AddPatientDTOInfo {
     "More than 20 cigarettes",
     "Shisha",
   ];
-
+  /// screen 4
+  static final List<String> medicationTypes = [
+    "Victoza",
+    "Saxenda",
+    "Ozempic",
+    "Wegovo",
+    "Trulicity",
+  ];
+  /// screen 5
+  static final List<String> surgeryTypes = [
+    "LSG",
+    "LAGB",
+    "Pilcation",
+    "RYGBP",
+    "MGBP",
+    "SADI-S",
+    "SASI",
+  ];
 }
