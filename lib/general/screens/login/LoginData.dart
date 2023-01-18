@@ -1,7 +1,6 @@
 part of 'LoginImports.dart';
 
 class LoginData {
-  //singleton
   LoginData._();
   static final LoginData _instance = LoginData._();
 
@@ -26,8 +25,7 @@ class LoginData {
 
   }
   List<String> authTypesList = ['Doctor', "Patient", "Company"];
-  String get _getAuthType =>
-      authTypesList[selectAuthType.state.data].toLowerCase();
+  String get _getAuthType => authTypesList[selectAuthType.state.data].toLowerCase();
 
   void userLogin(BuildContext context) async {
     FocusScope.of(context).requestFocus(FocusNode());

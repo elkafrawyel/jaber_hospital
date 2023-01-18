@@ -1,0 +1,141 @@
+part of 'PagesWImports.dart';
+
+class AddPatientThirdPage extends StatelessWidget {
+  const AddPatientThirdPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      children: [
+        MyText(
+          title: "Reflux & Reflux Medications",
+          size: 12,
+          fontWeight: FontWeight.bold,
+          color: MyColors.primary,
+        ),
+        const SizedBox(height: 10),
+        MyText(
+          title: "Reflux:",
+          size: 12,
+          fontWeight: FontWeight.bold,
+          color: MyColors.black,
+        ),
+        BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+          bloc: SurAddPatientData().dmSelectionCubit,
+          builder: (context, state) {
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                        value: true,
+                        groupValue: state.data,
+                        onChanged: (value) => SurAddPatientData()
+                            .dmSelectionCubit
+                            .onUpdateData(value!)),
+                    MyText(
+                      title: "Yes",
+                      size: 12,
+                      color: MyColors.black,
+                    ),
+                    const SizedBox(width: 40),
+                    Radio(
+                        value: false,
+                        groupValue: state.data,
+                        onChanged: (value) => SurAddPatientData()
+                            .dmSelectionCubit
+                            .onUpdateData(value!)),
+                    MyText(
+                      title: "No",
+                      size: 12,
+                      color: MyColors.black,
+                    ),
+                  ],
+                ),
+                Offstage(
+                  offstage: !state.data,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MyText(
+                        title: "Medications:",
+                        size: 12,
+                        fontWeight: FontWeight.bold,
+                        color: MyColors.black,
+                      ),
+                      BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                        bloc: SurAddPatientData().medicationsCubit,
+                        builder: (context, state) {
+                          return  Wrap(
+                            direction: Axis.horizontal,
+                            children: List.generate(
+                              SurAddPatientData().medications.length,
+                                  (index) => RadioListTile(
+                                value: SurAddPatientData().medications[index],
+                                groupValue: state.data,
+                                onChanged: (value) => SurAddPatientData().medicationsCubit.onUpdateData(value!),
+                                title: MyText(
+                                  title: SurAddPatientData().medications[index],
+                                  size: 12,
+                                  color: MyColors.black,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+        const Divider(),
+        MyText(
+          title: "Smoking Habits:",
+          size: 12,
+          fontWeight: FontWeight.bold,
+          color: MyColors.primary,
+        ),
+        BlocBuilder<GenericBloc<String>, GenericState<String>>(
+          bloc: SurAddPatientData().smokingHabitsCubit,
+          builder: (context, state) {
+            return  Wrap(
+              direction: Axis.horizontal,
+              children: List.generate(
+                SurAddPatientData().smokingHabits.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Radio(
+                  value: SurAddPatientData().smokingHabits[index],
+                  groupValue: state.data,
+                  onChanged: (value) => SurAddPatientData().smokingHabitsCubit.onUpdateData(value!),
+
+                ),
+                          MyText(
+                            title: SurAddPatientData().smokingHabits[index],
+                            size: 12,
+                            color: MyColors.black,
+                          )
+                        ],
+                      ),
+                    ),
+              ),
+            );
+          },
+        ),
+
+        DefaultButton(
+          title: "Next",
+          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+          onTap: () => SurAddPatientData().nextPage(),
+        ),
+      ],
+    );
+  }
+}

@@ -115,7 +115,6 @@ class LocationAddressData {
   /// used when search get pressed.
 
   void onSearchError(PlacesAutocompleteResponse response) {
-    // ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text(response.errorMessage!)));
     CustomToast.showSimpleToast(msg: response.errorMessage ?? '');
   }
 

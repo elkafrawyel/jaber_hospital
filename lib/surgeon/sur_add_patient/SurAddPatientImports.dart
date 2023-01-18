@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../general/constants/MyColors.dart';
+import '../models/add_patient_models.dart';
 
 part 'SurAddPatient.dart';
 part 'SurAddPatientData.dart';

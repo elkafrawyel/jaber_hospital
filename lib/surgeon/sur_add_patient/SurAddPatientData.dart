@@ -9,9 +9,30 @@ class SurAddPatientData {
 
   late PageController pageController;
   late GenericBloc<int> pageCubit;
+  /// first page
   late TextEditingController patientName ;
   late TextEditingController patientId ;
   late TextEditingController patientFileNumber ;
+  late TextEditingController patientMobile ;
+  late TextEditingController patientAge ;
+  late TextEditingController patientWeight ;
+  late TextEditingController patientHeight ;
+  late TextEditingController BMI ;
+  /// second page
+  late TextEditingController otherNotes ;
+  late GenericBloc<bool> dmSelectionCubit;
+  late GenericBloc<int> dmTypeSelectionCubit;
+  late GenericBloc<String> diagnosisTypesCubit;
+  late GenericBloc<String> cardiacDiseaseCubit;
+  late GenericBloc<String> respiratoryDiseaseCubit;
+  List<String> get diagnosisTypes => AddPatientDTOInfo.diagnosisTypes;
+  List<String> get cardiacDiseaseTypes => AddPatientDTOInfo.cardiacDisease;
+  List<String> get respiratoryDiseaseTypes => AddPatientDTOInfo.respiratoryDisease;
+  /// third page
+  late GenericBloc<String> medicationsCubit;
+  late GenericBloc<String> smokingHabitsCubit;
+  List<String> get medications => AddPatientDTOInfo.Medications;
+  List<String> get smokingHabits => AddPatientDTOInfo.smokingHabits;
 
 
 
@@ -21,13 +42,27 @@ class SurAddPatientData {
     patientName = TextEditingController();
     patientId = TextEditingController();
     patientFileNumber = TextEditingController();
+    patientMobile = TextEditingController();
+    patientAge = TextEditingController();
+    patientWeight = TextEditingController();
+    patientHeight = TextEditingController();
+    BMI = TextEditingController();
+    otherNotes = TextEditingController();
+    dmSelectionCubit = GenericBloc(false);
+    dmTypeSelectionCubit = GenericBloc(0);
+    diagnosisTypesCubit = GenericBloc("");
+    cardiacDiseaseCubit = GenericBloc("");
+    respiratoryDiseaseCubit = GenericBloc("");
+    medicationsCubit = GenericBloc("");
+    smokingHabitsCubit = GenericBloc("");
     onPageChanged();
   }
 
 
+
   void nextPage() {
     pageController.nextPage(
-        duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+        duration: Duration(milliseconds: 500), curve: Curves.fastLinearToSlowEaseIn);
     pageCubit.onUpdateData(pageCubit.state.data + 1);
   }
 
@@ -48,7 +83,7 @@ class SurAddPatientData {
       case 1:
         return AddPatientSecondPage();
       case 2:
-        return Container();
+        return AddPatientThirdPage();
       case 3:
         return Container();
       case 4:
