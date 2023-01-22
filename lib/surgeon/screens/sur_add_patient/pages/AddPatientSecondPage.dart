@@ -120,12 +120,16 @@ class AddPatientSecondPage extends StatelessWidget {
                               value: state.data.contains(list[index]),
                               onChanged: (value) {
                                 if (value!) {
-                                  log("selected value: ${state.data}");
                                   diaCubit.onUpdateData(
                                       state.data + list[index]);
+                                  // log("selected value: ${state.data}");
+                                  listt.add(list[index]);
+                                  log("listt ${listt}");
                                 } else {
                                   diaCubit.onUpdateData(state.data
                                       .replaceAll(list[index], ""));
+                                  listt.remove(list[index]);
+                                  log("listt removed ${listt}");
                                 }
                               }),
                           MyText(
@@ -133,6 +137,7 @@ class AddPatientSecondPage extends StatelessWidget {
                             size: 12,
                             color: MyColors.black,
                           ),
+                          const SizedBox(width: 40),
                         ],
                       ),
                     ],

@@ -51,12 +51,32 @@ class SurAddPatientData {
   late TextEditingController proceduresOutcomeResultCubit;
   late TextEditingController proceduresOutcomeDateCubit;
   List<String> get surgeryTypes => AddPatientDTOInfo.surgeryTypes;
+  /// sixth page
+  late TextEditingController significantLabsController;
+  List<SignificantLabsModel> get labsList => SignificantLabsModel.initList;
+  late GenericBloc<List<SignificantLabsModel>> labsCubit;
+  late GenericBloc<List<SignificantLabsModel>> selectedLabsCubit;
+  late GenericBloc<String> medicationInjectCubit;
+  List<String> get medicationInject => AddPatientDTOInfo.medicationInject;
+  late GenericBloc<String> semaglutideMedicationCubit;
+  List<String> get semaglutideMedication => AddPatientDTOInfo.semaglutideMedication;
+  late GenericBloc<bool> ultrasoundCubit;
+  late GenericBloc<String> USFindingsCubit;
+  List<String> get USFindings => AddPatientDTOInfo.USFindings;
+  late TextEditingController otherUSFindingsController;
+  late TextEditingController FluoroscopyController;
+  late GenericBloc<File?> FluoroscopyImageCubit;
+  late TextEditingController otherNotesController;
 
 
 
 
 
 
+
+
+
+  /// #############################  init screen  #############################
   void initScreen(BuildContext context) {
     pageController = PageController();
     pageCubit = GenericBloc(1);
@@ -90,27 +110,36 @@ class SurAddPatientData {
     proceduresOutcomeResultCubit = TextEditingController();
     proceduresOutcomeDateCubit = TextEditingController();
     surgeryTypeCubit = GenericBloc("");
+    significantLabsController = TextEditingController();
+    labsCubit = GenericBloc(SignificantLabsModel.initList);
+    selectedLabsCubit = GenericBloc([]);
+    medicationInjectCubit = GenericBloc("");
+    semaglutideMedicationCubit = GenericBloc("");
+    ultrasoundCubit = GenericBloc(false);
+    USFindingsCubit = GenericBloc("");
+    otherUSFindingsController = TextEditingController();
+    FluoroscopyController = TextEditingController();
+    FluoroscopyImageCubit = GenericBloc(null);
+    otherNotesController = TextEditingController();
     onPageChanged();
+  }
+  void dispose() {
+    pageController.dispose();
   }
 
 
-
+/// #############################  Page Controller  #############################
   void nextPage() {
     pageController.nextPage(
         duration: Duration(milliseconds: 500), curve: Curves.fastLinearToSlowEaseIn);
     pageCubit.onUpdateData(pageCubit.state.data + 1);
   }
-
-
   void onPageChanged() {
     pageController.addListener(() {
       int nextPage = pageController.page!.round();
         pageCubit.onUpdateData(nextPage + 1);
     });
   }
-
-
-  //change pages widgets by index
   Widget buildAddPatientPage(int index) {
     switch (index) {
       case 0:
@@ -124,7 +153,7 @@ class SurAddPatientData {
       case 4:
         return AddPatientFifthPage();
       case 5:
-        return Container();
+        return AddPatientSixthPage();
       case 6:
         return AddPatientFirstPage();
       default:
@@ -132,10 +161,24 @@ class SurAddPatientData {
     }
   }
 
-
-
-  void dispose() {
-    pageController.dispose();
+  /// #############################  first page  #############################
+/// #############################  second page  #############################
+/// #############################  third page  #############################
+/// #############################  fourth page  #############################
+/// #############################  fifth page  #############################
+/// #############################  sixth page  #############################
+  setFluoroscopyImage() async {
+    var image = await Utils.getImage();
+    if (image != null) {
+      FluoroscopyImageCubit.onUpdateData(image);
+    }
   }
+/// #############################  seventh page  #############################
+
+
+
+
+
+
 
 }

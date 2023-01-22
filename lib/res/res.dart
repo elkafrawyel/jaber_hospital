@@ -42,6 +42,7 @@ class Res {
   static const String imagesDiscount = 'assets/images/discount.gif';
   static const String imagesDoc = 'assets/images/doc.png';
   static const String imagesEdit = 'assets/images/edit.png';
+  static const String imagesEditIconff = 'assets/images/editIconff.png';
   static const String imagesExcel = 'assets/images/excel.png';
   static const String imagesExit = 'assets/images/exit.png';
   static const String imagesFace = 'assets/images/face.png';
