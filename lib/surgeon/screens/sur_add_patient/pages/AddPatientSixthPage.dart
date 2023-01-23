@@ -423,7 +423,6 @@ class AddPatientSixthPage extends StatelessWidget {
           ),
           validate: (value) => value!.validateEmpty(context),
         ),
-        //FluoroscopyImageCubit add image
         BlocBuilder<GenericBloc<File?>, GenericState<File?>>(
           bloc: SurAddPatientData().FluoroscopyImageCubit,
           builder: (context, state) {

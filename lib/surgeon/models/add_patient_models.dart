@@ -1,6 +1,5 @@
-
 class AddPatientDTOInfo {
-///screen 2
+  ///screen 2
   static final List<String> diagnosisTypes = [
     "HTN",
     "Dyslipidemia",
@@ -12,12 +11,13 @@ class AddPatientDTOInfo {
     "IHD",
     "HF",
   ];
-  static final List<String> respiratoryDisease =  [
+  static final List<String> respiratoryDisease = [
     "VTE",
     "Anticoagulants",
     "Antiplatelets",
   ];
-/// screen 3
+
+  /// screen 3
   static final List<String> Medications = [
     "Regular",
     "Occasional",
@@ -32,6 +32,7 @@ class AddPatientDTOInfo {
     "More than 20 cigarettes",
     "Shisha",
   ];
+
   /// screen 4
   static final List<String> medicationTypes = [
     "Victoza",
@@ -40,6 +41,7 @@ class AddPatientDTOInfo {
     "Wegovo",
     "Trulicity",
   ];
+
   /// screen 5
   static final List<String> surgeryTypes = [
     "LSG",
@@ -50,6 +52,7 @@ class AddPatientDTOInfo {
     "SADI-S",
     "SASI",
   ];
+
   /// screen 6
 
   static final List<String> HBTypes = [
@@ -83,4 +86,38 @@ class AddPatientDTOInfo {
     "Others",
   ];
 
+  /// screen 7
+  static final List<String> oesophagusGradeType = [
+    "A",
+    "B",
+    "C",
+    "D",
+  ];
+  static final List<String> GastritisType = [
+    "Antral gastritis",
+    "Fundal gastritis",
+    "Body gastritis",
+    "Pangastritis",
+  ];
+  static final List<String> HPyloriType = [
+    "Positive",
+    "Negative",
+  ];
+  static final List<String> PostSurgeryType = [
+    "LSG",
+    "RYGBP",
+    "MGBP",
+  ];
+  static final List<String> SizeType = [
+    "Small",
+    "Medium",
+    "Large",
+  ];
+  static final List<String> PostLSGStatusType = [
+    "Normal",
+    "Stricture",
+    "Twist ",
+    "Dilated fundus ",
+    "Pan-dilatation",
+  ];
 }

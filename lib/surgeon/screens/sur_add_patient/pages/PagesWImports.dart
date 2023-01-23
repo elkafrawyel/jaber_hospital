@@ -19,3 +19,4 @@ part 'AddPatientThirdPage.dart';
 part 'AddPatientFourthPage.dart';
 part 'AddPatientFifthPage.dart';
 part 'AddPatientSixthPage.dart';
+part 'AddPatientSeventhPage.dart';

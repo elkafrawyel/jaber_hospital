@@ -67,6 +67,48 @@ class SurAddPatientData {
   late TextEditingController FluoroscopyController;
   late GenericBloc<File?> FluoroscopyImageCubit;
   late TextEditingController otherNotesController;
+  late TextEditingController AnastomoticSizeController;
+  /// seventh page
+  late TextEditingController EGDResultController;
+  late GenericBloc<File?> EGDResultImageCubit;
+  late TextEditingController OtherOesophagusController;
+  late TextEditingController OtherStomachController;
+  late TextEditingController SizeController;
+  late TextEditingController OtherDuodenumController;
+  late GenericBloc<bool> EGDCubit;
+  late GenericBloc<bool> NormalOesophagusCubit;
+  late GenericBloc<bool> oesophagusCubit;
+  late GenericBloc<bool> oesophagusGradeCubit;
+  late GenericBloc<String> oesophagusGradeTypeCubit;
+  late GenericBloc<bool> barretOesophagusCubit;
+  late GenericBloc<bool> HiatusHerniaCubit;
+  late GenericBloc<String> SizeCubit;
+  late GenericBloc<bool> GastritisCubit;
+  late GenericBloc<String> GastritisTypeCubit;
+  late GenericBloc<bool> gastricUlcerCubit;
+  late GenericBloc<String> HPyloriCubit;
+  late GenericBloc<bool> PolypsCubit;
+  late GenericBloc<bool> PostSurgeryCubit;
+  late GenericBloc<String> PostSurgeryTypeCubit;
+  late GenericBloc<bool> PouchDilatationCubit;
+  late GenericBloc<bool> AnastomoticSizeCubit;
+  late GenericBloc<bool> UlcerCubit;
+  late GenericBloc<bool> StrictureCubit;
+  late GenericBloc<bool> BileCubit;
+  late GenericBloc<bool> TwistCubit;
+  late GenericBloc<String> PostLSGStatusCubit;
+  late GenericBloc<bool> NormalDuodenum;
+  late GenericBloc<bool> DuodenalUlcer;
+  late GenericBloc<bool> OtherDuodenum;
+
+  List<String> get oesophagusGradeType => AddPatientDTOInfo.oesophagusGradeType;
+  List<String> get GastritisType => AddPatientDTOInfo.GastritisType;
+  List<String> get HPyloriType => AddPatientDTOInfo.HPyloriType;
+  List<String> get PostSurgeryType => AddPatientDTOInfo.PostSurgeryType;
+  List<String> get PostLSGStatusType => AddPatientDTOInfo.PostLSGStatusType;
+  List<String> get SizeType => AddPatientDTOInfo.SizeType;
+
+
 
 
 
@@ -121,6 +163,39 @@ class SurAddPatientData {
     FluoroscopyController = TextEditingController();
     FluoroscopyImageCubit = GenericBloc(null);
     otherNotesController = TextEditingController();
+    AnastomoticSizeController = TextEditingController();
+    EGDResultController = TextEditingController();
+    OtherOesophagusController = TextEditingController();
+    OtherStomachController = TextEditingController();
+    SizeController = TextEditingController();
+    OtherDuodenumController = TextEditingController();
+    EGDCubit = GenericBloc(false);
+    NormalOesophagusCubit = GenericBloc(false);
+    oesophagusCubit = GenericBloc(false);
+    oesophagusGradeCubit = GenericBloc(false);
+    oesophagusGradeTypeCubit = GenericBloc("");
+    barretOesophagusCubit = GenericBloc(false);
+    HiatusHerniaCubit = GenericBloc(false);
+    SizeCubit = GenericBloc("");
+    GastritisCubit = GenericBloc(false);
+    gastricUlcerCubit = GenericBloc(false);
+    GastritisTypeCubit = GenericBloc("");
+    HPyloriCubit = GenericBloc("");
+    PolypsCubit = GenericBloc(false);
+    PostSurgeryCubit = GenericBloc(false);
+    PostSurgeryTypeCubit = GenericBloc("");
+    PouchDilatationCubit = GenericBloc(false);
+    AnastomoticSizeCubit = GenericBloc(false);
+    UlcerCubit = GenericBloc(false);
+    StrictureCubit = GenericBloc(false);
+    BileCubit = GenericBloc(false);
+    PostLSGStatusCubit = GenericBloc("");
+    NormalDuodenum = GenericBloc(false);
+    DuodenalUlcer = GenericBloc(false);
+    OtherDuodenum = GenericBloc(false);
+    EGDResultImageCubit = GenericBloc(null);
+    TwistCubit = GenericBloc(false);
+
     onPageChanged();
   }
   void dispose() {
@@ -155,7 +230,7 @@ class SurAddPatientData {
       case 5:
         return AddPatientSixthPage();
       case 6:
-        return AddPatientFirstPage();
+        return AddPatientSeventhPage();
       default:
         return AddPatientFirstPage();
     }
@@ -175,7 +250,12 @@ class SurAddPatientData {
   }
 /// #############################  seventh page  #############################
 
-
+  setEGDResultImage() async {
+    var image = await Utils.getImage();
+    if (image != null) {
+      EGDResultImageCubit.onUpdateData(image);
+    }
+  }
 
 
 
