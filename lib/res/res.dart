@@ -56,6 +56,7 @@ class Res {
   static const String imagesFilter = 'assets/images/filter.png';
   static const String imagesFireEmpty = 'assets/images/fire_empty.png';
   static const String imagesFireFill = 'assets/images/fire_fill.png';
+  static const String imagesFirforme = 'assets/images/firforme.png';
   static const String imagesFlow = 'assets/images/flow.png';
   static const String imagesFollow = 'assets/images/follow.png';
   static const String imagesFollowing = 'assets/images/following.png';
@@ -104,6 +105,7 @@ class Res {
   static const String imagesNotification = 'assets/images/notification.png';
   static const String imagesNotificationIcon = 'assets/images/NotificationIcon.png';
   static const String imagesNotifications = 'assets/images/Notifications.png';
+  static const String imagesNova = 'assets/images/nova.png';
   static const String imagesOperationsIcon = 'assets/images/OperationsIcon.png';
   static const String imagesOperationsdrawer = 'assets/images/Operationsdrawer.png';
   static const String imagesPasswardChanged = 'assets/images/passwardChanged.png';
@@ -139,6 +141,7 @@ class Res {
   static const String imagesStarr = 'assets/images/starr.png';
   static const String imagesStarrr = 'assets/images/starrr.png';
   static const String imagesStarrrr = 'assets/images/starrrr.png';
+  static const String imagesSumc = 'assets/images/sumc.png';
   static const String imagesSwitch1 = 'assets/images/switch1.png';
   static const String imagesTime = 'assets/images/time.png';
   static const String imagesToggle = 'assets/images/toggle.png';
