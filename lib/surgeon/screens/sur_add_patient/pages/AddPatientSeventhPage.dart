@@ -461,69 +461,83 @@ class AddPatientSeventhPage extends StatelessWidget {
                             BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
                               bloc: SurAddPatientData().GastritisCubit,
                               builder: (context, state) {
-                                return Row(
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Radio(
-                                        value: true,
-                                        groupValue: state.data,
-                                        onChanged: (value) => SurAddPatientData().GastritisCubit.onUpdateData(value!)),
-                                    MyText(
-                                      title: "Yes",
-                                      size: 12,
-                                      color: MyColors.black,
+                                    Row(
+                                      children: [
+                                        Radio(
+                                            value: true,
+                                            groupValue: state.data,
+                                            onChanged: (value) => SurAddPatientData().GastritisCubit.onUpdateData(value!)),
+                                        MyText(
+                                          title: "Yes",
+                                          size: 12,
+                                          color: MyColors.black,
+                                        ),
+                                        const SizedBox(width: 40),
+                                        Radio(
+                                            value: false,
+                                            groupValue: state.data,
+                                            onChanged: (value) => SurAddPatientData()
+                                                .GastritisCubit
+                                                .onUpdateData(value!)),
+                                        MyText(
+                                          title: "No",
+                                          size: 12,
+                                          color: MyColors.black,
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(width: 40),
-                                    Radio(
-                                        value: false,
-                                        groupValue: state.data,
-                                        onChanged: (value) => SurAddPatientData()
-                                            .GastritisCubit
-                                            .onUpdateData(value!)),
-                                    MyText(
-                                      title: "No",
-                                      size: 12,
-                                      color: MyColors.black,
+                                    Offstage(
+                                      offstage: !state.data,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          MyText(
+                                            title: "Gastritis Type",
+                                            size: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: MyColors.black,
+                                          ),
+                                          BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                                            bloc: SurAddPatientData().GastritisTypeCubit,
+                                            builder: (context, state) {
+                                              return Wrap(
+                                                spacing: 10,
+                                                direction: Axis.horizontal,
+                                                children: List.generate(
+                                                  SurAddPatientData().GastritisType.length,
+                                                      (index) => Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      Radio(
+                                                        value: SurAddPatientData().GastritisType[index],
+                                                        groupValue: state.data,
+                                                        onChanged: (value) => SurAddPatientData()
+                                                            .GastritisTypeCubit
+                                                            .onUpdateData(value!),
+                                                      ),
+                                                      MyText(
+                                                        title: SurAddPatientData().GastritisType[index],
+                                                        size: 12,
+                                                        color: MyColors.black,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 );
                               },
                             ),
-                            MyText(
-                              title: "Gastritis Type",
-                              size: 12,
-                              fontWeight: FontWeight.bold,
-                              color: MyColors.black,
-                            ),
-                            BlocBuilder<GenericBloc<String>, GenericState<String>>(
-                              bloc: SurAddPatientData().GastritisTypeCubit,
-                              builder: (context, state) {
-                                return Wrap(
-                                  spacing: 10,
-                                  direction: Axis.horizontal,
-                                  children: List.generate(
-                                    SurAddPatientData().GastritisType.length,
-                                        (index) => Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Radio(
-                                              value: SurAddPatientData().GastritisType[index],
-                                              groupValue: state.data,
-                                              onChanged: (value) => SurAddPatientData()
-                                                  .GastritisTypeCubit
-                                                  .onUpdateData(value!),
-                                            ),
-                                            MyText(
-                                              title: SurAddPatientData().GastritisType[index],
-                                              size: 12,
-                                              color: MyColors.black,
-                                            )
-                                          ],
-                                        ),
-                                  ),
-                                );
-                              },
-                            ),
+
                             MyText(
                               title: "Gastric ulcer",
                               size: 12,
@@ -645,7 +659,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                               validate: (value) => value!.validateEmpty(context),
                             ),
                             MyText(
-                              title: "Post Surgery",
+                              title: "Previous Surgery",
                               size: 12,
                               fontWeight: FontWeight.bold,
                               color: MyColors.black,
@@ -681,7 +695,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                               },
                             ),
                             MyText(
-                              title: "Post Surgery Type",
+                              title: "Previous Surgery Type",
                               size: 12,
                               fontWeight: FontWeight.bold,
                               color: MyColors.black,

@@ -50,15 +50,23 @@ class _SponsoredByState extends State<SponsoredBy> {
             ],
           ),
           const SizedBox(
-            height: 20
+            height: 60
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+          Row(
             children: [
-              Image.asset(
-                Res.imagesFirforme,
-                height: 100,
-                width: 170,
+              Expanded(
+                child: Image.asset(
+                  Res.imagesMedtronic,
+                  height: 100,
+                  width: 170,
+                ),
+              ),
+              Expanded( 
+                child: Image.asset(
+                  Res.imagesFirforme,
+                  height: 100,
+                  width: 170,
+                ),
               ),
             ],
           )

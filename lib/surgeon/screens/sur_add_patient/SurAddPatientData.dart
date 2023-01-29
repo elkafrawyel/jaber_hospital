@@ -19,6 +19,7 @@ class SurAddPatientData {
   late TextEditingController patientHeight ;
   late TextEditingController BMI ;
   /// second page
+  late GenericBloc<bool> RespiratoryDiseaseSelectionCubit;
   late TextEditingController otherNotes ;
   late GenericBloc<bool> dmSelectionCubit;
   late GenericBloc<int> dmTypeSelectionCubit;
@@ -56,10 +57,6 @@ class SurAddPatientData {
   List<SignificantLabsModel> get labsList => SignificantLabsModel.initList;
   late GenericBloc<List<SignificantLabsModel>> labsCubit;
   late GenericBloc<List<SignificantLabsModel>> selectedLabsCubit;
-  late GenericBloc<String> medicationInjectCubit;
-  List<String> get medicationInject => AddPatientDTOInfo.medicationInject;
-  late GenericBloc<String> semaglutideMedicationCubit;
-  List<String> get semaglutideMedication => AddPatientDTOInfo.semaglutideMedication;
   late GenericBloc<bool> ultrasoundCubit;
   late GenericBloc<String> USFindingsCubit;
   List<String> get USFindings => AddPatientDTOInfo.USFindings;
@@ -126,6 +123,7 @@ class SurAddPatientData {
     patientId = TextEditingController();
     patientFileNumber = TextEditingController();
     patientMobile = TextEditingController();
+    RespiratoryDiseaseSelectionCubit = GenericBloc(false);
     patientAge = TextEditingController();
     patientWeight = TextEditingController();
     patientHeight = TextEditingController();
@@ -155,8 +153,6 @@ class SurAddPatientData {
     significantLabsController = TextEditingController();
     labsCubit = GenericBloc(SignificantLabsModel.initList);
     selectedLabsCubit = GenericBloc([]);
-    medicationInjectCubit = GenericBloc("");
-    semaglutideMedicationCubit = GenericBloc("");
     ultrasoundCubit = GenericBloc(false);
     USFindingsCubit = GenericBloc("");
     otherUSFindingsController = TextEditingController();

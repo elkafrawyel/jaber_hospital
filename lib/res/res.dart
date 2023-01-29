@@ -93,6 +93,7 @@ class Res {
   static const String imagesMastercard = 'assets/images/mastercard.png';
   static const String imagesMdtopdrawer = 'assets/images/mdtopdrawer.png';
   static const String imagesMedal = 'assets/images/medal.png';
+  static const String imagesMedtronic = 'assets/images/medtronic.png';
   static const String imagesMinus = 'assets/images/minus.png';
   static const String imagesMinutesIcon = 'assets/images/MinutesIcon.png';
   static const String imagesMore = 'assets/images/more.png';

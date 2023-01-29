@@ -107,6 +107,7 @@ class AddPatientDTOInfo {
     "LSG",
     "RYGBP",
     "MGBP",
+    "LAGB",
   ];
   static final List<String> SizeType = [
     "Small",

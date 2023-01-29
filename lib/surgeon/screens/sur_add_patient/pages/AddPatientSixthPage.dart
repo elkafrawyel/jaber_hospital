@@ -229,82 +229,82 @@ class AddPatientSixthPage extends StatelessWidget {
           },
         ),
         Divider(height: 20),
-        MyText(
-          title: "Medications",
-          size: 12,
-          fontWeight: FontWeight.bold,
-          color: MyColors.black,
-        ),
-        BlocBuilder<GenericBloc<String>, GenericState<String>>(
-          bloc: SurAddPatientData().medicationInjectCubit,
-          builder: (context, state) {
-            return Wrap(
-              direction: Axis.horizontal,
-              children: List.generate(
-                SurAddPatientData().medicationInject.length,
-                (index) => Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Radio(
-                        value: SurAddPatientData().medicationInject[index],
-                        groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData()
-                            .medicationInjectCubit
-                            .onUpdateData(value!),
-                      ),
-                      MyText(
-                        title: SurAddPatientData().medicationInject[index],
-                        size: 12,
-                        color: MyColors.black,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-        MyText(
-          title: "Semaglutide Medication",
-          size: 12,
-          fontWeight: FontWeight.bold,
-          color: MyColors.black,
-        ),
-        BlocBuilder<GenericBloc<String>, GenericState<String>>(
-          bloc: SurAddPatientData().semaglutideMedicationCubit,
-          builder: (context, state) {
-            return Wrap(
-              spacing: 10,
-              direction: Axis.horizontal,
-              children: List.generate(
-                SurAddPatientData().semaglutideMedication.length,
-                (index) => Padding(
-                  padding: const EdgeInsets.only(right: 50),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Radio(
-                        value: SurAddPatientData().semaglutideMedication[index],
-                        groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData()
-                            .semaglutideMedicationCubit
-                            .onUpdateData(value!),
-                      ),
-                      MyText(
-                        title: SurAddPatientData().semaglutideMedication[index],
-                        size: 12,
-                        color: MyColors.black,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
+        // MyText(
+        //   title: "Medications",
+        //   size: 12,
+        //   fontWeight: FontWeight.bold,
+        //   color: MyColors.black,
+        // ),
+        // BlocBuilder<GenericBloc<String>, GenericState<String>>(
+        //   bloc: SurAddPatientData().medicationInjectCubit,
+        //   builder: (context, state) {
+        //     return Wrap(
+        //       direction: Axis.horizontal,
+        //       children: List.generate(
+        //         SurAddPatientData().medicationInject.length,
+        //         (index) => Padding(
+        //           padding: const EdgeInsets.only(right: 20),
+        //           child: Row(
+        //             mainAxisSize: MainAxisSize.max,
+        //             children: [
+        //               Radio(
+        //                 value: SurAddPatientData().medicationInject[index],
+        //                 groupValue: state.data,
+        //                 onChanged: (value) => SurAddPatientData()
+        //                     .medicationInjectCubit
+        //                     .onUpdateData(value!),
+        //               ),
+        //               MyText(
+        //                 title: SurAddPatientData().medicationInject[index],
+        //                 size: 12,
+        //                 color: MyColors.black,
+        //               )
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     );
+        //   },
+        // ),
+        // MyText(
+        //   title: "Semaglutide Medication",
+        //   size: 12,
+        //   fontWeight: FontWeight.bold,
+        //   color: MyColors.black,
+        // ),
+        // BlocBuilder<GenericBloc<String>, GenericState<String>>(
+        //   bloc: SurAddPatientData().semaglutideMedicationCubit,
+        //   builder: (context, state) {
+        //     return Wrap(
+        //       spacing: 10,
+        //       direction: Axis.horizontal,
+        //       children: List.generate(
+        //         SurAddPatientData().semaglutideMedication.length,
+        //         (index) => Padding(
+        //           padding: const EdgeInsets.only(right: 50),
+        //           child: Row(
+        //             mainAxisAlignment: MainAxisAlignment.start,
+        //             mainAxisSize: MainAxisSize.min,
+        //             children: [
+        //               Radio(
+        //                 value: SurAddPatientData().semaglutideMedication[index],
+        //                 groupValue: state.data,
+        //                 onChanged: (value) => SurAddPatientData()
+        //                     .semaglutideMedicationCubit
+        //                     .onUpdateData(value!),
+        //               ),
+        //               MyText(
+        //                 title: SurAddPatientData().semaglutideMedication[index],
+        //                 size: 12,
+        //                 color: MyColors.black,
+        //               )
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     );
+        //   },
+        // ),
         MyText(
           title: "Ultrasound:",
           size: 12,
@@ -357,8 +357,8 @@ class AddPatientSixthPage extends StatelessWidget {
               direction: Axis.horizontal,
               children: List.generate(
                 SurAddPatientData().USFindings.length,
-                (index) => Padding(
-                  padding: const EdgeInsets.only(right: 50),
+                (index) => Container(
+                  width: MediaQuery.of(context).size.width / 3,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -370,10 +370,12 @@ class AddPatientSixthPage extends StatelessWidget {
                             .USFindingsCubit
                             .onUpdateData(value!),
                       ),
-                      MyText(
-                        title: SurAddPatientData().USFindings[index],
-                        size: 12,
-                        color: MyColors.black,
+                      Flexible(
+                        child: MyText(
+                          title: SurAddPatientData().USFindings[index],
+                          size: 12,
+                          color: MyColors.black,
+                        ),
                       )
                     ],
                   ),
