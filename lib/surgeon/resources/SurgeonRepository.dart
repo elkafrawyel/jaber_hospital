@@ -12,5 +12,16 @@ class SurgeonRepository {
 
   Future<SurgeonHomeModel?> getHome({required String doctorId})=>_surgeonHttpMethods.getHome(doctorId);
 
+  Future<List<PatientModel>> getAllPatientPreOp()=>_surgeonHttpMethods.getAllPatientPreOp();
+
+  Future<List<PatientModel>> getAllPatientPostOp()=>_surgeonHttpMethods.getAllPatientPostOp();
+
+  Future<List<PatientModel>> getMyPatientPostOp()=>_surgeonHttpMethods.getMyPatientPostOp();
+
+  Future<List<PatientModel>> getMyPatientPreOp()=>_surgeonHttpMethods.getMyPatientPreOp();
+
+  Future<bool> updateSurgeonProfile(ProfileModel model)=>_surgeonHttpMethods.updateSurgeonProfile(model);
+
+
 
 }

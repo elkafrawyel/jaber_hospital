@@ -18,5 +18,10 @@ class ApiNames{
   static const String logout = "logout";
   static const String changePassword = "change_password";
   static const String doctorHome = "doctor_home";
+  static const String allPatientsPostOp = "all_patients_post_operation";
+  static const String allPatientsPreOp = "all_patients_pre_operation";
+  static const String myPatientsPostOp = "doctor_patients_post_operation";
+  static const String myPatientsPreOp = "doctor_patients_pre_operation";
+  static const String updateProfile = "update_profile";
 
 }

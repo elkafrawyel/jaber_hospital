@@ -30,22 +30,25 @@ class BuildSurHomeDrawer extends StatelessWidget {
                             borderRadius: BorderRadius.circular(100),
                           ),
                           const SizedBox(width: 10),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              MyText(
-                                title: user?.fullNameEn ?? "Samer Hany",
-                                size: 14,
-                                color: MyColors.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              MyText(
-                                title: user?.role ?? "Surgeon",
-                                size: 12,
-                                color: MyColors.black,
-                              ),
-                            ],
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                MyText(
+                                  title: user?.fullNameEn ?? "Samer Hany",
+                                  size: 13,
+                                  color: MyColors.primary,
+                                  overflow: TextOverflow.ellipsis,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                MyText(
+                                  title: user?.role ?? "Surgeon",
+                                  size: 12,
+                                  color: MyColors.black,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

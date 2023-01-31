@@ -15,8 +15,10 @@ class BuildSurPatientType extends StatelessWidget {
           return Row(
             children: [
               InkWell(
-                onTap: () =>
-                    SurPatientData().patientType.onUpdateData(0),
+                onTap: () {
+                  SurPatientData().patientType.onUpdateData(0) ;
+                  SurPatientData().fetchPatient(context);
+                },
                 child: Container(
                   margin: const EdgeInsets.symmetric(
                       horizontal: 5, vertical: 10),
@@ -44,8 +46,10 @@ class BuildSurPatientType extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () =>
-                    SurPatientData().patientType.onUpdateData(1),
+                onTap: () {
+                  SurPatientData().patientType.onUpdateData(1) ;
+                  SurPatientData().fetchPatient(context);
+                },
                 child: Container(
                   margin: const EdgeInsets.symmetric(
                       horizontal: 5, vertical: 10),

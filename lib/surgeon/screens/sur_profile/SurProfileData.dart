@@ -31,10 +31,11 @@ class SurProfileData {
 
   void initProfile(BuildContext context) {
     UserModel user = context.read<UserCubit>().state.model;
-    name.text = user.userData?[0].fullNameAr ?? '';
+    name.text = user.userData?[0].fullNameEn ?? '';
     email.text =user.userData?[0].email ?? '';
-    // age.text = user.userData?[0].age ?? '';
+    age.text = (user.userData?[0].age??0).toString();
     job.text = user.userData?[0].role ?? '';
+    genderBloc.onUpdateData(user.userData?[0].gender=="male"?0:1);
   }
 
   setImage() async {
@@ -42,6 +43,31 @@ class SurProfileData {
     if (image != null) {
       profileImageCubit.onUpdateData(image);
     }
+  }
+
+  saveUserProfile(BuildContext context) async {
+    FocusScope.of(context).requestFocus(FocusNode());
+    if (formKey.currentState!.validate()) {
+      btnKey.currentState!.animateForward();
+      ProfileModel model = ProfileModel(
+        email: email.text,
+        nameAr: name.text,
+        nameEn: name.text,
+        title: "title",
+        civilId: "civilId",
+        file: profileImageCubit.state.data,
+        gender: genderBloc.state.data == 0 ?"male":"female",
+
+      );
+      var result = await SurgeonRepository(context).updateSurgeonProfile(model);
+      if (result) {
+        CustomToast.showSnackBar(context,'Edited Successfully');
+        btnKey.currentState!.animateReverse();
+        navigationKey.currentState!.pop();
+      }
+      btnKey.currentState!.animateReverse();
+    }
+    btnKey.currentState!.animateReverse();
   }
 
   dispose() {

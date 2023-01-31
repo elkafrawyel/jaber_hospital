@@ -7,8 +7,7 @@ class BuildProfileButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return LoadingButton(
       title: 'Save Changes',
-      // onTap: () => SurProfileData().saveUserProfile(context),
-      onTap: () {},
+      onTap: () => SurProfileData().saveUserProfile(context),
       color: MyColors.primary,
       margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
       btnKey: SurProfileData().btnKey,

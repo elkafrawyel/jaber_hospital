@@ -13,9 +13,11 @@ class BuildSurPatientTab extends StatelessWidget {
         return Container(
           height: 60,
           child: TabBar(
-              onTap: (index) => SurPatientData()
-                  .selectedTabCubit
-                  .onUpdateData(index),
+              onTap: (index) {
+                SurPatientData().selectedTabCubit.onUpdateData(index);
+                SurPatientData().patientType.onUpdateData(0);
+                SurPatientData().fetchPatient(context);
+              },
               indicatorColor: MyColors.primary,
               labelColor: MyColors.primary,
               indicatorWeight: 3,
