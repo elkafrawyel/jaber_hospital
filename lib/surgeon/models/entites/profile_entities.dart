@@ -10,6 +10,7 @@ class ProfileModel {
   String? civilId;
   String? gender;
   String? title;
+  String? age;
 
   ProfileModel({
     this.file,
@@ -19,6 +20,7 @@ class ProfileModel {
     this.civilId,
     this.gender,
     this.title,
+    this.age,
   });
 
   Map<String, dynamic> toJson() => {
@@ -29,5 +31,6 @@ class ProfileModel {
         "civil_id": civilId,
         "gender": gender,
         "title": title,
+        "age": age,
       };
 }

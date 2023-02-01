@@ -8,6 +8,8 @@ class BuildSurHomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserData? user = context.read<UserCubit>().state.model.userData?[0];
+    log("${user?.role??''}");
+
     return Drawer(
         backgroundColor: MyColors.white,
         width: MediaQuery.of(context).size.width * 0.7,

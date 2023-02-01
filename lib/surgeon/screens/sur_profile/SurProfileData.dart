@@ -34,7 +34,7 @@ class SurProfileData {
     name.text = user.userData?[0].fullNameEn ?? '';
     email.text =user.userData?[0].email ?? '';
     age.text = (user.userData?[0].age??0).toString();
-    job.text = user.userData?[0].role ?? '';
+    job.text = user.userData?[0].role ?? 'doctor';
     genderBloc.onUpdateData(user.userData?[0].gender=="male"?0:1);
   }
 
@@ -55,6 +55,7 @@ class SurProfileData {
         nameEn: name.text,
         title: "title",
         civilId: "civilId",
+        age: age.text,
         file: profileImageCubit.state.data,
         gender: genderBloc.state.data == 0 ?"male":"female",
 
