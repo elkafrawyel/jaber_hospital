@@ -153,6 +153,8 @@ class Res {
   static const String imagesVector = 'assets/images/Vector.png';
   static const String imagesVideoPlayer = 'assets/images/video-player.png';
   static const String imagesView = 'assets/images/view.png';
+  static const String imagesCentral = 'assets/images/central.png';
+  static const String imagesEthicon = 'assets/images/ethicon.png';
   static const String imagesVisa = 'assets/images/visa.png';
   static const String imagesVisibility = 'assets/images/visibility.png';
   static const String imagesWeightLossIcon = 'assets/images/WeightLossIcon.png';

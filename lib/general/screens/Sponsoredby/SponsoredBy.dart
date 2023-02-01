@@ -69,7 +69,28 @@ class _SponsoredByState extends State<SponsoredBy> {
                 ),
               ),
             ],
-          )
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Image.asset(
+                  Res.imagesEthicon,
+                  height: 100,
+                  width: 170,
+                ),
+              ),
+              const SizedBox(
+                  height: 20
+              ),
+              Expanded(
+                child: Image.asset(
+                  Res.imagesCentral,
+                  height: 100,
+                  width: 170,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
