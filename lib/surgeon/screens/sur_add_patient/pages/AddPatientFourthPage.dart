@@ -264,6 +264,35 @@ class AddPatientFourthPage extends StatelessWidget {
                       BlocBuilder<GenericBloc<String>, GenericState<String>>(
                         bloc: SurAddPatientData().medicationTypeCubit,
                         builder: (context, state) {
+                          return  Wrap(
+                            alignment: WrapAlignment.spaceBetween,
+                            direction: Axis.horizontal,
+                            children: List.generate(
+                              SurAddPatientData().medicationTypes.length,
+                                  (index) => Container(
+                                width: MediaQuery.of(context).size.width / 2.6,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Radio(
+                                      value: SurAddPatientData().medicationTypes[index],
+                                      groupValue: state.data,
+                                      onChanged: (value) => SurAddPatientData().medicationTypeCubit.onUpdateData(value!),
+
+                                    ),
+                                    Expanded(
+                                      child: MyText(
+                                        title: SurAddPatientData().medicationTypes[index],
+                                        size: 12,
+                                        color: MyColors.black,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
                           return Wrap(
                             direction: Axis.horizontal,
                             children: List.generate(
@@ -300,11 +329,26 @@ class AddPatientFourthPage extends StatelessWidget {
           },
         ),
 
-        DefaultButton(
-          title: "Next",
-          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-          onTap: () => SurAddPatientData().nextPage(),
-        ),
+        Row(
+          children: [
+            Expanded(
+              child: DefaultButton(
+                title: "Previous",
+                borderColor: MyColors.primary,
+                color: MyColors.white,
+                textColor: MyColors.primary,
+                onTap: () =>SurAddPatientData().previousPage(),
+              ),
+            ),
+            Expanded(
+              child: DefaultButton(
+                title: "Next",
+                onTap: () =>SurAddPatientData().nextPage(),
+              ),
+            ),
+          ],
+        )
+
       ],
     );
   }

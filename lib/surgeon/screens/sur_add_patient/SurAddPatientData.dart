@@ -205,6 +205,14 @@ class SurAddPatientData {
         duration: Duration(milliseconds: 500), curve: Curves.fastLinearToSlowEaseIn);
     pageCubit.onUpdateData(pageCubit.state.data + 1);
   }
+
+
+  void previousPage() {
+    pageController.previousPage(
+        duration: Duration(milliseconds: 500), curve: Curves.fastLinearToSlowEaseIn);
+    pageCubit.onUpdateData(pageCubit.state.data - 1);
+  }
+
   void onPageChanged() {
     pageController.addListener(() {
       int nextPage = pageController.page!.round();
