@@ -11,7 +11,7 @@ class SurPatient extends StatefulWidget {
 class _SurPatientState extends State<SurPatient> {
   @override
   void initState() {
-    SurPatientData().init(widget.index);
+    SurPatientData().init(context,widget.index);
     super.initState();
   }
 
@@ -48,7 +48,6 @@ class _SurPatientState extends State<SurPatient> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BuildSurPatientTab(),
-              BuildSurPatientType(),
               Expanded(
                 child: TabBarView(children: [
                   MyPatient(),

@@ -34,7 +34,7 @@ class HeaderLogo extends StatelessWidget {
             width: 150,
             child: Image.asset(
               Res.imagesLogoTeal,
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.fill,
             )),
         MyText(
           title: 'Jaber Bariapp',

@@ -42,6 +42,7 @@ class Res {
   static const String imagesDiscount = 'assets/images/discount.gif';
   static const String imagesDoc = 'assets/images/doc.png';
   static const String imagesEdit = 'assets/images/edit.png';
+  static const String imagesEditIconff = 'assets/images/editIconff.png';
   static const String imagesExcel = 'assets/images/excel.png';
   static const String imagesExit = 'assets/images/exit.png';
   static const String imagesFace = 'assets/images/face.png';
@@ -55,6 +56,7 @@ class Res {
   static const String imagesFilter = 'assets/images/filter.png';
   static const String imagesFireEmpty = 'assets/images/fire_empty.png';
   static const String imagesFireFill = 'assets/images/fire_fill.png';
+  static const String imagesFirforme = 'assets/images/firforme.png';
   static const String imagesFlow = 'assets/images/flow.png';
   static const String imagesFollow = 'assets/images/follow.png';
   static const String imagesFollowing = 'assets/images/following.png';
@@ -91,6 +93,7 @@ class Res {
   static const String imagesMastercard = 'assets/images/mastercard.png';
   static const String imagesMdtopdrawer = 'assets/images/mdtopdrawer.png';
   static const String imagesMedal = 'assets/images/medal.png';
+  static const String imagesMedtronic = 'assets/images/medtronic.png';
   static const String imagesMinus = 'assets/images/minus.png';
   static const String imagesMinutesIcon = 'assets/images/MinutesIcon.png';
   static const String imagesMore = 'assets/images/more.png';
@@ -103,6 +106,7 @@ class Res {
   static const String imagesNotification = 'assets/images/notification.png';
   static const String imagesNotificationIcon = 'assets/images/NotificationIcon.png';
   static const String imagesNotifications = 'assets/images/Notifications.png';
+  static const String imagesNova = 'assets/images/nova.png';
   static const String imagesOperationsIcon = 'assets/images/OperationsIcon.png';
   static const String imagesOperationsdrawer = 'assets/images/Operationsdrawer.png';
   static const String imagesPasswardChanged = 'assets/images/passwardChanged.png';
@@ -138,6 +142,7 @@ class Res {
   static const String imagesStarr = 'assets/images/starr.png';
   static const String imagesStarrr = 'assets/images/starrr.png';
   static const String imagesStarrrr = 'assets/images/starrrr.png';
+  static const String imagesSumc = 'assets/images/sumc.png';
   static const String imagesSwitch1 = 'assets/images/switch1.png';
   static const String imagesTime = 'assets/images/time.png';
   static const String imagesToggle = 'assets/images/toggle.png';
@@ -148,6 +153,8 @@ class Res {
   static const String imagesVector = 'assets/images/Vector.png';
   static const String imagesVideoPlayer = 'assets/images/video-player.png';
   static const String imagesView = 'assets/images/view.png';
+  static const String imagesCentral = 'assets/images/central.png';
+  static const String imagesEthicon = 'assets/images/ethicon.png';
   static const String imagesVisa = 'assets/images/visa.png';
   static const String imagesVisibility = 'assets/images/visibility.png';
   static const String imagesWeightLossIcon = 'assets/images/WeightLossIcon.png';

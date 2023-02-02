@@ -20,11 +20,11 @@ class _SplashState extends State<Splash> {
     if (!kIsWeb) {
       setupNotifications();
       // GlobalNotification.instance.setupNotification(context);
+      Utils.initCustomWidgets(language: "en");
       Future.delayed(Duration(milliseconds: 2000), () {
-        Utils.manipulateSplashData(context);
+       Nav.navigateTo(SponsoredBy(), navigatorType: NavigatorType.push);
       });
     }
-
   }
 
   @override

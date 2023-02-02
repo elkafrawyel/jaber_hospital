@@ -1,12 +1,14 @@
 part of 'SurPatientWImports.dart';
 
 class BuildPreOpItem extends StatelessWidget {
+  final int index ;
   const BuildPreOpItem({
-    Key? key,
+    Key? key, required this.index,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<PatientModel> list = SurPatientData().patientsCubit.state.data;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -20,7 +22,7 @@ class BuildPreOpItem extends StatelessWidget {
             child: Row(
               children: [
                 CachedImage(
-                  url: 'https://picsum.photos/180',
+                  url: list[index].image?? 'https://picsum.photos/180',
                   height: 60,
                   width: 60,
                   borderRadius: BorderRadius.circular(10),
@@ -35,7 +37,7 @@ class BuildPreOpItem extends StatelessWidget {
                         children: [
                           Expanded(
                             child: MyText(
-                              title: 'Ahmed Ali',
+                              title: list[index].fullNameEn??'Ahmed Ali',
                               size: 12,
                               fontWeight: FontWeight.bold,
                             ),
@@ -65,7 +67,7 @@ class BuildPreOpItem extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                           MyText(
-                            title: 'Samer Hany',
+                            title: list[index].surgeonId?.fullNameEn??'Samer Hany',
                             size: 11,
                             color: MyColors.grey,
                           ),
@@ -80,7 +82,7 @@ class BuildPreOpItem extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                           MyText(
-                            title: 'Ahmed Jamil',
+                            title:list[index].dietationId?.fullNameEn?? 'Ahmed Jamil',
                             size: 11,
                             color: MyColors.grey,
                           ),
@@ -250,9 +252,9 @@ class BuildPreOpItem extends StatelessWidget {
                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundColor: MyColors.primary,
+                          backgroundColor:list[index].egd==true? MyColors.primary:Colors.red,
                           radius: 12.0,
-                          child: Icon(Icons.check, color: Colors.white, size: 15),
+                          child: Icon(list[index].egd==true? Icons.check:Icons.close, color: Colors.white, size: 15),
                         ),
                         const SizedBox(width: 10),
                         MyText(title: "EGD", size: 9),
@@ -261,25 +263,25 @@ class BuildPreOpItem extends StatelessWidget {
                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundColor: MyColors.primary,
+                          backgroundColor:list[index].ultrasound==true? MyColors.primary:Colors.red,
                           radius: 12.0,
-                          child: Icon(Icons.check, color: Colors.white, size: 15),
+                          child: Icon(list[index].ultrasound==true? Icons.check:Icons.close, color: Colors.white, size: 15),
                         ),
                         const SizedBox(width: 10),
-                        MyText(title: "EGD", size: 9),
+                        MyText(title: "US", size: 9),
                       ],
                     ),
                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundColor: MyColors.primary,
+                          backgroundColor:list[index].surgionVisit==true? MyColors.primary:Colors.red,
                           radius: 12.0,
-                          child: Icon(Icons.check, color: Colors.white, size: 15),
+                          child: Icon(list[index].surgionVisit==true? Icons.check:Icons.close, color: Colors.white, size: 15),
                         ),
                         const SizedBox(width: 10),
-                        MyText(title: "EGD", size: 9),
+                        MyText(title: "Surgery OPD", size: 9),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ],
@@ -290,3 +292,5 @@ class BuildPreOpItem extends StatelessWidget {
     );
   }
 }
+
+

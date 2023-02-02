@@ -3,7 +3,7 @@ part of 'SurHomeWImports.dart';
 class BuildSurHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
-    UserModel user = context.read<UserCubit>().state.model;
+    UserModel user = context.watch<UserCubit>().state.model;
     return AppBar(
       backgroundColor: MyColors.white,
       centerTitle: false,

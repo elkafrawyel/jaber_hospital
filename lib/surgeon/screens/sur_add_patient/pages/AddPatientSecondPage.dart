@@ -120,12 +120,16 @@ class AddPatientSecondPage extends StatelessWidget {
                               value: state.data.contains(list[index]),
                               onChanged: (value) {
                                 if (value!) {
-                                  log("selected value: ${state.data}");
                                   diaCubit.onUpdateData(
                                       state.data + list[index]);
+                                  // log("selected value: ${state.data}");
+                                  listt.add(list[index]);
+                                  log("listt ${listt}");
                                 } else {
                                   diaCubit.onUpdateData(state.data
                                       .replaceAll(list[index], ""));
+                                  listt.remove(list[index]);
+                                  log("listt removed ${listt}");
                                 }
                               }),
                           MyText(
@@ -133,6 +137,7 @@ class AddPatientSecondPage extends StatelessWidget {
                             size: 12,
                             color: MyColors.black,
                           ),
+                          const SizedBox(width: 40),
                         ],
                       ),
                     ],
@@ -150,50 +155,113 @@ class AddPatientSecondPage extends StatelessWidget {
         BlocBuilder<GenericBloc<String>, GenericState<String>>(
           bloc: SurAddPatientData().cardiacDiseaseCubit,
           builder: (context, state) {
-            var cardiacCubit = SurAddPatientData().cardiacDiseaseCubit;
-            final List<String> list = SurAddPatientData().cardiacDiseaseTypes;
-            return Row(
+            return Wrap(
+              spacing: 10,
+              direction: Axis.horizontal,
               children: List.generate(
-                  list.length,
-                      (index) => Column(
-                    children: [
-                      const Divider(),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: state.data.contains(list[index]),
-                              onChanged: (value) {
-                                if (value!) {
-                                  cardiacCubit.onUpdateData(
-                                      state.data + list[index]);
-                                  // log("selected value: ${state.data}");
-                                  listt.add(list[index]);
-                                  log("listt ${listt}");
-                                } else {
-                                  cardiacCubit.onUpdateData(state.data
-                                      .replaceAll(list[index], ""));
-                                  listt.remove(list[index]);
-                                  log("listt removed ${listt}");
-                                }
-                              }),
-                          MyText(
-                            title: list[index],
+                SurAddPatientData().cardiacDiseaseTypes.length,
+                    (index) => Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio(
+                          value: SurAddPatientData().cardiacDiseaseTypes[index],
+                          groupValue: state.data,
+                          onChanged: (value) => SurAddPatientData()
+                              .cardiacDiseaseCubit
+                              .onUpdateData(value!),
+                        ),
+                        Flexible(
+                          child: MyText(
+                            title: SurAddPatientData().cardiacDiseaseTypes[index],
                             size: 12,
                             color: MyColors.black,
                           ),
-                          const SizedBox(width: 40),
-                        ],
-                      ),
-                    ],
-                  )),
+                        )
+                      ],
+                    ),
+              ),
             );
           },
         ),
+
+        // BlocBuilder<GenericBloc<String>, GenericState<String>>(
+        //   bloc: SurAddPatientData().cardiacDiseaseCubit,
+        //   builder: (context, state) {
+        //     var cardiacCubit = SurAddPatientData().cardiacDiseaseCubit;
+        //     final List<String> list = SurAddPatientData().cardiacDiseaseTypes;
+        //     return Row(
+        //       children: List.generate(
+        //           list.length,
+        //               (index) => Column(
+        //             children: [
+        //               const Divider(),
+        //               Row(
+        //                 children: [
+        //                   Checkbox(
+        //                       value: state.data.contains(list[index]),
+        //                       onChanged: (value) {
+        //                         if (value!) {
+        //                           cardiacCubit.onUpdateData(
+        //                               state.data + list[index]);
+        //                           // log("selected value: ${state.data}");
+        //                           listt.add(list[index]);
+        //                           log("listt ${listt}");
+        //                         } else {
+        //                           cardiacCubit.onUpdateData(state.data
+        //                               .replaceAll(list[index], ""));
+        //                           listt.remove(list[index]);
+        //                           log("listt removed ${listt}");
+        //                         }
+        //                       }),
+        //                   MyText(
+        //                     title: list[index],
+        //                     size: 12,
+        //                     color: MyColors.black,
+        //                   ),
+        //                   const SizedBox(width: 40),
+        //                 ],
+        //               ),
+        //             ],
+        //           )),
+        //     );
+        //   },
+        // ),
         MyText(
           title: "Respiratory Disease:",
           size: 12,
           fontWeight: FontWeight.bold,
           color: MyColors.black,
+        ),
+        BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+          bloc: SurAddPatientData().RespiratoryDiseaseSelectionCubit,
+          builder: (context, state) {
+            return Row(
+              children: [
+                Radio(
+                    value: true,
+                    groupValue: state.data,
+                    onChanged: (value) => SurAddPatientData().RespiratoryDiseaseSelectionCubit.onUpdateData(value!)),
+                MyText(
+                  title: "Yes",
+                  size: 12,
+                  color: MyColors.black,
+                ),
+                const SizedBox(width: 40),
+                Radio(
+                    value: false,
+                    groupValue: state.data,
+                    onChanged: (value) => SurAddPatientData()
+                        .RespiratoryDiseaseSelectionCubit
+                        .onUpdateData(value!)),
+                MyText(
+                  title: "No",
+                  size: 12,
+                  color: MyColors.black,
+                ),
+              ],
+            );
+          },
         ),
         BlocBuilder<GenericBloc<String>, GenericState<String>>(
           bloc: SurAddPatientData().respiratoryDiseaseCubit,
@@ -204,31 +272,36 @@ class AddPatientSecondPage extends StatelessWidget {
               direction: Axis.horizontal,
               children: List.generate(
                   list.length,
-                      (index) =>   Row(
-                        mainAxisSize: MainAxisSize.min,
+                      (index) =>   Column(
                         children: [
-                          Checkbox(
-                              value: state.data.contains(list[index]),
-                              onChanged: (value) {
-                                if (value!) {
-                                  cardiacCubit.onUpdateData(
-                                      state.data + list[index]);
-                                  // log("selected value: ${state.data}");
-                                  listt.add(list[index]);
-                                  log("listt ${listt}");
-                                } else {
-                                  cardiacCubit.onUpdateData(state.data
-                                      .replaceAll(list[index], ""));
-                                  listt.remove(list[index]);
-                                  log("listt removed ${listt}");
-                                }
-                              }),
-                          MyText(
-                            title: list[index],
-                            size: 12,
-                            color: MyColors.black,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Checkbox(
+                                  value: state.data.contains(list[index]),
+                                  onChanged: (value) {
+                                    if (value!) {
+                                      cardiacCubit.onUpdateData(
+                                          state.data + list[index]);
+                                      // log("selected value: ${state.data}");
+                                      listt.add(list[index]);
+                                      log("listt ${listt}");
+                                    } else {
+                                      cardiacCubit.onUpdateData(state.data
+                                          .replaceAll(list[index], ""));
+                                      listt.remove(list[index]);
+                                      log("listt removed ${listt}");
+                                    }
+                                  }),
+                              MyText(
+                                title: list[index],
+                                size: 12,
+                                color: MyColors.black,
+                              ),
+                              const SizedBox(width: 40),
+                            ],
                           ),
-                          const SizedBox(width: 40),
+                          const Divider(),
                         ],
                       )),
             );

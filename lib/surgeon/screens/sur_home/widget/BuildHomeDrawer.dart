@@ -8,6 +8,8 @@ class BuildSurHomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserData? user = context.read<UserCubit>().state.model.userData?[0];
+    log("${user?.role??''}");
+
     return Drawer(
         backgroundColor: MyColors.white,
         width: MediaQuery.of(context).size.width * 0.7,
@@ -30,22 +32,25 @@ class BuildSurHomeDrawer extends StatelessWidget {
                             borderRadius: BorderRadius.circular(100),
                           ),
                           const SizedBox(width: 10),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              MyText(
-                                title: user?.fullNameEn ?? "Samer Hany",
-                                size: 14,
-                                color: MyColors.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              MyText(
-                                title: user?.role ?? "Surgeon",
-                                size: 12,
-                                color: MyColors.black,
-                              ),
-                            ],
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                MyText(
+                                  title: user?.fullNameEn ?? "Samer Hany",
+                                  size: 13,
+                                  color: MyColors.primary,
+                                  overflow: TextOverflow.ellipsis,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                MyText(
+                                  title: user?.role ?? "Surgeon",
+                                  size: 12,
+                                  color: MyColors.black,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

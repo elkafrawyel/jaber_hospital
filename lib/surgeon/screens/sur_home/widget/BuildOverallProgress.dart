@@ -8,6 +8,7 @@ class BuildOverallProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -21,8 +22,7 @@ class BuildOverallProgress extends StatelessWidget {
             Expanded(
               child: Container(
                 height: MediaQuery.of(context).size.height / 7,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20, vertical: 20),
+                padding: const EdgeInsets.only(bottom: 0,left: 20,right: 20,top: 20),
                 decoration: BoxDecoration(
                   color: Color(0xff136CFB),
                   borderRadius: BorderRadius.circular(10),
@@ -40,15 +40,13 @@ class BuildOverallProgress extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
-                    Expanded(
-                      child: Center(
-                        child: MyText(
-                            alien: TextAlign.center,
-                            title: 'Operations Done',
-                            size: 9,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
+                    Flexible(
+                      child: MyText(
+                          alien: TextAlign.center,
+                          title: 'Operations Done',
+                          size: 9,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                   ],
                 ),
@@ -58,8 +56,7 @@ class BuildOverallProgress extends StatelessWidget {
             Expanded(
               child: Container(
                 height: MediaQuery.of(context).size.height / 7,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20, vertical: 20),
+                padding: const EdgeInsets.only(bottom: 0,left: 20,right: 20,top: 20),
                 decoration: BoxDecoration(
                   color: Color(0xff00116E),
                   borderRadius: BorderRadius.circular(10),
@@ -77,15 +74,13 @@ class BuildOverallProgress extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
-                    Expanded(
-                      child: Center(
-                        child: MyText(
-                            alien: TextAlign.center,
-                            title: 'Minutes Spent',
-                            size: 9,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
+                    Flexible(
+                      child: MyText(
+                          alien: TextAlign.center,
+                          title: 'Minutes Spent',
+                          size: 9,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                   ],
                 ),
@@ -95,8 +90,7 @@ class BuildOverallProgress extends StatelessWidget {
             Expanded(
               child: Container(
                 height: MediaQuery.of(context).size.height / 7,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20, vertical: 20),
+                padding: const EdgeInsets.only(bottom: 0,left: 20,right: 20,top: 20),
                 decoration: BoxDecoration(
                   color: Color(0xff455BD8),
                   borderRadius: BorderRadius.circular(10),
@@ -114,16 +108,14 @@ class BuildOverallProgress extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
-                    Expanded(
-                      child: Center(
-                        child: MyText(
-                            alien: TextAlign.center,
-                            title: 'Weight Loss Success',
-                            size: 9,
-                            // overflow: TextOverflow.ellipsis,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
+                    Flexible(
+                      child: MyText(
+                          alien: TextAlign.center,
+                          title: 'Weight Loss Success',
+                          size: 9,
+                          // overflow: TextOverflow.ellipsis,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                   ],
                 ),

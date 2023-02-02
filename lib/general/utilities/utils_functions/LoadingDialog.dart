@@ -26,10 +26,11 @@ class LoadingDialog {
 
   static showLoadingView({Color? color}) {
     return Center(
-      child: SpinKitCubeGrid(
+      child: SpinKitSpinningLines(
         color: color?? MyColors.primary,
         size: 40.0,
       ),
     );
   }
 }
+///SpinningLines

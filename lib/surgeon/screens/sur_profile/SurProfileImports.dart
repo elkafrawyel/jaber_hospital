@@ -8,8 +8,12 @@ import 'package:base_flutter/surgeon/screens/sur_profile/widgets/profileWidgetIm
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../general/MyApp.dart';
 import '../../../general/models/UserModel.dart';
+import '../../../general/utilities/http/dio/modals/LoadingDialog.dart';
 import '../../../general/widgets/GenScaffold.dart';
+import '../../models/entites/profile_entities.dart';
+import '../../resources/SurgeonRepoImports.dart';
 
 part 'SurProfile.dart';
 part 'SurProfileData.dart';
