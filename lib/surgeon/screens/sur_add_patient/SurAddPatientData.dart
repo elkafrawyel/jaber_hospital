@@ -93,7 +93,7 @@ class SurAddPatientData {
   late GenericBloc<bool> StrictureCubit;
   late GenericBloc<bool> BileCubit;
   late GenericBloc<bool> TwistCubit;
-  late GenericBloc<String> PostLSGStatusCubit;
+  late GenericBloc<String> PreviousLSGStatusCubit;
   late GenericBloc<bool> NormalDuodenum;
   late GenericBloc<bool> DuodenalUlcer;
   late GenericBloc<bool> OtherDuodenum;
@@ -101,7 +101,7 @@ class SurAddPatientData {
   List<String> get oesophagusGradeType => AddPatientDTOInfo.oesophagusGradeType;
   List<String> get GastritisType => AddPatientDTOInfo.GastritisType;
   List<String> get HPyloriType => AddPatientDTOInfo.HPyloriType;
-  List<String> get PostSurgeryType => AddPatientDTOInfo.PostSurgeryType;
+  List<String> get PreviousSurgeryType => AddPatientDTOInfo.PostSurgeryType;
   List<String> get PostLSGStatusType => AddPatientDTOInfo.PostLSGStatusType;
   List<String> get SizeType => AddPatientDTOInfo.SizeType;
 
@@ -185,7 +185,7 @@ class SurAddPatientData {
     UlcerCubit = GenericBloc(false);
     StrictureCubit = GenericBloc(false);
     BileCubit = GenericBloc(false);
-    PostLSGStatusCubit = GenericBloc("");
+    PreviousLSGStatusCubit = GenericBloc("");
     NormalDuodenum = GenericBloc(false);
     DuodenalUlcer = GenericBloc(false);
     OtherDuodenum = GenericBloc(false);

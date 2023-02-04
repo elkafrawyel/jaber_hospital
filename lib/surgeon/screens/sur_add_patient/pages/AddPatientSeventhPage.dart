@@ -710,20 +710,20 @@ class AddPatientSeventhPage extends StatelessWidget {
                                       spacing: 40,
                                       direction: Axis.horizontal,
                                       children: List.generate(
-                                        SurAddPatientData().PostSurgeryType.length,
+                                        SurAddPatientData().PreviousSurgeryType.length,
                                             (index) => Row(
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Radio(
-                                              value: SurAddPatientData().PostSurgeryType[index],
+                                              value: SurAddPatientData().PreviousSurgeryType[index],
                                               groupValue: state.data,
                                               onChanged: (value) => SurAddPatientData()
                                                   .PostSurgeryTypeCubit
                                                   .onUpdateData(value!),
                                             ),
                                             MyText(
-                                              title: SurAddPatientData().PostSurgeryType[index],
+                                              title: SurAddPatientData().PreviousSurgeryType[index],
                                               size: 12,
                                               color: MyColors.black,
                                             )
@@ -734,13 +734,13 @@ class AddPatientSeventhPage extends StatelessWidget {
                                     Offstage(
                                       offstage: state.data != "LSG",
                                       child: BlocBuilder<GenericBloc<String>, GenericState<String>>(
-                                        bloc: SurAddPatientData().PostLSGStatusCubit,
+                                        bloc: SurAddPatientData().PreviousLSGStatusCubit,
                                         builder: (context, state) {
                                           return Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               MyText(
-                                                title: "Post LSG Status",
+                                                title: "Previous LSG Status",
                                                 size: 12,
                                                 fontWeight: FontWeight.bold,
                                                 color: MyColors.black,
@@ -758,7 +758,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                                         value: SurAddPatientData().PostLSGStatusType[index],
                                                         groupValue: state.data,
                                                         onChanged: (value) => SurAddPatientData()
-                                                            .PostLSGStatusCubit
+                                                            .PreviousLSGStatusCubit
                                                             .onUpdateData(value!),
                                                       ),
                                                       MyText(

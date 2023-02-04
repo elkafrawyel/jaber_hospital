@@ -264,34 +264,76 @@ class AddPatientFourthPage extends StatelessWidget {
                       BlocBuilder<GenericBloc<String>, GenericState<String>>(
                         bloc: SurAddPatientData().medicationTypeCubit,
                         builder: (context, state) {
+                          var medCubit = SurAddPatientData().medicationTypeCubit;
+                          final List<String> list = SurAddPatientData().medicationTypes;
                           return Wrap(
                             direction: Axis.horizontal,
                             children: List.generate(
-                              SurAddPatientData().medicationTypes.length,
-                                  (index) => Padding(
-                                padding: const EdgeInsets.only(right: 20),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Radio(
-                                      value: SurAddPatientData().medicationTypes[index],
-                                      groupValue: state.data,
-                                      onChanged: (value) => SurAddPatientData()
-                                          .medicationTypeCubit
-                                          .onUpdateData(value!),
-                                    ),
-                                    MyText(
-                                      title: SurAddPatientData().medicationTypes[index],
-                                      size: 12,
-                                      color: MyColors.black,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                                list.length,
+                                    (index) => Container(
+                                      width: MediaQuery.of(context).size.width/3,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Checkbox(
+                                              value: state.data.contains(list[index]),
+                                              onChanged: (value) {
+                                                if (value!) {
+                                                  medCubit.onUpdateData(
+                                                      state.data + list[index]);
+                                                  // log("selected value: ${state.data}");
+                                                  listt.add(list[index]);
+                                                  log("listt ${listt}");
+                                                } else {
+                                                  medCubit.onUpdateData(state.data
+                                                      .replaceAll(list[index], ""));
+                                                  listt.remove(list[index]);
+                                                  log("listt removed ${listt}");
+                                                }
+                                              }),
+                                          MyText(
+                                            title: list[index],
+                                            size: 12,
+                                            color: MyColors.black,
+                                          ),
+                                        ],
+                                      ),
+                                    )),
                           );
                         },
                       ),
+
+                      // BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                      //   bloc: SurAddPatientData().medicationTypeCubit,
+                      //   builder: (context, state) {
+                      //     return Wrap(
+                      //       direction: Axis.horizontal,
+                      //       children: List.generate(
+                      //         SurAddPatientData().medicationTypes.length,
+                      //             (index) => Padding(
+                      //           padding: const EdgeInsets.only(right: 20),
+                      //           child: Row(
+                      //             mainAxisSize: MainAxisSize.min,
+                      //             children: [
+                      //               Radio(
+                      //                 value: SurAddPatientData().medicationTypes[index],
+                      //                 groupValue: state.data,
+                      //                 onChanged: (value) => SurAddPatientData()
+                      //                     .medicationTypeCubit
+                      //                     .onUpdateData(value!),
+                      //               ),
+                      //               MyText(
+                      //                 title: SurAddPatientData().medicationTypes[index],
+                      //                 size: 12,
+                      //                 color: MyColors.black,
+                      //               )
+                      //             ],
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
                     ],
                   ),
                 ),

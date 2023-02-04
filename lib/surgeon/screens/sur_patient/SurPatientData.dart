@@ -71,4 +71,9 @@ class SurPatientData {
     }
   }
 
+  void openOpdDetailsCard(BuildContext context,List<PatientModel> lst,int index) async {
+    lst[index].isOpen = !lst[index].isOpen!;
+    patientsCubit.onUpdateData(patientsCubit.state.data);
+  }
+
 }
