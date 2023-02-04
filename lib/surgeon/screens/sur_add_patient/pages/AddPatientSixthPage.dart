@@ -314,76 +314,96 @@ class AddPatientSixthPage extends StatelessWidget {
         BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
           bloc: SurAddPatientData().historyBallonSelectionCubit,
           builder: (context, state) {
-            return Row(
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Radio(
-                    value: true,
-                    groupValue: state.data,
-                    onChanged: (value) => SurAddPatientData()
-                        .historyBallonSelectionCubit
-                        .onUpdateData(value!)),
-                MyText(
-                  title: "Yes",
-                  size: 12,
-                  color: MyColors.black,
+                Row(
+                  children: [
+                    Radio(
+                        value: true,
+                        groupValue: state.data,
+                        onChanged: (value) => SurAddPatientData()
+                            .historyBallonSelectionCubit
+                            .onUpdateData(value!)),
+                    MyText(
+                      title: "Yes",
+                      size: 12,
+                      color: MyColors.black,
+                    ),
+                    const SizedBox(width: 40),
+                    Radio(
+                        value: false,
+                        groupValue: state.data,
+                        onChanged: (value) => SurAddPatientData()
+                            .historyBallonSelectionCubit
+                            .onUpdateData(value!)),
+                    MyText(
+                      title: "No",
+                      size: 12,
+                      color: MyColors.black,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 40),
-                Radio(
-                    value: false,
-                    groupValue: state.data,
-                    onChanged: (value) => SurAddPatientData()
-                        .historyBallonSelectionCubit
-                        .onUpdateData(value!)),
-                MyText(
-                  title: "No",
-                  size: 12,
-                  color: MyColors.black,
-                ),
+                Offstage(
+                  offstage: !state.data,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MyText(
+                        title: "US Findings:",
+                        size: 12,
+                        fontWeight: FontWeight.bold,
+                        color: MyColors.black,
+                      ),
+                      BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                        bloc: SurAddPatientData().USFindingsCubit,
+                        builder: (context, state) {
+                          var medCubit = SurAddPatientData().USFindingsCubit;
+                          final List<String> list = SurAddPatientData().USFindings;
+                          return Wrap(
+                            direction: Axis.horizontal,
+                            children: List.generate(
+                                list.length,
+                                    (index) => Container(
+                                  width: MediaQuery.of(context).size.width/3,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Checkbox(
+                                          value: state.data.contains(list[index]),
+                                          onChanged: (value) {
+                                            if (value!) {
+                                              medCubit.onUpdateData(
+                                                  state.data + list[index]);
+                                              // log("selected value: ${state.data}");
+                                              listt.add(list[index]);
+                                              log("listt ${listt}");
+                                            } else {
+                                              medCubit.onUpdateData(state.data
+                                                  .replaceAll(list[index], ""));
+                                              listt.remove(list[index]);
+                                              log("listt removed ${listt}");
+                                            }
+                                          }),
+                                      MyText(
+                                        title: list[index],
+                                        size: 12,
+                                        color: MyColors.black,
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                )
               ],
             );
           },
         ),
-        MyText(
-          title: "US Findings:",
-          size: 12,
-          fontWeight: FontWeight.bold,
-          color: MyColors.black,
-        ),
-        BlocBuilder<GenericBloc<String>, GenericState<String>>(
-          bloc: SurAddPatientData().USFindingsCubit,
-          builder: (context, state) {
-            return Wrap(
-              spacing: 10,
-              direction: Axis.horizontal,
-              children: List.generate(
-                SurAddPatientData().USFindings.length,
-                (index) => Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Radio(
-                        value: SurAddPatientData().USFindings[index],
-                        groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData()
-                            .USFindingsCubit
-                            .onUpdateData(value!),
-                      ),
-                      Flexible(
-                        child: MyText(
-                          title: SurAddPatientData().USFindings[index],
-                          size: 12,
-                          color: MyColors.black,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
+
         MyText(
           title: "Other US Findings",
           size: 12,

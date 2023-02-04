@@ -302,38 +302,6 @@ class AddPatientFourthPage extends StatelessWidget {
                           );
                         },
                       ),
-
-                      // BlocBuilder<GenericBloc<String>, GenericState<String>>(
-                      //   bloc: SurAddPatientData().medicationTypeCubit,
-                      //   builder: (context, state) {
-                      //     return Wrap(
-                      //       direction: Axis.horizontal,
-                      //       children: List.generate(
-                      //         SurAddPatientData().medicationTypes.length,
-                      //             (index) => Padding(
-                      //           padding: const EdgeInsets.only(right: 20),
-                      //           child: Row(
-                      //             mainAxisSize: MainAxisSize.min,
-                      //             children: [
-                      //               Radio(
-                      //                 value: SurAddPatientData().medicationTypes[index],
-                      //                 groupValue: state.data,
-                      //                 onChanged: (value) => SurAddPatientData()
-                      //                     .medicationTypeCubit
-                      //                     .onUpdateData(value!),
-                      //               ),
-                      //               MyText(
-                      //                 title: SurAddPatientData().medicationTypes[index],
-                      //                 size: 12,
-                      //                 color: MyColors.black,
-                      //               )
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
                     ],
                   ),
                 ),
