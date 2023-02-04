@@ -32,6 +32,7 @@ class Res {
   static const String imagesCamera2 = 'assets/images/camera-2.png';
   static const String imagesCards = 'assets/images/cards.png';
   static const String imagesCart = 'assets/images/cart.png';
+  static const String imagesCentral = 'assets/images/central.png';
   static const String imagesCheck = 'assets/images/check.png';
   static const String imagesCheckCircle = 'assets/images/check_circle.png';
   static const String imagesCheckd = 'assets/images/checkd.png';
@@ -43,6 +44,7 @@ class Res {
   static const String imagesDoc = 'assets/images/doc.png';
   static const String imagesEdit = 'assets/images/edit.png';
   static const String imagesEditIconff = 'assets/images/editIconff.png';
+  static const String imagesEthicon = 'assets/images/ethicon.png';
   static const String imagesExcel = 'assets/images/excel.png';
   static const String imagesExit = 'assets/images/exit.png';
   static const String imagesFace = 'assets/images/face.png';
@@ -153,8 +155,6 @@ class Res {
   static const String imagesVector = 'assets/images/Vector.png';
   static const String imagesVideoPlayer = 'assets/images/video-player.png';
   static const String imagesView = 'assets/images/view.png';
-  static const String imagesCentral = 'assets/images/central.png';
-  static const String imagesEthicon = 'assets/images/ethicon.png';
   static const String imagesVisa = 'assets/images/visa.png';
   static const String imagesVisibility = 'assets/images/visibility.png';
   static const String imagesWeightLossIcon = 'assets/images/WeightLossIcon.png';

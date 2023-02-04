@@ -479,11 +479,26 @@ class AddPatientSixthPage extends StatelessWidget {
           max: 3,
           validate: (value) => value!.validateEmpty(context),
         ),
-        DefaultButton(
-          title: "Next",
-          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-          onTap: () =>SurAddPatientData().nextPage(),
-        ),
+        Row(
+          children: [
+            Expanded(
+              child: DefaultButton(
+                title: "Previous",
+                borderColor: MyColors.primary,
+                color: MyColors.white,
+                textColor: MyColors.primary,
+                onTap: () =>SurAddPatientData().previousPage(),
+              ),
+            ),
+            Expanded(
+              child: DefaultButton(
+                title: "Next",
+                onTap: () =>SurAddPatientData().nextPage(),
+              ),
+            ),
+          ],
+        )
+
       ],
     );
   }

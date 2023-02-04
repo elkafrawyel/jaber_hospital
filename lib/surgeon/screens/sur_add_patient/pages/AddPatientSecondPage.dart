@@ -39,7 +39,7 @@ class AddPatientSecondPage extends StatelessWidget {
                       size: 12,
                       color: MyColors.black,
                     ),
-                    const SizedBox(width: 40),
+                    const SizedBox(width: 50),
                     Radio(
                         value: false,
                         groupValue: state.data,
@@ -160,31 +160,33 @@ class AddPatientSecondPage extends StatelessWidget {
               direction: Axis.horizontal,
               children: List.generate(
                 SurAddPatientData().cardiacDiseaseTypes.length,
-                    (index) => Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Radio(
-                          value: SurAddPatientData().cardiacDiseaseTypes[index],
-                          groupValue: state.data,
-                          onChanged: (value) => SurAddPatientData()
-                              .cardiacDiseaseCubit
-                              .onUpdateData(value!),
-                        ),
-                        Flexible(
-                          child: MyText(
-                            title: SurAddPatientData().cardiacDiseaseTypes[index],
-                            size: 12,
-                            color: MyColors.black,
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(right: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Radio(
+                            value: SurAddPatientData().cardiacDiseaseTypes[index],
+                            groupValue: state.data,
+                            onChanged: (value) => SurAddPatientData()
+                                .cardiacDiseaseCubit
+                                .onUpdateData(value!),
                           ),
-                        )
-                      ],
+                          Flexible(
+                            child: MyText(
+                              title: SurAddPatientData().cardiacDiseaseTypes[index],
+                              size: 12,
+                              color: MyColors.black,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
               ),
             );
           },
         ),
-
         // BlocBuilder<GenericBloc<String>, GenericState<String>>(
         //   bloc: SurAddPatientData().cardiacDiseaseCubit,
         //   builder: (context, state) {
@@ -326,11 +328,26 @@ class AddPatientSecondPage extends StatelessWidget {
           type: TextInputType.text,
           validate: (value) => value!.validateEmpty(context),
         ),
-        DefaultButton(
-          title: "Next",
-          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-          onTap: () =>SurAddPatientData().nextPage(),
-        ),
+        Row(
+          children: [
+            Expanded(
+              child: DefaultButton(
+                title: "Previous",
+                borderColor: MyColors.primary,
+                color: MyColors.white,
+                textColor: MyColors.primary,
+                onTap: () =>SurAddPatientData().previousPage(),
+              ),
+            ),
+            Expanded(
+              child: DefaultButton(
+                title: "Next",
+                onTap: () =>SurAddPatientData().nextPage(),
+              ),
+            ),
+          ],
+        )
+
 
       ],
     );
