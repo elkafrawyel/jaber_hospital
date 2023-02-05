@@ -241,6 +241,20 @@ class SurAddPatientData {
   }
 
   /// #############################  first page  #############################
+
+  void calculateBMI() {
+    if (patientWeight.text.isNotEmpty && patientHeight.text.isNotEmpty) {
+      double weight = double.parse(patientWeight.text);
+      double height = double.parse(patientHeight.text);
+      double bmi = ((weight / height) / height) * 10000;
+      BMI.text = bmi.toStringAsFixed(2);
+    }else{
+      BMI.text = "";
+    }
+
+  }
+
+
 /// #############################  second page  #############################
 /// #############################  third page  #############################
 /// #############################  fourth page  #############################

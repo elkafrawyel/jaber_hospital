@@ -80,6 +80,7 @@ class AddPatientFirstPage extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10),
           action: TextInputAction.next,
           type: TextInputType.number,
+          onChange: (value) => SurAddPatientData().calculateBMI(),
           validate: (value) => value!.validateEmpty(context),
         ),
         MyText(title: "Patient height", size: 12, fontWeight: FontWeight.bold),
@@ -93,13 +94,14 @@ class AddPatientFirstPage extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10),
           action: TextInputAction.next,
           type: TextInputType.number,
+          onChange: (value) => SurAddPatientData().calculateBMI(),
           validate: (value) => value!.validateEmpty(context),
         ),
         MyText(title: "BMI", size: 12, fontWeight: FontWeight.bold),
         GenericTextField(
           hintColor:
               Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-          fieldTypes: FieldTypes.normal,
+          fieldTypes: FieldTypes.clickable,
           fillColor: MyColors.textFields,
           hint: "XX",
           controller: SurAddPatientData().BMI,
