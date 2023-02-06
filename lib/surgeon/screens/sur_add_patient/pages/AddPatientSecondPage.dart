@@ -31,7 +31,6 @@ class AddPatientSecondPage extends StatelessWidget {
                 Row(
                   children: [
                     Radio(
-
                         value: true,
                         groupValue: state.data,
                         onChanged: (value) => SurAddPatientData().refluxSelectionCubit.onUpdateData(value!)),
