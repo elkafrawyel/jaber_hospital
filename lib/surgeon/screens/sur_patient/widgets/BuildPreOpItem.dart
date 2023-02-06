@@ -1,9 +1,11 @@
 part of 'SurPatientWImports.dart';
 
 class BuildPreOpItem extends StatelessWidget {
-  final int index ;
+  final int index;
+
   const BuildPreOpItem({
-    Key? key, required this.index,
+    Key? key,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class BuildPreOpItem extends StatelessWidget {
             child: Row(
               children: [
                 CachedImage(
-                  url: list[index].image?? 'https://picsum.photos/180',
+                  url: list[index].image ?? 'https://picsum.photos/180',
                   height: 60,
                   width: 60,
                   borderRadius: BorderRadius.circular(10),
@@ -37,7 +39,7 @@ class BuildPreOpItem extends StatelessWidget {
                         children: [
                           Expanded(
                             child: MyText(
-                              title: list[index].fullNameEn??'Ahmed Ali',
+                              title: list[index].fullNameEn ?? 'Ahmed Ali',
                               size: 12,
                               fontWeight: FontWeight.bold,
                             ),
@@ -67,7 +69,8 @@ class BuildPreOpItem extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                           MyText(
-                            title: list[index].surgeonId?.fullNameEn??'Samer Hany',
+                            title: list[index].surgeonId?.fullNameEn ??
+                                'Samer Hany',
                             size: 11,
                             color: MyColors.grey,
                           ),
@@ -82,7 +85,8 @@ class BuildPreOpItem extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                           MyText(
-                            title:list[index].dietationId?.fullNameEn?? 'Ahmed Jamil',
+                            title: list[index].dietationId?.fullNameEn ??
+                                'Ahmed Jamil',
                             size: 11,
                             color: MyColors.grey,
                           ),
@@ -122,10 +126,16 @@ class BuildPreOpItem extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: (){},
+                //open
+                onTap: () =>
+                    SurPatientData().openOpdDetailsCard(context, list, index),
                 child: Padding(
                   padding: const EdgeInsets.only(right: 10),
-                  child: Icon(Icons.arrow_forward_ios, size: 15),
+                  child: Icon(
+                      list[index].isOpen == true
+                          ? Icons.keyboard_arrow_down
+                          : Icons.arrow_forward_ios,
+                      size:list[index].isOpen == true? 22:15),
                 ),
               )
             ],
@@ -235,56 +245,82 @@ class BuildPreOpItem extends StatelessWidget {
               )
             ],
           ),
-          Divider(color: MyColors.grey),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MyText(
-                    title: "Surgery OPD Details;",
-                    size: 10,
-                    fontWeight: FontWeight.bold),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundColor:list[index].egd==true? MyColors.primary:Colors.red,
-                          radius: 12.0,
-                          child: Icon(list[index].egd==true? Icons.check:Icons.close, color: Colors.white, size: 15),
-                        ),
-                        const SizedBox(width: 10),
-                        MyText(title: "EGD", size: 9),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundColor:list[index].ultrasound==true? MyColors.primary:Colors.red,
-                          radius: 12.0,
-                          child: Icon(list[index].ultrasound==true? Icons.check:Icons.close, color: Colors.white, size: 15),
-                        ),
-                        const SizedBox(width: 10),
-                        MyText(title: "US", size: 9),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundColor:list[index].surgionVisit==true? MyColors.primary:Colors.red,
-                          radius: 12.0,
-                          child: Icon(list[index].surgionVisit==true? Icons.check:Icons.close, color: Colors.white, size: 15),
-                        ),
-                        const SizedBox(width: 10),
-                        MyText(title: "Surgery OPD", size: 9),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+          Visibility(
+              visible: list[index].isOpen == true,
+              child: Divider(color: MyColors.grey)),
+          Visibility(
+            visible: list[index].isOpen == true,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MyText(
+                      title: "Surgery OPD Details;",
+                      size: 10,
+                      fontWeight: FontWeight.bold),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: list[index].egd == true
+                                ? MyColors.primary
+                                : Colors.red,
+                            radius: 12.0,
+                            child: Icon(
+                                list[index].egd == true
+                                    ? Icons.check
+                                    : Icons.close,
+                                color: Colors.white,
+                                size: 15),
+                          ),
+                          const SizedBox(width: 10),
+                          MyText(title: "EGD", size: 9),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: list[index].ultrasound == true
+                                ? MyColors.primary
+                                : Colors.red,
+                            radius: 12.0,
+                            child: Icon(
+                                list[index].ultrasound == true
+                                    ? Icons.check
+                                    : Icons.close,
+                                color: Colors.white,
+                                size: 15),
+                          ),
+                          const SizedBox(width: 10),
+                          MyText(title: "US", size: 9),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: list[index].surgionVisit == true
+                                ? MyColors.primary
+                                : Colors.red,
+                            radius: 12.0,
+                            child: Icon(
+                                list[index].surgionVisit == true
+                                    ? Icons.check
+                                    : Icons.close,
+                                color: Colors.white,
+                                size: 15),
+                          ),
+                          const SizedBox(width: 10),
+                          MyText(title: "Surgery OPD", size: 9),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           )
         ],
@@ -292,5 +328,3 @@ class BuildPreOpItem extends StatelessWidget {
     );
   }
 }
-
-

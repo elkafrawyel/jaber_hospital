@@ -25,6 +25,7 @@ class AddPatientThirdPage extends StatelessWidget {
           bloc: SurAddPatientData().dmSelectionCubit,
           builder: (context, state) {
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -67,18 +68,31 @@ class AddPatientThirdPage extends StatelessWidget {
                       BlocBuilder<GenericBloc<String>, GenericState<String>>(
                         bloc: SurAddPatientData().medicationsCubit,
                         builder: (context, state) {
-                          return  Wrap(
+                        return  Wrap(
+                            alignment: WrapAlignment.spaceBetween,
                             direction: Axis.horizontal,
                             children: List.generate(
                               SurAddPatientData().medications.length,
-                                  (index) => RadioListTile(
-                                value: SurAddPatientData().medications[index],
-                                groupValue: state.data,
-                                onChanged: (value) => SurAddPatientData().medicationsCubit.onUpdateData(value!),
-                                title: MyText(
-                                  title: SurAddPatientData().medications[index],
-                                  size: 12,
-                                  color: MyColors.black,
+                                  (index) => Container(
+                                width: MediaQuery.of(context).size.width / 2.6,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Radio(
+                                      value: SurAddPatientData().medications[index],
+                                      groupValue: state.data,
+                                      onChanged: (value) => SurAddPatientData().medicationsCubit.onUpdateData(value!),
+
+                                    ),
+                                    Expanded(
+                                      child: MyText(
+                                        title: SurAddPatientData().medications[index],
+                                        size: 12,
+                                        color: MyColors.black,
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
@@ -103,12 +117,14 @@ class AddPatientThirdPage extends StatelessWidget {
           bloc: SurAddPatientData().smokingHabitsCubit,
           builder: (context, state) {
             return  Wrap(
+              alignment: WrapAlignment.spaceBetween,
               direction: Axis.horizontal,
               children: List.generate(
                 SurAddPatientData().smokingHabits.length,
-                    (index) => Padding(
-                      padding: const EdgeInsets.only(right: 20),
+                    (index) => Container(
+                      width: MediaQuery.of(context).size.width / 2.6,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Radio(
@@ -117,10 +133,12 @@ class AddPatientThirdPage extends StatelessWidget {
                   onChanged: (value) => SurAddPatientData().smokingHabitsCubit.onUpdateData(value!),
 
                 ),
-                          MyText(
-                            title: SurAddPatientData().smokingHabits[index],
-                            size: 12,
-                            color: MyColors.black,
+                          Expanded(
+                            child: MyText(
+                              title: SurAddPatientData().smokingHabits[index],
+                              size: 12,
+                              color: MyColors.black,
+                            ),
                           )
                         ],
                       ),
@@ -130,11 +148,26 @@ class AddPatientThirdPage extends StatelessWidget {
           },
         ),
 
-        DefaultButton(
-          title: "Next",
-          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-          onTap: () => SurAddPatientData().nextPage(),
-        ),
+        Row(
+          children: [
+            Expanded(
+              child: DefaultButton(
+                title: "Previous",
+                borderColor: MyColors.primary,
+                color: MyColors.white,
+                textColor: MyColors.primary,
+                onTap: () =>SurAddPatientData().previousPage(),
+              ),
+            ),
+            Expanded(
+              child: DefaultButton(
+                title: "Next",
+                onTap: () =>SurAddPatientData().nextPage(),
+              ),
+            ),
+          ],
+        )
+
       ],
     );
   }

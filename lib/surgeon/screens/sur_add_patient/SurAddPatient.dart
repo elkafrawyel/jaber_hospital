@@ -46,6 +46,7 @@ class _SurAddPatientState extends State<SurAddPatient> {
             ),
             Expanded(
                 child: PageView.builder(
+              physics: NeverScrollableScrollPhysics(),
               controller: SurAddPatientData().pageController,
               itemBuilder: (context, index) {
                 return SurAddPatientData().buildAddPatientPage(index);

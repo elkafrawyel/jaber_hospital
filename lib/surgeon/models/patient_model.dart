@@ -26,7 +26,7 @@ class PatientModel {
     this.ultrasound,
     this.egd,
     this.surgionVisit,
-    this.isOpen = false,
+    this.isOpen,
   });
 
   PatientModel.fromJson(Map<String, dynamic> json) {
