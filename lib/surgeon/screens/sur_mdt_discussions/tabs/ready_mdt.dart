@@ -91,9 +91,21 @@ class ReadyMDT extends StatelessWidget {
                       ],
                     ),
                   ),
-                  DefaultButton(title: "Book MDT", onTap: () {},margin: const EdgeInsets.symmetric(horizontal: 100,vertical: 5),),
+                  DefaultButton(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 100, vertical: 5),
+                    title: "Book MDT",
+                    onTap: () {
+                      SurMdtDiscussionsData().mdtDurationCubit.onUpdateData(0);
+                     showModalBottomSheet(
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (context) => BuildPatientMDTDurationSheet());
+                    },
+                  ),
                 ],
               ),
             ));
   }
 }
+

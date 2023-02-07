@@ -8,6 +8,7 @@ class BuildSurMdtTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TabBar(
+      controller: SurMdtDiscussionsData().tabController,
         onTap: (index) {},
         indicatorColor: MyColors.primary,
         labelColor: MyColors.primary,

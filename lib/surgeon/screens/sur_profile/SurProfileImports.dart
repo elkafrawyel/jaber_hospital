@@ -12,7 +12,7 @@ import '../../../general/MyApp.dart';
 import '../../../general/models/UserModel.dart';
 import '../../../general/utilities/http/dio/modals/LoadingDialog.dart';
 import '../../../general/widgets/GenScaffold.dart';
-import '../../models/entites/profile_entities.dart';
+import '../../models/dto/profile_entities.dart';
 import '../../resources/SurgeonRepoImports.dart';
 
 part 'SurProfile.dart';

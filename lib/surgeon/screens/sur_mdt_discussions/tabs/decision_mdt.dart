@@ -10,13 +10,13 @@ class DecisionMDT extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: BlocBuilder<GenericBloc<int>, GenericState<int>>(
-            bloc: SurMdtDiscussionsData().decisionType,
+            bloc: SurMdtDiscussionsData().decisionTypeCubit,
             builder: (context, state) {
               return Row(
                 children: [
                   InkWell(
                     onTap: () {
-                      SurMdtDiscussionsData().decisionType.onUpdateData(0);
+                      SurMdtDiscussionsData().decisionTypeCubit.onUpdateData(0);
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(
@@ -44,7 +44,7 @@ class DecisionMDT extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      SurMdtDiscussionsData().decisionType.onUpdateData(1);
+                      SurMdtDiscussionsData().decisionTypeCubit.onUpdateData(1);
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(
@@ -76,7 +76,7 @@ class DecisionMDT extends StatelessWidget {
           ),
         ),
         BlocBuilder<GenericBloc<int>, GenericState<int>>(
-            bloc: SurMdtDiscussionsData().decisionType,
+            bloc: SurMdtDiscussionsData().decisionTypeCubit,
             builder: (context, state) {
               if (state.data == 0) {
                 return BuildNoResultDecision();

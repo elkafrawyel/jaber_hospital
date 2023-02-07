@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../general/blocks/user_cubit/user_cubit.dart';
 import '../../general/models/UserModel.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
-import '../models/entites/profile_entities.dart';
+import '../models/dto/profile_entities.dart';
 import '../models/patient_model.dart';
 import '../models/surgeon_home_model.dart';
 
