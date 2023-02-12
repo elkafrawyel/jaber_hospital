@@ -320,7 +320,7 @@ class AddPatientSecondPage extends StatelessWidget {
           fieldTypes: FieldTypes.rich,
           fillColor: MyColors.textFields,
           hint: "Other notes",
-          controller: SurAddPatientData().patientName,
+          controller: SurAddPatientData().patientNameAr,
           margin: const EdgeInsets.symmetric(vertical: 10),
           action: TextInputAction.next,
           type: TextInputType.text,

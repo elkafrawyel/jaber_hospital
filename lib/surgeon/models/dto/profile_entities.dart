@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:base_flutter/general/utilities/http/dio/utils/DioUtils.dart';
 
 class ProfileModel {
   File? file;

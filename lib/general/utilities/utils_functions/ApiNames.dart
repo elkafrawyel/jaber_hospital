@@ -23,5 +23,6 @@ class ApiNames{
   static const String myPatientsPostOp = "doctor_patients_post_operation";
   static const String myPatientsPreOp = "doctor_patients_pre_operation";
   static const String updateProfile = "update_profile";
+  static const String patientBasicInfo = "patient_basicInfo";
 
 }
