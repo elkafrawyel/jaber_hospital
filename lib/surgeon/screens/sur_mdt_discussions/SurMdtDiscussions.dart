@@ -7,37 +7,36 @@ class SurMdtDiscussions extends StatefulWidget {
   State<SurMdtDiscussions> createState() => _SurMdtDiscussionsState();
 }
 
-class _SurMdtDiscussionsState extends State<SurMdtDiscussions> {
+class _SurMdtDiscussionsState extends State<SurMdtDiscussions>with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    SurMdtDiscussionsData().init();
+    SurMdtDiscussionsData().init(this);
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    return GeneralScaffold(back: true, title: "MDT", body: DefaultTabController(
-      initialIndex: 0,
-      length: 3,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BuildSurMdtTabBar(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-            child: MyText(
-              title: '5 Patients',
-              size: 13,
-              fontWeight: FontWeight.bold,
-            ),
+    return GeneralScaffold(back: true, title: "MDT", body: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BuildSurMdtTabBar(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+          child: MyText(
+            title: '5 Patients',
+            size: 13,
+            fontWeight: FontWeight.bold,
           ),
-          Expanded(child: TabBarView(children: [
-            ReadyMDT(),
-            BookedMDT(),
-            DecisionMDT(),
-          ]))
-        ],
-      ),
+        ),
+        Expanded(
+            child: TabBarView(
+                controller: SurMdtDiscussionsData().tabController,
+                children: [
+          ReadyMDT(),
+          BookedMDT(),
+          DecisionMDT(),
+        ]))
+      ],
     ));
   }
 }

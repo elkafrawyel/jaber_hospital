@@ -23,5 +23,8 @@ class SurgeonRepository {
   Future<bool> updateSurgeonProfile(ProfileModel model)=>_surgeonHttpMethods.updateSurgeonProfile(model);
 
 
+  Future<bool> addPatientFirst({required String userId, required AddPatientFirstDto model})=>_surgeonHttpMethods.addPatientFirst(userId, model);
+
+
 
 }

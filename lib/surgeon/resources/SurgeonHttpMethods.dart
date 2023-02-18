@@ -32,6 +32,7 @@ class SurgeonHttpMethods {
       return [];
     }
   }
+
   Future<List<PatientModel>> getAllPatientPostOp() async {
     dynamic data = await GenericHttp<PatientModel>(context).callApi(
       name: ApiNames.allPatientsPostOp,
@@ -61,6 +62,7 @@ class SurgeonHttpMethods {
       return [];
     }
   }
+
   Future<List<PatientModel>> getMyPatientPreOp() async {
     dynamic data = await GenericHttp<PatientModel>(context).callApi(
       name: ApiNames.myPatientsPreOp,
@@ -76,8 +78,24 @@ class SurgeonHttpMethods {
     }
   }
 
+  Future<bool> addPatientFirst( String userId,  AddPatientFirstDto model) async {
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.patientBasicInfo + "?user_id=$userId",
+      returnType: ReturnType.Type,
+      methodType: MethodType.Post,
+      returnDataFun: (data) => data,
+      jsonBody: model.toJson(),
+      showLoader: true,
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    }
+    return false;
+  }
+
   Future<bool> updateSurgeonProfile(ProfileModel model) async {
-    Map<String,dynamic> body = {};
+    Map<String, dynamic> body = {};
     body.addAll(model.toJson());
     body.removeWhere((key, value) => value == null);
     dynamic data = await GenericHttp<bool>(context).callApi(
@@ -89,7 +107,7 @@ class SurgeonHttpMethods {
       showLoader: false,
     );
     if (data != null) {
-       UserModel user = context.read<UserCubit>().state.model;
+      UserModel user = context.read<UserCubit>().state.model;
       user.userData?[0].fullNameEn = data["full_name_en"];
       user.userData?[0].fullNameAr = data["full_name_ar"];
       user.userData?[0].email = data["email"];
@@ -97,15 +115,11 @@ class SurgeonHttpMethods {
       user.userData?[0].role = data["role"];
       user.userData?[0].gender = data["gender"];
       user.userData?[0].image = data["image"];
-       await Utils.saveUserData(user);
-       context.read<UserCubit>().onUpdateUserData(user);
+      await Utils.saveUserData(user);
+      context.read<UserCubit>().onUpdateUserData(user);
       return true;
     } else {
       return false;
     }
   }
-
-
-
-
 }

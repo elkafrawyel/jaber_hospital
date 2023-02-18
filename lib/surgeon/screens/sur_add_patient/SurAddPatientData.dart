@@ -1,26 +1,32 @@
 part of 'SurAddPatientImports.dart';
 
 class SurAddPatientData {
-
   SurAddPatientData._();
   static SurAddPatientData surAddPatientData = SurAddPatientData._();
   factory SurAddPatientData() => surAddPatientData;
 
-
   late PageController pageController;
   late GenericBloc<int> pageCubit;
+
   /// first page
-  late TextEditingController patientName ;
-  late TextEditingController patientId ;
-  late TextEditingController patientFileNumber ;
-  late TextEditingController patientMobile ;
-  late TextEditingController patientAge ;
-  late TextEditingController patientWeight ;
-  late TextEditingController patientHeight ;
-  late TextEditingController BMI ;
+  late GlobalKey<FormState> formKey1;
+  late TextEditingController patientNameAr;
+  late TextEditingController patientNameEn;
+  late TextEditingController patientId;
+  late GenericBloc<String> patientGenderCubit;
+  late TextEditingController patientFileNumber;
+  late TextEditingController patientEmail;
+  late TextEditingController patientMobile1;
+  late TextEditingController patientMobile2;
+  late TextEditingController patientAge;
+  late TextEditingController patientWeight;
+  late TextEditingController patientHeight;
+  late TextEditingController BMI;
+
+
   /// second page
   late GenericBloc<bool> RespiratoryDiseaseSelectionCubit;
-  late TextEditingController otherNotes ;
+  late TextEditingController otherNotes;
   late GenericBloc<bool> dmSelectionCubit;
   late GenericBloc<int> dmTypeSelectionCubit;
   late GenericBloc<String> diagnosisTypesCubit;
@@ -28,30 +34,35 @@ class SurAddPatientData {
   late GenericBloc<String> respiratoryDiseaseCubit;
   List<String> get diagnosisTypes => AddPatientDTOInfo.diagnosisTypes;
   List<String> get cardiacDiseaseTypes => AddPatientDTOInfo.cardiacDisease;
-  List<String> get respiratoryDiseaseTypes => AddPatientDTOInfo.respiratoryDisease;
+  List<String> get respiratoryDiseaseTypes =>
+      AddPatientDTOInfo.respiratoryDisease;
+
   /// third page
   late GenericBloc<bool> refluxSelectionCubit;
   late GenericBloc<String> medicationsCubit;
   late GenericBloc<String> smokingHabitsCubit;
   List<String> get medications => AddPatientDTOInfo.Medications;
   List<String> get smokingHabits => AddPatientDTOInfo.smokingHabits;
+
   /// fourth page
   late GenericBloc<bool> historyBallonSelectionCubit;
   late GenericBloc<bool> historyWeightLossSelectionCubit;
-  late TextEditingController weightLossFrom ;
-  late TextEditingController weightLossTo ;
-  late TextEditingController removalDate ;
-  late TextEditingController insertionDate ;
-  late TextEditingController outcomeResult ;
-  late TextEditingController outcomeDate ;
+  late TextEditingController weightLossFrom;
+  late TextEditingController weightLossTo;
+  late TextEditingController removalDate;
+  late TextEditingController insertionDate;
+  late TextEditingController outcomeResult;
+  late TextEditingController outcomeDate;
   late GenericBloc<String> medicationTypeCubit;
   List<String> get medicationTypes => AddPatientDTOInfo.medicationTypes;
+
   /// fifth page
   late GenericBloc<bool> ProceduresSelectionCubit;
   late GenericBloc<String> surgeryTypeCubit;
   late TextEditingController proceduresOutcomeResultCubit;
   late TextEditingController proceduresOutcomeDateCubit;
   List<String> get surgeryTypes => AddPatientDTOInfo.surgeryTypes;
+
   /// sixth page
   late TextEditingController significantLabsController;
   List<SignificantLabsModel> get labsList => SignificantLabsModel.initList;
@@ -65,6 +76,7 @@ class SurAddPatientData {
   late GenericBloc<File?> FluoroscopyImageCubit;
   late TextEditingController otherNotesController;
   late TextEditingController AnastomoticSizeController;
+
   /// seventh page
   late TextEditingController EGDResultController;
   late GenericBloc<File?> EGDResultImageCubit;
@@ -105,24 +117,19 @@ class SurAddPatientData {
   List<String> get PostLSGStatusType => AddPatientDTOInfo.PostLSGStatusType;
   List<String> get SizeType => AddPatientDTOInfo.SizeType;
 
-
-
-
-
-
-
-
-
-
-
   /// #############################  init screen  #############################
   void initScreen(BuildContext context) {
     pageController = PageController();
+    formKey1 = GlobalKey<FormState>();
     pageCubit = GenericBloc(1);
-    patientName = TextEditingController();
+    patientNameAr = TextEditingController();
+    patientGenderCubit = GenericBloc("male");
+    patientNameEn = TextEditingController();
     patientId = TextEditingController();
     patientFileNumber = TextEditingController();
-    patientMobile = TextEditingController();
+    patientMobile1 = TextEditingController();
+    patientMobile2 = TextEditingController();
+    patientEmail = TextEditingController();
     RespiratoryDiseaseSelectionCubit = GenericBloc(false);
     patientAge = TextEditingController();
     patientWeight = TextEditingController();
@@ -194,31 +201,34 @@ class SurAddPatientData {
 
     onPageChanged();
   }
+
   void dispose() {
     pageController.dispose();
   }
 
-
-/// #############################  Page Controller  #############################
+  /// #############################  Page Controller  #############################
   void nextPage() {
     pageController.nextPage(
-        duration: Duration(milliseconds: 500), curve: Curves.fastLinearToSlowEaseIn);
+        duration: Duration(milliseconds: 500),
+        curve: Curves.fastLinearToSlowEaseIn);
     pageCubit.onUpdateData(pageCubit.state.data + 1);
   }
 
-
   void previousPage() {
+    if (pageCubit.state.data == 1) return;
     pageController.previousPage(
-        duration: Duration(milliseconds: 500), curve: Curves.fastLinearToSlowEaseIn);
+        duration: Duration(milliseconds: 500),
+        curve: Curves.fastLinearToSlowEaseIn);
     pageCubit.onUpdateData(pageCubit.state.data - 1);
   }
 
   void onPageChanged() {
     pageController.addListener(() {
       int nextPage = pageController.page!.round();
-        pageCubit.onUpdateData(nextPage + 1);
+      pageCubit.onUpdateData(nextPage + 1);
     });
   }
+
   Widget buildAddPatientPage(int index) {
     switch (index) {
       case 0:
@@ -248,25 +258,55 @@ class SurAddPatientData {
       double height = double.parse(patientHeight.text);
       double bmi = ((weight / height) / height) * 10000;
       BMI.text = bmi.toStringAsFixed(2);
-    }else{
+    } else {
       BMI.text = "";
+    }
+  }
+
+  void addPatientFirst(BuildContext context) async {
+    UserModel? users = context.read<UserCubit>().state.model;
+    if (formKey1.currentState!.validate()) {
+      AddPatientFirstDto model = AddPatientFirstDto(
+        height: num.parse(patientHeight.text),
+        weight: num.parse(patientWeight.text),
+        bmi: num.parse(BMI.text),
+        nameAr: patientNameAr.text,
+        nameEn: patientNameEn.text,
+        age: int.parse(patientAge.text),
+        email: patientEmail.text,
+        password: patientMobile1.text,
+        telephone1: patientMobile1.text,
+        telephone2: patientMobile2.text,
+        civilId: patientId.text,
+        gender: patientGenderCubit.state.data,
+        publicId: "137g352fs",
+        fileId: "234873456",
+        image:
+        "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
+      );
+      bool result = await SurgeonRepository(context).addPatientFirst(
+          userId: users.userData?[0].doctorRoleId?.sId ?? "", model: model);
+      if (result) {
+        FocusScope.of(context).requestFocus(FocusNode());
+        nextPage();
+      }
     }
 
   }
 
-
-/// #############################  second page  #############################
-/// #############################  third page  #############################
-/// #############################  fourth page  #############################
-/// #############################  fifth page  #############################
-/// #############################  sixth page  #############################
+  /// #############################  second page  #############################
+  /// #############################  third page  #############################
+  /// #############################  fourth page  #############################
+  /// #############################  fifth page  #############################
+  /// #############################  sixth page  #############################
   setFluoroscopyImage() async {
     var image = await Utils.getImage();
     if (image != null) {
       FluoroscopyImageCubit.onUpdateData(image);
     }
   }
-/// #############################  seventh page  #############################
+
+  /// #############################  seventh page  #############################
 
   setEGDResultImage() async {
     var image = await Utils.getImage();
@@ -274,9 +314,4 @@ class SurAddPatientData {
       EGDResultImageCubit.onUpdateData(image);
     }
   }
-
-
-
-
-
 }

@@ -289,8 +289,7 @@ class AddPatientSecondPage extends StatelessWidget {
                                       listt.add(list[index]);
                                       log("listt ${listt}");
                                     } else {
-                                      cardiacCubit.onUpdateData(state.data
-                                          .replaceAll(list[index], ""));
+                                      cardiacCubit.onUpdateData(state.data.replaceAll(list[index], ""));
                                       listt.remove(list[index]);
                                       log("listt removed ${listt}");
                                     }
@@ -317,12 +316,11 @@ class AddPatientSecondPage extends StatelessWidget {
         ),
         GenericTextField(
           max: 3,
-          hintColor:
-              Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+          hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
           fieldTypes: FieldTypes.rich,
           fillColor: MyColors.textFields,
           hint: "Other notes",
-          controller: SurAddPatientData().patientName,
+          controller: SurAddPatientData().patientNameAr,
           margin: const EdgeInsets.symmetric(vertical: 10),
           action: TextInputAction.next,
           type: TextInputType.text,

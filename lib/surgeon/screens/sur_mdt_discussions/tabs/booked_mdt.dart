@@ -109,12 +109,20 @@ class BookedMDT extends StatelessWidget {
                         color: MyColors.primary,
                       ),
                     ),
-                    MyText(
-                      title: '(Change)',
-                      size: 11,
-                      decoration: TextDecoration.underline,
-                      color: MyColors.primary,
-                      fontWeight: FontWeight.bold,
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => BuildBookTimesDialog(),
+                        );
+                      },
+                      child: MyText(
+                        title: '(Change)',
+                        size: 11,
+                        decoration: TextDecoration.underline,
+                        color: MyColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
 
                   ],
