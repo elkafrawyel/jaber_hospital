@@ -13,10 +13,10 @@ import '../../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.
 import '../../../models/significant_labs_model.dart';
 import '../SurAddPatientImports.dart';
 
-part 'AddPatientFirstPage.dart';
-part 'AddPatientSecondPage.dart';
-part 'AddPatientThirdPage.dart';
-part 'AddPatientFourthPage.dart';
 part 'AddPatientFifthPage.dart';
-part 'AddPatientSixthPage.dart';
+part 'AddPatientFirstPage.dart';
+part 'AddPatientFourthPage.dart';
+part 'AddPatientSecondPage.dart';
 part 'AddPatientSeventhPage.dart';
+part 'AddPatientSixthPage.dart';
+part 'AddPatientThirdPage.dart';

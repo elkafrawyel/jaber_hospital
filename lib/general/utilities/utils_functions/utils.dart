@@ -3,8 +3,8 @@ part of 'UtilsImports.dart';
 class Utils {
   static Future<void> manipulateSplashData(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // bool? initTheme = prefs.getBool("dark")??false;
-    // Utils.changeAppTheme(context,initTheme: initTheme) ;
+    bool? initTheme = prefs.getBool("dark")??false;
+    Utils.changeAppTheme(context,initTheme: initTheme) ;
     initDio(lang: "en");
     initCustomWidgets(language: "en");
     GlobalState.instance.set("token", "");

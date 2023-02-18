@@ -11,6 +11,5 @@ import '../../../general/models/UserModel.dart';
 import '../../../res/res.dart';
 import '../sur_profile/SurProfileImports.dart';
 
-
 part 'SurAccountSetting.dart';
 part 'SurAccountSettingData.dart';

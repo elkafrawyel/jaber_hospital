@@ -12,10 +12,9 @@ import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/gene
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../SurMdtDiscussionsImports.dart';
 
-
-part 'BuildSurMdtTabBar.dart';
-part 'BuildPatientMDTDurationSheet.dart';
+part 'BuildAcceptanceDetailsSheet.dart';
 part 'BuildBookTimesDialog.dart';
 part 'BuildMDTResultSheet.dart';
+part 'BuildPatientMDTDurationSheet.dart';
 part 'BuildReasonDialog.dart';
-part 'BuildAcceptanceDetailsSheet.dart';
+part 'BuildSurMdtTabBar.dart';
