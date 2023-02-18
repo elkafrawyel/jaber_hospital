@@ -19,7 +19,6 @@ class SurHomeData {
     getHome(context);
   }
 
-
   //fetch home
    getHome(BuildContext context) async {
       loadingHome.onUpdateData(true);
