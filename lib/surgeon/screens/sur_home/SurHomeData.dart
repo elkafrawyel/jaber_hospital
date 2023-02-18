@@ -16,7 +16,6 @@ class SurHomeData {
     this.search = TextEditingController();
     this.loadingHome = GenericBloc<bool>(false);
     this.homeCubit = GenericBloc<SurgeonHomeModel?>(null);
-
     getHome(context);
   }
 
