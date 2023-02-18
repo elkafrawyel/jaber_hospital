@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:base_flutter/general/utilities/tf_custom_widgets/tf_custom_widgets.dart';
 import 'package:base_flutter/surgeon/resources/SurgeonRepoImports.dart';
@@ -15,8 +14,6 @@ import '../../../general/models/UserModel.dart';
 import '../../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../models/add_patient_models.dart';
 import '../../models/significant_labs_model.dart';
-
-
 
 part 'SurAddPatient.dart';
 part 'SurAddPatientData.dart';

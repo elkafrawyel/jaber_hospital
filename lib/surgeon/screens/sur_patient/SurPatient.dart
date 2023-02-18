@@ -49,7 +49,9 @@ class _SurPatientState extends State<SurPatient> {
             children: [
               BuildSurPatientTab(),
               Expanded(
-                child: TabBarView(children: [
+                child: TabBarView(
+                    physics:const NeverScrollableScrollPhysics(),
+                    children: [
                   MyPatient(),
                   AllPatients(),
                 ]),
