@@ -89,12 +89,10 @@ class Utils {
     context.read<UserCubit>().onUpdateUserData(model);
     if (model.userData?[0].role == "doctor") {
       Nav.navigateTo(SurHome(), navigatorType: NavigatorType.pushAndPopUntil);
-    } else {
-      Nav.navigateTo(
-          Home(
-            index: 0,
-          ),
-          navigatorType: NavigatorType.pushAndPopUntil);
+    } else if(model.userData?[0].role == "company"){
+      Nav.navigateTo(ComHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
+    } else{
+      Nav.navigateTo(Home(index: 0,), navigatorType: NavigatorType.pushAndPopUntil);
     }
   }
 
@@ -237,8 +235,7 @@ class Utils {
     return null;
   }
 
-  static void copToClipboard(
-      {required String text, required GlobalKey<ScaffoldState> scaffold}) {
+  static void copToClipboard({required String text, required GlobalKey<ScaffoldState> scaffold}) {
     if (text.trim().isEmpty) {
       CustomToast.showToastNotification("لا يوجد بيانات للنسخ");
       return;
@@ -426,4 +423,18 @@ class Utils {
       ),
     );
   }
+
+  static String getDate(String createAt){
+    DateTime dt = DateTime.parse(createAt);
+    DateFormat formatter = DateFormat('MMM'); // create a formatter to get months 3 character
+
+    String monthAbbr = formatter.format(dt);
+    return "${dt.day}/$monthAbbr/${dt.year}";
+  }
+
+  static String getTimeFromStringTimeStamp(String createAt){
+    DateTime dt = DateTime.parse(createAt);
+    return "${dt.hour}:${dt.minute}";
+  }
+
 }

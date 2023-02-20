@@ -33,6 +33,12 @@ class UserData {
   bool? verified;
   String? fullNameAr;
   String? fullNameEn;
+  String? compNameAr;
+  String? compNameEn;
+  String? compAddress;
+  String? compLandLine;
+  String? compContactPerson;
+  String? compContactMobile;
   String? gender;
   String? image;
   String? role;
@@ -47,6 +53,12 @@ class UserData {
         this.verified,
         this.fullNameAr,
         this.fullNameEn,
+        this.compNameAr,
+        this.compNameEn,
+        this.compAddress,
+        this.compLandLine,
+        this.compContactPerson,
+        this.compContactMobile,
         this.gender,
         this.image,
         this.role,
@@ -61,6 +73,12 @@ class UserData {
     verified = json['verified'];
     fullNameAr = json['full_name_ar'];
     fullNameEn = json['full_name_en'];
+    compNameAr = json['company_name_ar'];
+    compNameEn = json['company_name_en'];
+    compAddress = json['company_address'];
+    compLandLine = json['land_line'];
+    compContactPerson = json['company_contact_person'];
+    compContactMobile = json['company_contact_mobile'];
     gender = json['gender'];
     image = json['image'];
     role = json['role'];
@@ -79,6 +97,12 @@ class UserData {
     data['verified'] = this.verified;
     data['full_name_ar'] = this.fullNameAr;
     data['full_name_en'] = this.fullNameEn;
+    data['company_name_ar'] = this.compNameAr;
+    data['company_name_en'] = this.compNameEn;
+    data['company_address'] = this.compAddress;
+    data['land_line'] = this.compLandLine;
+    data['company_contact_person'] = this.compContactPerson;
+    data['company_contact_mobile'] = this.compContactMobile;
     data['gender'] = this.gender;
     data['image'] = this.image;
     data['role'] = this.role;

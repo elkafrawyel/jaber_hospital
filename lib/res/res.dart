@@ -23,6 +23,9 @@ class Res {
   static const String imagesBell = 'assets/images/bell.png';
   static const String imagesBiin = 'assets/images/biin.png';
   static const String imagesBin = 'assets/images/bin.png';
+  static const String imagesMedication = 'assets/images/medication.png';
+  static const String requestsIcon = 'assets/images/requests.png';
+  static const String companyChart = 'assets/images/company_chart.png';
   static const String imagesCalendar = 'assets/images/calendar.png';
   static const String imagesCall = 'assets/images/call.png';
   static const String imagesCalll = 'assets/images/calll.png';
@@ -32,6 +35,7 @@ class Res {
   static const String imagesCamera2 = 'assets/images/camera-2.png';
   static const String imagesCards = 'assets/images/cards.png';
   static const String imagesCart = 'assets/images/cart.png';
+  static const String imagesOrder = 'assets/images/order.png';
   static const String imagesCentral = 'assets/images/central.png';
   static const String imagesCheck = 'assets/images/check.png';
   static const String imagesCheckCircle = 'assets/images/check_circle.png';
