@@ -1,8 +1,7 @@
 import '../../general/models/company_model.dart';
 import '../../general/models/doctor_model.dart';
 import '../../general/models/instrument_model.dart';
-import '../../surgeon/models/surgeon_home_model.dart';
-import 'medications_model.dart';
+import '../../general/models/patient_model.dart';
 
 class OrderModel{
   String? sId;
@@ -11,7 +10,6 @@ class OrderModel{
   CompanyId? companyId;
   PatientId? patientId;
   List<InstrumentModel>? instruments;
-  List<Medications>? medications;
   String? orderStartDate;
   String? orderCompletedDate;
   String? orderStatus;
@@ -29,7 +27,6 @@ class OrderModel{
         this.companyId,
         this.patientId,
         this.instruments,
-        this.medications,
         this.orderStartDate,
         this.orderCompletedDate,
         this.orderStatus,
@@ -58,12 +55,6 @@ class OrderModel{
         instruments!.add(new InstrumentModel.fromJson(v));
       });
     }
-    if (json['medications'] != null) {
-      medications = [];
-      json['medications'].forEach((v) {
-        medications!.add(Medications.fromJson(v));
-      });
-    }
     orderStartDate = json['order_start_date'];
     orderCompletedDate = json['order_completed_date'];
     orderStatus = json['order_status'];
@@ -90,9 +81,6 @@ class OrderModel{
     }
     if (this.instruments != null) {
       data['instruments'] = this.instruments!.map((v) => v.toJson()).toList();
-    }
-    if (this.instruments != null) {
-      data['medications'] = this.medications!.map((v) => v.toJson()).toList();
     }
     data['order_start_date'] = this.orderStartDate;
     data['order_completed_date'] = this.orderCompletedDate;

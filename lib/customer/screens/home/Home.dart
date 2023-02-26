@@ -13,21 +13,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   void initState() {
     homeData.controller = TabController(length: 4, vsync: this);
-    FirebaseMessaging.instance
-        .getInitialMessage()
-        .then((RemoteMessage? message) {
-      log(' =========== >>>>> message $message');
-      log('where r u 4');
-      if (message != null) {
-        if (message.data != {}) {
-          handleNotificationsTap(
-            message.data.toString(),
-          );
-        }
-      }
-    });
+    // FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+    //   log(' =========== >>>>> message $message');
+    //   log('where r u 4');
+    //   if (message != null) {
+    //     if (message.data != {}) {
+    //       handleNotificationsTap(
+    //         message.data.toString(),
+    //       );
+    //     }
+    //   }
+    // });
     final user = context.read<UserCubit>().state.model;
-    if (user.userData![0].role == "patient") {
+    if (user.userData?[0].role == "patient") {
       context.read<LangCubit>().onUpdateLanguage("ar");
       Future.delayed(Duration(microseconds: 100), () {
         showDialog(
@@ -49,7 +47,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MyText(
-                title: user.userData![0].role == "patient"
+                title: user.userData?[0].role == "patient"
                     ? "الرئيسية لل ${user.userData?[0].role}"
                     : 'Home for ${user.userData?[0].role}',
                 size: 15,

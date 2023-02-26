@@ -3,19 +3,22 @@ part of 'UtilsImports.dart';
 class Utils {
   static Future<void> manipulateSplashData(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? initTheme = prefs.getBool("dark")??false;
-    Utils.changeAppTheme(context,initTheme: initTheme) ;
+    Nav.navigateTo(Login(), navigatorType: NavigatorType.pushAndPopUntil);
+    // bool? initTheme = prefs.getBool("dark")??false;
+    // Utils.changeAppTheme(context,initTheme: initTheme);
     initDio(lang: "en");
     initCustomWidgets(language: "en");
     GlobalState.instance.set("token", "");
     var strUser = prefs.get("user");
     if (strUser != null) {
       UserModel data = UserModel.fromJson(json.decode("$strUser"));
-      GlobalState.instance.set("token", data.accessToken);
+      GlobalState.instance.set("token", data.accessToken??'');
       changeLanguage("en", context);
       setCurrentUserData(data, context);
+
     } else {
       Nav.navigateTo(Login(), navigatorType: NavigatorType.pushAndPopUntil);
+
     }
   }
 
@@ -74,8 +77,9 @@ class Utils {
         if (LoginData().rememberMeBloc.state.data) {
           await Utils.saveUserData(user);
         }
-        Utils.setCurrentUserData(user, context);
+        context.read<UserCubit>().onUpdateUserData(user);
         CustomToast.showSimpleToast(msg: 'Signed in successfully');
+        Utils.setCurrentUserData(user, context);
       } else if (verified == false) {
         CustomToast.showSnackBar(context, "please verify your account first",
             backgroundColor: Colors.deepOrangeAccent);
@@ -86,11 +90,12 @@ class Utils {
   }
 
   static void setCurrentUserData(UserModel model, BuildContext context) async {
-    context.read<UserCubit>().onUpdateUserData(model);
     if (model.userData?[0].role == "doctor") {
       Nav.navigateTo(SurHome(), navigatorType: NavigatorType.pushAndPopUntil);
     } else if(model.userData?[0].role == "company"){
       Nav.navigateTo(ComHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
+    } else if(model.userData?[0].role == "patient"){
+      Nav.navigateTo(PatientHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
     } else{
       Nav.navigateTo(Home(index: 0,), navigatorType: NavigatorType.pushAndPopUntil);
     }
@@ -235,7 +240,8 @@ class Utils {
     return null;
   }
 
-  static void copToClipboard({required String text, required GlobalKey<ScaffoldState> scaffold}) {
+  static void copToClipboard(
+      {required String text, required GlobalKey<ScaffoldState> scaffold}) {
     if (text.trim().isEmpty) {
       CustomToast.showToastNotification("لا يوجد بيانات للنسخ");
       return;
@@ -437,4 +443,9 @@ class Utils {
     return "${dt.hour}:${dt.minute}";
   }
 
+  static String getCurrentData(){
+    final now = new DateTime.now();
+    String currentDate = DateFormat('yMMMd').format(now);
+    return currentDate;
+  }
 }

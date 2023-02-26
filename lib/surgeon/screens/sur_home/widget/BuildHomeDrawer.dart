@@ -8,7 +8,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserData? user = context.read<UserCubit>().state.model.userData?[0];
-    log("${user?.role??''}");
+    log("${user?.role ?? ''}");
 
     return Drawer(
         backgroundColor: MyColors.white,
@@ -20,7 +20,8 @@ class BuildSurHomeDrawer extends StatelessWidget {
                 children: [
                   DrawerHeader(
                     child: InkWell(
-                      onTap: ()=>Nav.navigateTo(SurAccountSetting(), navigatorType: NavigatorType.push),
+                      onTap: () => Nav.navigateTo(SurAccountSetting(),
+                          navigatorType: NavigatorType.push),
                       child: Row(
                         children: [
                           CachedImage(
@@ -69,7 +70,8 @@ class BuildSurHomeDrawer extends StatelessWidget {
                   ListTile(
                     leading:
                         Image.asset(Res.imagesNotificationIcon, scale: 2.8),
-                    onTap: () =>Nav.navigateTo(SurNotifications(), navigatorType: NavigatorType.push),
+                    onTap: () => Nav.navigateTo(SurNotifications(),
+                        navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "Notifications",
                       size: 12,
@@ -79,7 +81,11 @@ class BuildSurHomeDrawer extends StatelessWidget {
                   ),
                   ListTile(
                     leading: Image.asset(Res.imagesPatientDrawer, scale: 2.8),
-                    onTap: () => Nav.navigateTo(SurPatient(index: 0,), navigatorType: NavigatorType.push),
+                    onTap: () => Nav.navigateTo(
+                        SurPatient(
+                          index: 0,
+                        ),
+                        navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "Patients",
                       size: 12,
@@ -87,20 +93,77 @@ class BuildSurHomeDrawer extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  ListTile(
-                    leading: Image.asset(Res.imagesMdtopdrawer, scale: 2.5),
-                    onTap: () => Nav.navigateTo(SurMdtDiscussions(), navigatorType: NavigatorType.push),
-                    title: MyText(
-                      title: "MDT Discussions",
-                      size: 12,
-                      color: MyColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                    bloc: SurHomeData().mdtDiscussionsSelect,
+                    builder: (context, state) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ListTile(
+                            leading:
+                                Image.asset(Res.imagesMdtopdrawer, scale: 2.8),
+                            onTap: () => SurHomeData()
+                                .mdtDiscussionsSelect
+                                .onUpdateData(!state.data),
+                            title: Row(
+                              children: [
+                                Expanded(
+                                  child: MyText(
+                                    title: "MDT Discussions",
+                                    size: 12,
+                                    color: MyColors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Icon(
+                                    !state.data
+                                        ? Icons.keyboard_arrow_down
+                                        : Icons.keyboard_arrow_up,
+                                    color: MyColors.black,
+                                    size: 20)
+                              ],
+                            ),
+                          ),
+                          Visibility(
+                            visible: state.data,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 40),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: () => Nav.navigateTo(
+                                        SurMdtDiscussions(),
+                                        navigatorType: NavigatorType.push),
+                                    child: MyText(
+                                      title: "Discussions",
+                                      size: 12,
+                                      color: MyColors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  InkWell(
+                                    onTap: () {},
+                                    child: MyText(
+                                      title: "Admin",
+                                      size: 12,
+                                      color: MyColors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    },
                   ),
                   ListTile(
                     leading:
                         Image.asset(Res.imagesOperationsdrawer, scale: 2.8),
-                    onTap: () => Nav.navigateTo(SurOperations(), navigatorType: NavigatorType.push),
+                    onTap: () => Nav.navigateTo(SurOperations(),
+                        navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "Operations",
                       size: 12,
@@ -111,13 +174,82 @@ class BuildSurHomeDrawer extends StatelessWidget {
                   ListTile(
                     leading:
                         Image.asset(Res.imagesAppointmentsdrawer, scale: 2.8),
-                    onTap: () => Nav.navigateTo(SurFollowUps(), navigatorType: NavigatorType.push),
+                    onTap: () => Nav.navigateTo(SurFollowUps(),
+                        navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "Follow-ups",
                       size: 12,
                       color: MyColors.black,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                  BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                    bloc: SurHomeData().orderSelect,
+                    builder: (context, state) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ListTile(
+                            leading:
+                                Image.asset(Res.imagesOrdersDrawer, scale: 2.8),
+                            onTap: () => SurHomeData()
+                                .orderSelect
+                                .onUpdateData(!state.data),
+                            title: Row(
+                              children: [
+                                Expanded(
+                                  child: MyText(
+                                    title: "Orders",
+                                    size: 12,
+                                    color: MyColors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Icon(
+                                    !state.data
+                                        ? Icons.keyboard_arrow_down
+                                        : Icons.keyboard_arrow_up,
+                                    color: MyColors.black,
+                                    size: 20)
+                              ],
+                            ),
+                          ),
+                          Visibility(
+                            visible: state.data,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 40),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: () => Nav.navigateTo(
+                                        SurMedicationOrder(),
+                                        navigatorType: NavigatorType.push),
+                                    child: MyText(
+                                      title: "Instruments",
+                                      size: 12,
+                                      color: MyColors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  InkWell(
+                                    onTap: () => Nav.navigateTo(
+                                        SurMedicationOrder(),
+                                        navigatorType: NavigatorType.push),
+                                    child: MyText(
+                                      title: "Medication",
+                                      size: 12,
+                                      color: MyColors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),

@@ -12,7 +12,7 @@ class BuildPreOpItem extends StatelessWidget {
   Widget build(BuildContext context) {
     List<PatientModel> list = SurPatientData().patientsCubit.state.data;
     return InkWell(
-      onTap: ()=>Nav.navigateTo(SurPatientDetails(), navigatorType: NavigatorType.push) ,
+      onTap: ()=>Nav.navigateTo(SurPatientDetails(patientId: list[index].sId??'',), navigatorType: NavigatorType.push) ,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         padding: const EdgeInsets.symmetric(vertical: 10),

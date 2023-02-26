@@ -6,7 +6,7 @@ import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/gene
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/widgets/loading_widget.dart';
 import '../../../comp_home/widgets/hrizontal_order_widget.dart';
-import '../../widgets/medication_order_widget.dart';
+import '../../../comp_instruments_orders/widgets/order_widget.dart';
 import '../../../models/order_model.dart';
 import '../../../models/orders_response.dart';
 import 'completed_orders_data.dart';
@@ -53,7 +53,7 @@ class _CompletedOrdersState extends State<CompletedMedicationOrders> {
                     scrollDirection: Axis.vertical,
                     physics: const BouncingScrollPhysics(),
                     itemCount: ordersData.completedOrders?.length??0,
-                    itemBuilder: (context, index) => MedicationOrderWidget(index: index,order: ordersData.completedOrders![index]),
+                    itemBuilder: (context, index) => OrderItemWidget(index: index,order: ordersData.completedOrders![index]),
                     separatorBuilder: (_, __) => const SizedBox(height: 8.0),
                   ): Center(
                     child: MyText(

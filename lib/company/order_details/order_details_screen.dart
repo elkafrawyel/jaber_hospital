@@ -16,11 +16,9 @@ import 'dart:developer';
 import '../models/update_order_status_response.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
-  const OrderDetailsScreen(
-      {Key? key, required this.orderModel, this.isMedication = false})
+  const OrderDetailsScreen({Key? key, required this.orderModel})
       : super(key: key);
   final OrderModel orderModel;
-  final bool isMedication;
 
   @override
   State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
@@ -29,7 +27,6 @@ class OrderDetailsScreen extends StatefulWidget {
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    log("isMedication=> ${widget.isMedication}");
     final size = MediaQuery.of(context).size;
     return GeneralScaffold(
         back: true,
@@ -71,8 +68,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   ),
                   _buildRowItem(
                       title: "Request Time",
-                      value:
-                          "${Utils.getDate(widget.orderModel.createdAt ?? "")}, ${Utils.getTimeFromStringTimeStamp(widget.orderModel.createdAt ?? "")}"),
+                      value: "${Utils.getDate(widget.orderModel.orderStartDate??"")}, ${Utils.getTimeFromStringTimeStamp(widget.orderModel.orderStartDate??"")}"),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: Divider(
@@ -91,73 +87,58 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   ListView.builder(
                       padding: const EdgeInsets.symmetric(vertical: 6.0),
                       shrinkWrap: true,
-                      itemCount: widget.isMedication
-                          ? widget.orderModel.medications?.length
-                          : widget.orderModel.instruments?.length,
+                      itemCount: widget.orderModel.instruments?.length,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
                         return Column(
                           children: [
                             HeaderWidget(
-                              title: widget.isMedication
-                                  ? widget.orderModel.medications![index].medicationName ?? ""
-                                  : widget.orderModel.instruments?[index].code ?? "",
+                              title:
+                                  widget.orderModel.instruments?[index].code ??
+                                      "",
                             ),
                             InstrumentsItemWidget(
-                                itemDesc: widget.isMedication
-                                    ? widget.orderModel.medications![index].description ?? ""
-                                    : widget.orderModel.instruments?[index].description ?? ""),
+                                itemDesc: widget.orderModel.instruments?[index]
+                                        .description ??
+                                    ""),
                           ],
                         );
                       })
                 ],
               ),
             ),
-            if (widget.orderModel.orderStatus == "routed to company"
-                "") ...[
-              DefaultButton(
-                title: "Respond to Order",
-                onTap: () {
-                  // UpdateAccountData().saveCompProfile(context);
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    isDismissible: false,
-                    builder: (BuildContext context) {
-                      return ModelBottomSheet(
-                        child: _buildBottomChangeStatus(
-                            widget.orderModel.orderStatus ?? ""),
-                        sheetHeight: size.height * 0.38,
-                      );
-                    },
-                  );
-                },
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
-              ),
-            ] else if (widget.orderModel.orderStatus == "inprogress") ...[
-              DefaultButton(
-                title: "Respond to Order",
-                onTap: () {
-                  // UpdateAccountData().saveCompProfile(context);
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    isDismissible: false,
-                    builder: (BuildContext context) {
-                      return ModelBottomSheet(
-                        child: _buildBottomChangeStatus(
-                            widget.orderModel.orderStatus ?? ""),
-                        sheetHeight: size.height * 0.38,
-                      );
-                    },
-                  );
-                },
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
-              ),
+            if (widget.orderModel.orderStatus == "roundedToCompany")...[
+              DefaultButton(title: "Respond to Order", onTap: () {
+                // UpdateAccountData().saveCompProfile(context);
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  isDismissible: false,
+                  builder: (BuildContext context) {
+                    return ModelBottomSheet(
+                      child: _buildBottomChangeStatus(widget.orderModel.orderStatus??""),
+                      sheetHeight: size.height * 0.38,
+                    );
+                  },
+                );
+              },margin: const EdgeInsets.symmetric(horizontal: 100,vertical: 5),),
+            ] else if(widget.orderModel.orderStatus == "inprogress")...[
+              DefaultButton(title: "Respond to Order", onTap: () {
+                // UpdateAccountData().saveCompProfile(context);
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  isDismissible: false,
+                  builder: (BuildContext context) {
+                    return ModelBottomSheet(
+                      child: _buildBottomChangeStatus(widget.orderModel.orderStatus??""),
+                      sheetHeight: size.height * 0.38,
+                    );
+                  },
+                );
+              },margin: const EdgeInsets.symmetric(horizontal: 100,vertical: 5),),
             ],
             const SizedBox(
               height: 16.0,
@@ -207,18 +188,16 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             ),
           ),
           const SizedBox(height: 16.0),
-          status == "inprogress"
-              ? const SizedBox.shrink()
-              : RadioListTile(
-                  title: Text("In Progress"),
-                  value: "inprogress",
-                  groupValue: nStatus,
-                  onChanged: (value) {
-                    setInnerState(() {
-                      nStatus = value.toString();
-                    });
-                  },
-                ),
+          status=="inprogress"? const SizedBox.shrink():RadioListTile(
+            title: Text("In Progress"),
+            value: "inprogress",
+            groupValue: nStatus,
+            onChanged: (value) {
+              setInnerState(() {
+                nStatus = value.toString();
+              });
+            },
+          ),
           RadioListTile(
             title: Text("Completed"),
             value: "completed",
@@ -233,14 +212,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           DefaultButton(
             height: 38,
             title: "Update",
-            onTap: () async {
+            onTap: () async{
               log('fetchHomeCompOrders called...');
-              Map<String, dynamic> body = {
+              Map<String, dynamic> body ={
                 "order_status": nStatus,
               };
               UpdateOrderStatusResponse? result = await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
-                name: widget.isMedication? "${ApiNames.updateMedicationOrderStatus}?order_id=${widget.orderModel.sId}"
-                    :"${ApiNames.updateCompOrderStatus}?order_id=${widget.orderModel.sId}",
+                name: "${ApiNames.updateCompOrderStatus}?order_id=${widget.orderModel.sId}",
                 returnType: ReturnType.Model,
                 methodType: MethodType.Put,
                 returnDataFun: (data) => data,
@@ -248,13 +226,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 toJsonFunc: (json) => UpdateOrderStatusResponse.fromJson(json),
               );
               log("data=> ${result?.toJson()}");
-              if (result?.success ?? false) {
+              if(result?.success??false){
                 Navigator.of(context).pop();
-                CustomToast.showSimpleToast(
-                    msg: result?.message?.messageEn ?? "");
-              } else {
-                CustomToast.showSimpleToast(
-                    msg: result?.message?.messageEn ?? "");
+                CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
+              } else{
+                CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
               }
             },
             margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),

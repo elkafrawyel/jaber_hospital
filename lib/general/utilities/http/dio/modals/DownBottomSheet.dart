@@ -29,7 +29,7 @@ class DownBottomSheet {
           itemBuilder: (BuildContext con, int position) {
             return InkWell(
               onTap: () =>
-                  onTab(data[position].name, data[position].id.toString()),
+                  onTab(data[position].patientName, data[position].id.toString()),
               child: Container(
                 height: 50,
                 alignment: Alignment.center,
@@ -40,7 +40,7 @@ class DownBottomSheet {
                   ),
                 ),
                 child: Text(
-                  data[position].name,
+                  data[position].patientName,
                   style: DioUtils.textStyle.copyWith(fontSize: 12),
                 ),
               ),

@@ -36,6 +36,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../company/comp_home/home_screen.dart';
 import '../../../customer/screens/home/HomeImports.dart';
+import '../../../patient/patient_home/home_screen.dart';
 import '../../../surgeon/screens/sur_home/SurHomeImports.dart';
 import '../../blocks/theme_cubit/theme_cubit.dart';
 import 'LoadingDialog.dart';

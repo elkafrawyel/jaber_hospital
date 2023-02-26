@@ -27,7 +27,7 @@ class ReceivedOrdersData{
     receivedOrders = [];
     OrdersResponse? result = await CompanyRepository(context).getCompInstrumentsOrders();
     result?.orders?.forEach((element) {
-      if(element.orderStatus == "routed to company"){
+      if(element.orderStatus == "roundedToCompany"){
         receivedOrders?.add(element);
       }
     });

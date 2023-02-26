@@ -9,6 +9,8 @@ class SurHomeData {
   late TextEditingController search;
   late GenericBloc<SurgeonHomeModel?> homeCubit;
   late GenericBloc<bool> loadingHome;
+  late GenericBloc<bool> mdtDiscussionsSelect;
+  late GenericBloc<bool> orderSelect;
 
 
 
@@ -16,8 +18,12 @@ class SurHomeData {
     this.search = TextEditingController();
     this.loadingHome = GenericBloc<bool>(false);
     this.homeCubit = GenericBloc<SurgeonHomeModel?>(null);
+    this.mdtDiscussionsSelect = GenericBloc<bool>(false);
+    this.orderSelect = GenericBloc<bool>(false);
+
     getHome(context);
   }
+
 
   //fetch home
    getHome(BuildContext context) async {

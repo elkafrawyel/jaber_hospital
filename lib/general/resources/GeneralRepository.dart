@@ -9,8 +9,7 @@ class GeneralRepository {
     _generalHttpMethods = new GeneralHttpMethods(_context);
   }
 
-  Future<bool> userLogin({required String email, required String pass, required String role})=>
-      _generalHttpMethods.userLogin(email, pass, role);
+  Future<bool> userLogin({required String email, required String pass, required String role})=> _generalHttpMethods.userLogin(email, pass, role);
 
   Future<bool> sendCode({required String code, required String userId}) =>
       _generalHttpMethods.sendCode(code, userId);

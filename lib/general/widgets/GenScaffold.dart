@@ -7,9 +7,10 @@ import 'BuildNotificationIcon.dart';
 
 class GeneralScaffold extends StatelessWidget {
   final String title;
+  final Widget? CustomTitle;
   final Widget body;
   final bool back;
-  final bool borderAppbar ;
+  final bool borderAppbar;
   final List<Widget>? actions;
   final bool notificationIcon;
   final VoidCallback? onLeadingPressed;
@@ -28,7 +29,11 @@ class GeneralScaffold extends StatelessWidget {
     this.notificationIcon = false,
     this.bottomNavigationBar,
     this.centerTitle = false,
-    this.scaffoldBackgroundColor,  this.borderAppbar = false, this.appBarColor, this.appBarTitleColor,
+    this.scaffoldBackgroundColor,
+    this.borderAppbar = false,
+    this.appBarColor,
+    this.appBarTitleColor,
+    this.CustomTitle,
   });
 
   @override
@@ -42,29 +47,32 @@ class GeneralScaffold extends StatelessWidget {
             SystemUiOverlayStyle(statusBarColor: Colors.transparent),
         centerTitle: centerTitle,
         leadingWidth: back == false && centerTitle == false ? 20 : 56,
-        backgroundColor:appBarColor?? MyColors.white,
+        backgroundColor: appBarColor ?? MyColors.white,
         toolbarHeight: 70,
         titleSpacing: 0,
         elevation: 0,
-        title: MyText(
-          title: title,
-          size: 14,
-          color: appBarTitleColor ??MyColors.primary,
-          fontWeight: FontWeight.bold,
-        ),
+        title: CustomTitle ??
+            MyText(
+              title: title,
+              size: 14,
+              color: appBarTitleColor ?? MyColors.primary,
+              fontWeight: FontWeight.bold,
+            ),
         actions: notificationIcon ? [BuildNotificationIcon()] : actions ?? [],
         leading: back
             ? IconButton(
-                icon: Icon(Icons.arrow_back_ios,color: MyColors.primary),
+                icon: Icon(Icons.arrow_back_ios, color: MyColors.primary),
                 iconSize: 25,
                 color: MyColors.white,
                 onPressed: onLeadingPressed ?? () => Navigator.pop(context),
               )
             : SizedBox(),
-        shape:borderAppbar ? RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomLeft: const Radius.circular(30),
-                bottomRight: const Radius.circular(30))) : null,
+        shape: borderAppbar
+            ? RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: const Radius.circular(30),
+                    bottomRight: const Radius.circular(30)))
+            : null,
       ),
       body: body,
     );

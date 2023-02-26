@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-     context.watch<ThemeCubit>().changeAppTheme(context);
+     // context.watch<ThemeCubit>().changeAppTheme(context);
     return MultiBlocProvider(
       providers: MainData.providers(context),
       child:  BlocBuilder<LangCubit, LangState>(

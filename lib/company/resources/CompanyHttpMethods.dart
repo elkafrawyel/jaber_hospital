@@ -78,10 +78,8 @@ class CompanyHttpMethods {
 
   Future<OrdersResponse?> fetchCompMedicationOrders() async {
     log('fetchCompOrders called...');
-    UserModel user = context.read<UserCubit>().state.model;
-    log("id=> ${user.userData?[0].sId}");
     final data = await GenericHttp<OrdersResponse>(context).callApi(
-      name: ApiNames.compMedicationOrders +"?company_id=${user.userData?[0].sId}",
+      name: ApiNames.compMedicationOrders,
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,

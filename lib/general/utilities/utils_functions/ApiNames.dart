@@ -24,6 +24,8 @@ class ApiNames{
   static const String myPatientsPreOp = "doctor_patients_pre_operation";
   static const String updateProfile = "update_profile";
   static const String patientBasicInfo = "patient_basicInfo";
+  static const String patientDetails = "patient_mobile";
+  static const String addAppointment = "appointment";
   /// companies
   static const String companyHomeOrders = "company_orders_completed_inProgress";
   static const String updateCompProfile = "update_company_profile";
@@ -31,5 +33,4 @@ class ApiNames{
   static const String compMedicationOrders = "company_medications_orders";
   static const String compInstrument = "instrument";
   static const String updateCompOrderStatus = "update_order_status";
-  static const String updateMedicationOrderStatus = "update_medication_order_status";
 }

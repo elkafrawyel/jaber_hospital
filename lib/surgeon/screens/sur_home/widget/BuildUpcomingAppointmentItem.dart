@@ -53,7 +53,7 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
                       ),
                       const SizedBox(width: 5),
                       MyText(
-                        title: list?[index].patientId?.operationData??"14 AUG 2022",
+                        title: list?[index].appointmentDate??"14 AUG 2022",
                         overflow: TextOverflow.ellipsis,
                         size: 9,
                         color: MyColors.primary,

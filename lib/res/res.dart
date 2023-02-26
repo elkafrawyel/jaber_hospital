@@ -20,12 +20,13 @@ class Res {
   static const String imagesArrowPoin = 'assets/images/arrow_poin.png';
   static const String imagesArrowpfofile = 'assets/images/arrowpfofile.png';
   static const String imagesBarChart = 'assets/images/BarChart.png';
+  static const String companyChart = 'assets/images/company_chart.png';
+  static const String imagesMedication = 'assets/images/medication.png';
+  static const String imagesOrder = 'assets/images/order.png';
+  static const String appointmentsIcon = 'assets/images/appointmentsIcon.png';
   static const String imagesBell = 'assets/images/bell.png';
   static const String imagesBiin = 'assets/images/biin.png';
   static const String imagesBin = 'assets/images/bin.png';
-  static const String imagesMedication = 'assets/images/medication.png';
-  static const String requestsIcon = 'assets/images/requests.png';
-  static const String companyChart = 'assets/images/company_chart.png';
   static const String imagesCalendar = 'assets/images/calendar.png';
   static const String imagesCall = 'assets/images/call.png';
   static const String imagesCalll = 'assets/images/calll.png';
@@ -35,7 +36,6 @@ class Res {
   static const String imagesCamera2 = 'assets/images/camera-2.png';
   static const String imagesCards = 'assets/images/cards.png';
   static const String imagesCart = 'assets/images/cart.png';
-  static const String imagesOrder = 'assets/images/order.png';
   static const String imagesCentral = 'assets/images/central.png';
   static const String imagesCheck = 'assets/images/check.png';
   static const String imagesCheckCircle = 'assets/images/check_circle.png';
@@ -102,6 +102,7 @@ class Res {
   static const String imagesMedtronic = 'assets/images/medtronic.png';
   static const String imagesMinus = 'assets/images/minus.png';
   static const String imagesMinutesIcon = 'assets/images/MinutesIcon.png';
+  static const String requestsIcon = 'assets/images/requests.png';
   static const String imagesMore = 'assets/images/more.png';
   static const String imagesMoreEmpty = 'assets/images/more_empty.png';
   static const String imagesMoreFill = 'assets/images/more_fill.png';
@@ -166,5 +167,17 @@ class Res {
   static const String imagesZip = 'assets/images/zip.png';
   static const String langAr = 'assets/lang/ar.json';
   static const String langEn = 'assets/lang/en.json';
-
+  static const String caloriesIcon = 'assets/images/calories.png';
+  static const String timerIcon = 'assets/images/timer_icon.png';
+  static const String doctorImage = 'assets/images/doctor_img.png';
+  static const String operationIcon = 'assets/images/operation.png';
+  static const String imagesPhone = 'assets/images/phone.png';
+  static String imagesOrdersDrawer = 'assets/images/ordersDrawer.png';
+  static String imagesFileIcon = 'assets/images/FileIcon.png';
+  static String imagesWeightIcon = 'assets/images/WeightIcon.png';
+  static String imagesStepsIcon = 'assets/images/StepsIcon.png';
+  static String imagesHeightIcon = 'assets/images/HeightIcon.png';
+  static String imagesHistory = 'assets/images/History.png';
+  static String imagesAddPatient = 'assets/images/AddPatient.png';
+  static String imagesDownload = 'assets/images/download.png';
 }

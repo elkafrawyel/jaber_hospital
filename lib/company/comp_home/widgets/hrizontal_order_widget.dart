@@ -50,27 +50,15 @@ class HorizontalOrderWidget extends StatelessWidget {
               children: [
                 MyText(title: 'Order# ${orderModel?.orderNum}', size: 13, fontWeight: FontWeight.bold),
                 const SizedBox(height: 4),
-                if(orderModel!.instruments!.isNotEmpty)...[
-                  Wrap(
-                    children: [
-                      ...List.generate(orderModel?.instruments?.length??0, (index) => MyText(
-                          title: "${orderModel?.instruments?[index].code}, ",
-                          color: MyColors.grey,
-                          size: 10,
-                          fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ]else...[
-                  Wrap(
-                    children: [
-                      ...List.generate(orderModel?.medications?.length??0, (index) => MyText(
-                          title: "${orderModel?.medications?[index].medicationName}, ",
-                          color: MyColors.grey,
-                          size: 10,
-                          fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ],
+                Wrap(
+                  children: [
+                    ...List.generate(orderModel?.instruments?.length??0, (index) => MyText(
+                        title: "${orderModel?.instruments?[index].code}, ",
+                        color: MyColors.grey,
+                        size: 10,
+                        fontWeight: FontWeight.bold)),
+                  ],
+                ),
                 const SizedBox(height: 6),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +71,7 @@ class HorizontalOrderWidget extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         MyText(
-                          title: Utils.getDate(orderModel?.createdAt??""),
+                          title: Utils.getDate(orderModel?.orderStartDate??""),
                           overflow: TextOverflow.ellipsis,
                           size: 9,
                           color: MyColors.primary,
@@ -99,7 +87,7 @@ class HorizontalOrderWidget extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         MyText(
-                          title: Utils.getTimeFromStringTimeStamp(orderModel?.createdAt??""),
+                          title: Utils.getTimeFromStringTimeStamp(orderModel?.orderStartDate??""),
                           size: 9,
                           overflow: TextOverflow.ellipsis,
                           color: MyColors.primary,

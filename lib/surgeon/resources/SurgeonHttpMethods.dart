@@ -122,4 +122,47 @@ class SurgeonHttpMethods {
       return false;
     }
   }
+
+
+  Future<PatientDetailsModel?> getPatientDetails(String patientId) async {
+    dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
+      name: ApiNames.patientDetails + "/$patientId",
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data["data"],
+      toJsonFunc: (json) => PatientDetailsModel.fromJson(json),
+    );
+    if (data != null) {
+      return data;
+    } else {
+      return null;
+    }
+  }
+
+  Future<bool> addAppointment(String patientId,String date,String comments,String clinicName) async {
+    var user = context.read<UserCubit>().state.model ;
+    Map<String, dynamic> body = {
+      "doctor_id": user.userData?[0].sId,
+      "patient_id": patientId,
+      "appointment_date": date,
+      "comments": comments,
+      "clinic_name_en":clinicName,
+      "clinic_name_ar":clinicName,
+
+
+    };
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.addAppointment ,
+      returnType: ReturnType.Type,
+      methodType: MethodType.Post,
+      returnDataFun: (data) => data,
+      jsonBody: body,
+      showLoader: true,
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    }
+    return false;
+  }
 }

@@ -89,7 +89,7 @@ class _DropdownTextFieldState<DataType> extends State<DropdownTextField> {
           child: Icon(Icons.arrow_drop_down, size: 24,color: widget.buttonsColor?? Colors.black),
         ),
         selectedItem: widget.selectedItem,
-        itemAsString: widget.itemAsString ?? (dynamic u) => u.name,
+        itemAsString: widget.itemAsString ?? (dynamic u) => u.patientName,
         showSelectedItem: widget.showSelectedItem,
         style: WidgetUtils.textStyle.copyWith(fontSize: widget.textSize??WidgetUtils.textStyle.fontSize,color:Theme.of(context).textTheme.subtitle1?.color),
         searchBoxStyle: WidgetUtils.textStyle,

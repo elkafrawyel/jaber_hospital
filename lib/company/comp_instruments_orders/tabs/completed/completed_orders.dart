@@ -5,8 +5,10 @@ import '../../../../general/constants/MyColors.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/widgets/loading_widget.dart';
+import '../../../comp_home/widgets/hrizontal_order_widget.dart';
+import '../../../models/order_model.dart';
 import '../../../models/orders_response.dart';
-import '../../widgets/instruments_order_widget.dart';
+import '../../widgets/order_widget.dart';
 import 'completed_orders_data.dart';
 
 class CompletedOrders extends StatefulWidget {
@@ -51,7 +53,7 @@ class _CompletedOrdersState extends State<CompletedOrders> {
                     scrollDirection: Axis.vertical,
                     physics: const BouncingScrollPhysics(),
                     itemCount: ordersData.completedOrders?.length??0,
-                    itemBuilder: (context, index) => InstrumentsOrderWidget(index: index,order: ordersData.completedOrders![index]),
+                    itemBuilder: (context, index) => OrderItemWidget(index: index,order: ordersData.completedOrders![index]),
                     separatorBuilder: (_, __) => const SizedBox(height: 8.0),
                   ): Center(
                     child: MyText(

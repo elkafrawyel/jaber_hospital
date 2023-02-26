@@ -16,23 +16,6 @@ class BuildNewRegister extends StatelessWidget {
             // fontWeight: FontWeight.bold,
           ),
         ),
-        InkWell(
-          onTap: () => Nav.navigateTo(
-            Register(),
-            navigatorType: NavigatorType.push,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: MyText(
-              title: 'Register',
-              size: 11,
-              decoration: TextDecoration.underline,
-              alien: TextAlign.center,
-              color: MyColors.primary,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
       ],
     );
   }

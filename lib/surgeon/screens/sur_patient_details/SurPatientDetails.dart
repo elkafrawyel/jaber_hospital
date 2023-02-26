@@ -1,7 +1,9 @@
 part of 'SurPatientDetailsImports.dart';
 
 class SurPatientDetails extends StatefulWidget {
-  const SurPatientDetails({Key? key}) : super(key: key);
+  final String patientId;
+  const SurPatientDetails({Key? key, required this.patientId})
+      : super(key: key);
 
   @override
   State<SurPatientDetails> createState() => _SurPatientDetailsState();
@@ -9,342 +11,857 @@ class SurPatientDetails extends StatefulWidget {
 
 class _SurPatientDetailsState extends State<SurPatientDetails> {
   @override
+  void initState() {
+    SurPatientDetailsData().init(context, patientId: widget.patientId);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GeneralScaffold(
       back: true,
       title: "Patient Details",
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            decoration: BoxDecoration(
-                color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      actions: [
+        Row(
+          children: [
+            Image.asset(Res.imagesHistory, scale: 2.5),
+            const SizedBox(width: 10),
+            Image.asset(Res.imagesAddPatient, scale: 2.5),
+            const SizedBox(width: 10),
+            Image.asset(Res.imagesDownload, scale: 2.5),
+            const SizedBox(width: 16),
+          ],
+        )
+      ],
+      body: BlocBuilder<GenericBloc<PatientDetailsModel?>,
+          GenericState<PatientDetailsModel?>>(
+        bloc: SurPatientDetailsData().patientDetailsCubit,
+        builder: (context, state) {
+          if (state is GenericUpdateState<PatientDetailsModel?>) {
+            return ListView(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                      color: Color(0xfff2f2f2),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CachedImage(
-                        url: 'https://picsum.photos/180',
-                        height: 60,
-                        width: 60,
-                        borderRadius: BorderRadius.circular(10),
-                        fit: BoxFit.cover,
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
                           children: [
-                            Row(
+                            Stack(
+                              clipBehavior: Clip.none,
                               children: [
-                                Expanded(
-                                  child: MyText(
-                                    title: 'Ahmed Ali',
+                                CachedImage(
+                                  url: state.data?.patient?.image ?? '',
+                                  height: 60,
+                                  width: 60,
+                                  borderRadius: BorderRadius.circular(10),
+                                  fit: BoxFit.cover,
+                                ),
+                                Positioned(
+                                  bottom: -5,
+                                  right: -5,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      color: MyColors.primary,
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                    child: Icon(
+                                      Icons.visibility,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: MyText(
+                                          title:
+                                              state.data?.patient?.fullNameEn ??
+                                                  "",
+                                          size: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 6, vertical: 3),
+                                        decoration: BoxDecoration(
+                                          color: Color(0xffaff7c3),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: MyText(
+                                          title: 'Ready',
+                                          size: 9,
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  MyText(
+                                      title:
+                                          "#${state.data?.patient?.civilId ?? ""}",
+                                      size: 12,
+                                      color: MyColors.blackOpacity),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width/2.3,
+                              child: Row(
+                                children: [
+                                  Image.asset(Res.imagesPhone, scale: 3),
+                                  const SizedBox(width: 10),
+                                  MyText(
+                                    title:
+                                        state.data?.patient?.telephone1 ?? "",
                                     size: 12,
-                                    fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 6, vertical: 3),
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffaff7c3),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Image.asset(Res.imagesFileIcon, scale: 3),
+                                const SizedBox(width: 10),
+                                FittedBox(
+                                  fit: BoxFit.scaleDown,
                                   child: MyText(
-                                    title: 'Ready',
-                                    size: 9,
-                                    color: Colors.green,
-                                    fontWeight: FontWeight.bold,
+                                    title: state.data?.patient?.publicId ??
+                                        "Not set yet",
+                                    size: 12,
                                   ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                MyText(
-                                  title: 'Surgeon : ',
-                                  size: 11,
-                                  color: MyColors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                MyText(
-                                  title:
-                                      'Samer Hany',
-                                  size: 11,
-                                  color: MyColors.grey,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                MyText(
-                                  title: 'Dietitian : ',
-                                  size: 11,
-                                  color: MyColors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                MyText(
-                                  title:
-                                      'Ahmed Jamil',
-                                  size: 11,
-                                  color: MyColors.grey,
                                 ),
                               ],
                             ),
                           ],
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width/2.3,
+                              child: Row(
+
+                                children: [
+                                  Image.asset(Res.imagesWeightIcon, scale: 3),
+                                  const SizedBox(width: 10),
+                                  MyText(
+                                    title: '101 KG',
+                                    size: 12,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Image.asset(Res.imagesHeightIcon, scale: 3),
+                                const SizedBox(width: 10),
+                                MyText(
+                                  title: '177 CM',
+                                  size: 12,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: List.generate(
+                                  5,
+                                  (index) => Stack(
+                                        alignment: Alignment.centerLeft,
+                                        children: [
+                                          if (index <= 3)
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  6,
+                                              height: 5,
+                                              color: MyColors.primary,
+                                            ),
+                                          CircleAvatar(
+                                            backgroundColor: MyColors.primary,
+                                            radius: 12.0,
+                                            child: Icon(Icons.check,
+                                                color: Colors.white, size: 15),
+                                          ),
+                                        ],
+                                      )),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 2),
+                                    child: Column(
+                                      children: [
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: MyText(
+                                            alien: TextAlign.center,
+                                            title: "Surgery OPD",
+                                            size: 9,
+                                            color: MyColors.primary,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 2),
+                                    child: Column(
+                                      children: [
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: MyText(
+                                            alien: TextAlign.center,
+                                            title: "Dietitian",
+                                            size: 9,
+                                            color: MyColors.primary,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 2),
+                                    child: Column(
+                                      children: [
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: MyText(
+                                            alien: TextAlign.center,
+                                            title: "Physiotherapy",
+                                            size: 9,
+                                            color: MyColors.primary,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 2),
+                                    child: Column(
+                                      children: [
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: MyText(
+                                            alien: TextAlign.center,
+                                            title: "Education",
+                                            size: 9,
+                                            color: MyColors.primary,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 2),
+                                    child: Column(
+                                      children: [
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: MyText(
+                                            alien: TextAlign.center,
+                                            title: "Psychology",
+                                            size: 9,
+                                            color: MyColors.primary,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          )
+                        ],
+                      ),
+                      Divider(color: MyColors.grey),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MyText(
+                                title: "Surgery OPD Details;",
+                                size: 10,
+                                fontWeight: FontWeight.bold),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: MyColors.primary,
+                                      radius: 12.0,
+                                      child: Icon(Icons.check,
+                                          color: Colors.white, size: 15),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    MyText(title: "EGD", size: 9),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: MyColors.primary,
+                                      radius: 12.0,
+                                      child: Icon(Icons.check,
+                                          color: Colors.white, size: 15),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    MyText(title: "US", size: 9),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: MyColors.primary,
+                                      radius: 12.0,
+                                      child: Icon(Icons.check,
+                                          color: Colors.white, size: 15),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    MyText(title: "Surgery OPD", size: 9),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
-                Divider(color: MyColors.grey),
+                const SizedBox(height: 10),
+                MyText(
+                    title: "Doctors Info",
+                    size: 14,
+                    fontWeight: FontWeight.bold,
+                    color: MyColors.primary),
+                const SizedBox(height: 10),
                 Row(
                   children: [
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                            5,
-                                (index) => Stack(
-                              alignment: Alignment.centerLeft,
-                              children: [
-                                if (index <= 3)
-                                  Container(
-                                    width: MediaQuery.of(context).size.width / 6,
-                                    height: 5,
-                                    color: MyColors.primary,
-                                  ),
-                                CircleAvatar(
-                                  backgroundColor: MyColors.primary,
-                                  radius: 12.0,
-                                  child: Icon(Icons.check,
-                                      color: Colors.white, size: 15),
-                                ),
-                              ],
-                            )),
-                      ),
+                    MyText(
+                        title: "Surgeon:",
+                        size: 12,
+                        fontWeight: FontWeight.bold),
+                    MyText(
+                      title: "You",
+                      size: 12,
+                      fontWeight: FontWeight.bold,
+                      color: MyColors.primary,
                     ),
                   ],
                 ),
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 2),
-                              child: Column(
-                                children: [
-                                  FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: MyText(
-                                      alien: TextAlign.center,
-                                      title: "Surgery OPD",
-                                      size: 9,
-                                      color: MyColors.primary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 2),
-                              child: Column(
-                                children: [
-                                  FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: MyText(
-                                      alien: TextAlign.center,
-                                      title: "Dietitian",
-                                      size: 9,
-                                      color: MyColors.primary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 2),
-                              child: Column(
-                                children: [
-                                  FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: MyText(
-                                      alien: TextAlign.center,
-                                      title: "Physiotherapy",
-                                      size: 9,
-                                      color: MyColors.primary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 2),
-                              child: Column(
-                                children: [
-                                  FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: MyText(
-                                      alien: TextAlign.center,
-                                      title: "Education",
-                                      size: 9,
-                                      color: MyColors.primary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 2),
-                              child: Column(
-                                children: [
-                                  FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: MyText(
-                                      alien: TextAlign.center,
-                                      title: "Psychology",
-                                      size: 9,
-                                      color: MyColors.primary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    MyText(
+                        title: "Dietitian:",
+                        size: 12,
+                        fontWeight: FontWeight.bold),
+                    MyText(
+                      title: state.data?.patient?.dietationId?.fullNameEn ?? '',
+                      size: 12,
+                      color: MyColors.blackOpacity,
                     ),
-                    const SizedBox(
-                      width: 10,
-                    )
                   ],
                 ),
-                Divider(color: MyColors.grey),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      MyText(
-                          title: "Surgery OPD Details;",
-                          size: 10,
-                          fontWeight: FontWeight.bold),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor:  MyColors.primary
-                                    ,
-                                radius: 12.0,
-                                child: Icon(Icons.check,
-                                    color: Colors.white,
-                                    size: 15),
-                              ),
-                              const SizedBox(width: 10),
-                              MyText(title: "EGD", size: 9),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: MyColors.primary,
-
-                                radius: 12.0,
-                                child: Icon(
-
-                                        Icons.check
-                                        ,
-                                    color: Colors.white,
-                                    size: 15),
-                              ),
-                              const SizedBox(width: 10),
-                              MyText(title: "US", size: 9),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor:
-                                     MyColors.primary
-                                    ,
-                                radius: 12.0,
-                                child: Icon(
-
-                                         Icons.check,
-
-                                    color: Colors.white,
-                                    size: 15),
-                              ),
-                              const SizedBox(width: 10),
-                              MyText(title: "Surgery OPD", size: 9),
-                            ],
-                          ),
-                        ],
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    MyText(
+                        title: "Physiotherapist:",
+                        size: 12,
+                        fontWeight: FontWeight.bold),
+                    MyText(
+                      title: state.data?.patient?.physiotherapyId?.fullNameEn ??
+                          '',
+                      size: 12,
+                      color: MyColors.blackOpacity,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    MyText(
+                        title: "Educator:",
+                        size: 12,
+                        fontWeight: FontWeight.bold),
+                    MyText(
+                      title: state.data?.patient?.surgeon2Id?.fullNameEn ?? '',
+                      size: 12,
+                      color: MyColors.blackOpacity,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    MyText(
+                        title: "Psychologist:",
+                        size: 12,
+                        fontWeight: FontWeight.bold),
+                    MyText(
+                      title:
+                          state.data?.patient?.psychologistId?.fullNameEn ?? '',
+                      size: 12,
+                      color: MyColors.blackOpacity,
+                    ),
+                  ],
+                ),
+                const Divider(
+                  thickness: 1,
+                  height: 20,
+                ),
+                MyText(
+                    title: "Operation Details",
+                    size: 14,
+                    color: MyColors.primary,
+                    fontWeight: FontWeight.bold),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    MyText(
+                        title: "Operation Type: ",
+                        size: 12,
+                        fontWeight: FontWeight.bold),
+                    MyText(
+                      title: state.data?.patient?.operationType ?? '',
+                      size: 12,
+                      color: MyColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    MyText(
+                        title: "Operation Done On:",
+                        size: 12,
+                        fontWeight: FontWeight.bold),
+                    MyText(
+                      //convert date to 12 aug 2021
+                      title: state.data!.patient!.operationDate!.contains("/")
+                          ? state.data?.patient?.operationDate ?? ''
+                          : SurPatientDetailsData()
+                              .date(state.data?.patient?.operationDate ?? ''),
+                      size: 12,
+                      color: MyColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+                const Divider(thickness: 1, height: 20),
+                MyText(
+                    title: "Patient’s Weekly Exercise Overview",
+                    size: 14,
+                    color: MyColors.primary,
+                    fontWeight: FontWeight.bold),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 7,
+                        padding: const EdgeInsets.only(
+                            bottom: 0, left: 20, right: 20, top: 20),
+                        decoration: BoxDecoration(
+                          color: Color(0xff24C647),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              Res.imagesStepsIcon,
+                              scale: 3,
+                            ),
+                            const SizedBox(height: 5),
+                            MyText(
+                              title: '10,000',
+                              size: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            Flexible(
+                              child: MyText(
+                                  alien: TextAlign.center,
+                                  title: 'Steps Moved',
+                                  size: 9,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 7,
+                        padding: const EdgeInsets.only(
+                            bottom: 0, left: 20, right: 20, top: 20),
+                        decoration: BoxDecoration(
+                          color: Color(0xffEB7826),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              Res.imagesMinutesIcon,
+                              scale: 3,
+                            ),
+                            const SizedBox(height: 5),
+                            MyText(
+                              title: '750',
+                              size: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            Flexible(
+                              child: MyText(
+                                  alien: TextAlign.center,
+                                  title: 'Minutes Spent',
+                                  size: 9,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 7,
+                        padding: const EdgeInsets.only(
+                            bottom: 0, left: 20, right: 20, top: 20),
+                        decoration: BoxDecoration(
+                          color: Color(0xffD84545),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              Res.imagesWeightLossIcon,
+                              scale: 3,
+                            ),
+                            const SizedBox(height: 5),
+                            MyText(
+                              title: '7,500',
+                              size: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            Flexible(
+                              child: MyText(
+                                  alien: TextAlign.center,
+                                  title: 'Calories Burned',
+                                  size: 9,
+                                  // overflow: TextOverflow.ellipsis,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const Divider(thickness: 1, height: 30),
+                MyText(
+                    title:
+                        "Upcoming Appointment With ${state.data?.patient?.surgeonId?.fullNameEn ?? ''}",
+                    size: 14,
+                    color: MyColors.primary,
+                    fontWeight: FontWeight.bold),
+                if (state.data!.appointments!.isNotEmpty)
+                 SizedBox(
+                   height: MediaQuery.of(context).size.height / 7,
+                   child: ListView.builder(
+                     scrollDirection: Axis.horizontal,
+                     itemCount: state.data?.appointments?.length??0,
+                     itemBuilder: (BuildContext context, int index) {
+                     return  Container(
+                       width: MediaQuery.of(context).size.width ,
+                       padding: const EdgeInsets.symmetric(
+                           horizontal: 10, vertical: 20),
+                       margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                       decoration: BoxDecoration(
+                         color: MyColors.textFields,
+                         borderRadius: BorderRadius.circular(10),
+                         boxShadow: [
+                           BoxShadow(
+                             color: MyColors.greyWhite,
+                             spreadRadius: .1,
+                             blurRadius: 1,
+                             offset:
+                             const Offset(0, 1), // changes position of shadow
+                           ),
+                         ],
+                       ),
+                       child: Row(
+                         children: [
+                           CachedImage(
+                               url: state.data?.patient?.image ?? "",
+                               height: 56,
+                               width: 50,
+                               borderRadius: BorderRadius.circular(5)),
+                           const SizedBox(width: 10),
+                           Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               MyText(
+                                   title: state.data?.patient?.fullNameEn ?? "",
+                                   size: 14,
+                                   fontWeight: FontWeight.bold),
+                               const SizedBox(height: 2),
+                               MyText(
+                                   title: 'Follow up session',
+                                   color: MyColors.grey,
+                                   size: 12,
+                                   fontWeight: FontWeight.bold),
+                               const SizedBox(height: 2),
+                               Row(
+                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                 children: [
+                                   Row(
+                                     children: [
+                                       Image.asset(
+                                         Res.imagesVector,
+                                         scale: 3,
+                                       ),
+                                       const SizedBox(width: 5),
+                                       MyText(
+                                         title: state.data!.appointments![0]
+                                             .appointmentDate!
+                                             .contains("-")
+                                             ? SurPatientDetailsData().date(state
+                                             .data
+                                             ?.appointments?[0]
+                                             .appointmentDate ??
+                                             "")
+                                             : state.data?.appointments![0]
+                                             .appointmentDate ??
+                                             '',
+                                         overflow: TextOverflow.ellipsis,
+                                         size: 10,
+                                         color: MyColors.primary,
+                                         fontWeight: FontWeight.bold,
+                                       ),
+                                     ],
+                                   ),
+                                   const SizedBox(width: 30),
+                                   Row(
+                                     children: [
+                                       Image.asset(
+                                         Res.imagesClockIcon,
+                                         scale: 3,
+                                       ),
+                                       const SizedBox(width: 5),
+                                       MyText(
+                                         title: SurPatientDetailsData().time(state
+                                             .data
+                                             ?.appointments?[index]
+                                             .appointmentDate ??
+                                             ""),
+                                         size: 10,
+                                         overflow: TextOverflow.ellipsis,
+                                         color: MyColors.primary,
+                                         fontWeight: FontWeight.bold,
+                                       ),
+                                     ],
+                                   ),
+                                 ],
+                               ),
+                             ],
+                           )
+                         ],
+                       ),
+                     );
+                   },),
+                 ),
+                if (state.data!.appointments!.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 30),
+                    child: MyText(
+                        alien: TextAlign.center,
+                        title: "No Upcoming Appointments",
+                        size: 10,
+                        color: MyColors.black,
+                        fontWeight: FontWeight.bold),
                   ),
-                )
+                DefaultButton(
+                    title: "Add Appointment",
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
+                    },
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 100)),
               ],
+            );
+          } else {
+            return Center(child: LoadingDialog.showLoadingView());
+          }
+        },
+      ),
+    );
+  }
+}
+
+class buildAddAppointmentSheet extends StatelessWidget {
+  final String patientId ;
+  const buildAddAppointmentSheet({
+    Key? key, required this.patientId,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GeneralAlertDialog(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      alertButtonType: AlertButtonType.noButton,
+      alertTextType: AlertContentType.noTitle,
+      alertImageType: AlertImageType.noImg,
+      customWidget: Form(
+        key: SurPatientDetailsData().formKey,
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            MyText(
+                title: "Add Appointment",
+                size: 14,
+                alien: TextAlign.center,
+                color: MyColors.primary,
+                fontWeight: FontWeight.bold),
+            const SizedBox(height: 10),
+            MyText(
+                title: "Appointment Date", size: 12, fontWeight: FontWeight.bold),
+            BlocConsumer<GenericBloc<String?>, GenericState<String?>>(
+              bloc: SurPatientDetailsData().dateBloc,
+              listener: (context, state) {
+                SurPatientDetailsData().appointmentDate.text  = state.data??'';
+              },
+              builder: (context, state) {
+                return GenericTextField(
+                  hintColor: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      ?.color
+                      ?.withOpacity(.8),
+                  fieldTypes: FieldTypes.clickable,
+                  fillColor: MyColors.textFields,
+                  hint: "Appointment Date",
+                  controller: SurPatientDetailsData().appointmentDate,
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  action: TextInputAction.next,
+                  onTab: ()=>SurPatientDetailsData().chooseFromDate(context),
+                  suffixIcon: Image.asset(
+                    Res.imagesCalendar,
+                    scale: 3,
+                    color: MyColors.primary,
+                  ),
+                  type: TextInputType.text,
+                  validate: (value) => value!.validateEmpty(context),
+                );
+              },
             ),
-          ),
-          MyText(title: "Doctors Info", size: 14, fontWeight: FontWeight.bold,color: MyColors.primary),
-          Row(
-            children: [
-              MyText(title: "Surgeon:", size: 12, fontWeight: FontWeight.bold),
-              MyText(title: "You", size: 12, fontWeight: FontWeight.bold,color: MyColors.primary,),
-
-            ],
-          ),
-          Row(
-            children: [
-              MyText(title: "Dietitian:", size: 12, fontWeight: FontWeight.bold),
-              MyText(title: "Ahmed Jamil", size: 12, fontWeight: FontWeight.bold,color: MyColors.greyWhite,),
-
-            ],
-          ),
-          Row(
-            children: [
-              MyText(title: "Physiotherapist:", size: 12, fontWeight: FontWeight.bold),
-              MyText(title: "Tamer Mohsen", size: 12, fontWeight: FontWeight.bold,color: MyColors.greyWhite,),
-
-            ],
-          ),
-          Row(
-            children: [
-              MyText(title: "Educator:", size: 12, fontWeight: FontWeight.bold),
-              MyText(title: "Youssef Diaa", size: 12, fontWeight: FontWeight.bold,color: MyColors.greyWhite,),
-
-            ],
-          ),
-          Row(
-            children: [
-              MyText(title: "Psychologist:", size: 12, fontWeight: FontWeight.bold),
-              MyText(title: "Shady Essam", size: 12, fontWeight: FontWeight.bold,color: MyColors.greyWhite,),
-
-            ],
-          ),
-        ],
+            MyText(title: "Clinic Name", size: 12, fontWeight: FontWeight.bold),
+            GenericTextField(
+              hintColor:
+                  Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+              fieldTypes: FieldTypes.normal,
+              fillColor: MyColors.textFields,
+              hint: "Clinic Name",
+              controller: SurPatientDetailsData().clinicName,
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              action: TextInputAction.next,
+              type: TextInputType.text,
+              validate: (value) => value!.validateEmpty(context),
+            ),
+            MyText(title: "Notes", size: 12, fontWeight: FontWeight.bold),
+            GenericTextField(
+              hintColor:
+                  Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+              fieldTypes: FieldTypes.normal,
+              fillColor: MyColors.textFields,
+              hint: "Notes",
+              controller: SurPatientDetailsData().notes,
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              action: TextInputAction.next,
+              type: TextInputType.text,
+              validate: (value) => value!.validateEmpty(context),
+            ),
+            DefaultButton(
+                title: "Confirm Date",
+                onTap: () {
+                  SurPatientDetailsData().addAppointment(context, patientId);
+                },
+                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 50)),
+          ],
+        ),
       ),
     );
   }

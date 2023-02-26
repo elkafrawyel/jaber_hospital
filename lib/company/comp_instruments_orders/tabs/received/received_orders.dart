@@ -5,8 +5,9 @@ import '../../../../general/constants/MyColors.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/widgets/loading_widget.dart';
+import '../../../models/order_model.dart';
 import '../../../models/orders_response.dart';
-import '../../widgets/instruments_order_widget.dart';
+import '../../widgets/order_widget.dart';
 import 'received_orders_data.dart';
 
 class ReceivedOrders extends StatefulWidget {
@@ -53,7 +54,7 @@ class _ReceivedOrdersState extends State<ReceivedOrders> {
                           scrollDirection: Axis.vertical,
                           physics: const BouncingScrollPhysics(),
                           itemCount: ordersData.receivedOrders?.length ?? 0,
-                          itemBuilder: (context, index) => InstrumentsOrderWidget(
+                          itemBuilder: (context, index) => OrderItemWidget(
                             index: index,
                             order: ordersData.receivedOrders![index],
                           ),

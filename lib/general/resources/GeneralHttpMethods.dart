@@ -23,6 +23,7 @@ class GeneralHttpMethods {
       returnDataFun: (data) => data,
       showLoader: false,
     );
+    log("loginResponse=> $data");
     return Utils.manipulateLoginData(context, data);
   }
 
