@@ -39,11 +39,8 @@ class LoginData {
     }
     if (formKey.currentState!.validate()) {
       btnKey.currentState!.animateForward();
-      log("getAuthType==> $getAuthType");
       var result;
-      // result = await GeneralRepository(context).userLogin(
-      //     email: email.text, pass: password.text, role: getAuthType);
-      if(getAuthType == "patient"){
+      if(selectAuthType.state.data == 1){
         result = await GeneralRepository(context).patientLogin(
             civilId: civilId.text, pass: password.text, role: getAuthType);
       }else{

@@ -2,9 +2,8 @@ part of 'LoginWidgetsImports.dart';
 
 class BuildFormInputs extends StatelessWidget {
   final LoginData loginData;
-  final bool isPatientRole;
 
-  const BuildFormInputs({required this.loginData, this.isPatientRole = false});
+  const BuildFormInputs({required this.loginData});
 
   @override
   Widget build(BuildContext context) {
@@ -16,28 +15,39 @@ class BuildFormInputs extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GenericTextField(
-              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-              fieldTypes: FieldTypes.normal,
-              fillColor: dark ? Colors.transparent : MyColors.textFields,
-              hint: isPatientRole?"Enter Your CivilId":"Enter Your Email",
-              controller: isPatientRole? loginData.civilId : loginData.email,
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              action: TextInputAction.next,
-              type: TextInputType.text,
-              validate: (value){
-                if(isPatientRole){
-                 return value!.isEmpty?"Civil id required": null;
-                }else{
-                  return value!.validateEmail(context);
-                }
+            BlocBuilder<GenericBloc<int>, GenericState<int>>(
+              bloc: loginData.selectAuthType,
+              builder: (context, state) {
+                return GenericTextField(
+                  hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                  fieldTypes: FieldTypes.normal,
+                  fillColor: dark ? Colors.transparent : MyColors.textFields,
+                  hint:
+                      state.data==1 ? "Enter Your CivilId" : "Enter Your Email",
+                  controller:
+                      state.data==1 ? loginData.civilId : loginData.email,
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  action: TextInputAction.next,
+                  type: TextInputType.text,
+                  validate: (value) {
+                    if (state.data==1) {
+                      return value!.isEmpty ? "Civil id required" : null;
+                    } else {
+                      return value!.validateEmail(context);
+                    }
+                  },
+                );
               },
             ),
             BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
               bloc: loginData.passwordBloc,
               builder: (context, state) {
                 return GenericTextField(
-                  hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                  hintColor: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      ?.color
+                      ?.withOpacity(.8),
                   fieldTypes:
                       state.data ? FieldTypes.password : FieldTypes.normal,
                   fillColor: dark ? Colors.transparent : MyColors.textFields,
@@ -73,4 +83,3 @@ class BuildFormInputs extends StatelessWidget {
     );
   }
 }
-
