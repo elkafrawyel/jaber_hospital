@@ -160,18 +160,14 @@ class SurOrderMedicationsData {
         }]);
       }
       Map<String, dynamic> body = {
-        // "doctor_id": context.read<UserCubit>().state.model.userData?[0].sId ?? "",
-        "\"doctor_id\"": "\"${context.read<UserCubit>().state.model.userData?[0].sId}\"",
-        "\"patient_id\"": "\"${selectedPatientModel?.sId}\"",
-        "\"company_id\"": "\"${selectedMedicationCubit.state.data[0].companyId?.sId}\"",
-        // "status": true,
-        "\"status\"": true,
-        "\"order_start_date\"" : "\"${dateBloc.state.data}\"",
-        "\"mobile_number\"": "\"${Utils.convertDigitsToLatin(PatientMobileNumber.text)}\"",
-        "\"order_status\"":"\"routed to company\"",
-        "\"medications\"": medication,
-        // "medications": medication,
-        // "order_status": "routed to company",
+        "doctor_id": "\"${context.read<UserCubit>().state.model.userData?[0].sId}\"",
+        "company_id": "\"${selectedMedicationCubit.state.data[0].companyId?.sId}\"",
+        "patient_id": "\"${selectedPatientModel?.sId}\"",
+        "mobile_number": "\"${Utils.convertDigitsToLatin(PatientMobileNumber.text)}\"",
+        "medications": medication.toString(),
+        "order_start_date" : "\"${dateBloc.state.data}\"",
+        "order_status":"\"routed to company\"",
+        "status": true,
 
       };
       var result =
