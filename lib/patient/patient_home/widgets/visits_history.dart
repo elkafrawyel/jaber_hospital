@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../models/patient_appointment_model.dart';
 import 'visits_item_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
+import '../../models/appointments_response.dart';
+import '../home_data.dart';
+import 'doctor_item_widget.dart';
 
 class VisitsHistory extends StatelessWidget {
   const VisitsHistory({Key? key}) : super(key: key);
@@ -26,23 +34,49 @@ class VisitsHistory extends StatelessWidget {
             ),
           ],
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              ...List.generate(4, (index) => VisitsItemWidget(index: index)),
-            ],
-          ),
+        BlocBuilder<GenericBloc<List<PatientAppointmentModel>?>, GenericState<List<PatientAppointmentModel>?>>(
+          bloc: PatientHomeData().pastVisitsCubit,
+          builder: (context, state) {
+            if(state is GenericUpdateState){
+              if(state.data!.isNotEmpty){
+                return  SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ...List.generate(state.data?.length??0,
+                              (index) => VisitsItemWidget(index: index, appointmentModel: state.data![index])),
+                    ],
+                  ),
+                );
+              }else{
+                return Padding(
+                  padding: const EdgeInsets.only(top: 36.0),
+                  child: Center(
+                    child: MyText(
+                      title: 'لا يوجد مواعيد سابقة',
+                      size: 13,
+                      color: MyColors.black,
+                    ),
+                  ),
+                );
+              }
+            }else{
+              return  Shimmer.fromColors(
+                baseColor: Colors.white,
+                highlightColor: MyColors.greyWhite,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  height: MediaQuery.of(context).size.height / 6,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: MyColors.white,
+                  ),
+                ),
+              );
+            }
+          },
         ),
-        // Container(
-        //   height: 176,
-        //   child: ListView.builder(
-        //     padding: const EdgeInsets.symmetric(vertical: 10),
-        //     scrollDirection: Axis.horizontal,
-        //     itemCount: 4,
-        //     itemBuilder: (context, index) => VisitsItemWidget(index: index,),
-        //   ),
-        // ),
       ],
     );
   }

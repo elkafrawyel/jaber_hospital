@@ -13,7 +13,7 @@ class OperationWidget extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      width: size.width * 0.97,
+      width: size.width * 0.99,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       margin: const EdgeInsets.only(right: 10),
       decoration: BoxDecoration(
@@ -35,7 +35,7 @@ class OperationWidget extends StatelessWidget {
             decoration: BoxDecoration(
                 color: MyColors.primaryLightBg,
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            child: Image.asset(Res.operationIcon, width: 48, height: 48, color: MyColors.primary,),
+            child: Image.asset(Res.operationIcon, width: 48, height: 56, color: MyColors.primary,),
           ),
           const SizedBox(width: 10),
           Column(
@@ -60,7 +60,7 @@ class OperationWidget extends StatelessWidget {
               MyText(
                   title: 'د/محمد محسن', size: 13, fontWeight: FontWeight.bold),
             ],
-          )
+          ),
         ],
       ),
     );

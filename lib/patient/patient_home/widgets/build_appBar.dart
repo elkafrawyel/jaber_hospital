@@ -23,11 +23,11 @@ class BuildPatientHomeAppBar extends StatelessWidget implements PreferredSizeWid
         BuildNotificationIcon() ,
       ],
       title: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           MyText(
-            title: "مساء الخير، لؤي",
+            title: "مساء الخير، ${user.userData?[0].fullNameAr ??""}",
             size: 12,
             fontWeight: FontWeight.bold,
             color: MyColors.primary,

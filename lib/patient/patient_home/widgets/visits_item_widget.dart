@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../res/res.dart';
+import '../../models/patient_appointment_model.dart';
 
 class VisitsItemWidget extends StatelessWidget {
-  const VisitsItemWidget({Key? key, required this.index}) : super(key: key);
+  const VisitsItemWidget({Key? key, required this.index, required this.appointmentModel}) : super(key: key);
   final int index;
+  final PatientAppointmentModel appointmentModel;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +48,8 @@ class VisitsItemWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyText(title: 'د/راضي هاني', size: 13, fontWeight: FontWeight.bold),
-                    MyText(title: 'أخصائي تغذية', size: 12, color:Colors.grey),
+                    MyText(title: appointmentModel.doctorId?.fullNameAr??"", size: 13, fontWeight: FontWeight.bold),
+                    MyText(title: appointmentModel.doctorId?.gender??"", size: 12, color:Colors.grey),
                     const SizedBox(height: 4),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,7 +62,7 @@ class VisitsItemWidget extends StatelessWidget {
                             ),
                             const SizedBox(width: 5),
                             MyText(
-                              title: "14 AUG 2022",
+                              title:  appointmentModel.appointmentDate??"",
                               overflow: TextOverflow.ellipsis,
                               size: 9,
                               color: MyColors.primary,
@@ -91,7 +93,7 @@ class VisitsItemWidget extends StatelessWidget {
             ),
             const SizedBox(height: 6.0),
             MyText(title: 'التعليق:', size: 12, fontWeight: FontWeight.bold),
-            Text("كل شيء يبدو جيداً حتى الأن، قم بالاستمرار في هذا العمل الجيد، حتى الزيارة القادمة....", style: TextStyle(fontSize: 12, color:Colors.grey),maxLines: 2, overflow: TextOverflow.ellipsis),
+            Text( appointmentModel.comments??"", style: TextStyle(fontSize: 12, color:Colors.grey),maxLines: 2, overflow: TextOverflow.ellipsis),
           ],
         ),
       ),

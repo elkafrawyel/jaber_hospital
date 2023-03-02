@@ -24,9 +24,10 @@ class PatientHomeDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // UserData? user = context.read<UserCubit>().state.model.userData?[0];
-    // log("${user?.role ?? ''}");
-    // log("${user?.email ?? ''}");
+    UserData? user = context.read<UserCubit>().state.model.userData?[0];
+    log("${user?.role ?? ''}");
+    log("${user?.fullNameAr ?? ''}");
+    log("${user?.email ?? ''}");
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -44,7 +45,7 @@ class PatientHomeDrawer extends StatelessWidget {
                         child: Row(
                           children: [
                             CachedImage(
-                              url: "https://picsum.photos/203",
+                              url: user?.image ??"https://picsum.photos/203",
                               height: 68,
                               width: 68,
                               fit: BoxFit.cover,
@@ -57,7 +58,7 @@ class PatientHomeDrawer extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   MyText(
-                                    title: "لؤي هاني",
+                                    title: user?.fullNameAr??"لؤي هاني",
                                     size: 13,
                                     color: MyColors.primary,
                                     overflow: TextOverflow.ellipsis,

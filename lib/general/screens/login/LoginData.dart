@@ -10,6 +10,7 @@ class LoginData {
   late GlobalKey<CustomButtonState> btnKey ;
   late TextEditingController password ;
   late TextEditingController email ;
+  late TextEditingController civilId ;
   late GenericBloc<bool> passwordBloc;
   late GenericBloc<bool> rememberMeBloc;
   late GenericBloc<int> selectAuthType;
@@ -19,13 +20,14 @@ class LoginData {
     btnKey = GlobalKey<CustomButtonState>();
     password = TextEditingController();
     email = TextEditingController();
+    civilId = TextEditingController();
     passwordBloc = GenericBloc(true);
     rememberMeBloc = GenericBloc(false);
     selectAuthType = GenericBloc(-1);
 
   }
   List<String> authTypesList = ['Doctor', "Patient", "Company"];
-  String get _getAuthType => authTypesList[selectAuthType.state.data].toLowerCase();
+  String get getAuthType => authTypesList[selectAuthType.state.data].toLowerCase();
 
   void userLogin(BuildContext context) async {
     FocusScope.of(context).requestFocus(FocusNode());
@@ -37,8 +39,17 @@ class LoginData {
     }
     if (formKey.currentState!.validate()) {
       btnKey.currentState!.animateForward();
-      var result = await GeneralRepository(context).userLogin(
-          email: email.text, pass: password.text, role: _getAuthType);
+      log("getAuthType==> $getAuthType");
+      var result;
+      // result = await GeneralRepository(context).userLogin(
+      //     email: email.text, pass: password.text, role: getAuthType);
+      if(getAuthType == "patient"){
+        result = await GeneralRepository(context).patientLogin(
+            civilId: civilId.text, pass: password.text, role: getAuthType);
+      }else{
+        result = await GeneralRepository(context).userLogin(
+            email: email.text, pass: password.text, role: getAuthType);
+      }
       if (result) {
         btnKey.currentState!.animateReverse();
       }

@@ -74,7 +74,7 @@ class BuildWeekProgress extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.asset(
-                      Res.timerIcon,
+                      Res.imagesMinutesIcon,
                       scale: 3,
                       width: 20,
                       height: 20,
@@ -114,7 +114,7 @@ class BuildWeekProgress extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.asset(
-                      Res.imagesOrder,
+                      Res.imagesStepsIcon,
                       scale: 3,
                       width: 20,
                       height: 20,

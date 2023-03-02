@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+import '../general/constants/MyColors.dart';
 import '../general/utilities/tf_custom_widgets/widgets/DefaultButton.dart';
 import '../general/widgets/GenScaffold.dart';
 
@@ -12,19 +13,21 @@ class EducationScreen extends StatefulWidget {
 }
 
 class _EducationScreenState extends State<EducationScreen> {
-  String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
+  String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterFly.mp4';
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
 
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     _controller = VideoPlayerController.network(
       'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
     );
     _initializeVideoPlayerFuture = _controller.initialize();
-    _controller.setLooping(true);
+    _controller.setLooping(false);
+    _controller.setVolume(1.0);
+    setState(() {});
+    super.initState();
   }
 
   @override
@@ -48,16 +51,33 @@ class _EducationScreenState extends State<EducationScreen> {
               FutureBuilder(
                 future: _initializeVideoPlayerFuture,
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    // If the VideoPlayerController has finished initialization, use
-                    // the data it provides to limit the aspect ratio of the video.
-                    return ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                      child: AspectRatio(
-                        aspectRatio: _controller.value.aspectRatio,
-                        // Use the VideoPlayer widget to display the video.
-                        child: VideoPlayer(_controller),
-                      ),
+                  if (snapshot.connectionState == ConnectionState.done&& _controller.value.isInitialized) {
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                          child: AspectRatio(
+                            aspectRatio: _controller.value.aspectRatio,
+                            child: VideoPlayer(_controller),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: InkWell(
+                            onTap: (){
+                              if(_controller.value.isPlaying){
+                                _controller.pause();
+                              } else{
+                                _controller.play();
+                              }
+                              setState(() {});
+                            },
+                            child: Icon(_controller.value.isPlaying? Icons.pause_circle: Icons.play_circle,
+                                color: MyColors.primary, size: 36,),
+                          ),
+                        )
+                      ],
                     );
                   } else {
                     // If the VideoPlayerController is still initializing, show a

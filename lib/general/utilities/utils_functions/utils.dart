@@ -75,9 +75,9 @@ class Utils {
         UserModel user = UserModel.fromJson(data["data"]);
         GlobalState.instance.set("token", user.accessToken);
         if (LoginData().rememberMeBloc.state.data) {
+          log("rememberMeBloc is true");
           await Utils.saveUserData(user);
         }
-        context.read<UserCubit>().onUpdateUserData(user);
         CustomToast.showSimpleToast(msg: 'Signed in successfully');
         Utils.setCurrentUserData(user, context);
       } else if (verified == false) {
@@ -90,6 +90,7 @@ class Utils {
   }
 
   static void setCurrentUserData(UserModel model, BuildContext context) async {
+    context.read<UserCubit>().onUpdateUserData(model);
     if (model.userData?[0].role == "doctor") {
       Nav.navigateTo(SurHome(), navigatorType: NavigatorType.pushAndPopUntil);
     } else if(model.userData?[0].role == "company"){

@@ -6,6 +6,7 @@ class ApiNames{
   static const String aboutApp = "AboutApp";
   static const String terms = "conditions";
   static const String login = "login";
+  static const String patientLogin = "patient_login";
   static const String sendCode = "ConfirmCodeRegister";
   static const String resendCode = "resend_otp";
   static const String repeatedQuestions = "FrequentlyAskedQuestions";
@@ -33,32 +34,11 @@ class ApiNames{
   static const String compMedicationOrders = "company_medications_orders";
   static const String compInstrument = "instrument";
   static const String updateCompOrderStatus = "update_order_status";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /// surgeon
-  static const String doctorRoutedOrders = "doctor_routed_orders";
-  static const String doctorInProgressOrders = "doctor_inprogress_orders";
-  static const String doctorCompleatedOrders = "doctor_completed_orders";
-  static const String cancelMedicationOrder = "medication_order_status";
-  static const String patientNames = "patient_names";
-  static const String listMedication = "medication";
-  static const String requestMedicationOrder = "medication_order";
+  /// Patients
+  static const String comingAppointmentsPath = "user_future_appointments";
+  static const String pastAppointmentsPath = "user_past_appointments";
+  static const String patientAppointmentsPath = "user_appointment";
+  static const String patientConsentPath = "patient_consent";
+  static const String patientNotificationPath = "patient_notification";
 
 }

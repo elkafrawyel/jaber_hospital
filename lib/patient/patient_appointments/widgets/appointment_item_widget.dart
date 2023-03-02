@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../res/res.dart';
+import '../../models/patient_appointment_model.dart';
+import '../appointment_details_screen.dart';
 
 class AppointmentItemWidget extends StatelessWidget {
-  const AppointmentItemWidget({Key? key}) : super(key: key);
+  const AppointmentItemWidget({Key? key, required this.index, required this.appointmentModel}) : super(key: key);
+  final int index;
+  final PatientAppointmentModel appointmentModel;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: () {},
+      onTap: ()=> Nav.navigateTo(AppointmentDetailsScreen(), navigatorType: NavigatorType.push),
       child: Container(
         width: size.width * 0.76,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -41,10 +46,10 @@ class AppointmentItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyText(
-                    title: 'د/راضي هاني',
+                    title: appointmentModel.doctorId?.fullNameAr??"",
                     size: 13,
                     fontWeight: FontWeight.bold),
-                MyText(title: 'أخصائي تغذية', size: 12, color: Colors.grey),
+                MyText(title: appointmentModel.doctorId?.gender??"", size: 12, color: Colors.grey),
                 const SizedBox(height: 4),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +62,7 @@ class AppointmentItemWidget extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         MyText(
-                          title: "14 AUG 2022",
+                          title: appointmentModel.appointmentDate??"",
                           overflow: TextOverflow.ellipsis,
                           size: 9,
                           color: MyColors.primary,

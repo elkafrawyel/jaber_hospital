@@ -2,8 +2,9 @@ part of 'LoginWidgetsImports.dart';
 
 class BuildFormInputs extends StatelessWidget {
   final LoginData loginData;
+  final bool isPatientRole;
 
-  const BuildFormInputs({required this.loginData});
+  const BuildFormInputs({required this.loginData, this.isPatientRole = false});
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +20,18 @@ class BuildFormInputs extends StatelessWidget {
               hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
               fieldTypes: FieldTypes.normal,
               fillColor: dark ? Colors.transparent : MyColors.textFields,
-              hint: "Enter Your Email",
-              controller: loginData.email,
+              hint: isPatientRole?"Enter Your CivilId":"Enter Your Email",
+              controller: isPatientRole? loginData.civilId : loginData.email,
               margin: const EdgeInsets.symmetric(vertical: 10),
               action: TextInputAction.next,
               type: TextInputType.text,
-              validate: (value) => value!.validateEmail(context),
+              validate: (value){
+                if(isPatientRole){
+                 return value!.isEmpty?"Civil id required": null;
+                }else{
+                  return value!.validateEmail(context);
+                }
+              },
             ),
             BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
               bloc: loginData.passwordBloc,
