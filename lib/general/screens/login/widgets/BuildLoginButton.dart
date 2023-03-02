@@ -13,6 +13,7 @@ class BuildLoginButton extends StatelessWidget {
     return LoadingButton(
       btnKey: loginData.btnKey,
       title: 'Sign In',
+
       onTap: () => loginData.userLogin(context),
       color: MyColors.primary,
       textColor: MyColors.white,
