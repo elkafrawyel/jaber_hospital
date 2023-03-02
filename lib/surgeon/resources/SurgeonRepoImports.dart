@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:convert';
 
 import 'package:base_flutter/general/utilities/http/dio/dio_helper.dart';
 import 'package:base_flutter/general/utilities/http/dio/http/GenericHttp.dart';
@@ -11,9 +12,13 @@ import '../../customer/model/dto/add_patient_dto.dart';
 import '../../general/blocks/user_cubit/user_cubit.dart';
 import '../../general/models/UserModel.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
+import '../models/dto/medication_dto.dart';
 import '../models/dto/profile_entities.dart';
+import '../models/medication_model.dart';
+import '../models/medications_orders_model.dart';
 import '../models/patient_details_model.dart';
 import '../models/patient_model.dart';
+import '../models/patient_name_model.dart';
 import '../models/surgeon_home_model.dart';
 
 part 'SurgeonHttpMethods.dart';

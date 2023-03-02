@@ -34,6 +34,22 @@ class SurgeonRepository {
   Future<PatientDetailsModel?> getPatientDetails(String patientId) =>
       _surgeonHttpMethods.getPatientDetails(patientId);
 
-  Future<bool> addAppointment(String patientId,String date,String comments,String clinicName) =>
-      _surgeonHttpMethods.addAppointment(patientId, date, comments,clinicName);
+  Future<bool> addAppointment(
+          String patientId, String date, String comments, String clinicName) =>
+      _surgeonHttpMethods.addAppointment(patientId, date, comments, clinicName);
+
+  Future<List<MedicationsOrdersModel>> getMedicationOrders(int index) =>
+      _surgeonHttpMethods.getMedicationOrders(index);
+
+  Future<bool> cancelMedicationOrder({required String orderId}) =>
+      _surgeonHttpMethods.cancelMedicationOrder(orderId);
+
+  Future<List<PatientNameModel>> getPatientNames() =>
+      _surgeonHttpMethods.getPatientNames();
+
+  Future<MedicationModel?> getListMedication(String pageNumber) =>
+      _surgeonHttpMethods.getListMedication(pageNumber);
+
+  Future<bool> requestMedicationOrder(Map<String, dynamic> body) =>
+      _surgeonHttpMethods.requestMedicationOrder(body);
 }

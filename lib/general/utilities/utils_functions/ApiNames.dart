@@ -33,4 +33,32 @@ class ApiNames{
   static const String compMedicationOrders = "company_medications_orders";
   static const String compInstrument = "instrument";
   static const String updateCompOrderStatus = "update_order_status";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /// surgeon
+  static const String doctorRoutedOrders = "doctor_routed_orders";
+  static const String doctorInProgressOrders = "doctor_inprogress_orders";
+  static const String doctorCompleatedOrders = "doctor_completed_orders";
+  static const String cancelMedicationOrder = "medication_order_status";
+  static const String patientNames = "patient_names";
+  static const String listMedication = "medication";
+  static const String requestMedicationOrder = "medication_order";
+
 }

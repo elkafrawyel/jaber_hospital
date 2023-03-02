@@ -627,7 +627,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
   }
 
   ///Public Function that return then UI based on searchMode
-  ///[data] selected item to be passed to the UI
+  ///[medicationInfoList] selected item to be passed to the UI
   ///If we close the popup , or maybe we just selected
   ///another widget we should clear the focus
   ///THIS USED FOR OPEN DROPDOWN_SEARCH PROGRAMMATICALLY,

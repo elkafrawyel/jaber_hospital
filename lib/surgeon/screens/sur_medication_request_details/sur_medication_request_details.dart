@@ -1,7 +1,9 @@
 part of 'sur_medication_request_details_imports.dart';
 
 class SurMedicationRequestDetails extends StatefulWidget {
-  const SurMedicationRequestDetails({Key? key}) : super(key: key);
+  final int index;
+  const SurMedicationRequestDetails({Key? key, required this.index})
+      : super(key: key);
 
   @override
   State<SurMedicationRequestDetails> createState() =>
@@ -12,6 +14,10 @@ class _SurMedicationRequestDetailsState
     extends State<SurMedicationRequestDetails> {
   @override
   Widget build(BuildContext context) {
+    var model = SurMedicationsOrderData()
+        .medicationsOrdersCubit
+        .state
+        .data[widget.index];
     return GeneralScaffold(
         CustomTitle: Row(
           children: [
@@ -23,18 +29,23 @@ class _SurMedicationRequestDetailsState
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                decoration: BoxDecoration(
-                    color: Color(0xffB2FFC3),
-                    borderRadius: BorderRadius.circular(10)),
-                child: MyText(
-                  title: "Completed",
-                  size: 12,
-                  color: Colors.green,
-                ))
+            if (model.orderStatus != "routed to company")
+              Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  decoration: BoxDecoration(
+                      color: model.orderStatus == "inprogress"
+                          ? Color(0xffFFF2D9)
+                          : Color(0xffB2FFC3),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: MyText(
+                    title: model.orderStatus ?? '',
+                    size: 12,
+                    color: model.orderStatus == "inprogress"
+                        ? Color(0xffEB7826)
+                        : Colors.green,
+                  ))
           ],
         ),
         back: true,
@@ -53,7 +64,7 @@ class _SurMedicationRequestDetailsState
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: "Loay Hany",
+                      title: model.patientId?.fullNameEn ?? "Not Available",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -69,7 +80,7 @@ class _SurMedicationRequestDetailsState
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: "01234567896",
+                      title: model.patientId?.civilId ?? "Not Available",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -85,7 +96,7 @@ class _SurMedicationRequestDetailsState
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: "19 Oct 2022",
+                      title: model.orderStartDate ?? "Not Available",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -101,7 +112,7 @@ class _SurMedicationRequestDetailsState
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: "Liraglutide",
+                      title: model.notes ?? "Not Available",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -117,23 +128,23 @@ class _SurMedicationRequestDetailsState
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: "2",
+                      title: "${model.medicationsDetails?.length ?? 0}",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
                   ],
                 ),
-
-
-                DefaultButton(
-                  title: "Cancel Order",
-                  onTap: () {},
-                  borderColor: Colors.red,
-                  color: Colors.white,
-                  textColor: Colors.red,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-                )
+                if (model.orderStatus != "completed")
+                  DefaultButton(
+                    title: "Cancel Order",
+                    onTap: () => SurMedicationsOrderData()
+                        .cancelOrder(context, orderId: model.sId.toString()),
+                    borderColor: Colors.red,
+                    color: Colors.white,
+                    textColor: Colors.red,
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 100, vertical: 20),
+                  )
               ],
             )
           ],

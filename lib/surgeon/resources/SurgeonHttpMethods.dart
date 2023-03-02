@@ -78,7 +78,7 @@ class SurgeonHttpMethods {
     }
   }
 
-  Future<bool> addPatientFirst( String userId,  AddPatientFirstDto model) async {
+  Future<bool> addPatientFirst(String userId, AddPatientFirstDto model) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
       name: ApiNames.patientBasicInfo + "?user_id=$userId",
       returnType: ReturnType.Type,
@@ -107,7 +107,10 @@ class SurgeonHttpMethods {
       showLoader: false,
     );
     if (data != null) {
-      UserModel user = context.read<UserCubit>().state.model;
+      UserModel user = context
+          .read<UserCubit>()
+          .state
+          .model;
       user.userData?[0].fullNameEn = data["full_name_en"];
       user.userData?[0].fullNameAr = data["full_name_ar"];
       user.userData?[0].email = data["email"];
@@ -122,7 +125,6 @@ class SurgeonHttpMethods {
       return false;
     }
   }
-
 
   Future<PatientDetailsModel?> getPatientDetails(String patientId) async {
     dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
@@ -139,20 +141,117 @@ class SurgeonHttpMethods {
     }
   }
 
-  Future<bool> addAppointment(String patientId,String date,String comments,String clinicName) async {
-    var user = context.read<UserCubit>().state.model ;
+  Future<bool> addAppointment(String patientId, String date, String comments,
+      String clinicName) async {
+    var user = context
+        .read<UserCubit>()
+        .state
+        .model;
     Map<String, dynamic> body = {
       "doctor_id": user.userData?[0].sId,
       "patient_id": patientId,
       "appointment_date": date,
       "comments": comments,
-      "clinic_name_en":clinicName,
-      "clinic_name_ar":clinicName,
-
-
+      "clinic_name_en": clinicName,
+      "clinic_name_ar": clinicName,
     };
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.addAppointment ,
+      name: ApiNames.addAppointment,
+      returnType: ReturnType.Type,
+      methodType: MethodType.Post,
+      returnDataFun: (data) => data,
+      jsonBody: body,
+      showLoader: true,
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    }
+    return false;
+  }
+
+  Future<List<MedicationsOrdersModel>> getMedicationOrders(int index) async {
+    dynamic data = await GenericHttp<MedicationsOrdersModel>(context).callApi(
+      name: _getMedicationApiNames(index),
+      returnType: ReturnType.List,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data["data"],
+      toJsonFunc: (json) => MedicationsOrdersModel.fromJson(json),
+    );
+    if (data != null) {
+      return data;
+    } else {
+      return [];
+    }
+  }
+
+  String _getMedicationApiNames(int index) {
+    switch (index) {
+      case 0:
+        return ApiNames.doctorRoutedOrders;
+      case 1:
+        return ApiNames.doctorInProgressOrders;
+      case 2:
+        return ApiNames.doctorCompleatedOrders;
+      default:
+        return ApiNames.doctorRoutedOrders;
+    }
+  }
+
+  Future<bool> cancelMedicationOrder(String orderId) async {
+    Map<String, dynamic> body = {
+      "status": false,
+    };
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.cancelMedicationOrder + "/?order_id=$orderId",
+      returnType: ReturnType.Type,
+      methodType: MethodType.Put,
+      returnDataFun: (data) => data,
+      jsonBody: body,
+      showLoader: true,
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    }
+    return false;
+  }
+
+  Future<List<PatientNameModel>> getPatientNames() async {
+    dynamic data = await GenericHttp<PatientNameModel>(context).callApi(
+      name: ApiNames.patientNames,
+      returnType: ReturnType.List,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data["data"],
+      toJsonFunc: (json) => PatientNameModel.fromJson(json),
+    );
+    if (data != null) {
+      return data;
+    } else {
+      return [];
+    }
+  }
+
+  Future<MedicationModel?> getListMedication(String pageNumber) async {
+    dynamic data = await GenericHttp<MedicationModel>(context).callApi(
+      name: ApiNames.listMedication + "?page=$pageNumber",
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => MedicationModel.fromJson(json),
+    );
+    if (data != null) {
+      return data;
+    } else {
+      return null;
+    }
+  }
+
+
+  Future<bool> requestMedicationOrder(Map<String,dynamic> body) async {
+
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.requestMedicationOrder ,
       returnType: ReturnType.Type,
       methodType: MethodType.Post,
       returnDataFun: (data) => data,

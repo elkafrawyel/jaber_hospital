@@ -21,8 +21,6 @@ class GenericHttp<T> {
       Function(dynamic data)? toJsonFunc,
       bool refresh = true}) async {
     var dataJson = jsonBody ?? {};
-    dataJson.addAll({"lang": DioUtils.lang});
-
     switch (methodType) {
       case MethodType.Get:
         return _getData(

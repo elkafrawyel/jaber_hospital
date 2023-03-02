@@ -1,0 +1,125 @@
+part of 'SurMedicationOrderWImports.dart';
+
+
+class BuildMedicationItem extends StatelessWidget {
+  final int  index ;
+  const BuildMedicationItem({Key? key, required this.index}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var model = SurMedicationsOrderData().medicationsOrdersCubit.state.data[index];
+    return InkWell(
+      onTap: () =>Nav.navigateTo(SurMedicationRequestDetails(index: index), navigatorType: NavigatorType.push),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        decoration: BoxDecoration(
+            color: Color(0xffF2F2F2),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(color: MyColors.grey, spreadRadius: 1, blurRadius: 5)
+            ]),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                        color: MyColors.primary.withOpacity(.1),
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Image.asset(
+                      Res.imagesOrdersDrawer,
+                      color: MyColors.primary,
+                      scale: 3,
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MyText(
+                        title: "Order #${model.orderNum}",
+                        size: 12,
+                        color: MyColors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      const SizedBox(height: 5),
+                      MyText(
+                        title: model.notes  ?? "Not Available",
+                        size: 12,
+                        color: MyColors.blackOpacity,
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset(Res.imagesCalendar,
+                                    scale: 3, color: MyColors.primary),
+                                const SizedBox(width: 5),
+                                MyText(
+                                  title: model.orderStartDate??'' ,
+                                  size: 10,
+                                  color: MyColors.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Row(
+                            children: [
+                              Image.asset(Res.imagesTime,
+                                  scale: 2, color: MyColors.primary),
+                              const SizedBox(width: 5),
+                              MyText(
+                                title: "14:30 PM",
+                                size: 10,
+                                color: MyColors.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            BlocBuilder<GenericBloc<int>, GenericState<int>>(
+              bloc: SurMedicationsOrderData().tabSelect,
+              builder: (context, state) {
+                return Visibility(
+                  visible: SurMedicationsOrderData().tabSelect.state.data == 1 || SurMedicationsOrderData().tabSelect.state.data==2,
+                  child: Column(
+                    children: [
+                      const Divider(),
+                      Row(
+                        children: [
+                          Icon(Icons.circle, color: MyColors.primary, size: 10),
+                          const SizedBox(width: 5),
+                          MyText(
+                            title: "Changed to ${SurMedicationsOrderData().orderNumType.split("Orders").first} on ${model.orderCompletedDate} ",
+                            size: 10,
+                            color: MyColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

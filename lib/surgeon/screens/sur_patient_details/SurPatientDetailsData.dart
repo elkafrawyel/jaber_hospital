@@ -10,8 +10,8 @@ class SurPatientDetailsData {
   late TextEditingController clinicName;
   late TextEditingController notes;
   late GenericBloc<String?> dateBloc;
-  late GenericBloc<PatientDetailsModel?> patientDetailsCubit;
   DateTime startDate = DateTime.now();
+  late GenericBloc<PatientDetailsModel?> patientDetailsCubit;
   late GlobalKey<FormState> formKey;
 
   void init(BuildContext context, {required String patientId}) {

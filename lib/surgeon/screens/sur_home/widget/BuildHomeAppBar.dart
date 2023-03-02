@@ -17,7 +17,7 @@ class BuildSurHomeAppBar extends StatelessWidget implements PreferredSizeWidget 
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MyText(
-            title: "Good evening ,${user.userData?[0].fullNameEn??"Dr Samer"}",
+            title: "Good evening ,${user.userData![0].fullNameEn??"Dr Samer"}",
             size: 12,
             fontWeight: FontWeight.bold,
             color: MyColors.primary,
