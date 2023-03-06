@@ -282,13 +282,13 @@ class AddPatientFourthPage extends StatelessWidget {
                                                   medCubit.onUpdateData(
                                                       state.data + list[index]);
                                                   // log("selected value: ${state.data}");
-                                                  listt.add(list[index]);
-                                                  log("listt ${listt}");
+                                                  // listt.add(list[index]);
+                                                  // log("listt ${listt}");
                                                 } else {
                                                   medCubit.onUpdateData(state.data
                                                       .replaceAll(list[index], ""));
-                                                  listt.remove(list[index]);
-                                                  log("listt removed ${listt}");
+                                                  // listt.remove(list[index]);
+                                                  // log("listt removed ${listt}");
                                                 }
                                               }),
                                           MyText(
@@ -310,11 +310,25 @@ class AddPatientFourthPage extends StatelessWidget {
           },
         ),
 
-        DefaultButton(
-          title: "Next",
-          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-          onTap: () => SurAddPatientData().nextPage(),
-        ),
+        Row(
+          children: [
+            Expanded(
+              child: DefaultButton(
+                title: "Previous",
+                borderColor: MyColors.primary,
+                color: MyColors.white,
+                textColor: MyColors.primary,
+                onTap: () =>SurAddPatientData().previousPage(),
+              ),
+            ),
+            Expanded(
+              child: DefaultButton(
+                title: "Next",
+                onTap: () =>SurAddPatientData().nextPage(),
+              ),
+            ),
+          ],
+        )
       ],
     );
   }

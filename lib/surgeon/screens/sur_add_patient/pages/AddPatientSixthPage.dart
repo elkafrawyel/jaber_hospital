@@ -376,13 +376,13 @@ class AddPatientSixthPage extends StatelessWidget {
                                               medCubit.onUpdateData(
                                                   state.data + list[index]);
                                               // log("selected value: ${state.data}");
-                                              listt.add(list[index]);
-                                              log("listt ${listt}");
+                                              // listt.add(list[index]);
+                                              // log("listt ${listt}");
                                             } else {
                                               medCubit.onUpdateData(state.data
                                                   .replaceAll(list[index], ""));
-                                              listt.remove(list[index]);
-                                              log("listt removed ${listt}");
+                                              // listt.remove(list[index]);
+                                              // log("listt removed ${listt}");
                                             }
                                           }),
                                       MyText(

@@ -45,6 +45,7 @@ void getMedicationsOrders ( BuildContext context) async {
     if(response){
       getMedicationsOrders(context);
       navigationKey.currentState!.pop();
+      navigationKey.currentState!.pop();
     }
   }
 

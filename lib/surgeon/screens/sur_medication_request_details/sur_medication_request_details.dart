@@ -137,8 +137,28 @@ class _SurMedicationRequestDetailsState
                 if (model.orderStatus != "completed")
                   DefaultButton(
                     title: "Cancel Order",
-                    onTap: () => SurMedicationsOrderData()
-                        .cancelOrder(context, orderId: model.sId.toString()),
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => GeneralAlertDialog(
+                                alertButtonType: AlertButtonType.dueButton,
+                                alertTextType: AlertContentType.title,
+                                alertImageType: AlertImageType.noImg,
+                                headTitle: "Are you sure you want to cancel ?",
+                                rightButtonTitle: "Yes",
+                                leftButtonTitle: "No",
+                                onTapLeftButton: () {
+                                  navigationKey.currentState!.pop();
+
+                                },
+                                onTapRightButton: () {
+                                  SurMedicationsOrderData().cancelOrder(
+                                    context,
+                                    orderId: model.sId.toString(),
+                                  );
+                                },
+                              ));
+                    },
                     borderColor: Colors.red,
                     color: Colors.white,
                     textColor: Colors.red,

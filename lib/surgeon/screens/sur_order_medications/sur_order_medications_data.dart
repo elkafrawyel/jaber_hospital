@@ -155,13 +155,12 @@ class SurOrderMedicationsData {
         medication.addAll([{
           "\"id\"": "\"${selectedMedicationCubit.state.data[i].sId ?? ""}\"",
           "\"quantity\"" : selectedMedicationCubit.state.data[i].quantity ?? 0,
-          // "id": selectedMedicationCubit.state.data[i].sId ?? "",
-          // "quantity": selectedMedicationCubit.state.data[i].quantity ?? "",
+
         }]);
       }
       Map<String, dynamic> body = {
-        "doctor_id": "\"${context.read<UserCubit>().state.model.userData?[0].sId}\"",
-        "company_id": "\"${selectedMedicationCubit.state.data[0].companyId?.sId}\"",
+        "\"doctor_id\"": "\"${context.read<UserCubit>().state.model.userData?[0].sId}\"",
+        "\"company_id\"": "\"${selectedMedicationCubit.state.data[0].companyId?.sId}\"",
         "patient_id": "\"${selectedPatientModel?.sId}\"",
         "mobile_number": "\"${Utils.convertDigitsToLatin(PatientMobileNumber.text)}\"",
         "medications": medication.toString(),

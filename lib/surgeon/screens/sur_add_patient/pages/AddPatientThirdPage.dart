@@ -22,7 +22,7 @@ class AddPatientThirdPage extends StatelessWidget {
           color: MyColors.black,
         ),
         BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-          bloc: SurAddPatientData().dmSelectionCubit,
+          bloc: SurAddPatientData().refSelectionCubit,
           builder: (context, state) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +33,7 @@ class AddPatientThirdPage extends StatelessWidget {
                         value: true,
                         groupValue: state.data,
                         onChanged: (value) => SurAddPatientData()
-                            .dmSelectionCubit
+                            .refSelectionCubit
                             .onUpdateData(value!)),
                     MyText(
                       title: "Yes",
@@ -45,7 +45,7 @@ class AddPatientThirdPage extends StatelessWidget {
                         value: false,
                         groupValue: state.data,
                         onChanged: (value) => SurAddPatientData()
-                            .dmSelectionCubit
+                            .refSelectionCubit
                             .onUpdateData(value!)),
                     MyText(
                       title: "No",
@@ -162,7 +162,7 @@ class AddPatientThirdPage extends StatelessWidget {
             Expanded(
               child: DefaultButton(
                 title: "Next",
-                onTap: () =>SurAddPatientData().nextPage(),
+                onTap: () =>SurAddPatientData().addPatientThird(context),
               ),
             ),
           ],

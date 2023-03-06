@@ -502,10 +502,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         fontWeight: FontWeight.bold),
                     MyText(
                       //convert date to 12 aug 2021
-                      title: state.data!.patient!.operationDate!.contains("/")
-                          ? state.data?.patient?.operationDate ?? ''
-                          : SurPatientDetailsData()
-                              .date(state.data?.patient?.operationDate ?? ''),
+                      title: state.data?.patient?.operationDate ?? '',
                       size: 12,
                       color: MyColors.primary,
                       fontWeight: FontWeight.bold,
@@ -720,11 +717,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                        ),
                                        const SizedBox(width: 5),
                                        MyText(
-                                         title: SurPatientDetailsData().time(state
+                                         title: state
                                              .data
                                              ?.appointments?[index]
                                              .appointmentDate ??
-                                             ""),
+                                             "",
                                          size: 10,
                                          overflow: TextOverflow.ellipsis,
                                          color: MyColors.primary,
@@ -760,7 +757,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                           builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
                     },
                     margin: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 100)),
+                        vertical: 10, horizontal: 80)),
               ],
             );
           } else {

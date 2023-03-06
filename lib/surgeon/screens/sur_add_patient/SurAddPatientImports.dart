@@ -13,6 +13,8 @@ import '../../../general/constants/MyColors.dart';
 import '../../../general/models/UserModel.dart';
 import '../../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../models/add_patient_models.dart';
+import '../../models/dto/add_patient_second_dto.dart';
+import '../../models/dto/add_patient_third_dto.dart';
 import '../../models/significant_labs_model.dart';
 
 part 'SurAddPatient.dart';

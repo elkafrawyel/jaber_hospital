@@ -31,6 +31,11 @@ class SurgeonRepository {
           {required String userId, required AddPatientFirstDto model}) =>
       _surgeonHttpMethods.addPatientFirst(userId, model);
 
+  Future<bool> addPatientSecond(AddPatientSecondDto model) =>
+      _surgeonHttpMethods.addPatientSecond(model);
+
+  Future<bool> addPatientThird(AddPatientThirdDto model)=>_surgeonHttpMethods.addPatientThird(model);
+
   Future<PatientDetailsModel?> getPatientDetails(String patientId) =>
       _surgeonHttpMethods.getPatientDetails(patientId);
 

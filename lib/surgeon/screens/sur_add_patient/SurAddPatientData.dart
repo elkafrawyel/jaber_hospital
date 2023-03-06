@@ -27,22 +27,41 @@ class SurAddPatientData {
   /// second page
   late GenericBloc<bool> RespiratoryDiseaseSelectionCubit;
   late TextEditingController otherNotes;
-  late GenericBloc<bool> dmSelectionCubit;
+  late GenericBloc<bool> dmSelectCubit;
   late GenericBloc<int> dmTypeSelectionCubit;
-  late GenericBloc<String> diagnosisTypesCubit;
+  late GenericBloc<List<String>> diagnosisTypesCubit;
   late GenericBloc<String> cardiacDiseaseCubit;
-  late GenericBloc<String> respiratoryDiseaseCubit;
+  late GenericBloc<List<String>> respiratoryDiseaseCubit;
+  late TextEditingController otherNotesDm;
+
   List<String> get diagnosisTypes => AddPatientDTOInfo.diagnosisTypes;
   List<String> get cardiacDiseaseTypes => AddPatientDTOInfo.cardiacDisease;
-  List<String> get respiratoryDiseaseTypes =>
-      AddPatientDTOInfo.respiratoryDisease;
+  List<String> get respiratoryDiseaseTypes => AddPatientDTOInfo.respiratoryDisease;
+
+
+
 
   /// third page
-  late GenericBloc<bool> refluxSelectionCubit;
+  late GenericBloc<bool> refSelectionCubit;
   late GenericBloc<String> medicationsCubit;
   late GenericBloc<String> smokingHabitsCubit;
   List<String> get medications => AddPatientDTOInfo.Medications;
   List<String> get smokingHabits => AddPatientDTOInfo.smokingHabits;
+
+  // static final List<String> Medications = [
+  //   "Regular",
+  //   "Occasional",
+  //   "None",
+  // ];
+  // static final List<String> smokingHabits = [
+  //   "Non-smoker",
+  //   "Ex-smoker",
+  //   "Occasional smoker",
+  //   "Vape",
+  //   "Less than 20 cigarettes",
+  //   "More than 20 cigarettes",
+  //   "Shisha",
+  // ];
 
   /// fourth page
   late GenericBloc<bool> historyBallonSelectionCubit;
@@ -110,6 +129,7 @@ class SurAddPatientData {
   late GenericBloc<bool> DuodenalUlcer;
   late GenericBloc<bool> OtherDuodenum;
 
+
   List<String> get oesophagusGradeType => AddPatientDTOInfo.oesophagusGradeType;
   List<String> get GastritisType => AddPatientDTOInfo.GastritisType;
   List<String> get HPyloriType => AddPatientDTOInfo.HPyloriType;
@@ -122,6 +142,7 @@ class SurAddPatientData {
     pageController = PageController();
     formKey1 = GlobalKey<FormState>();
     pageCubit = GenericBloc(1);
+    otherNotesDm = TextEditingController();
     patientNameAr = TextEditingController();
     patientGenderCubit = GenericBloc("male");
     patientNameEn = TextEditingController();
@@ -136,14 +157,14 @@ class SurAddPatientData {
     patientHeight = TextEditingController();
     BMI = TextEditingController();
     otherNotes = TextEditingController();
-    dmSelectionCubit = GenericBloc(false);
+    refSelectionCubit = GenericBloc(false);
     dmTypeSelectionCubit = GenericBloc(0);
-    diagnosisTypesCubit = GenericBloc("");
+    diagnosisTypesCubit = GenericBloc([]);
     cardiacDiseaseCubit = GenericBloc("");
-    respiratoryDiseaseCubit = GenericBloc("");
+    respiratoryDiseaseCubit = GenericBloc([]);
     medicationsCubit = GenericBloc("");
     smokingHabitsCubit = GenericBloc("");
-    refluxSelectionCubit = GenericBloc(false);
+    dmSelectCubit = GenericBloc(false);
     historyBallonSelectionCubit = GenericBloc(false);
     weightLossFrom = TextEditingController();
     weightLossTo = TextEditingController();
@@ -264,38 +285,89 @@ class SurAddPatientData {
   }
 
   void addPatientFirst(BuildContext context) async {
-    UserModel? users = context.read<UserCubit>().state.model;
-    if (formKey1.currentState!.validate()) {
-      AddPatientFirstDto model = AddPatientFirstDto(
-        height: num.parse(patientHeight.text),
-        weight: num.parse(patientWeight.text),
-        bmi: num.parse(BMI.text),
-        nameAr: patientNameAr.text,
-        nameEn: patientNameEn.text,
-        age: int.parse(patientAge.text),
-        email: patientEmail.text,
-        password: patientMobile1.text,
-        telephone1: patientMobile1.text,
-        telephone2: patientMobile2.text,
-        civilId: patientId.text,
-        gender: patientGenderCubit.state.data,
-        publicId: "137g352fs",
-        fileId: "234873456",
-        image:
-        "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
-      );
-      bool result = await SurgeonRepository(context).addPatientFirst(
-          userId: users.userData?[0].doctorRoleId?.sId ?? "", model: model);
-      if (result) {
-        FocusScope.of(context).requestFocus(FocusNode());
-        nextPage();
-      }
-    }
+    nextPage();
+    // UserModel? users = context.read<UserCubit>().state.model;
+    // if (formKey1.currentState!.validate()) {
+    //   AddPatientFirstDto model = AddPatientFirstDto(
+    //     height: num.parse(patientHeight.text),
+    //     weight: num.parse(patientWeight.text),
+    //     bmi: num.parse(BMI.text),
+    //     nameAr: patientNameAr.text,
+    //     nameEn: patientNameEn.text,
+    //     age: int.parse(patientAge.text),
+    //     email: patientEmail.text,
+    //     password: patientMobile1.text,
+    //     telephone1: patientMobile1.text,
+    //     telephone2: patientMobile2.text,
+    //     civilId: patientId.text,
+    //     gender: patientGenderCubit.state.data,
+    //     publicId: "137g352fs",
+    //     fileId: "234873456",
+    //     image:
+    //     "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
+    //   );
+    //   bool result = await SurgeonRepository(context).addPatientFirst(
+    //       userId: users.userData?[0].doctorRoleId?.sId ?? "", model: model);
+    //   if (result) {
+    //     FocusScope.of(context).requestFocus(FocusNode());
+    //     nextPage();
+    //   }
+    // }
 
   }
 
+
   /// #############################  second page  #############################
+  void addPatientSecond(BuildContext context) async {
+    AddPatientSecondDto model = AddPatientSecondDto(
+      dmType: refSelectionCubit.state.data,
+      dmTypel:dmTypeSelectionCubit.state.data == 1 ?true : false ,
+      dmTypell: dmTypeSelectionCubit.state.data == 2 ?true : false ,
+      htn: diagnosisTypesCubit.state.data.contains("HTN") ? true : false,
+      dyslipidemia: diagnosisTypesCubit.state.data.contains("Dyslipidemia") ? true : false,
+      osa: diagnosisTypesCubit.state.data.contains("OSA") ? true : false,
+      fattyLiver: diagnosisTypesCubit.state.data.contains("Fatty Liver") ? true : false,
+      pcos: diagnosisTypesCubit.state.data.contains("PCOS") ? true : false,
+      cardiacDiseaseIhd: cardiacDiseaseCubit.state.data == "IHD" ? true : false,
+      cardiacDiseaseHf: cardiacDiseaseCubit.state.data == "HF" ? true : false,
+      respiratoryDisVte: respiratoryDiseaseCubit.state.data.contains("VTE") ? true : false,
+      respiratoryDisAnticoag: respiratoryDiseaseCubit.state.data.contains("Anticoagulants") ? true : false,
+      respiratoryDisAntiplate: respiratoryDiseaseCubit.state.data.contains("Antiplatelets") ? true : false,
+      coMorbiditiesOtherNotes: otherNotesDm.text,
+      alcohol: false,
+    );
+    bool result = await SurgeonRepository(context).addPatientSecond(model);
+    if (result) {
+      FocusScope.of(context).requestFocus(FocusNode());
+      nextPage();
+    }
+
+
+  }
+
   /// #############################  third page  #############################
+  void addPatientThird(BuildContext context) async {
+    AddPatientThirdDto model = AddPatientThirdDto(
+      reflux: refSelectionCubit.state.data,
+      exSmoker: smokingHabitsCubit.state.data == "Ex-smoker",
+      nonSmoker: smokingHabitsCubit.state.data == "Non-smoker",
+      lessThan20Cigg: smokingHabitsCubit.state.data == "Less than 20 cigarettes",
+      moreThan20Cigg: smokingHabitsCubit.state.data == "More than 20 cigarettes",
+      vape: smokingHabitsCubit.state.data == "Vape",
+      occationalSmoker: smokingHabitsCubit.state.data == "Occasional smoker",
+      shisha: smokingHabitsCubit.state.data == "Shisha",
+      refluxMedRegular: medicationsCubit.state.data == "Regular"||dmSelectCubit.state.data,
+      refluxMedOcc: medicationsCubit.state.data == "Occasional"||dmSelectCubit.state.data,
+      refluxMedNone: medicationsCubit.state.data == "None"||dmSelectCubit.state.data,
+
+    );
+    bool result = await SurgeonRepository(context).addPatientThird(model);
+    if (result) {
+      FocusScope.of(context).requestFocus(FocusNode());
+      nextPage();
+    }
+  }
+
   /// #############################  fourth page  #############################
   /// #############################  fifth page  #############################
   /// #############################  sixth page  #############################
