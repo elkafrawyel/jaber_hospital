@@ -82,7 +82,7 @@ class AddPatientFourthPage extends StatelessWidget {
                                   margin:
                                       const EdgeInsets.symmetric(vertical: 10),
                                   action: TextInputAction.next,
-                                  type: TextInputType.text,
+                                  type: TextInputType.number,
                                   validate: (value) =>
                                       value!.validateEmpty(context),
                                 ),
@@ -111,7 +111,7 @@ class AddPatientFourthPage extends StatelessWidget {
                                   margin:
                                       const EdgeInsets.symmetric(vertical: 10),
                                   action: TextInputAction.next,
-                                  type: TextInputType.text,
+                                  type: TextInputType.number,
                                   validate: (value) =>
                                       value!.validateEmpty(context),
                                 ),
@@ -261,17 +261,17 @@ class AddPatientFourthPage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: MyColors.black,
                       ),
-                      BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                      BlocBuilder<GenericBloc<List<String>>, GenericState<List<String>>>(
                         bloc: SurAddPatientData().medicationTypeCubit,
                         builder: (context, state) {
                           var medCubit = SurAddPatientData().medicationTypeCubit;
                           final List<String> list = SurAddPatientData().medicationTypes;
                           return Wrap(
                             direction: Axis.horizontal,
-                            children: List.generate(
+                            children:  List.generate(
                                 list.length,
-                                    (index) => Container(
-                                      width: MediaQuery.of(context).size.width/3,
+                                    (index) => SizedBox(
+                                      width: MediaQuery.of(context).size.width/2.3,
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -280,15 +280,10 @@ class AddPatientFourthPage extends StatelessWidget {
                                               onChanged: (value) {
                                                 if (value!) {
                                                   medCubit.onUpdateData(
-                                                      state.data + list[index]);
-                                                  // log("selected value: ${state.data}");
-                                                  // listt.add(list[index]);
-                                                  // log("listt ${listt}");
+                                                      state.data..add(list[index]));
                                                 } else {
-                                                  medCubit.onUpdateData(state.data
-                                                      .replaceAll(list[index], ""));
-                                                  // listt.remove(list[index]);
-                                                  // log("listt removed ${listt}");
+                                                  medCubit.onUpdateData(
+                                                      state.data..remove(list[index]));
                                                 }
                                               }),
                                           MyText(
@@ -296,6 +291,7 @@ class AddPatientFourthPage extends StatelessWidget {
                                             size: 12,
                                             color: MyColors.black,
                                           ),
+                                          const SizedBox(width: 40),
                                         ],
                                       ),
                                     )),
@@ -324,7 +320,7 @@ class AddPatientFourthPage extends StatelessWidget {
             Expanded(
               child: DefaultButton(
                 title: "Next",
-                onTap: () =>SurAddPatientData().nextPage(),
+                onTap: () =>SurAddPatientData().addPatientFourth(context),
               ),
             ),
           ],
