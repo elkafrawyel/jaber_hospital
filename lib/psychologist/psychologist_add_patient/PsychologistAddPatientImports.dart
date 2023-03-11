@@ -1,0 +1,19 @@
+import 'dart:io';
+
+import 'package:base_flutter/general/utilities/tf_custom_widgets/tf_custom_widgets.dart';
+import 'package:base_flutter/surgeon/resources/SurgeonRepoImports.dart';
+import 'package:base_flutter/surgeon/screens/sur_add_patient/pages/PagesWImports.dart';
+import 'package:base_flutter/surgeon/screens/sur_add_patient/widgets/SurAddPatientWImports.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../customer/model/dto/add_patient_dto.dart';
+import '../../../general/blocks/user_cubit/user_cubit.dart';
+import '../../../general/constants/MyColors.dart';
+import '../../../general/models/UserModel.dart';
+import '../../../general/utilities/utils_functions/UtilsImports.dart';
+import '../../surgeon/models/add_patient_models.dart';
+import '../../surgeon/models/significant_labs_model.dart';
+
+part 'PsychologistAddPatient.dart';
+part 'SurAddPatientData.dart';
