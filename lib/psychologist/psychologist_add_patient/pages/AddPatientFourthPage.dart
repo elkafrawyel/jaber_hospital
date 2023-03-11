@@ -1,0 +1,323 @@
+part of 'PagesWImports.dart';
+
+class AddPatientFourthPage extends StatelessWidget {
+  AddPatientFourthPage({Key? key}) : super(key: key);
+
+  PsychologistAddPatientData psychologistAddPatientData = PsychologistAddPatientData();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      children: [
+        MyText(
+          title: "Surgical History:",
+          size: 12,
+          fontWeight: FontWeight.bold,
+          color: MyColors.primary,
+        ),
+        const SizedBox(height: 10),
+        MyText(
+          title: "History Of Ballon:",
+          size: 12,
+          fontWeight: FontWeight.bold,
+          color: MyColors.black,
+        ),
+        BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+          bloc: PsychologistAddPatientData().historyBallonSelectionCubit,
+          builder: (context, state) {
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                        value: true,
+                        groupValue: state.data,
+                        onChanged: (value) => psychologistAddPatientData
+                            .historyBallonSelectionCubit
+                            .onUpdateData(value!)),
+                    MyText(
+                      title: "Yes",
+                      size: 12,
+                      color: MyColors.black,
+                    ),
+                    const SizedBox(width: 40),
+                    Radio(
+                        value: false,
+                        groupValue: state.data,
+                        onChanged: (value) => psychologistAddPatientData
+                            .historyBallonSelectionCubit
+                            .onUpdateData(value!)),
+                    MyText(
+                      title: "No",
+                      size: 12,
+                      color: MyColors.black,
+                    ),
+                  ],
+                ),
+                Offstage(
+                  offstage: !state.data,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                MyText(
+                                    title: "Weight loss from",
+                                    size: 12,
+                                    fontWeight: FontWeight.bold),
+                                GenericTextField(
+                                  hintColor: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      ?.color
+                                      ?.withOpacity(.8),
+                                  fieldTypes: FieldTypes.normal,
+                                  fillColor: MyColors.textFields,
+                                  hint: "Weight loss from",
+                                  controller:
+                                  psychologistAddPatientData.weightLossFrom,
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  action: TextInputAction.next,
+                                  type: TextInputType.text,
+                                  validate: (value) =>
+                                      value!.validateEmpty(context),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                MyText(
+                                    title: "Weight loss to",
+                                    size: 12,
+                                    fontWeight: FontWeight.bold),
+                                GenericTextField(
+                                  hintColor: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      ?.color
+                                      ?.withOpacity(.8),
+                                  fieldTypes: FieldTypes.normal,
+                                  fillColor: MyColors.textFields,
+                                  hint: "Weight loss to",
+                                  controller: psychologistAddPatientData.weightLossTo,
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  action: TextInputAction.next,
+                                  type: TextInputType.text,
+                                  validate: (value) =>
+                                      value!.validateEmpty(context),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      MyText(
+                          title: "Date Of Insertion",
+                          size: 12,
+                          fontWeight: FontWeight.bold),
+                      GenericTextField(
+                        hintColor: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            ?.color
+                            ?.withOpacity(.8),
+                        fieldTypes: FieldTypes.normal,
+                        fillColor: MyColors.textFields,
+                        hint: "Date Of Insertion",
+                        controller: psychologistAddPatientData.insertionDate,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        action: TextInputAction.next,
+                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2,color: MyColors.primary),
+                        type: TextInputType.text,
+                        validate: (value) => value!.validateEmpty(context),
+                      ),
+                      MyText(
+                          title: "Date Of Removal",
+                          size: 12,
+                          fontWeight: FontWeight.bold),
+                      GenericTextField(
+                        hintColor: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            ?.color
+                            ?.withOpacity(.8),
+                        fieldTypes: FieldTypes.normal,
+                        fillColor: MyColors.textFields,
+                        hint: "Date Of Removal",
+                        controller: psychologistAddPatientData.removalDate,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        action: TextInputAction.next,
+                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2,color: MyColors.primary),
+                        type: TextInputType.text,
+                        validate: (value) => value!.validateEmpty(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+        const Divider(),
+        MyText(
+          title: "History Of Weight Loss Medication:",
+          size: 12,
+          fontWeight: FontWeight.bold,
+          color: MyColors.black,
+        ),
+        BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+          bloc: psychologistAddPatientData.historyWeightLossSelectionCubit,
+          builder: (context, state) {
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                        value: true,
+                        groupValue: state.data,
+                        onChanged: (value) => psychologistAddPatientData
+                            .historyWeightLossSelectionCubit
+                            .onUpdateData(value!)),
+                    MyText(
+                      title: "Yes",
+                      size: 12,
+                      color: MyColors.black,
+                    ),
+                    const SizedBox(width: 40),
+                    Radio(
+                        value: false,
+                        groupValue: state.data,
+                        onChanged: (value) => psychologistAddPatientData
+                            .historyWeightLossSelectionCubit
+                            .onUpdateData(value!)),
+                    MyText(
+                      title: "No",
+                      size: 12,
+                      color: MyColors.black,
+                    ),
+                  ],
+                ),
+                Offstage(
+                  offstage: !state.data,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MyText(
+                        title: "Outcome Result",
+                        size: 12,
+                        fontWeight: FontWeight.bold,
+                        color: MyColors.black,
+                      ),
+                      GenericTextField(
+                        hintColor: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            ?.color
+                            ?.withOpacity(.8),
+                        fieldTypes: FieldTypes.normal,
+                        fillColor: MyColors.textFields,
+                        hint: "Outcome Result",
+                        controller: psychologistAddPatientData.outcomeResult,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        action: TextInputAction.next,
+                        type: TextInputType.text,
+                        validate: (value) => value!.validateEmpty(context),
+                      ),
+                      MyText(
+                        title: "Outcome Date",
+                        size: 12,
+                        fontWeight: FontWeight.bold,
+                        color: MyColors.black,
+                      ),
+                      GenericTextField(
+                        hintColor: Theme.of(context)
+                            .textTheme
+                            .subtitle1
+                            ?.color
+                            ?.withOpacity(.8),
+                        fieldTypes: FieldTypes.normal,
+                        fillColor: MyColors.textFields,
+                        hint: "Outcome Date",
+                        controller: psychologistAddPatientData.outcomeDate,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        action: TextInputAction.next,
+                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2,color: MyColors.primary),
+                        type: TextInputType.text,
+                        validate: (value) => value!.validateEmpty(context),
+                      ),
+
+                      MyText(
+                        title: "Medication Type:",
+                        size: 12,
+                        fontWeight: FontWeight.bold,
+                        color: MyColors.black,
+                      ),
+                      BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                        bloc: psychologistAddPatientData.medicationTypeCubit,
+                        builder: (context, state) {
+                          var medCubit = psychologistAddPatientData.medicationTypeCubit;
+                          final List<String> list = psychologistAddPatientData.medicationTypes;
+                          return Wrap(
+                            direction: Axis.horizontal,
+                            children: List.generate(
+                                list.length,
+                                    (index) => Container(
+                                      width: MediaQuery.of(context).size.width/3,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Checkbox(
+                                              value: state.data.contains(list[index]),
+                                              onChanged: (value) {
+                                                if (value!) {
+                                                  medCubit.onUpdateData(
+                                                      state.data + list[index]);
+                                                  // log("selected value: ${state.data}");
+                                                  listt.add(list[index]);
+                                                  log("listt ${listt}");
+                                                } else {
+                                                  medCubit.onUpdateData(state.data
+                                                      .replaceAll(list[index], ""));
+                                                  listt.remove(list[index]);
+                                                  log("listt removed ${listt}");
+                                                }
+                                              }),
+                                          MyText(
+                                            title: list[index],
+                                            size: 12,
+                                            color: MyColors.black,
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+
+        DefaultButton(
+          title: "Next",
+          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+          onTap: () => psychologistAddPatientData.nextPage(),
+        ),
+      ],
+    );
+  }
+}

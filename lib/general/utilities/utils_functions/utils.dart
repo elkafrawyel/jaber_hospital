@@ -92,7 +92,16 @@ class Utils {
   static void setCurrentUserData(UserModel model, BuildContext context) async {
     context.read<UserCubit>().onUpdateUserData(model);
     if (model.userData?[0].role == "doctor") {
-      Nav.navigateTo(SurHome(), navigatorType: NavigatorType.pushAndPopUntil);
+      if(model.userData?[0].doctorRoleId?.roleNameEn=="Surgeon"){
+        log("role==> ${model.userData?[0].doctorRoleId?.roleNameEn}");
+        Nav.navigateTo(SurHome(), navigatorType: NavigatorType.pushAndPopUntil);
+      } else if(model.userData?[0].doctorRoleId?.roleNameEn=="Psychologist"){
+        log("role==> ${model.userData?[0].doctorRoleId?.roleNameEn}");
+        Nav.navigateTo(PsychologistHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
+      } else{
+        log("roleOther==> ${model.userData?[0].doctorRoleId?.roleNameEn}");
+        Nav.navigateTo(SurHome(), navigatorType: NavigatorType.pushAndPopUntil);
+      }
     } else if(model.userData?[0].role == "company"){
       Nav.navigateTo(ComHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
     } else if(model.userData?[0].role == "patient"){

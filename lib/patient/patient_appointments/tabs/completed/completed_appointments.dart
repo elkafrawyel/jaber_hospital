@@ -59,7 +59,7 @@ class _PatientCompletedAppointmentsState extends State<PatientCompletedAppointme
                       itemBuilder: (context, index) => AppointmentItemWidget(index: index,
                           appointmentModel: _completedAppointmentsData.pastAppointments![index]),
                       separatorBuilder: (_, __) =>
-                      const SizedBox(height: 8.0),
+                      const SizedBox(height: 12.0),
                     )
                         : Center(
                       child: MyText(

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../res/res.dart';
 import '../../models/patient_appointment_model.dart';
+import '../../patient_appointments/appointment_details_screen.dart';
 
 class VisitsItemWidget extends StatelessWidget {
   const VisitsItemWidget({Key? key, required this.index, required this.appointmentModel}) : super(key: key);
@@ -14,7 +16,7 @@ class VisitsItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: (){},
+      onTap: ()=> Nav.navigateTo(AppointmentDetailsScreen(appointmentModel: appointmentModel), navigatorType: NavigatorType.push),
       child: Container(
         width: size.width * 0.80,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -45,49 +47,54 @@ class VisitsItemWidget extends StatelessWidget {
                   child: Image.asset(Res.doctorImage, width: double.infinity, height: double.infinity, fit: BoxFit.cover,),
                 ),
                 const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MyText(title: appointmentModel.doctorId?.fullNameAr??"", size: 13, fontWeight: FontWeight.bold),
-                    MyText(title: appointmentModel.doctorId?.gender??"", size: 12, color:Colors.grey),
-                    const SizedBox(height: 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              Res.imagesVector,
-                              scale: 3,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MyText(title: appointmentModel.doctorId?.fullNameAr??"", size: 13, fontWeight: FontWeight.bold),
+                      MyText(title: appointmentModel.doctorId?.title??"", size: 12, color:Colors.grey),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  Res.imagesVector,
+                                  scale: 3,
+                                ),
+                                const SizedBox(width: 5),
+                                Expanded(
+                                  child: MyText(
+                                    title: appointmentModel.appointmentDate??"",
+                                    overflow: TextOverflow.ellipsis,
+                                    size: 9,
+                                    color: MyColors.primary,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(width: 5),
-                            MyText(
-                              title:  appointmentModel.appointmentDate??"",
-                              overflow: TextOverflow.ellipsis,
-                              size: 9,
-                              color: MyColors.primary,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 30),
-                        Row(
-                          children: [
-                            Image.asset(
-                              Res.imagesClockIcon,
-                              scale: 3,
-                            ),
-                            const SizedBox(width: 5),
-                            MyText(
-                              title: "14:30 PM",
-                              size: 9,
-                              overflow: TextOverflow.ellipsis,
-                              color: MyColors.primary,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                          ),
+                          const SizedBox(width: 10),
+                          Row(
+                            children: [
+                              Image.asset(
+                                Res.imagesClockIcon,
+                                scale: 3,
+                              ),
+                              const SizedBox(width: 5),
+                              MyText(
+                                title: "14:30 PM",
+                                size: 9,
+                                overflow: TextOverflow.ellipsis,
+                                color: MyColors.primary,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),

@@ -1,3 +1,4 @@
+import 'package:base_flutter/patient/models/patient_appointment_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../general/constants/MyColors.dart';
@@ -6,7 +7,8 @@ import '../../general/widgets/GenScaffold.dart';
 import '../../res/res.dart';
 
 class AppointmentDetailsScreen extends StatelessWidget {
-  const AppointmentDetailsScreen({Key? key}) : super(key: key);
+  const AppointmentDetailsScreen({Key? key, required this.appointmentModel}) : super(key: key);
+  final PatientAppointmentModel appointmentModel;
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +52,10 @@ class AppointmentDetailsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           MyText(
-                              title: 'د/راضي هاني',
+                              title: appointmentModel.doctorId?.fullNameAr??"",
                               size: 13,
                               fontWeight: FontWeight.bold),
-                          MyText(title: 'أخصائي تغذية', size: 12, color: Colors.grey),
+                          MyText(title: appointmentModel.doctorId?.title??"", size: 12, color: Colors.grey),
                         ],
                       )
                     ],
@@ -72,7 +74,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           MyText(
-                            title: "14 AUG 2022",
+                            title: appointmentModel.appointmentDate??"",
                             overflow: TextOverflow.ellipsis,
                             size: 9,
                             color: MyColors.primary,

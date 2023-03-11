@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:base_flutter/patient/patient_home/widgets/vertical_general_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,21 +53,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
       child: Scaffold(
         appBar: BuildPatientHomeAppBar(),
         drawer: PatientHomeDrawer(),
-        body: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
-          children: [
-            ComingAppointments(),
-            const SizedBox(height: 16.0),
-            GeneralProgress(),
-            const SizedBox(height: 12.0),
-            OperationsDate(),
-            const SizedBox(height: 12.0),
-            BuildWeekProgress(),
-            const SizedBox(height: 16.0),
-            VisitsHistory(),
-            const SizedBox(height: 28.0),
-          ],
-        ),
+        body: HomeView(),
       ),
     );
   }

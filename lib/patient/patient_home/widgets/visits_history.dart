@@ -10,7 +10,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../models/appointments_response.dart';
 import '../home_data.dart';
-import 'doctor_item_widget.dart';
+import 'coming_appointment_widget.dart';
 
 class VisitsHistory extends StatelessWidget {
   const VisitsHistory({Key? key}) : super(key: key);
@@ -41,6 +41,7 @@ class VisitsHistory extends StatelessWidget {
               if(state.data!.isNotEmpty){
                 return  SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
                   child: Row(
                     children: [
                       ...List.generate(state.data?.length??0,

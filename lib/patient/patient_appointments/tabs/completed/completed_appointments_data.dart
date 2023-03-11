@@ -24,7 +24,7 @@ class CompletedAppointmentsData{
 
   Future<void> fetchPastPatAppointments(BuildContext context) async {
     pastAppointments = [];
-    AppointmentsResponse? result = await PatientRepository(context).getComingAppointments();
+    AppointmentsResponse? result = await PatientRepository(context).getPastAppointments();
     pastAppointments = result?.appointments??[];
     log("pastAppointments=> ${pastAppointments?.length}");
     pastCubit.onUpdateData(result);

@@ -53,8 +53,9 @@ class PatientHttpMethods {
   }
 
   Future<AppointmentsResponse?> fetchComingPatientAppointments() async {
+    UserModel user = context.read<UserCubit>().state.model;
     final data = await GenericHttp<AppointmentsResponse>(context).callApi(
-      name: ApiNames.comingAppointmentsPath,
+      name: "${ApiNames.comingAppointmentsPath}?user_id=${user.userData?[0].sId}",
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,
@@ -64,8 +65,9 @@ class PatientHttpMethods {
   }
 
   Future<AppointmentsResponse?> fetchPastPatientAppointments() async {
+    UserModel user = context.read<UserCubit>().state.model;
     final data = await GenericHttp<AppointmentsResponse>(context).callApi(
-      name: ApiNames.pastAppointmentsPath,
+      name: "${ApiNames.pastAppointmentsPath}?user_id=${user.userData?[0].sId}",
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,

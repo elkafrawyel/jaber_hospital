@@ -180,4 +180,5 @@ class Res {
   static String imagesHistory = 'assets/images/History.png';
   static String imagesAddPatient = 'assets/images/AddPatient.png';
   static String imagesDownload = 'assets/images/download.png';
+  static String imagesShape = 'assets/images/shape.png';
 }
