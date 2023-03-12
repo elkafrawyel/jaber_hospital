@@ -6,6 +6,8 @@ import 'package:shimmer/shimmer.dart';
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
+import '../../comp_instruments_orders/instruments_orders.dart';
 import 'hrizontal_order_widget.dart';
 
 class BuildNewOrders extends StatelessWidget {
@@ -22,12 +24,15 @@ class BuildNewOrders extends StatelessWidget {
                 title: 'New Orders',
                 size: 12,
                 fontWeight: FontWeight.bold),
-            MyText(
-              title: 'See All',
-              size: 10,
-              fontWeight: FontWeight.bold,
-              color: MyColors.primary,
-              decoration: TextDecoration.underline,
+            InkWell(
+              onTap: ()=> Nav.navigateTo(CompOrdersScreen(initialIndex: 0), navigatorType: NavigatorType.push),
+              child: MyText(
+                title: 'See All',
+                size: 10,
+                fontWeight: FontWeight.bold,
+                color: MyColors.primary,
+                decoration: TextDecoration.underline,
+              ),
             ),
           ],
         ),

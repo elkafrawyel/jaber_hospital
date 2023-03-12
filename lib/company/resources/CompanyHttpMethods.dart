@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../general/blocks/user_cubit/user_cubit.dart';
 import '../../general/models/UserModel.dart';
+import '../../general/models/notifications_response.dart';
 import '../../general/utilities/http/dio/http/GenericHttp.dart';
 import '../../general/utilities/utils_functions/ApiNames.dart';
 import '../../general/utilities/utils_functions/LoadingDialog.dart';
@@ -99,4 +100,18 @@ class CompanyHttpMethods {
     );
     return data;
   }
+
+  Future<NotificationsResponse?> fetchCompNotifications() async {
+    log('fetchNotifications called...');
+    UserModel user = context.read<UserCubit>().state.model;
+    final data = await GenericHttp<NotificationsResponse>(context).callApi(
+      name: "${ApiNames.compNotifications}?company_id=${user.userData?[0].sId}",
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => NotificationsResponse.fromJson(json),
+    );
+    return data;
+  }
+
 }

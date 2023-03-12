@@ -18,7 +18,7 @@ class _SurNotificationsState extends State<SurNotifications> {
         body: ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
           itemCount: 10,
-            itemBuilder: (context, index) => BuildNotificationItem()));
+            itemBuilder: (context, index) => BuildNotificationItem(index: index)));
   }
 }
 

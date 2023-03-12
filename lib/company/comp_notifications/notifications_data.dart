@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import '../../general/models/instrument_model.dart';
+import '../../general/models/notification_model.dart';
+import '../../general/models/notifications_response.dart';
 import '../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../models/instruments_response.dart';
 import '../resources/CompanyRepository.dart';
@@ -12,19 +14,20 @@ class NotificationsData{
   static final NotificationsData _instance = NotificationsData._();
   factory NotificationsData() => _instance;
 
-  late GenericBloc<InstrumentsResponse?> instrumentsCubit;
+  late GenericBloc<NotificationsResponse?> notificationsCubit;
   late GenericBloc<bool> loadingHome;
-  List<InstrumentModel>? receivedOrders = [];
+  List<NotificationModel>? notificationsList = [];
 
 
   void init(BuildContext context) {
-    this.instrumentsCubit = GenericBloc<InstrumentsResponse?>(null);
+    this.notificationsCubit = GenericBloc<NotificationsResponse?>(null);
     fetchCompNotifications(context);
   }
 
   Future<void> fetchCompNotifications(BuildContext context) async {
-    InstrumentsResponse? result = await CompanyRepository(context).getCompInstruments();
-    log("instruments=> ${result?.instruments?.length}");
-    instrumentsCubit.onUpdateData(result);
+    NotificationsResponse? result = await CompanyRepository(context).getCompNotifications();
+    log("instruments=> ${result?.notifications?.length}");
+    notificationsList = result?.notifications??[];
+    notificationsCubit.onUpdateData(result);
   }
 }

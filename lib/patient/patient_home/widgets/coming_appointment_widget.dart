@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
-import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../res/res.dart';
-import '../../education_screen.dart';
 import '../../models/patient_appointment_model.dart';
 
 class ComingAppointmentWidget extends StatelessWidget {
@@ -16,7 +14,7 @@ class ComingAppointmentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: ()=> Nav.navigateTo(EducationScreen(), navigatorType: NavigatorType.push),
+      // onTap: ()=> Nav.navigateTo(EducationScreen(), navigatorType: NavigatorType.push),
       child: Container(
         width: size.width * 0.80,
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),

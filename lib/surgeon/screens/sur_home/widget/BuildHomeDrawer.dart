@@ -93,72 +93,103 @@ class BuildSurHomeDrawer extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                    bloc: SurHomeData().mdtDiscussionsSelect,
-                    builder: (context, state) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListTile(
-                            leading:
-                                Image.asset(Res.imagesMdtopdrawer, scale: 2.8),
-                            onTap: () => SurHomeData()
-                                .mdtDiscussionsSelect
-                                .onUpdateData(!state.data),
-                            title: Row(
-                              children: [
-                                Expanded(
-                                  child: MyText(
-                                    title: "MDT Discussions",
-                                    size: 12,
-                                    color: MyColors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Icon(
-                                    !state.data
-                                        ? Icons.keyboard_arrow_down
-                                        : Icons.keyboard_arrow_up,
-                                    color: MyColors.black,
-                                    size: 20)
-                              ],
-                            ),
-                          ),
-                          Visibility(
-                            visible: state.data,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 40),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                    onTap: () => Nav.navigateTo(
-                                        SurMdtDiscussions(),
-                                        navigatorType: NavigatorType.push),
-                                    child: MyText(
-                                      title: "Discussions",
-                                      size: 12,
-                                      color: MyColors.black,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  InkWell(
-                                    onTap: () {},
-                                    child: MyText(
-                                      title: "Admin",
-                                      size: 12,
-                                      color: MyColors.black,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      );
-                    },
+                  ExpansionTile(
+                    title: MyText(
+                      title: "MDT Discussions",
+                      size: 12,
+                      color: MyColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    leading: Image.asset(
+                      Res.imagesOrder,
+                      scale: 2.8,
+                      color: Colors.black,
+                      width: 24,
+                      height: 24,
+                      fit: BoxFit.cover,
+                    ),
+                    //add icon
+                    childrenPadding: EdgeInsets.only(left: 60),
+                    //children padding
+                    children: [
+                      ListTile(
+                        title: Text("Discussions"),
+                        onTap:() => Nav.navigateTo(SurMdtDiscussions(), navigatorType: NavigatorType.push),
+                      ),
+
+                      ListTile(
+                        title: Text("Admin"),
+                        // onTap: () => Nav.navigateTo(CompMedicationsOrders(), navigatorType: NavigatorType.push),
+                      ),
+                      //more child menu
+                    ],
                   ),
+                  // BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                  //   bloc: SurHomeData().mdtDiscussionsSelect,
+                  //   builder: (context, state) {
+                  //     return Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children: [
+                  //         ListTile(
+                  //           leading:
+                  //               Image.asset(Res.imagesMdtopdrawer, scale: 2.8),
+                  //           onTap: () => SurHomeData()
+                  //               .mdtDiscussionsSelect
+                  //               .onUpdateData(!state.data),
+                  //           title: Row(
+                  //             children: [
+                  //               Expanded(
+                  //                 child: MyText(
+                  //                   title: "MDT Discussions",
+                  //                   size: 12,
+                  //                   color: MyColors.black,
+                  //                   fontWeight: FontWeight.bold,
+                  //                 ),
+                  //               ),
+                  //               Icon(
+                  //                   !state.data
+                  //                       ? Icons.keyboard_arrow_down
+                  //                       : Icons.keyboard_arrow_up,
+                  //                   color: MyColors.black,
+                  //                   size: 20)
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         Visibility(
+                  //           visible: state.data,
+                  //           child: Padding(
+                  //             padding:
+                  //                 const EdgeInsets.symmetric(horizontal: 40),
+                  //             child: Column(
+                  //               crossAxisAlignment: CrossAxisAlignment.start,
+                  //               children: [
+                  //                 InkWell(
+                  //                   onTap: () => Nav.navigateTo(
+                  //                       SurMdtDiscussions(),
+                  //                       navigatorType: NavigatorType.push),
+                  //                   child: MyText(
+                  //                     title: "Discussions",
+                  //                     size: 12,
+                  //                     color: MyColors.black,
+                  //                   ),
+                  //                 ),
+                  //                 const SizedBox(height: 10),
+                  //                 InkWell(
+                  //                   onTap: () {},
+                  //                   child: MyText(
+                  //                     title: "Admin",
+                  //                     size: 12,
+                  //                     color: MyColors.black,
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         )
+                  //       ],
+                  //     );
+                  //   },
+                  // ),
                   ListTile(
                     leading:
                         Image.asset(Res.imagesOperationsdrawer, scale: 2.8),
@@ -183,74 +214,106 @@ class BuildSurHomeDrawer extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                    bloc: SurHomeData().orderSelect,
-                    builder: (context, state) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListTile(
-                            leading:
-                                Image.asset(Res.imagesOrdersDrawer, scale: 2.8),
-                            onTap: () => SurHomeData()
-                                .orderSelect
-                                .onUpdateData(!state.data),
-                            title: Row(
-                              children: [
-                                Expanded(
-                                  child: MyText(
-                                    title: "Orders",
-                                    size: 12,
-                                    color: MyColors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Icon(
-                                    !state.data
-                                        ? Icons.keyboard_arrow_down
-                                        : Icons.keyboard_arrow_up,
-                                    color: MyColors.black,
-                                    size: 20)
-                              ],
-                            ),
-                          ),
-                          Visibility(
-                            visible: state.data,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 40),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                    onTap: () => Nav.navigateTo(
-                                        SurMedicationOrder(),
-                                        navigatorType: NavigatorType.push),
-                                    child: MyText(
-                                      title: "Instruments",
-                                      size: 12,
-                                      color: MyColors.black,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  InkWell(
-                                    onTap: () => Nav.navigateTo(
-                                        SurMedicationOrder(),
-                                        navigatorType: NavigatorType.push),
-                                    child: MyText(
-                                      title: "Medication",
-                                      size: 12,
-                                      color: MyColors.black,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      );
-                    },
+                  ExpansionTile(
+                    title: MyText(
+                      title: "Orders",
+                      size: 12,
+                      color: MyColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    leading: Image.asset(
+                      Res.imagesOrder,
+                      scale: 2.8,
+                      color: Colors.black,
+                      width: 24,
+                      height: 24,
+                      fit: BoxFit.cover,
+                    ),
+                    //add icon
+                    childrenPadding: EdgeInsets.only(left: 60),
+                    //children padding
+                    children: [
+                      ListTile(
+                        title: Text("Medication"),
+                        onTap:() => Nav.navigateTo(SurMedicationOrder(), navigatorType: NavigatorType.push),
+                      ),
+
+                      ListTile(
+                        title: Text("Admin"),
+                        onTap: () => Nav.navigateTo(SurMedicationOrder(), navigatorType: NavigatorType.push),
+                      ),
+                      //more child menu
+                    ],
                   ),
+
+                  // BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                  //   bloc: SurHomeData().orderSelect,
+                  //   builder: (context, state) {
+                  //     return Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children: [
+                  //         ListTile(
+                  //           leading:
+                  //               Image.asset(Res.imagesOrdersDrawer, scale: 2.8),
+                  //           onTap: () => SurHomeData()
+                  //               .orderSelect
+                  //               .onUpdateData(!state.data),
+                  //           title: Row(
+                  //             children: [
+                  //               Expanded(
+                  //                 child: MyText(
+                  //                   title: "Orders",
+                  //                   size: 12,
+                  //                   color: MyColors.black,
+                  //                   fontWeight: FontWeight.bold,
+                  //                 ),
+                  //               ),
+                  //               Icon(
+                  //                   !state.data
+                  //                       ? Icons.keyboard_arrow_down
+                  //                       : Icons.keyboard_arrow_up,
+                  //                   color: MyColors.black,
+                  //                   size: 20)
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         Visibility(
+                  //           visible: state.data,
+                  //           child: Padding(
+                  //             padding:
+                  //                 const EdgeInsets.symmetric(horizontal: 40),
+                  //             child: Column(
+                  //               crossAxisAlignment: CrossAxisAlignment.start,
+                  //               children: [
+                  //                 InkWell(
+                  //                   onTap: () => Nav.navigateTo(
+                  //                       SurMedicationOrder(),
+                  //                       navigatorType: NavigatorType.push),
+                  //                   child: MyText(
+                  //                     title: "Instruments",
+                  //                     size: 12,
+                  //                     color: MyColors.black,
+                  //                   ),
+                  //                 ),
+                  //                 const SizedBox(height: 10),
+                  //                 InkWell(
+                  //                   onTap: () => Nav.navigateTo(
+                  //                       SurMedicationOrder(),
+                  //                       navigatorType: NavigatorType.push),
+                  //                   child: MyText(
+                  //                     title: "Medication",
+                  //                     size: 12,
+                  //                     color: MyColors.black,
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         )
+                  //       ],
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
             ),

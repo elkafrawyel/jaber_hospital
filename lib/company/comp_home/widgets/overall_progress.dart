@@ -39,7 +39,7 @@ class BuildOverallProgress extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     MyText(
-                      title: '330',
+                      title: '0',
                       size: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -79,7 +79,7 @@ class BuildOverallProgress extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     MyText(
-                      title: '750',
+                      title: '0',
                       size: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -120,7 +120,7 @@ class BuildOverallProgress extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     MyText(
-                      title: '312',
+                      title: '0',
                       size: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,

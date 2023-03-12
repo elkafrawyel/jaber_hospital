@@ -3,7 +3,10 @@ import 'package:flutter/services.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../general/widgets/BuildNotificationIcon.dart';
+import '../../../res/res.dart';
+import '../../comp_notifications/CompNotificationsImports.dart';
 
 class BuildComHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -16,7 +19,12 @@ class BuildComHomeAppBar extends StatelessWidget implements PreferredSizeWidget 
       leadingWidth: 60,
       systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent),
       actions: [
-        BuildNotificationIcon() ,
+        InkWell(
+          onTap: () => Nav.navigateTo(CompNotifications(), navigatorType: NavigatorType.push),
+          child: Container(
+            child: Image.asset(Res.imagesNotifications,scale: 2.5),
+          ),
+        ),
       ],
       title: MyText(
         title: "SUMC",

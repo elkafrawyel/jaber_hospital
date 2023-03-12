@@ -36,6 +36,7 @@ class ApiNames{
   static const String compMedicationOrders = "company_medications_orders";
   static const String compInstrument = "instrument";
   static const String updateCompOrderStatus = "update_order_status";
+  static const String compNotifications = "company_notification";
   /// Patients
   static const String comingAppointmentsPath = "user_future_appointments";
   static const String pastAppointmentsPath = "user_past_appointments";

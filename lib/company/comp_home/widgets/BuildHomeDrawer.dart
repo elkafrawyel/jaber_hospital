@@ -18,6 +18,7 @@ import '../../../surgeon/screens/sur_oprations/SurOperationsImports.dart';
 import '../../account/account_details/account_details_screen.dart';
 import '../../comp_instruments_orders/instruments_orders.dart';
 import '../../comp_medications_orders/medications_orders.dart';
+import '../../comp_notifications/CompNotificationsImports.dart';
 import '../../instruments/instruments_screen.dart';
 import '../../profile/profile_screen.dart';
 
@@ -91,7 +92,7 @@ class BuildCompHomeDrawer extends StatelessWidget {
                   ListTile(
                     leading:
                         Image.asset(Res.imagesNotificationIcon, scale: 2.8),
-                    onTap: () => Nav.navigateTo(SurNotifications(),
+                    onTap: () => Nav.navigateTo(CompNotifications(),
                         navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "Notifications",
@@ -142,32 +143,6 @@ class BuildCompHomeDrawer extends StatelessWidget {
                       ),
                       //more child menu
                     ],
-                  ),
-                  // ListTile(
-                  //   leading: Image.asset(Res.imagesOrder, scale: 2.8, color: Colors.black,
-                  //     width: 24,height: 24, fit: BoxFit.cover,),
-                  //   onTap: () => Nav.navigateTo(CompOrdersScreen(), navigatorType: NavigatorType.push),
-                  //   title: MyText(
-                  //     title: "Orders",
-                  //     size: 12,
-                  //     color: MyColors.black,
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  // ),
-                  ListTile(
-                    leading: Image.asset(Res.imagesMedication,
-                        scale: 2.8,
-                        width: 24,
-                        height: 24,
-                        fit: BoxFit.cover,
-                        color: Colors.black),
-                    // onTap: () => Nav.navigateTo(SurFollowUps(), navigatorType: NavigatorType.push),
-                    title: MyText(
-                      title: "Medications",
-                      size: 12,
-                      color: MyColors.black,
-                      fontWeight: FontWeight.bold
-                    ),
                   ),
                 ],
               ),

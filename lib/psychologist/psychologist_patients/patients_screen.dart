@@ -26,27 +26,27 @@ class _PsychologistPatientsScreenState extends State<PsychologistPatientsScreen>
     return GeneralScaffold(
         back: true,
         actions: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.search, color: MyColors.primary, size: 30),
-              ),
-              IconButton(
-                onPressed: () {
-                  // Nav.navigateTo(SurAddPatient(), navigatorType: NavigatorType.push);
-                },
-                icon: Container(
-                    decoration: BoxDecoration(
-                        color: MyColors.primary,
-                        borderRadius: BorderRadius.circular(100)),
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    )),
-              ),
-            ],
-          )
+          // Row(
+          //   children: [
+          //     IconButton(
+          //       onPressed: () {},
+          //       icon: Icon(Icons.search, color: MyColors.primary, size: 30),
+          //     ),
+          //     IconButton(
+          //       onPressed: () {
+          //         // Nav.navigateTo(SurAddPatient(), navigatorType: NavigatorType.push);
+          //       },
+          //       icon: Container(
+          //           decoration: BoxDecoration(
+          //               color: MyColors.primary,
+          //               borderRadius: BorderRadius.circular(100)),
+          //           child: Icon(
+          //             Icons.add,
+          //             color: Colors.white,
+          //           )),
+          //     ),
+          //   ],
+          // )
         ],
         title: "Patients",
         body: DefaultTabController(
