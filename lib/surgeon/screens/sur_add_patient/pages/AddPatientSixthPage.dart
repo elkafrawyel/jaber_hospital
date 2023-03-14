@@ -21,8 +21,7 @@ class AddPatientSixthPage extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         GenericTextField(
-          hintColor:
-              Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+          hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
           fieldTypes: FieldTypes.clickable,
           fillColor: MyColors.textFields,
           hint: "Please choose from the list",
@@ -60,8 +59,7 @@ class AddPatientSixthPage extends StatelessWidget {
                       topRight: Radius.circular(20),
                     ),
                   ),
-                  child: BlocBuilder<GenericBloc<List<SignificantLabsModel>>,
-                      GenericState<List<SignificantLabsModel>>>(
+                  child: BlocBuilder<GenericBloc<List<SignificantLabsModel>>, GenericState<List<SignificantLabsModel>>>(
                     bloc: SurAddPatientData().labsCubit,
                     builder: (context, state) {
                       return Column(
@@ -87,16 +85,12 @@ class AddPatientSixthPage extends StatelessWidget {
                                         Checkbox(
                                           value: state.data[index].isSelected,
                                           onChanged: (value) {
-                                            state.data[index].isSelected =
-                                                value!;
-                                            SurAddPatientData()
-                                                .labsCubit
-                                                .onUpdateData(state.data);
+                                            state.data[index].isSelected = value!;
+                                            SurAddPatientData().labsCubit.onUpdateData(state.data);
                                           },
                                         ),
                                         MyText(
-                                          title:
-                                              state.data[index].labName ?? '',
+                                          title: state.data[index].labName ?? '',
                                           size: 12,
                                         ),
                                       ],
@@ -104,37 +98,27 @@ class AddPatientSixthPage extends StatelessWidget {
                                     Visibility(
                                       visible: state.data[index].isSelected,
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20),
+                                            padding: const EdgeInsets.symmetric(horizontal: 20),
                                             child: MyText(
-                                              title:
-                                                  "${state.data[index].labName} Lab Result:",
+                                              title: "${state.data[index].labName} Lab Result:",
                                               size: 12,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           GenericTextField(
-                                            hintColor: Theme.of(context)
-                                                .textTheme
-                                                .subtitle1
-                                                ?.color
-                                                ?.withOpacity(.8),
+                                            hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                                             fieldTypes: FieldTypes.normal,
                                             fillColor: MyColors.textFields,
                                             hint: "Lab Result",
-                                            controller: state
-                                                .data[index].resultController,
-                                            margin: const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 20),
+                                            controller: state.data[index].resultController,
+                                            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                                             action: TextInputAction.next,
                                             type: TextInputType.number,
                                             onTab: () {},
-                                            validate: (value) =>
-                                                value!.validateEmpty(context),
+                                            validate: (value) => value!.validateEmpty(context),
                                           ),
                                         ],
                                       ),
@@ -149,25 +133,22 @@ class AddPatientSixthPage extends StatelessWidget {
                             ),
                           ),
                           DefaultButton(
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 100),
+                            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 100),
                             title: "Save Results",
                             onTap: () {
-                              if (state.data.any((element) =>
-                                  element.isSelected &&
-                                  element.resultController!.text.isEmpty)) {
+                              if (state.data
+                                  .any((element) => element.isSelected && element.resultController!.text.isEmpty)) {
                                 CustomToast.showSimpleToast(
                                     msg:
-                                        "Please fill the fields ${state.data.where((element) => element.isSelected && element.resultController!.text.isEmpty).map((e) => e.labName).join(", ")}",
+                                        "Please fill the fields ${state.data.where((element) => element.isSelected && element.resultController!.text.isEmpty).map(
+                                              (e) => e.labName,
+                                            ).join(", ")}",
                                     color: Colors.red);
                                 return;
                               }
                               SurAddPatientData()
                                   .selectedLabsCubit
-                                  .onUpdateData(state.data
-                                      .where((element) =>
-                                          element.isSelected == true)
-                                      .toList());
+                                  .onUpdateData(state.data.where((element) => element.isSelected == true).toList());
                               Navigator.pop(context);
                             },
                           )
@@ -181,8 +162,7 @@ class AddPatientSixthPage extends StatelessWidget {
           },
           validate: (value) => value!.validateEmpty(context),
         ),
-        BlocBuilder<GenericBloc<List<SignificantLabsModel>>,
-            GenericState<List<SignificantLabsModel>>>(
+        BlocBuilder<GenericBloc<List<SignificantLabsModel>>, GenericState<List<SignificantLabsModel>>>(
           bloc: SurAddPatientData().selectedLabsCubit,
           builder: (context, state) {
             return Wrap(
@@ -193,10 +173,8 @@ class AddPatientSixthPage extends StatelessWidget {
                             color: Color(0xffD3E0F6),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(color: MyColors.greyWhite)),
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 5),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 2, horizontal: 20),
+                        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -212,9 +190,7 @@ class AddPatientSixthPage extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 //remove from selected
-                                SurAddPatientData()
-                                    .selectedLabsCubit
-                                    .onUpdateData(state.data..removeAt(index));
+                                SurAddPatientData().selectedLabsCubit.onUpdateData(state.data..removeAt(index));
                               },
                               child: Icon(
                                 Icons.close,
@@ -322,9 +298,7 @@ class AddPatientSixthPage extends StatelessWidget {
                     Radio(
                         value: true,
                         groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData()
-                            .historyBallonSelectionCubit
-                            .onUpdateData(value!)),
+                        onChanged: (value) => SurAddPatientData().historyBallonSelectionCubit.onUpdateData(value!)),
                     MyText(
                       title: "Yes",
                       size: 12,
@@ -334,9 +308,7 @@ class AddPatientSixthPage extends StatelessWidget {
                     Radio(
                         value: false,
                         groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData()
-                            .historyBallonSelectionCubit
-                            .onUpdateData(value!)),
+                        onChanged: (value) => SurAddPatientData().historyBallonSelectionCubit.onUpdateData(value!)),
                     MyText(
                       title: "No",
                       size: 12,
@@ -364,35 +336,33 @@ class AddPatientSixthPage extends StatelessWidget {
                             direction: Axis.horizontal,
                             children: List.generate(
                                 list.length,
-                                    (index) => Container(
-                                  width: MediaQuery.of(context).size.width/3,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Checkbox(
-                                          value: state.data.contains(list[index]),
-                                          onChanged: (value) {
-                                            if (value!) {
-                                              medCubit.onUpdateData(
-                                                  state.data + list[index]);
-                                              // log("selected value: ${state.data}");
-                                              // listt.add(list[index]);
-                                              // log("listt ${listt}");
-                                            } else {
-                                              medCubit.onUpdateData(state.data
-                                                  .replaceAll(list[index], ""));
-                                              // listt.remove(list[index]);
-                                              // log("listt removed ${listt}");
-                                            }
-                                          }),
-                                      MyText(
-                                        title: list[index],
-                                        size: 12,
-                                        color: MyColors.black,
+                                (index) => Container(
+                                      width: MediaQuery.of(context).size.width / 3,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Checkbox(
+                                              value: state.data.contains(list[index]),
+                                              onChanged: (value) {
+                                                if (value!) {
+                                                  medCubit.onUpdateData(state.data + list[index]);
+                                                  // log("selected value: ${state.data}");
+                                                  // listt.add(list[index]);
+                                                  // log("listt ${listt}");
+                                                } else {
+                                                  medCubit.onUpdateData(state.data.replaceAll(list[index], ""));
+                                                  // listt.remove(list[index]);
+                                                  // log("listt removed ${listt}");
+                                                }
+                                              }),
+                                          MyText(
+                                            title: list[index],
+                                            size: 12,
+                                            color: MyColors.black,
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                )),
+                                    )),
                           );
                         },
                       ),
@@ -411,8 +381,7 @@ class AddPatientSixthPage extends StatelessWidget {
           color: MyColors.black,
         ),
         GenericTextField(
-          hintColor:
-              Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+          hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
           fieldTypes: FieldTypes.normal,
           fillColor: MyColors.textFields,
           hint: "Please enter other us findings results",
@@ -429,8 +398,7 @@ class AddPatientSixthPage extends StatelessWidget {
           color: MyColors.black,
         ),
         GenericTextField(
-          hintColor:
-              Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+          hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
           fieldTypes: FieldTypes.clickable,
           fillColor: MyColors.textFields,
           hint: "Enter or upload Fluoroscopy result",
@@ -460,9 +428,7 @@ class AddPatientSixthPage extends StatelessWidget {
                     ),
                   ),
                   InkWell(
-                    onTap: () => SurAddPatientData()
-                        .FluoroscopyImageCubit
-                        .onUpdateData(null),
+                    onTap: () => SurAddPatientData().FluoroscopyImageCubit.onUpdateData(null),
                     child: Padding(
                       padding: const EdgeInsets.all(8),
                       child: Icon(
@@ -487,8 +453,7 @@ class AddPatientSixthPage extends StatelessWidget {
           color: MyColors.black,
         ),
         GenericTextField(
-          hintColor:
-              Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+          hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
           fieldTypes: FieldTypes.rich,
           fillColor: MyColors.textFields,
           hint: "Enter or upload Other notes",
@@ -507,18 +472,17 @@ class AddPatientSixthPage extends StatelessWidget {
                 borderColor: MyColors.primary,
                 color: MyColors.white,
                 textColor: MyColors.primary,
-                onTap: () =>SurAddPatientData().previousPage(),
+                onTap: () => SurAddPatientData().previousPage(),
               ),
             ),
             Expanded(
               child: DefaultButton(
                 title: "Next",
-                onTap: () =>SurAddPatientData().nextPage(),
+                onTap: () => SurAddPatientData().nextPage(),
               ),
             ),
           ],
         )
-
       ],
     );
   }

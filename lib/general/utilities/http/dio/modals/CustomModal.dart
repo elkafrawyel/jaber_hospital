@@ -1,6 +1,6 @@
 import 'package:base_flutter/general/utilities/http/dio/utils/DioUtils.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 
 
 class CustomModal extends StatelessWidget {

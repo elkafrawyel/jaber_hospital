@@ -19,6 +19,7 @@ class _SurAddPatientState extends State<SurAddPatient> {
     SurAddPatientData().dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -30,29 +31,30 @@ class _SurAddPatientState extends State<SurAddPatient> {
             BlocBuilder<GenericBloc<int>, GenericState<int>>(
               bloc: SurAddPatientData().pageCubit,
               builder: (context, state) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: LinearProgressIndicator(
-                    backgroundColor: MyColors.black,
-                    minHeight: 10,
-                    value: state.data / 7,
-                    color: MyColors.primary,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: LinearProgressIndicator(
+                      backgroundColor: MyColors.black,
+                      minHeight: 10,
+                      value: state.data / 7,
+                      color: MyColors.primary,
+                    ),
                   ),
-                ),
-              );
+                );
               },
             ),
             Expanded(
-                child: PageView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              controller: SurAddPatientData().pageController,
-              itemBuilder: (context, index) {
-                return SurAddPatientData().buildAddPatientPage(index);
-              },
-              itemCount: 7,
-            )),
+              child: PageView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                controller: SurAddPatientData().pageController,
+                itemBuilder: (context, index) {
+                  return SurAddPatientData().buildAddPatientPage(index);
+                },
+                itemCount: 7,
+              ),
+            ),
           ],
         ),
       ),

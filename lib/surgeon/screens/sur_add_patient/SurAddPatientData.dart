@@ -2,7 +2,9 @@ part of 'SurAddPatientImports.dart';
 
 class SurAddPatientData {
   SurAddPatientData._();
+
   static SurAddPatientData surAddPatientData = SurAddPatientData._();
+
   factory SurAddPatientData() => surAddPatientData;
 
   late PageController pageController;
@@ -23,7 +25,6 @@ class SurAddPatientData {
   late TextEditingController patientHeight;
   late TextEditingController BMI;
 
-
   /// second page
   late GenericBloc<bool> RespiratoryDiseaseSelectionCubit;
   late TextEditingController otherNotes;
@@ -35,19 +36,19 @@ class SurAddPatientData {
   late TextEditingController otherNotesDm;
 
   List<String> get diagnosisTypes => AddPatientDTOInfo.diagnosisTypes;
+
   List<String> get cardiacDiseaseTypes => AddPatientDTOInfo.cardiacDisease;
+
   List<String> get respiratoryDiseaseTypes => AddPatientDTOInfo.respiratoryDisease;
-
-
-
 
   /// third page
   late GenericBloc<bool> refSelectionCubit;
   late GenericBloc<String> medicationsCubit;
   late GenericBloc<String> smokingHabitsCubit;
-  List<String> get medications => AddPatientDTOInfo.Medications;
-  List<String> get smokingHabits => AddPatientDTOInfo.smokingHabits;
 
+  List<String> get medications => AddPatientDTOInfo.Medications;
+
+  List<String> get smokingHabits => AddPatientDTOInfo.smokingHabits;
 
   /// fourth page
   late GenericBloc<bool> historyBallonSelectionCubit;
@@ -59,24 +60,26 @@ class SurAddPatientData {
   late TextEditingController outcomeResult;
   late TextEditingController outcomeDate;
   late GenericBloc<List<String>> medicationTypeCubit;
+
   List<String> get medicationTypes => AddPatientDTOInfo.medicationTypes;
-
-
 
   /// fifth page
   late GenericBloc<bool> ProceduresSelectionCubit;
   late GenericBloc<String> surgeryTypeCubit;
   late TextEditingController proceduresOutcomeResultCubit;
   late TextEditingController proceduresOutcomeDateCubit;
+
   List<String> get surgeryTypes => AddPatientDTOInfo.surgeryTypes;
 
   /// sixth page
   late TextEditingController significantLabsController;
+
   List<SignificantLabsModel> get labsList => SignificantLabsModel.initList;
   late GenericBloc<List<SignificantLabsModel>> labsCubit;
   late GenericBloc<List<SignificantLabsModel>> selectedLabsCubit;
   late GenericBloc<bool> ultrasoundCubit;
   late GenericBloc<String> USFindingsCubit;
+
   List<String> get USFindings => AddPatientDTOInfo.USFindings;
   late TextEditingController otherUSFindingsController;
   late TextEditingController FluoroscopyController;
@@ -117,12 +120,16 @@ class SurAddPatientData {
   late GenericBloc<bool> DuodenalUlcer;
   late GenericBloc<bool> OtherDuodenum;
 
-
   List<String> get oesophagusGradeType => AddPatientDTOInfo.oesophagusGradeType;
+
   List<String> get GastritisType => AddPatientDTOInfo.GastritisType;
+
   List<String> get HPyloriType => AddPatientDTOInfo.HPyloriType;
+
   List<String> get PreviousSurgeryType => AddPatientDTOInfo.PostSurgeryType;
+
   List<String> get PostLSGStatusType => AddPatientDTOInfo.PostLSGStatusType;
+
   List<String> get SizeType => AddPatientDTOInfo.SizeType;
 
   /// #############################  init screen  #############################
@@ -217,17 +224,13 @@ class SurAddPatientData {
 
   /// #############################  Page Controller  #############################
   void nextPage() {
-    pageController.nextPage(
-        duration: Duration(milliseconds: 500),
-        curve: Curves.fastLinearToSlowEaseIn);
+    pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.fastLinearToSlowEaseIn);
     pageCubit.onUpdateData(pageCubit.state.data + 1);
   }
 
   void previousPage() {
     if (pageCubit.state.data == 1) return;
-    pageController.previousPage(
-        duration: Duration(milliseconds: 500),
-        curve: Curves.fastLinearToSlowEaseIn);
+    pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.fastLinearToSlowEaseIn);
     pageCubit.onUpdateData(pageCubit.state.data - 1);
   }
 
@@ -272,16 +275,38 @@ class SurAddPatientData {
     }
   }
 
+  /// #############################  first page  #############################
   void addPatientFirst(BuildContext context) async {
     UserModel? users = context.read<UserCubit>().state.model;
     if (formKey1.currentState!.validate()) {
+      int? age = int.tryParse(patientAge.text);
+      if (age == null) {
+        CustomToast.showToastNotification('Enter valid age', color: Colors.red);
+        return;
+      }
+      num? weight = num.tryParse(patientWeight.text);
+      if (weight == null) {
+        CustomToast.showToastNotification('Enter valid weight', color: Colors.red);
+        return;
+      }
+      num? height = num.tryParse(patientHeight.text);
+      if (height == null) {
+        CustomToast.showToastNotification('Enter valid height', color: Colors.red);
+        return;
+      }
+      num? bmi = num.tryParse(BMI.text);
+      if (bmi == null) {
+        CustomToast.showToastNotification('Enter valid bmi', color: Colors.red);
+        return;
+      }
+
       AddPatientFirstDto model = AddPatientFirstDto(
-        height: num.parse(patientHeight.text),
-        weight: num.parse(patientWeight.text),
-        bmi: num.parse(BMI.text),
+        height: height,
+        weight: weight,
+        bmi: bmi,
         nameAr: patientNameAr.text,
         nameEn: patientNameEn.text,
-        age: int.parse(patientAge.text),
+        age: age,
         email: patientEmail.text,
         password: patientMobile1.text,
         telephone1: patientMobile1.text,
@@ -290,26 +315,25 @@ class SurAddPatientData {
         gender: patientGenderCubit.state.data,
         publicId: "137g352fs",
         fileId: "234873456",
-        image:
-        "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
+        image: "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
       );
       bool result = await SurgeonRepository(context).addPatientFirst(
-          userId: users.userData?[0].doctorRoleId?.sId ?? "", model: model);
+        userId: users.userData?[0].doctorRoleId?.sId ?? "",
+        model: model,
+      );
       if (result) {
         FocusScope.of(context).requestFocus(FocusNode());
         nextPage();
       }
     }
-
   }
-
 
   /// #############################  second page  #############################
   void addPatientSecond(BuildContext context) async {
     AddPatientSecondDto model = AddPatientSecondDto(
       dmType: refSelectionCubit.state.data,
-      dmTypel:dmTypeSelectionCubit.state.data == 1 ?true : false ,
-      dmTypell: dmTypeSelectionCubit.state.data == 2 ?true : false ,
+      dmTypel: dmTypeSelectionCubit.state.data == 1 ? true : false,
+      dmTypell: dmTypeSelectionCubit.state.data == 2 ? true : false,
       htn: diagnosisTypesCubit.state.data.contains("HTN") ? true : false,
       dyslipidemia: diagnosisTypesCubit.state.data.contains("Dyslipidemia") ? true : false,
       osa: diagnosisTypesCubit.state.data.contains("OSA") ? true : false,
@@ -328,8 +352,6 @@ class SurAddPatientData {
       FocusScope.of(context).requestFocus(FocusNode());
       nextPage();
     }
-
-
   }
 
   /// #############################  third page  #############################
@@ -343,10 +365,9 @@ class SurAddPatientData {
       vape: smokingHabitsCubit.state.data == "Vape",
       occationalSmoker: smokingHabitsCubit.state.data == "Occasional smoker",
       shisha: smokingHabitsCubit.state.data == "Shisha",
-      refluxMedRegular: medicationsCubit.state.data == "Regular"||dmSelectCubit.state.data,
-      refluxMedOcc: medicationsCubit.state.data == "Occasional"||dmSelectCubit.state.data,
-      refluxMedNone: medicationsCubit.state.data == "None"||dmSelectCubit.state.data,
-
+      refluxMedRegular: medicationsCubit.state.data == "Regular" || dmSelectCubit.state.data,
+      refluxMedOcc: medicationsCubit.state.data == "Occasional" || dmSelectCubit.state.data,
+      refluxMedNone: medicationsCubit.state.data == "None" || dmSelectCubit.state.data,
     );
     bool result = await SurgeonRepository(context).addPatientThird(model);
     if (result) {
@@ -356,16 +377,15 @@ class SurAddPatientData {
   }
 
   /// #############################  fourth page  ############################
-
   void addPatientFourth(BuildContext context) async {
     AddPatientFourthDto model = AddPatientFourthDto(
       historyOfBallon: historyBallonSelectionCubit.state.data,
-      ballonWeightLossFrom: int.parse(weightLossFrom.text),
-      ballonWeightLossTo: int.parse(weightLossTo.text),
+      ballonWeightLossFrom: int.tryParse(weightLossFrom.text),
+      ballonWeightLossTo: int.tryParse(weightLossTo.text),
       ballonDateOfInsertion: insertionDate.text,
       ballonDateOfRemoval: removalDate.text,
       historyOfWeightLoss: historyWeightLossSelectionCubit.state.data,
-      weightLossOutcomeResult: int.parse(outcomeResult.text),
+      weightLossOutcomeResult: int.tryParse(outcomeResult.text),
       weightLossOutcomeDate: outcomeDate.text,
       medicationTypeOzempic: medicationTypeCubit.state.data.contains("Ozempic"),
       medicationTypeSaxenda: medicationTypeCubit.state.data.contains("Saxenda"),
@@ -378,8 +398,6 @@ class SurAddPatientData {
       FocusScope.of(context).requestFocus(FocusNode());
       nextPage();
     }
-
-
   }
 
   /// #############################  fifth page  #############################

@@ -11,6 +11,7 @@ import '../../../customer/model/dto/add_patient_dto.dart';
 import '../../../general/blocks/user_cubit/user_cubit.dart';
 import '../../../general/constants/MyColors.dart';
 import '../../../general/models/UserModel.dart';
+import '../../../general/utilities/http/dio/modals/LoadingDialog.dart';
 import '../../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../models/add_patient_models.dart';
 import '../../models/dto/add_patient_fourth_dto.dart';

@@ -31,9 +31,7 @@ class AddPatientFourthPage extends StatelessWidget {
                     Radio(
                         value: true,
                         groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData()
-                            .historyBallonSelectionCubit
-                            .onUpdateData(value!)),
+                        onChanged: (value) => SurAddPatientData().historyBallonSelectionCubit.onUpdateData(value!)),
                     MyText(
                       title: "Yes",
                       size: 12,
@@ -43,9 +41,7 @@ class AddPatientFourthPage extends StatelessWidget {
                     Radio(
                         value: false,
                         groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData()
-                            .historyBallonSelectionCubit
-                            .onUpdateData(value!)),
+                        onChanged: (value) => SurAddPatientData().historyBallonSelectionCubit.onUpdateData(value!)),
                     MyText(
                       title: "No",
                       size: 12,
@@ -64,27 +60,17 @@ class AddPatientFourthPage extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                MyText(
-                                    title: "Weight loss from",
-                                    size: 12,
-                                    fontWeight: FontWeight.bold),
+                                MyText(title: "Weight loss from", size: 12, fontWeight: FontWeight.bold),
                                 GenericTextField(
-                                  hintColor: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      ?.color
-                                      ?.withOpacity(.8),
+                                  hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                                   fieldTypes: FieldTypes.normal,
                                   fillColor: MyColors.textFields,
                                   hint: "Weight loss from",
-                                  controller:
-                                      SurAddPatientData().weightLossFrom,
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 10),
+                                  controller: SurAddPatientData().weightLossFrom,
+                                  margin: const EdgeInsets.symmetric(vertical: 10),
                                   action: TextInputAction.next,
                                   type: TextInputType.number,
-                                  validate: (value) =>
-                                      value!.validateEmpty(context),
+                                  validate: (value) => value!.validateEmpty(context),
                                 ),
                               ],
                             ),
@@ -94,69 +80,46 @@ class AddPatientFourthPage extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                MyText(
-                                    title: "Weight loss to",
-                                    size: 12,
-                                    fontWeight: FontWeight.bold),
+                                MyText(title: "Weight loss to", size: 12, fontWeight: FontWeight.bold),
                                 GenericTextField(
-                                  hintColor: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1
-                                      ?.color
-                                      ?.withOpacity(.8),
+                                  hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                                   fieldTypes: FieldTypes.normal,
                                   fillColor: MyColors.textFields,
                                   hint: "Weight loss to",
                                   controller: SurAddPatientData().weightLossTo,
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 10),
+                                  margin: const EdgeInsets.symmetric(vertical: 10),
                                   action: TextInputAction.next,
                                   type: TextInputType.number,
-                                  validate: (value) =>
-                                      value!.validateEmpty(context),
+                                  validate: (value) => value!.validateEmpty(context),
                                 ),
                               ],
                             ),
                           ),
                         ],
                       ),
-                      MyText(
-                          title: "Date Of Insertion",
-                          size: 12,
-                          fontWeight: FontWeight.bold),
+                      MyText(title: "Date Of Insertion", size: 12, fontWeight: FontWeight.bold),
                       GenericTextField(
-                        hintColor: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            ?.color
-                            ?.withOpacity(.8),
+                        hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                         fieldTypes: FieldTypes.normal,
                         fillColor: MyColors.textFields,
                         hint: "Date Of Insertion",
                         controller: SurAddPatientData().insertionDate,
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         action: TextInputAction.next,
-                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2,color: MyColors.primary),
+                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2, color: MyColors.primary),
                         type: TextInputType.text,
                         validate: (value) => value!.validateEmpty(context),
                       ),
-                      MyText(
-                          title: "Date Of Removal",
-                          size: 12,
-                          fontWeight: FontWeight.bold),
+                      MyText(title: "Date Of Removal", size: 12, fontWeight: FontWeight.bold),
                       GenericTextField(
-                        hintColor: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            ?.color
-                            ?.withOpacity(.8),
+                        hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                         fieldTypes: FieldTypes.normal,
                         fillColor: MyColors.textFields,
                         hint: "Date Of Removal",
                         controller: SurAddPatientData().removalDate,
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         action: TextInputAction.next,
-                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2,color: MyColors.primary),
+                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2, color: MyColors.primary),
                         type: TextInputType.text,
                         validate: (value) => value!.validateEmpty(context),
                       ),
@@ -184,9 +147,7 @@ class AddPatientFourthPage extends StatelessWidget {
                     Radio(
                         value: true,
                         groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData()
-                            .historyWeightLossSelectionCubit
-                            .onUpdateData(value!)),
+                        onChanged: (value) => SurAddPatientData().historyWeightLossSelectionCubit.onUpdateData(value!)),
                     MyText(
                       title: "Yes",
                       size: 12,
@@ -196,9 +157,7 @@ class AddPatientFourthPage extends StatelessWidget {
                     Radio(
                         value: false,
                         groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData()
-                            .historyWeightLossSelectionCubit
-                            .onUpdateData(value!)),
+                        onChanged: (value) => SurAddPatientData().historyWeightLossSelectionCubit.onUpdateData(value!)),
                     MyText(
                       title: "No",
                       size: 12,
@@ -218,11 +177,7 @@ class AddPatientFourthPage extends StatelessWidget {
                         color: MyColors.black,
                       ),
                       GenericTextField(
-                        hintColor: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            ?.color
-                            ?.withOpacity(.8),
+                        hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                         fieldTypes: FieldTypes.normal,
                         fillColor: MyColors.textFields,
                         hint: "Outcome Result",
@@ -239,22 +194,17 @@ class AddPatientFourthPage extends StatelessWidget {
                         color: MyColors.black,
                       ),
                       GenericTextField(
-                        hintColor: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            ?.color
-                            ?.withOpacity(.8),
+                        hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                         fieldTypes: FieldTypes.normal,
                         fillColor: MyColors.textFields,
                         hint: "Outcome Date",
                         controller: SurAddPatientData().outcomeDate,
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         action: TextInputAction.next,
-                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2,color: MyColors.primary),
+                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2, color: MyColors.primary),
                         type: TextInputType.text,
                         validate: (value) => value!.validateEmpty(context),
                       ),
-
                       MyText(
                         title: "Medication Type:",
                         size: 12,
@@ -268,10 +218,10 @@ class AddPatientFourthPage extends StatelessWidget {
                           final List<String> list = SurAddPatientData().medicationTypes;
                           return Wrap(
                             direction: Axis.horizontal,
-                            children:  List.generate(
+                            children: List.generate(
                                 list.length,
-                                    (index) => SizedBox(
-                                      width: MediaQuery.of(context).size.width/2.3,
+                                (index) => SizedBox(
+                                      width: MediaQuery.of(context).size.width / 2.3,
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -279,11 +229,9 @@ class AddPatientFourthPage extends StatelessWidget {
                                               value: state.data.contains(list[index]),
                                               onChanged: (value) {
                                                 if (value!) {
-                                                  medCubit.onUpdateData(
-                                                      state.data..add(list[index]));
+                                                  medCubit.onUpdateData(state.data..add(list[index]));
                                                 } else {
-                                                  medCubit.onUpdateData(
-                                                      state.data..remove(list[index]));
+                                                  medCubit.onUpdateData(state.data..remove(list[index]));
                                                 }
                                               }),
                                           MyText(
@@ -305,7 +253,6 @@ class AddPatientFourthPage extends StatelessWidget {
             );
           },
         ),
-
         Row(
           children: [
             Expanded(
@@ -314,13 +261,13 @@ class AddPatientFourthPage extends StatelessWidget {
                 borderColor: MyColors.primary,
                 color: MyColors.white,
                 textColor: MyColors.primary,
-                onTap: () =>SurAddPatientData().previousPage(),
+                onTap: () => SurAddPatientData().previousPage(),
               ),
             ),
             Expanded(
               child: DefaultButton(
                 title: "Next",
-                onTap: () =>SurAddPatientData().addPatientFourth(context),
+                onTap: () => SurAddPatientData().addPatientFourth(context),
               ),
             ),
           ],

@@ -1,7 +1,7 @@
 import 'package:base_flutter/general/utilities/http/dio/dio_helper/DioImports.dart';
 import 'package:flutter/material.dart';
 
-class DioUtils{
+class DioUtils {
   static late TextStyle textStyle;
   static late Color primaryColor;
   static late String authRoute;
@@ -14,33 +14,34 @@ class DioUtils{
   static late Function() showLoadingDialog;
   static late Map<String, String>? header;
 
-  static init(
-      {required String baseUrl,
-       String? branch,
-       String? branchKey,
-      required TextStyle style,
-        required Color primary,
-        required String authLink,
-        required String language,
-         String? authConfirm,
-         String? authBack,
-         String? authSentence,
-         Map<String, String>? dio_header,
-        required Function() dismissFunc,
-        required Function()? authClick,
-        required Function() showLoadingFunc}){
-    textStyle=style;
-    primaryColor=primary;
-    authRoute=authLink;
-    lang=language;
-    dismissDialog=dismissFunc;
+  static init({
+    required String baseUrl,
+    String? branch,
+    String? branchKey,
+    required TextStyle style,
+    required Color primary,
+    required String authLink,
+    required String language,
+    String? authConfirm,
+    String? authBack,
+    String? authSentence,
+    Map<String, String>? dio_header,
+    required Function() dismissFunc,
+    required Function()? authClick,
+    required Function() showLoadingFunc,
+  }) {
+    textStyle = style;
+    primaryColor = primary;
+    authRoute = authLink;
+    lang = language;
+    dismissDialog = dismissFunc;
     // onAuthClick=authClick;
-    DioUtils.authConfirm=authConfirm;
-    DioUtils.authBack=authBack;
-    DioUtils.authSentence=authSentence;
-    showLoadingDialog=showLoadingFunc;
+    DioUtils.authConfirm = authConfirm;
+    DioUtils.authBack = authBack;
+    DioUtils.authSentence = authSentence;
+    showLoadingDialog = showLoadingFunc;
     DioUtils.header = dio_header;
-    DioHelper.init(base: baseUrl,branch: branch,branchKey: branchKey);
-    PrevDioHelper.init(base: baseUrl,branch: branch,branchKey: branchKey);
+    DioHelper.init(base: baseUrl, branch: branch, branchKey: branchKey);
+    PrevDioHelper.init(base: baseUrl, branch: branch, branchKey: branchKey);
   }
 }
