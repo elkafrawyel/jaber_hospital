@@ -29,6 +29,7 @@ class ApiNames{
   static const String addAppointment = "appointment";
   static const String patientCoMorbidities = "patient_coMorbidities";
   static const String patientReflux = "patient_reflux";
+  static const String patientProcedures = "patient_procedures";
   /// companies
   static const String companyHomeOrders = "company_orders_completed_inProgress";
   static const String updateCompProfile = "update_company_profile";

@@ -93,6 +93,7 @@ class SurgeonHttpMethods {
     }
     return false;
   }
+
   Future<bool> addPatientSecond(AddPatientSecondDto model) async {
     UserModel? users = context.read<UserCubit>().state.model;
     dynamic data = await GenericHttp<bool>(context).callApi(
@@ -109,6 +110,7 @@ class SurgeonHttpMethods {
     }
     return false;
   }
+
   Future<bool> addPatientThird(AddPatientThirdDto model) async {
     UserModel? users = context.read<UserCubit>().state.model;
     dynamic data = await GenericHttp<bool>(context).callApi(
@@ -125,10 +127,28 @@ class SurgeonHttpMethods {
     }
     return false;
   }
+
   Future<bool> addPatientFourth(AddPatientFourthDto model) async {
     UserModel? users = context.read<UserCubit>().state.model;
     dynamic data = await GenericHttp<bool>(context).callApi(
       name: ApiNames.patientReflux + "?user_id=${users.userData?[0].sId}",
+      returnType: ReturnType.Type,
+      methodType: MethodType.Put,
+      returnDataFun: (data) => data,
+      jsonBody: model.toJson(),
+      showLoader: true,
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> addPatientFifth(AddPatientFifthDto model) async {
+    UserModel? users = context.read<UserCubit>().state.model;
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.patientProcedures + "?user_id=${users.userData?[0].sId}",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -155,10 +175,7 @@ class SurgeonHttpMethods {
       showLoader: false,
     );
     if (data != null) {
-      UserModel user = context
-          .read<UserCubit>()
-          .state
-          .model;
+      UserModel user = context.read<UserCubit>().state.model;
       user.userData?[0].fullNameEn = data["full_name_en"];
       user.userData?[0].fullNameAr = data["full_name_ar"];
       user.userData?[0].email = data["email"];
@@ -189,12 +206,8 @@ class SurgeonHttpMethods {
     }
   }
 
-  Future<bool> addAppointment(String patientId, String date, String comments,
-      String clinicName) async {
-    var user = context
-        .read<UserCubit>()
-        .state
-        .model;
+  Future<bool> addAppointment(String patientId, String date, String comments, String clinicName) async {
+    var user = context.read<UserCubit>().state.model;
     Map<String, dynamic> body = {
       "doctor_id": user.userData?[0].sId,
       "patient_id": patientId,
@@ -295,11 +308,9 @@ class SurgeonHttpMethods {
     }
   }
 
-
-  Future<bool> requestMedicationOrder(Map<String,dynamic> body) async {
-
+  Future<bool> requestMedicationOrder(Map<String, dynamic> body) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.requestMedicationOrder ,
+      name: ApiNames.requestMedicationOrder,
       returnType: ReturnType.Type,
       methodType: MethodType.Post,
       returnDataFun: (data) => data,

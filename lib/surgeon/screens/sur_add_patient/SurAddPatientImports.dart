@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:base_flutter/general/utilities/tf_custom_widgets/tf_custom_widgets.dart';
+import 'package:base_flutter/surgeon/models/dto/add_patient_fifth_dto.dart';
 import 'package:base_flutter/surgeon/resources/SurgeonRepoImports.dart';
 import 'package:base_flutter/surgeon/screens/sur_add_patient/pages/PagesWImports.dart';
 import 'package:base_flutter/surgeon/screens/sur_add_patient/widgets/SurAddPatientWImports.dart';

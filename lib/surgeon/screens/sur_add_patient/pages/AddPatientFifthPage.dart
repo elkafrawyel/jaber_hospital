@@ -22,94 +22,70 @@ class AddPatientFifthPage extends StatelessWidget {
           color: MyColors.black,
         ),
         BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-          bloc: SurAddPatientData().ProceduresSelectionCubit,
+          bloc: SurAddPatientData().proceduresSelectionCubit,
           builder: (context, state) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RadioListTile(
-                    title: MyText(
-                      title: "Yes",
-                      size: 12,
-                      color: MyColors.black,
-                    ),
-                    value: true,
-                    groupValue: state.data,
-                    onChanged: (value) => SurAddPatientData()
-                        .ProceduresSelectionCubit
-                        .onUpdateData(value!)),
+                  title: MyText(
+                    title: "Yes",
+                    size: 12,
+                    color: MyColors.black,
+                  ),
+                  value: true,
+                  groupValue: state.data,
+                  onChanged: (value) => SurAddPatientData().proceduresSelectionCubit.onUpdateData(value!),
+                ),
                 RadioListTile(
-                    title: MyText(
-                      title: "No",
-                      size: 12,
-                      color: MyColors.black,
-                    ),
-                    value: false,
-                    groupValue: state.data,
-                    onChanged: (value) => SurAddPatientData()
-                        .ProceduresSelectionCubit
-                        .onUpdateData(value!)),
+                  title: MyText(
+                    title: "No",
+                    size: 12,
+                    color: MyColors.black,
+                  ),
+                  value: false,
+                  groupValue: state.data,
+                  onChanged: (value) => SurAddPatientData().proceduresSelectionCubit.onUpdateData(value!),
+                ),
                 Offstage(
                   offstage: !state.data,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MyText(
-                          title: "Outcome Result",
-                          size: 12,
-                          fontWeight: FontWeight.bold),
+                      MyText(title: "Outcome Result", size: 12, fontWeight: FontWeight.bold),
                       GenericTextField(
-                        hintColor: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            ?.color
-                            ?.withOpacity(.8),
+                        hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                         fieldTypes: FieldTypes.normal,
                         fillColor: MyColors.textFields,
                         hint: "Outcome weight loss result",
-                        controller:
-                        SurAddPatientData().proceduresOutcomeResultCubit,
-                        margin:
-                        const EdgeInsets.symmetric(vertical: 10),
+                        controller: SurAddPatientData().proceduresOutcomeResultCubit,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
                         action: TextInputAction.next,
                         type: TextInputType.text,
-                        validate: (value) =>
-                            value!.validateEmpty(context),
+                        validate: (value) => value!.validateEmpty(context),
                       ),
-                      MyText(
-                          title: "Outcome Date",
-                          size: 12,
-                          fontWeight: FontWeight.bold),
+                      MyText(title: "Outcome Date", size: 12, fontWeight: FontWeight.bold),
                       GenericTextField(
-                        hintColor: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            ?.color
-                            ?.withOpacity(.8),
+                        hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                         fieldTypes: FieldTypes.normal,
                         fillColor: MyColors.textFields,
                         hint: "Outcome date",
                         controller: SurAddPatientData().proceduresOutcomeDateCubit,
-                        margin:
-                        const EdgeInsets.symmetric(vertical: 10),
+                        margin: const EdgeInsets.symmetric(vertical: 10),
                         action: TextInputAction.next,
                         type: TextInputType.text,
-                        validate: (value) =>
-                            value!.validateEmpty(context),
+                        validate: (value) => value!.validateEmpty(context),
                       ),
-                      MyText(
-                          title: "Surgery Type:",
-                          size: 12,
-                          fontWeight: FontWeight.bold),
+                      MyText(title: "Surgery Type:", size: 12, fontWeight: FontWeight.bold),
                       BlocBuilder<GenericBloc<String>, GenericState<String>>(
                         bloc: SurAddPatientData().surgeryTypeCubit,
                         builder: (context, state) {
-                          return  Wrap(
+                          return Wrap(
                             alignment: WrapAlignment.spaceBetween,
                             direction: Axis.horizontal,
                             children: List.generate(
                               SurAddPatientData().surgeryTypes.length,
-                                  (index) => Container(
+                              (index) => Container(
                                 width: MediaQuery.of(context).size.width / 2.6,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -119,7 +95,6 @@ class AddPatientFifthPage extends StatelessWidget {
                                       value: SurAddPatientData().surgeryTypes[index],
                                       groupValue: state.data,
                                       onChanged: (value) => SurAddPatientData().surgeryTypeCubit.onUpdateData(value!),
-
                                     ),
                                     Expanded(
                                       child: MyText(
@@ -137,22 +112,18 @@ class AddPatientFifthPage extends StatelessWidget {
                             direction: Axis.horizontal,
                             children: List.generate(
                               SurAddPatientData().surgeryTypes.length,
-                                  (index) => Padding(
+                              (index) => Padding(
                                 padding: const EdgeInsets.only(right: 20),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Radio(
-                                      value: SurAddPatientData()
-                                          .surgeryTypes[index],
+                                      value: SurAddPatientData().surgeryTypes[index],
                                       groupValue: state.data,
-                                      onChanged: (value) => SurAddPatientData()
-                                          .surgeryTypeCubit
-                                          .onUpdateData(value!),
+                                      onChanged: (value) => SurAddPatientData().surgeryTypeCubit.onUpdateData(value!),
                                     ),
                                     MyText(
-                                      title: SurAddPatientData()
-                                          .surgeryTypes[index],
+                                      title: SurAddPatientData().surgeryTypes[index],
                                       size: 12,
                                       color: MyColors.black,
                                     )
@@ -170,8 +141,6 @@ class AddPatientFifthPage extends StatelessWidget {
             );
           },
         ),
-
-
         Row(
           children: [
             Expanded(
@@ -180,18 +149,17 @@ class AddPatientFifthPage extends StatelessWidget {
                 borderColor: MyColors.primary,
                 color: MyColors.white,
                 textColor: MyColors.primary,
-                onTap: () =>SurAddPatientData().previousPage(),
+                onTap: () => SurAddPatientData().previousPage(),
               ),
             ),
             Expanded(
               child: DefaultButton(
                 title: "Next",
-                onTap: () =>SurAddPatientData().nextPage(),
+                onTap: () => SurAddPatientData().addPatientFifth(context),
               ),
             ),
           ],
         )
-
       ],
     );
   }

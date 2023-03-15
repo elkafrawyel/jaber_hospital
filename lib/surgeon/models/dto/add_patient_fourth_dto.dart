@@ -13,20 +13,21 @@ class AddPatientFourthDto {
   bool? medicationTypeWegovo;
   bool? medicationTypeTrulicity;
 
-  AddPatientFourthDto(
-      {this.historyOfBallon,
-        this.ballonWeightLossFrom,
-        this.ballonWeightLossTo,
-        this.ballonDateOfInsertion,
-        this.ballonDateOfRemoval,
-        this.historyOfWeightLoss,
-        this.weightLossOutcomeResult,
-        this.weightLossOutcomeDate,
-        this.medicationTypeVictoza,
-        this.medicationTypeSaxenda,
-        this.medicationTypeOzempic,
-        this.medicationTypeWegovo,
-        this.medicationTypeTrulicity});
+  AddPatientFourthDto({
+    this.historyOfBallon,
+    this.ballonWeightLossFrom,
+    this.ballonWeightLossTo,
+    this.ballonDateOfInsertion,
+    this.ballonDateOfRemoval,
+    this.historyOfWeightLoss,
+    this.weightLossOutcomeResult,
+    this.weightLossOutcomeDate,
+    this.medicationTypeVictoza,
+    this.medicationTypeSaxenda,
+    this.medicationTypeOzempic,
+    this.medicationTypeWegovo,
+    this.medicationTypeTrulicity,
+  });
 
   AddPatientFourthDto.fromJson(Map<String, dynamic> json) {
     historyOfBallon = json['history_of_ballon'];

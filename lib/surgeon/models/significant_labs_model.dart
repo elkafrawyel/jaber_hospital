@@ -1,10 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
-class SignificantLabsModel  extends Equatable{
-   String? labName;
-   bool isSelected;
-   TextEditingController? resultController;
+// ignore: must_be_immutable
+class SignificantLabsModel extends Equatable {
+  final String? labName;
+  bool isSelected;
+  final TextEditingController? resultController;
 
   SignificantLabsModel({
     this.labName,
@@ -12,18 +13,15 @@ class SignificantLabsModel  extends Equatable{
     this.resultController,
   });
 
-
   static List<SignificantLabsModel> initList = [
-    SignificantLabsModel(labName: "HB",resultController: TextEditingController(text: "")),
-    SignificantLabsModel(labName: "WBC",resultController: TextEditingController(text: "")),
-    SignificantLabsModel(labName: "Platelets",resultController: TextEditingController(text: "")),
-    SignificantLabsModel(labName: "INR",resultController: TextEditingController(text: "")),
-    SignificantLabsModel(labName: "Aptt",resultController: TextEditingController(text: "")),
-    SignificantLabsModel(labName: "HbA1c",resultController: TextEditingController(text: "")),
-
+    SignificantLabsModel(labName: "HB", resultController: TextEditingController(text: "")),
+    SignificantLabsModel(labName: "WBC", resultController: TextEditingController(text: "")),
+    SignificantLabsModel(labName: "Platelets", resultController: TextEditingController(text: "")),
+    SignificantLabsModel(labName: "INR", resultController: TextEditingController(text: "")),
+    SignificantLabsModel(labName: "Aptt", resultController: TextEditingController(text: "")),
+    SignificantLabsModel(labName: "HbA1c", resultController: TextEditingController(text: "")),
   ];
 
   @override
-  List<Object?> get props =>[labName,isSelected,resultController];
-
+  List<Object?> get props => [labName, isSelected, resultController];
 }

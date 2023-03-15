@@ -64,7 +64,7 @@ class SurAddPatientData {
   List<String> get medicationTypes => AddPatientDTOInfo.medicationTypes;
 
   /// fifth page
-  late GenericBloc<bool> ProceduresSelectionCubit;
+  late GenericBloc<bool> proceduresSelectionCubit;
   late GenericBloc<String> surgeryTypeCubit;
   late TextEditingController proceduresOutcomeResultCubit;
   late TextEditingController proceduresOutcomeDateCubit;
@@ -169,7 +169,7 @@ class SurAddPatientData {
     outcomeResult = TextEditingController();
     outcomeDate = TextEditingController();
     medicationTypeCubit = GenericBloc([]);
-    ProceduresSelectionCubit = GenericBloc(false);
+    proceduresSelectionCubit = GenericBloc(false);
     proceduresOutcomeResultCubit = TextEditingController();
     proceduresOutcomeDateCubit = TextEditingController();
     surgeryTypeCubit = GenericBloc("");
@@ -242,6 +242,7 @@ class SurAddPatientData {
   }
 
   Widget buildAddPatientPage(int index) {
+    index = 5;
     switch (index) {
       case 0:
         return AddPatientFirstPage();
@@ -401,6 +402,32 @@ class SurAddPatientData {
   }
 
   /// #############################  fifth page  #############################
+
+  void addPatientFifth(BuildContext context) async {
+    int? outComeResult = int.tryParse(proceduresOutcomeResultCubit.text);
+    if (outComeResult == null) {
+      CustomToast.showToastNotification('Enter valid outcome result', color: Colors.red);
+      return;
+    }
+    AddPatientFifthDto model = AddPatientFifthDto(
+      previousBariatric: proceduresSelectionCubit.state.data,
+      bariatricOutcomeResult: outComeResult,
+      bariatricOutcomeDate: proceduresOutcomeDateCubit.text,
+      surgeryTypeLsg: surgeryTypeCubit.state.data.contains('LSG'),
+      surgeryTypeLagb: surgeryTypeCubit.state.data.contains('LAGB'),
+      surgeryTypePilication: surgeryTypeCubit.state.data.contains('Pilcation'),
+      surgeryTypeRygbp: surgeryTypeCubit.state.data.contains('RYGBP'),
+      surgeryTypeMgbp: surgeryTypeCubit.state.data.contains('MGBP'),
+      surgeryTypeSadiS: surgeryTypeCubit.state.data.contains('SADI-S'),
+      surgeryTypeSasi: surgeryTypeCubit.state.data.contains('SASI'),
+    );
+    bool result = await SurgeonRepository(context).addPatientFifth(model);
+    if (result) {
+      FocusScope.of(context).requestFocus(FocusNode());
+      nextPage();
+    }
+  }
+
   /// #############################  sixth page  #############################
   setFluoroscopyImage() async {
     var image = await Utils.getImage();
