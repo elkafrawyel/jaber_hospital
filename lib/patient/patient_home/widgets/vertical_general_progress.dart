@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../../general/constants/MyColors.dart';
+import '../../../general/utilities/tf_custom_widgets/widgets/DefaultButton.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
+import '../../education_screen.dart';
 import '../../models/general_progress_response.dart';
 import 'coming_appointments.dart';
 
@@ -240,7 +243,17 @@ class VerticalGeneralProgress extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           MyText(title: "التعليم", size: 12, color: MyColors.primary, fontWeight: FontWeight.bold,),
-                          MyText(title: "سيتاح قريباً", size: 9, color: MyColors.black,),
+                          // MyText(title: "سيتاح قريباً", size: 9, color: MyColors.black,),
+                          SizedBox(
+                            width: 160,
+                            child: DefaultButton(
+                              color: Color(0xFF00116E),
+                              title: "مشاهدة الفيديو التعليمي",
+                              onTap: () {
+                                      Nav.navigateTo(EducationScreen(), navigatorType: NavigatorType.push);
+                              },
+                            ),
+                          ),
                         ],),
                     ),
                   ),

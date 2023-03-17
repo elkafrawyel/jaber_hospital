@@ -11,6 +11,10 @@ class PatientModel {
   bool? ultrasound;
   bool? egd;
   bool? surgionVisit;
+  bool? watchedClip;
+  String? dietationFeedbackDecision;
+  String? finalFeedback;
+  String? feedback;
   bool? isOpen ;
 
   PatientModel({
@@ -26,6 +30,10 @@ class PatientModel {
     this.ultrasound,
     this.egd,
     this.surgionVisit,
+    this.watchedClip,
+    this.dietationFeedbackDecision,
+    this.finalFeedback,
+    this.feedback,
     this.isOpen,
   });
 
@@ -46,6 +54,10 @@ class PatientModel {
     ultrasound = json['ultrasound'];
     egd = json['egd'];
     surgionVisit = json['surgion_visit'];
+    watchedClip = json['watched_clip'];
+    dietationFeedbackDecision = json['dietation_feedback_decision'];
+    finalFeedback = json['final_feedback'];
+    feedback = json['feedback'];
     isOpen = false;
   }
 
@@ -67,6 +79,10 @@ class PatientModel {
     data['ultrasound'] = this.ultrasound;
     data['egd'] = this.egd;
     data['surgion_visit'] = this.surgionVisit;
+    data['watched_clip'] = this.watchedClip;
+    data['dietation_feedback_decision'] = this.dietationFeedbackDecision;
+    data['final_feedback'] = this.finalFeedback;
+    data['feedback'] = this.feedback;
     return data;
   }
 }

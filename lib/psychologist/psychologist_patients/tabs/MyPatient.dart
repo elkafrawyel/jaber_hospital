@@ -8,6 +8,8 @@ class MyPatient extends StatefulWidget {
 }
 
 class _MyPatientState extends State<MyPatient> {
+  PsychologistPatientData psychologistPatientData = PsychologistPatientData();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,7 +18,7 @@ class _MyPatientState extends State<MyPatient> {
         BuildPsychologistPatientType(),
         BlocBuilder<GenericBloc<List<PatientModel>>,
             GenericState<List<PatientModel>>>(
-          bloc: PsychologistPatientData().patientsCubit,
+          bloc: psychologistPatientData.patientsCubit,
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -29,7 +31,7 @@ class _MyPatientState extends State<MyPatient> {
           },
         ),
         BlocBuilder<GenericBloc<int>, GenericState<int>>(
-            bloc: PsychologistPatientData().patientType,
+            bloc: psychologistPatientData.patientType,
             builder: (context, state) {
               if (state.data == 0) {
                 return BuildPreOpView();

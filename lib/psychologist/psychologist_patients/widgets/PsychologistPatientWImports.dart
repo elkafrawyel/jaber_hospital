@@ -1,6 +1,4 @@
-import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
 import 'package:base_flutter/surgeon/models/patient_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,8 +9,8 @@ import '../../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../../../res/res.dart';
-import '../../../surgeon/screens/sur_patient/widgets/SurPatientWImports.dart';
 import '../PsychologistPatientData.dart';
+import 'BuildPreOpItem.dart';
 
 part 'BuildPreOpView.dart';
 part 'BuildPrePostItem.dart';

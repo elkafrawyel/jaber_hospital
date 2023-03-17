@@ -6,14 +6,15 @@ import 'tabs/received/received_appointments.dart';
 import 'widgets/tab_bar_widget.dart';
 
 class AppointmentsScreen extends StatelessWidget {
-  const AppointmentsScreen({Key? key}) : super(key: key);
+  const AppointmentsScreen({Key? key, this.initialIndex = 0}) : super(key: key);
+  final int initialIndex;
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: GeneralScaffold(back: true, title: "المواعيد", body: DefaultTabController(
-        initialIndex: 0,
+        initialIndex: initialIndex,
         length: 2,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

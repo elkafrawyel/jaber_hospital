@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../models/patient_appointment_model.dart';
+import '../../patient_appointments/appointments_screen.dart';
 import 'visits_item_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -25,12 +27,15 @@ class VisitsHistory extends StatelessWidget {
           children: [
             MyText(
                 title: 'تاريخ الزيارات', size: 12, fontWeight: FontWeight.bold),
-            MyText(
-              title: 'عرض الكل',
-              size: 10,
-              fontWeight: FontWeight.bold,
-              color: MyColors.primary,
-              decoration: TextDecoration.underline,
+            InkWell(
+              onTap:()=> Nav.navigateTo(AppointmentsScreen(initialIndex: 1), navigatorType: NavigatorType.push),
+              child: MyText(
+                title: 'عرض الكل',
+                size: 10,
+                fontWeight: FontWeight.bold,
+                color: MyColors.primary,
+                decoration: TextDecoration.underline,
+              ),
             ),
           ],
         ),

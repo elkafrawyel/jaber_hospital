@@ -49,4 +49,16 @@ class ApiNames{
   static const String patientPathwayPath = "patient_pathway";
   static const String patientNotificationPath = "patient_notification";
 
+  /// Psychologist
+  static const String bookAppointmentDate = "appointment";
+  static const String feedbackStatus = "patient_psychologist";
+  /// surgeon
+  static const String doctorRoutedOrders = "doctor_routed_orders";
+  static const String doctorInProgressOrders = "doctor_inprogress_orders";
+  static const String doctorCompleatedOrders = "doctor_completed_orders";
+  static const String cancelMedicationOrder = "medication_order_status";
+  static const String patientNames = "patient_names";
+  static const String listMedication = "medication";
+  static const String requestMedicationOrder = "medication_order";
+
 }

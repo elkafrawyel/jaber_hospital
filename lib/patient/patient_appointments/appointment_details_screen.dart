@@ -115,7 +115,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Container(
-                          height: MediaQuery.of(context).size.height / 7,
+                          height: MediaQuery.of(context).size.height / 6,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 20),
                           decoration: BoxDecoration(
@@ -156,7 +156,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Container(
-                          height: MediaQuery.of(context).size.height / 7,
+                          height: MediaQuery.of(context).size.height / 6,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 20),
                           decoration: BoxDecoration(
@@ -197,7 +197,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Container(
-                          height: MediaQuery.of(context).size.height / 7,
+                          height: MediaQuery.of(context).size.height / 6,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 20),
                           decoration: BoxDecoration(
@@ -245,7 +245,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Container(
-                          height: MediaQuery.of(context).size.height / 7,
+                          height: MediaQuery.of(context).size.height / 6,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 20),
                           decoration: BoxDecoration(
@@ -289,7 +289,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Container(
-                          height: MediaQuery.of(context).size.height / 7,
+                          height: MediaQuery.of(context).size.height / 6,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 20),
                           decoration: BoxDecoration(
@@ -329,7 +329,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Container(
-                          height: MediaQuery.of(context).size.height / 7,
+                          height: MediaQuery.of(context).size.height / 6,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 20),
                           decoration: BoxDecoration(

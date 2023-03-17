@@ -15,24 +15,21 @@ void main() async {
   if (!kIsWeb) {
     await Firebase.initializeApp();
   }
-  runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider<ThemeCubit>(
-          create: (BuildContext context) => ThemeCubit(),
-        ),
-        BlocProvider<LangCubit>(
-          create: (BuildContext context) => LangCubit(),
-        ),
-      ],
-      child: BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, themeState) {
-          return DevicePreview(
-            enabled: !kReleaseMode,
-            builder: (context) => MyApp(isDark: themeState.isDark),
-          );
-        },
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<ThemeCubit>(
+        create: (BuildContext context) => ThemeCubit(),
       ),
+      BlocProvider<LangCubit>(
+        create: (BuildContext context) => LangCubit(),
+      ),
+    ],
+    child: BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, themeState) {
+        return DevicePreview(
+          enabled: !kReleaseMode,
+            builder: (context) => MyApp(isDark: themeState.isDark));
+      },
     ),
-  );
+  ));
 }

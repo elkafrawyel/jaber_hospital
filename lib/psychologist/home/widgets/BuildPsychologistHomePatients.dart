@@ -5,6 +5,7 @@ import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../res/res.dart';
 import '../../../surgeon/screens/sur_patient/SurPatientImports.dart';
+import '../../psychologist_patients/patients_screen.dart';
 
 class BuildPsychologistHomePatients extends StatelessWidget {
   const BuildPsychologistHomePatients({
@@ -27,7 +28,7 @@ class BuildPsychologistHomePatients extends StatelessWidget {
           children: [
             Expanded(
               child: GestureDetector(
-                onTap: ()=>Nav.navigateTo(SurPatient(index: 0,), navigatorType: NavigatorType.push),
+                onTap: ()=>Nav.navigateTo(PsychologistPatientsScreen(initialIndex: 0), navigatorType: NavigatorType.push),
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
                   decoration: BoxDecoration(
@@ -55,7 +56,7 @@ class BuildPsychologistHomePatients extends StatelessWidget {
             const SizedBox(width: 20),
             Expanded(
               child: GestureDetector(
-                onTap: ()=>Nav.navigateTo(SurPatient(index: 1), navigatorType: NavigatorType.push),
+                onTap: ()=>Nav.navigateTo(PsychologistPatientsScreen(initialIndex: 1), navigatorType: NavigatorType.push),
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
                   decoration: BoxDecoration(

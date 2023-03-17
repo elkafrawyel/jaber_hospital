@@ -1,35 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../surgeon/models/patient_model.dart';
+import '../../patient_details/PsychologistPatientDetails.dart';
 import '../PsychologistPatientData.dart';
 
 class BuildPreOpItem extends StatelessWidget {
   final int index;
+  final PatientModel patientModel;
 
   const BuildPreOpItem({
     Key? key,
     required this.index,
+    required this.patientModel,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<PatientModel> list = PsychologistPatientData().patientsCubit.state.data;
     return InkWell(
-      // onTap: ()=>Nav.navigateTo(SurPatientDetails(patientId: list[index].sId??'',), navigatorType: NavigatorType.push) ,
+      onTap: ()=>Nav.navigateTo(PsychologistPatientDetails(patientId: list[index].sId??'',patientModel: patientModel), navigatorType: NavigatorType.push) ,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-            color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
+        decoration: BoxDecoration(color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
                   CachedImage(
@@ -39,7 +42,7 @@ class BuildPreOpItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     fit: BoxFit.cover,
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +56,7 @@ class BuildPreOpItem extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Container(
+                            list[index].finalFeedback=="true"? Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 6, vertical: 3),
                               decoration: BoxDecoration(
@@ -64,6 +67,19 @@ class BuildPreOpItem extends StatelessWidget {
                                 title: 'Ready',
                                 size: 9,
                                 color: Colors.green,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ):Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 2, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: Color(0xffFBD6BC),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: MyText(
+                                title: 'Not Ready',
+                                size: 9,
+                                color: Color(0xFFEB7826),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -111,34 +127,171 @@ class BuildPreOpItem extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                        5,
-                        (index) => Stack(
-                              alignment: Alignment.centerLeft,
-                              children: [
-                                if (index <= 3)
-                                  Container(
-                                    width: MediaQuery.of(context).size.width / 6,
-                                    height: 5,
-                                    color: MyColors.primary,
-                                  ),
-                                CircleAvatar(
-                                  backgroundColor: MyColors.primary,
-                                  radius: 12.0,
-                                  child: Icon(Icons.check,
-                                      color: Colors.white, size: 15),
-                                ),
-                              ],
-                            )),
+                  child: SizedBox(
+                    height: 58,
+                    // child: Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: List.generate(
+                    //       5,
+                    //       (index) => Stack(
+                    //             alignment: Alignment.centerLeft,
+                    //             children: [
+                    //               if (index <= 3)
+                    //                 Container(
+                    //                   width: MediaQuery.of(context).size.width / 6,
+                    //                   height: 5,
+                    //                   color: MyColors.primary,
+                    //                 ),
+                    //               CircleAvatar(
+                    //                 backgroundColor: MyColors.primary,
+                    //                 radius: 12.0,
+                    //                 child: Icon(Icons.check,
+                    //                     color: Colors.white, size: 15),
+                    //               ),
+                    //             ],
+                    //           )),
+                    // ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: TimelineTile(
+                            axis: TimelineAxis.horizontal,
+                            alignment: TimelineAlign.center,
+                            isFirst: true,
+                            indicatorStyle: IndicatorStyle(
+                              height: 26,
+                              color: MyColors.primary,
+                              iconStyle: IconStyle(
+                                color: Colors.white,
+                                iconData: Icons.check,
+                              ),
+                            ),
+                            beforeLineStyle: LineStyle(
+                              color: MyColors.primary,
+                              thickness: 6,
+                            ),
+                            endChild: MyText(
+                              title: "Surgery OPD",
+                              size: 8,
+                              color: MyColors.primary,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: TimelineTile(
+                            axis: TimelineAxis.horizontal,
+                            alignment: TimelineAlign.center,
+                            beforeLineStyle: LineStyle(
+                              color: list[index].dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                              thickness: 6,
+                            ),
+                            afterLineStyle: LineStyle(
+                              color: list[index].dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                              thickness: 6,
+                            ),
+                            indicatorStyle: IndicatorStyle(
+                              height: 26,
+                              color: list[index].dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                              iconStyle: IconStyle(
+                                color: Colors.white,
+                                iconData: Icons.check,
+                              ),
+                            ),
+                            endChild: MyText(
+                              title: "Dietitian",
+                              size: 8,
+                              color: list[index].dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: TimelineTile(
+                            axis: TimelineAxis.horizontal,
+                            alignment: TimelineAlign.center,
+                            beforeLineStyle: LineStyle(
+                              color: list[index].feedback=="true"? MyColors.primary:Colors.red,
+                              thickness: 6,
+                            ),
+                            afterLineStyle: LineStyle(
+                              color: list[index].feedback=="true"? MyColors.primary:Colors.red,
+                              thickness: 6,
+                            ),
+                            indicatorStyle: IndicatorStyle(
+                              height: 26,
+                              color: list[index].feedback=="true"? MyColors.primary:Colors.red,
+                              iconStyle: IconStyle(
+                                color: Colors.white,
+                                iconData: Icons.check,
+                              ),
+                            ),
+                            endChild: MyText(
+                              title: "Physiotherapy",
+                              size: 8,
+                              color: list[index].feedback=="true"? MyColors.primary:Colors.red,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: TimelineTile(
+                            axis: TimelineAxis.horizontal,
+                            alignment: TimelineAlign.center,
+                            beforeLineStyle: LineStyle(
+                              color: list[index].watchedClip=="true"? MyColors.primary:Colors.red,
+                              thickness: 6,
+                            ),
+                            afterLineStyle: LineStyle(
+                              color: list[index].watchedClip=="true"? MyColors.primary:Colors.red,
+                              thickness: 6,
+                            ),
+                            indicatorStyle: IndicatorStyle(
+                              height: 26,
+                              color: list[index].watchedClip=="true"? MyColors.primary:Colors.red,
+                              iconStyle: IconStyle(
+                                color: Colors.white,
+                                iconData: Icons.check,
+                              ),
+                            ),
+                            endChild: MyText(
+                              title: "Education",
+                              size: 8,
+                              color: list[index].watchedClip=="true"? MyColors.primary:Colors.red,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: TimelineTile(
+                            axis: TimelineAxis.horizontal,
+                            alignment: TimelineAlign.center,
+                            isLast: true,
+                            beforeLineStyle: LineStyle(
+                              color: list[index].finalFeedback=="true"? MyColors.primary:Colors.red,
+                              thickness: 6,
+                            ),
+                            indicatorStyle: IndicatorStyle(
+                              height: 26,
+                              color: list[index].finalFeedback=="true"? MyColors.primary:Colors.red,
+                              iconStyle: IconStyle(
+                                color: Colors.white,
+                                iconData: Icons.check,
+                              ),
+                            ),
+                            endChild: MyText(
+                              title: "Psychology",
+                              size: 8,
+                              color: list[index].finalFeedback=="true"? MyColors.primary:Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 InkWell(
                   //open
                   onTap: () => PsychologistPatientData().openOpdDetailsCard(context, list, index),
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.only(right: 8),
                     child: Icon(
                         list[index].isOpen == true
                             ? Icons.keyboard_arrow_down
@@ -149,110 +302,110 @@ class BuildPreOpItem extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 2),
-                          child: Column(
-                            children: [
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: MyText(
-                                  alien: TextAlign.center,
-                                  title: "Surgery OPD",
-                                  size: 9,
-                                  color: MyColors.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 2),
-                          child: Column(
-                            children: [
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: MyText(
-                                  alien: TextAlign.center,
-                                  title: "Dietitian",
-                                  size: 9,
-                                  color: MyColors.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 2),
-                          child: Column(
-                            children: [
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: MyText(
-                                  alien: TextAlign.center,
-                                  title: "Physiotherapy",
-                                  size: 9,
-                                  color: MyColors.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 2),
-                          child: Column(
-                            children: [
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: MyText(
-                                  alien: TextAlign.center,
-                                  title: "Education",
-                                  size: 9,
-                                  color: MyColors.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 2),
-                          child: Column(
-                            children: [
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: MyText(
-                                  alien: TextAlign.center,
-                                  title: "Psychology",
-                                  size: 9,
-                                  color: MyColors.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                )
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //         children: [
+            //           Expanded(
+            //             child: Padding(
+            //               padding: const EdgeInsets.only(left: 2),
+            //               child: Column(
+            //                 children: [
+            //                   FittedBox(
+            //                     fit: BoxFit.scaleDown,
+            //                     child: MyText(
+            //                       alien: TextAlign.center,
+            //                       title: "Surgery OPD",
+            //                       size: 9,
+            //                       color: MyColors.primary,
+            //                     ),
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //           Expanded(
+            //             child: Padding(
+            //               padding: const EdgeInsets.only(left: 2),
+            //               child: Column(
+            //                 children: [
+            //                   FittedBox(
+            //                     fit: BoxFit.scaleDown,
+            //                     child: MyText(
+            //                       alien: TextAlign.center,
+            //                       title: "Dietitian",
+            //                       size: 9,
+            //                       color: MyColors.primary,
+            //                     ),
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //           Expanded(
+            //             child: Padding(
+            //               padding: const EdgeInsets.only(left: 2),
+            //               child: Column(
+            //                 children: [
+            //                   FittedBox(
+            //                     fit: BoxFit.scaleDown,
+            //                     child: MyText(
+            //                       alien: TextAlign.center,
+            //                       title: "Physiotherapy",
+            //                       size: 9,
+            //                       color: MyColors.primary,
+            //                     ),
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //           Expanded(
+            //             child: Padding(
+            //               padding: const EdgeInsets.only(left: 2),
+            //               child: Column(
+            //                 children: [
+            //                   FittedBox(
+            //                     fit: BoxFit.scaleDown,
+            //                     child: MyText(
+            //                       alien: TextAlign.center,
+            //                       title: "Education",
+            //                       size: 9,
+            //                       color: MyColors.primary,
+            //                     ),
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //           Expanded(
+            //             child: Padding(
+            //               padding: const EdgeInsets.only(left: 2),
+            //               child: Column(
+            //                 children: [
+            //                   FittedBox(
+            //                     fit: BoxFit.scaleDown,
+            //                     child: MyText(
+            //                       alien: TextAlign.center,
+            //                       title: "Psychology",
+            //                       size: 9,
+            //                       color: MyColors.primary,
+            //                     ),
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //     const SizedBox(
+            //       width: 10,
+            //     )
+            //   ],
+            // ),
             Visibility(
                 visible: list[index].isOpen == true,
                 child: Divider(color: MyColors.grey)),

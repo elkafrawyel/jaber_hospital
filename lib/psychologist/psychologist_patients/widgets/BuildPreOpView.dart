@@ -21,7 +21,7 @@ class BuildPreOpView extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: state.data.length,
                       itemBuilder: (context, index) =>
-                          BuildPreOpItem(index: index),
+                          BuildPreOpItem(index: index, patientModel: state.data[index],),
                     ),
                   );
                 } else {

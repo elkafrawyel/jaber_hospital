@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../res/res.dart';
 import '../../models/patient_appointment_model.dart';
+import '../../patient_appointments/appointment_details_screen.dart';
 
 class ComingAppointmentWidget extends StatelessWidget {
   const ComingAppointmentWidget({Key? key, required this.index, required this.appointmentModel}) : super(key: key);
@@ -14,7 +16,7 @@ class ComingAppointmentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return InkWell(
-      // onTap: ()=> Nav.navigateTo(EducationScreen(), navigatorType: NavigatorType.push),
+      onTap:()=> Nav.navigateTo(AppointmentDetailsScreen(appointmentModel: appointmentModel),navigatorType: NavigatorType.push),
       child: Container(
         width: size.width * 0.80,
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
@@ -51,7 +53,7 @@ class ComingAppointmentWidget extends StatelessWidget {
                       size: 13,
                       fontWeight: FontWeight.bold),
                   MyText(title:appointmentModel.doctorId?.title??"", size: 12, color: Colors.grey),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 3),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

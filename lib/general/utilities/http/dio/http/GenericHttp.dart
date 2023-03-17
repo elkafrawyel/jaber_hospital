@@ -3,7 +3,6 @@ import 'package:base_flutter/general/utilities/http/dio/utils/DioUtils.dart';
 import 'package:flutter/material.dart';
 
 enum ReturnType { Model, List, Type }
-
 enum MethodType { Get, Post, Put, Patch, Delete }
 
 class GenericHttp<T> {
@@ -11,17 +10,16 @@ class GenericHttp<T> {
 
   GenericHttp(this.context);
 
-  Future<dynamic> callApi({
-    required ReturnType returnType,
-    required MethodType methodType,
-    required String name,
-    Function(dynamic data)? returnDataFun,
-    Map<String, dynamic>? jsonBody,
-    Map<String, dynamic>? query,
-    bool? showLoader,
-    Function(dynamic data)? toJsonFunc,
-    bool refresh = true,
-  }) async {
+  Future<dynamic> callApi(
+      {required ReturnType returnType,
+      required MethodType methodType,
+      required String name,
+      Function(dynamic data)? returnDataFun,
+      Map<String, dynamic>? jsonBody,
+        Map<String, dynamic>? query ,
+        bool? showLoader,
+      Function(dynamic data)? toJsonFunc,
+      bool refresh = true}) async {
     var dataJson = jsonBody ?? {};
     switch (methodType) {
       case MethodType.Get:
@@ -75,23 +73,22 @@ class GenericHttp<T> {
   Future<dynamic> _getData({
     required ReturnType returnType,
     Map<String, dynamic> json = const {},
-    Map<String, dynamic>? query,
+    Map<String, dynamic>? query ,
     required String name,
     Function(dynamic data)? dataKeyFun,
     bool refresh = true,
     Function(dynamic data)? toJsonFunc,
   }) async {
     var data = await DioHelper(context: context, forceRefresh: refresh).get(
-      url: name,
-      query: query,
+      url: name,  query: query,
     );
-    return _returnDataFromType(data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
+    return _returnDataFromType(
+        data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
   }
-
   Future<dynamic> _postData({
     required ReturnType returnType,
     required String name,
-    Map<String, dynamic>? query,
+    Map<String, dynamic>? query ,
     Function(dynamic data)? dataKeyFun,
     Map<String, dynamic> json = const {},
     bool? showLoader,
@@ -99,12 +96,13 @@ class GenericHttp<T> {
   }) async {
     var data = await DioHelper(
       context: context,
-    ).post(url: name, body: json, showLoader: showLoader ?? true, query: query);
-    return _returnDataFromType(data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
+    ).post(url: name, body: json, showLoader: showLoader ?? true,query: query);
+    return _returnDataFromType(
+        data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
   }
 
   Future<dynamic> _putData({
-    Map<String, dynamic>? query,
+    Map<String, dynamic>? query ,
     required ReturnType returnType,
     required String name,
     Function(dynamic data)? dataKeyFun,
@@ -115,11 +113,12 @@ class GenericHttp<T> {
     var data = await DioHelper(
       context: context,
     ).put(url: name, body: json, showLoader: showLoader ?? true);
-    return _returnDataFromType(data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
+    return _returnDataFromType(
+        data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
   }
 
   Future<dynamic> _patchData({
-    Map<String, dynamic>? query,
+    Map<String, dynamic>? query ,
     required ReturnType returnType,
     required String name,
     Function(dynamic data)? dataKeyFun,
@@ -130,11 +129,12 @@ class GenericHttp<T> {
     var data = await DioHelper(
       context: context,
     ).patch(url: name, body: json, showLoader: showLoader ?? true);
-    return _returnDataFromType(data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
+    return _returnDataFromType(
+        data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
   }
 
   Future<dynamic> _deleteData({
-    Map<String, dynamic>? query,
+    Map<String, dynamic>? query ,
     required ReturnType returnType,
     required String name,
     Function(dynamic data)? dataKeyFun,
@@ -145,7 +145,8 @@ class GenericHttp<T> {
     var data = await DioHelper(
       context: context,
     ).delete(url: name, body: json, showLoader: showLoader ?? true);
-    return _returnDataFromType(data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
+    return _returnDataFromType(
+        data, returnType, toJsonFunc ?? (val) {}, dataKeyFun);
   }
 
   dynamic _returnDataFromType(

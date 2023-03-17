@@ -5,7 +5,9 @@ import 'package:shimmer/shimmer.dart';
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../models/appointments_response.dart';
+import '../../patient_appointments/appointments_screen.dart';
 import '../home_data.dart';
 import 'coming_appointment_widget.dart';
 
@@ -25,17 +27,20 @@ class ComingAppointments extends StatelessWidget {
                   title: 'المواعيد القادمة',
                   size: 12,
                   fontWeight: FontWeight.bold),
-              MyText(
-                title: 'عرض الكل',
-                size: 10,
-                fontWeight: FontWeight.bold,
-                color: MyColors.primary,
-                decoration: TextDecoration.underline,
+              InkWell(
+                onTap:()=> Nav.navigateTo(AppointmentsScreen(initialIndex: 0), navigatorType: NavigatorType.push),
+                child: MyText(
+                  title: 'عرض الكل',
+                  size: 10,
+                  fontWeight: FontWeight.bold,
+                  color: MyColors.primary,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ],
           ),
           Container(
-            height: 116,
+            height: 124,
             child: BlocBuilder<GenericBloc<AppointmentsResponse?>,
                 GenericState<AppointmentsResponse?>>(
               bloc: PatientHomeData().homeCubit,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:base_flutter/general/utilities/tf_custom_widgets/utils/WidgetUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,6 +31,8 @@ class MyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // log("font==> ${fontFamily??WidgetUtils.fontFamily?? (WidgetUtils.lang=="ar"? GoogleFonts.cairo().fontFamily : GoogleFonts.nunito().fontFamily)}");
+    // log("lang==> ${WidgetUtils.lang}");
     return Text(
       "$title",
       textAlign: alien ?? TextAlign.start,

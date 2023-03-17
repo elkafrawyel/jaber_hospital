@@ -15,7 +15,6 @@ class Utils {
       GlobalState.instance.set("token", data.accessToken??'');
       changeLanguage("en", context);
       setCurrentUserData(data, context);
-
     } else {
       Nav.navigateTo(Login(), navigatorType: NavigatorType.pushAndPopUntil);
 
@@ -92,6 +91,7 @@ class Utils {
   static void setCurrentUserData(UserModel model, BuildContext context) async {
     context.read<UserCubit>().onUpdateUserData(model);
     if (model.userData?[0].role == "doctor") {
+      WidgetUtils.lang = "en";
       if(model.userData?[0].doctorRoleId?.roleNameEn=="Surgeon"){
         log("role==> ${model.userData?[0].doctorRoleId?.roleNameEn}");
         Nav.navigateTo(SurHome(), navigatorType: NavigatorType.pushAndPopUntil);
@@ -103,10 +103,13 @@ class Utils {
         Nav.navigateTo(SurHome(), navigatorType: NavigatorType.pushAndPopUntil);
       }
     } else if(model.userData?[0].role == "company"){
+      WidgetUtils.lang = "en";
       Nav.navigateTo(ComHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
     } else if(model.userData?[0].role == "patient"){
+      WidgetUtils.lang = "ar";
       Nav.navigateTo(PatientHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
     } else{
+      WidgetUtils.lang = "en";
       Nav.navigateTo(Home(index: 0,), navigatorType: NavigatorType.pushAndPopUntil);
     }
   }

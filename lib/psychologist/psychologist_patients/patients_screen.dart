@@ -8,16 +8,19 @@ import 'PsychologistPatientData.dart';
 import 'widgets/PsychologistPatientWImports.dart';
 
 class PsychologistPatientsScreen extends StatefulWidget {
-  const PsychologistPatientsScreen({Key? key}) : super(key: key);
+  const PsychologistPatientsScreen({Key? key, this.initialIndex = 0}) : super(key: key);
+  final int initialIndex;
 
   @override
   State<PsychologistPatientsScreen> createState() => _PsychologistPatientsScreenState();
 }
 
 class _PsychologistPatientsScreenState extends State<PsychologistPatientsScreen> {
+  PsychologistPatientData psychologistPatientData = PsychologistPatientData();
+
   @override
   void initState() {
-    PsychologistPatientData().init(context,0);
+    psychologistPatientData.init(context, widget.initialIndex);
     super.initState();
   }
 
@@ -25,32 +28,9 @@ class _PsychologistPatientsScreenState extends State<PsychologistPatientsScreen>
   Widget build(BuildContext context) {
     return GeneralScaffold(
         back: true,
-        actions: [
-          // Row(
-          //   children: [
-          //     IconButton(
-          //       onPressed: () {},
-          //       icon: Icon(Icons.search, color: MyColors.primary, size: 30),
-          //     ),
-          //     IconButton(
-          //       onPressed: () {
-          //         // Nav.navigateTo(SurAddPatient(), navigatorType: NavigatorType.push);
-          //       },
-          //       icon: Container(
-          //           decoration: BoxDecoration(
-          //               color: MyColors.primary,
-          //               borderRadius: BorderRadius.circular(100)),
-          //           child: Icon(
-          //             Icons.add,
-          //             color: Colors.white,
-          //           )),
-          //     ),
-          //   ],
-          // )
-        ],
         title: "Patients",
         body: DefaultTabController(
-          initialIndex: 0,
+          initialIndex: widget.initialIndex,
           length: 2,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
