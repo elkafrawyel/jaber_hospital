@@ -2,7 +2,9 @@ part of 'PsychologistAddPatientImports.dart';
 
 class PsychologistAddPatientData {
   PsychologistAddPatientData._();
+
   static PsychologistAddPatientData surAddPatientData = PsychologistAddPatientData._();
+
   factory PsychologistAddPatientData() => surAddPatientData;
 
   late PageController pageController;
@@ -23,7 +25,6 @@ class PsychologistAddPatientData {
   late TextEditingController patientHeight;
   late TextEditingController BMI;
 
-
   /// second page
   late GenericBloc<bool> RespiratoryDiseaseSelectionCubit;
   late TextEditingController otherNotes;
@@ -32,16 +33,20 @@ class PsychologistAddPatientData {
   late GenericBloc<String> diagnosisTypesCubit;
   late GenericBloc<String> cardiacDiseaseCubit;
   late GenericBloc<String> respiratoryDiseaseCubit;
+
   List<String> get diagnosisTypes => AddPatientDTOInfo.diagnosisTypes;
+
   List<String> get cardiacDiseaseTypes => AddPatientDTOInfo.cardiacDisease;
-  List<String> get respiratoryDiseaseTypes =>
-      AddPatientDTOInfo.respiratoryDisease;
+
+  List<String> get respiratoryDiseaseTypes => AddPatientDTOInfo.respiratoryDisease;
 
   /// third page
   late GenericBloc<bool> refluxSelectionCubit;
   late GenericBloc<String> medicationsCubit;
   late GenericBloc<String> smokingHabitsCubit;
+
   List<String> get medications => AddPatientDTOInfo.Medications;
+
   List<String> get smokingHabits => AddPatientDTOInfo.smokingHabits;
 
   /// fourth page
@@ -54,6 +59,7 @@ class PsychologistAddPatientData {
   late TextEditingController outcomeResult;
   late TextEditingController outcomeDate;
   late GenericBloc<String> medicationTypeCubit;
+
   List<String> get medicationTypes => AddPatientDTOInfo.medicationTypes;
 
   /// fifth page
@@ -61,15 +67,18 @@ class PsychologistAddPatientData {
   late GenericBloc<String> surgeryTypeCubit;
   late TextEditingController proceduresOutcomeResultCubit;
   late TextEditingController proceduresOutcomeDateCubit;
+
   List<String> get surgeryTypes => AddPatientDTOInfo.surgeryTypes;
 
   /// sixth page
   late TextEditingController significantLabsController;
-  List<SignificantLabsModel> get labsList => SignificantLabsModel.initList;
+
+  List<SignificantLabsModel> labsList = [];
   late GenericBloc<List<SignificantLabsModel>> labsCubit;
   late GenericBloc<List<SignificantLabsModel>> selectedLabsCubit;
   late GenericBloc<bool> ultrasoundCubit;
   late GenericBloc<String> USFindingsCubit;
+
   List<String> get USFindings => AddPatientDTOInfo.USFindings;
   late TextEditingController otherUSFindingsController;
   late TextEditingController FluoroscopyController;
@@ -111,10 +120,15 @@ class PsychologistAddPatientData {
   late GenericBloc<bool> OtherDuodenum;
 
   List<String> get oesophagusGradeType => AddPatientDTOInfo.oesophagusGradeType;
+
   List<String> get GastritisType => AddPatientDTOInfo.GastritisType;
+
   List<String> get HPyloriType => AddPatientDTOInfo.HPyloriType;
+
   List<String> get PreviousSurgeryType => AddPatientDTOInfo.PostSurgeryType;
+
   List<String> get PostLSGStatusType => AddPatientDTOInfo.PostLSGStatusType;
+
   List<String> get SizeType => AddPatientDTOInfo.SizeType;
 
   /// #############################  init screen  #############################
@@ -208,17 +222,13 @@ class PsychologistAddPatientData {
 
   /// #############################  Page Controller  #############################
   void nextPage() {
-    pageController.nextPage(
-        duration: Duration(milliseconds: 500),
-        curve: Curves.fastLinearToSlowEaseIn);
+    pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.fastLinearToSlowEaseIn);
     pageCubit.onUpdateData(pageCubit.state.data + 1);
   }
 
   void previousPage() {
     if (pageCubit.state.data == 1) return;
-    pageController.previousPage(
-        duration: Duration(milliseconds: 500),
-        curve: Curves.fastLinearToSlowEaseIn);
+    pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.fastLinearToSlowEaseIn);
     pageCubit.onUpdateData(pageCubit.state.data - 1);
   }
 
@@ -281,17 +291,15 @@ class PsychologistAddPatientData {
         gender: patientGenderCubit.state.data,
         publicId: "137g352fs",
         fileId: "234873456",
-        image:
-        "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
+        image: "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
       );
-      bool result = await SurgeonRepository(context).addPatientFirst(
-          userId: users.userData?[0].doctorRoleId?.sId ?? "", model: model);
+      bool result = await SurgeonRepository(context)
+          .addPatientFirst(userId: users.userData?[0].doctorRoleId?.sId ?? "", model: model);
       if (result) {
         FocusScope.of(context).requestFocus(FocusNode());
         nextPage();
       }
     }
-
   }
 
   /// #############################  second page  #############################

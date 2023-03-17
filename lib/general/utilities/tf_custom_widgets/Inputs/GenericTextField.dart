@@ -31,8 +31,8 @@ class GenericTextField extends StatelessWidget {
   final Function(String)? onChange;
 
   GenericTextField(
-      { this.label,
-       this.hint,
+      {this.label,
+      this.hint,
       required this.fieldTypes,
       this.controller,
       this.focusNode,
@@ -63,14 +63,14 @@ class GenericTextField extends StatelessWidget {
     return Container(
       margin: margin ?? EdgeInsets.all(0),
       child: Visibility(
-        visible: fieldTypes==FieldTypes.clickable,
+        visible: fieldTypes == FieldTypes.clickable,
         child: buildClickableView(context),
         replacement: buildFormFiled(context),
       ),
     );
   }
 
-  Widget buildClickableView(BuildContext context){
+  Widget buildClickableView(BuildContext context) {
     return InkWell(
       onTap: onTab,
       child: AbsorbPointer(
@@ -80,28 +80,32 @@ class GenericTextField extends StatelessWidget {
     );
   }
 
-  Widget buildFormFiled(BuildContext context){
+  Widget buildFormFiled(BuildContext context) {
     return TextFormField(
       controller: controller,
-      keyboardType: type ,
+      keyboardType: type,
       textInputAction: action,
       enableSuggestions: false,
       autocorrect: false,
       autofocus: autoFocus,
       focusNode: focusNode,
       inputFormatters: [
-        if(maxLength!=null)
+        if (maxLength != null)
           LengthLimitingTextInputFormatter(maxLength), //n is maximum number of characters you want in textfield
       ],
-      enabled: fieldTypes!=FieldTypes.disable,
+      enabled: fieldTypes != FieldTypes.disable,
       autofillHints: getAutoFillHints(type),
-      maxLines: fieldTypes==FieldTypes.chat? null: fieldTypes==FieldTypes.rich? max :1,
-      obscureText: fieldTypes==FieldTypes.password,
-      readOnly: fieldTypes==FieldTypes.readonly,
+      maxLines: fieldTypes == FieldTypes.chat
+          ? null
+          : fieldTypes == FieldTypes.rich
+              ? max
+              : 1,
+      obscureText: fieldTypes == FieldTypes.password,
+      readOnly: fieldTypes == FieldTypes.readonly,
       onEditingComplete: onSubmit,
       onChanged: onChange,
       validator: (value) => validate(value),
-      style: TextStyle(color:textColor?? Theme.of(context).textTheme.subtitle1?.color,fontSize:12 ),
+      style: TextStyle(color: textColor ?? Theme.of(context).textTheme.subtitle1?.color, fontSize: 12),
       // style: WidgetUtils.textStyle.copyWith(color: textColor??WidgetUtils.textStyle.color),
       decoration: WidgetUtils.setInputDecoration(
         label: label,
@@ -112,7 +116,7 @@ class GenericTextField extends StatelessWidget {
         focusBorderColor: focusBorderColor,
         fillColor: fillColor,
         padding: contentPadding,
-        hintColor:hintColor?? Theme.of(context).textTheme.subtitle1?.color,
+        hintColor: hintColor ?? Theme.of(context).textTheme.subtitle1?.color,
         radius: radius,
         prefixWidget: prefixWidget,
         suffixWidget: suffixWidget,
@@ -120,19 +124,18 @@ class GenericTextField extends StatelessWidget {
     );
   }
 
-  List<String> getAutoFillHints(TextInputType inputType){
-    if(inputType==TextInputType.emailAddress){
+  List<String> getAutoFillHints(TextInputType inputType) {
+    if (inputType == TextInputType.emailAddress) {
       return [AutofillHints.email];
-    } else if(inputType==TextInputType.datetime){
+    } else if (inputType == TextInputType.datetime) {
       return [AutofillHints.birthday];
-    } else if(inputType==TextInputType.phone){
+    } else if (inputType == TextInputType.phone) {
       return [AutofillHints.telephoneNumber];
-    }else if(inputType==TextInputType.url){
+    } else if (inputType == TextInputType.url) {
       return [AutofillHints.url];
     }
-    return [AutofillHints.name,AutofillHints.username];
+    return [AutofillHints.name, AutofillHints.username];
   }
-
 }
 
-enum FieldTypes { normal, clickable, readonly, chat, password,rich,disable}
+enum FieldTypes { normal, clickable, readonly, chat, password, rich, disable }

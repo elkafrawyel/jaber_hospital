@@ -74,9 +74,9 @@ class SurAddPatientData {
   /// sixth page
   late TextEditingController significantLabsController;
 
-  List<SignificantLabsModel> get labsList => SignificantLabsModel.initList;
-  late GenericBloc<List<SignificantLabsModel>> labsCubit;
-  late GenericBloc<List<SignificantLabsModel>> selectedLabsCubit;
+  List<LabModel> labsList = [];
+  late GenericBloc<List<LabModel>> labsCubit;
+  late GenericBloc<List<LabModel>> selectedLabsCubit;
   late GenericBloc<bool> ultrasoundCubit;
   late GenericBloc<String> USFindingsCubit;
 
@@ -174,7 +174,7 @@ class SurAddPatientData {
     proceduresOutcomeDateCubit = TextEditingController();
     surgeryTypeCubit = GenericBloc("");
     significantLabsController = TextEditingController();
-    labsCubit = GenericBloc(SignificantLabsModel.initList);
+    labsCubit = GenericBloc([]);
     selectedLabsCubit = GenericBloc([]);
     ultrasoundCubit = GenericBloc(false);
     USFindingsCubit = GenericBloc("");
@@ -214,7 +214,7 @@ class SurAddPatientData {
     OtherDuodenum = GenericBloc(false);
     EGDResultImageCubit = GenericBloc(null);
     TwistCubit = GenericBloc(false);
-
+    getAllLabs(context);
     onPageChanged();
   }
 
@@ -429,6 +429,37 @@ class SurAddPatientData {
   }
 
   /// #############################  sixth page  #############################
+
+  Future getAllLabs(BuildContext context) async {
+    LabsResponse? labsResponse = await SurgeonRepository(context).getAllLabs();
+    labsList = labsResponse?.data ?? [];
+
+    labsCubit.onUpdateData(labsList);
+  }
+
+  void addPatientSixth(BuildContext context) async {
+    if (FluoroscopyImageCubit.state.data != null) {
+      // upload image first
+    }
+
+    AddPatientSixthDto model = AddPatientSixthDto(
+      ultrasound: historyBallonSelectionCubit.state.data,
+      ultrasound_finding_fatty_liver: USFindingsCubit.state.data.contains('Fatty liver'),
+      ultrasound_finding_gbs: USFindingsCubit.state.data.contains('GBS'),
+      ultrasound_finding_hernia: USFindingsCubit.state.data.contains('Hernia'),
+      ultrasound_finding_cirrhos: USFindingsCubit.state.data.contains('Cirrhos'),
+      ultrasound_finding_others: USFindingsCubit.state.data.contains('Others'),
+      ultrasound_finding_others_note: otherNotesController.text,
+      fluoroscopy_result: FluoroscopyController.text,
+    );
+
+    bool result = await SurgeonRepository(context).addPatientSixth(model);
+    if (result) {
+      FocusScope.of(context).requestFocus(FocusNode());
+      nextPage();
+    }
+  }
+
   setFluoroscopyImage() async {
     var image = await Utils.getImage();
     if (image != null) {

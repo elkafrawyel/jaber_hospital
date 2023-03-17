@@ -59,9 +59,10 @@ class AddPatientSixthPage extends StatelessWidget {
                       topRight: Radius.circular(20),
                     ),
                   ),
-                  child: BlocBuilder<GenericBloc<List<SignificantLabsModel>>, GenericState<List<SignificantLabsModel>>>(
+                  child: BlocBuilder<GenericBloc<List<LabModel>>, GenericState<List<LabModel>>>(
                     bloc: SurAddPatientData().labsCubit,
                     builder: (context, state) {
+                      print('===============================${state.data.length}');
                       return Column(
                         children: [
                           Padding(
@@ -162,7 +163,7 @@ class AddPatientSixthPage extends StatelessWidget {
           },
           validate: (value) => value!.validateEmpty(context),
         ),
-        BlocBuilder<GenericBloc<List<SignificantLabsModel>>, GenericState<List<SignificantLabsModel>>>(
+        BlocBuilder<GenericBloc<List<LabModel>>, GenericState<List<LabModel>>>(
           bloc: SurAddPatientData().selectedLabsCubit,
           builder: (context, state) {
             return Wrap(
@@ -399,17 +400,16 @@ class AddPatientSixthPage extends StatelessWidget {
         ),
         GenericTextField(
           hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-          fieldTypes: FieldTypes.clickable,
+          fieldTypes: FieldTypes.normal,
           fillColor: MyColors.textFields,
           hint: "Enter or upload Fluoroscopy result",
           controller: SurAddPatientData().FluoroscopyController,
           margin: const EdgeInsets.symmetric(vertical: 10),
           action: TextInputAction.next,
           type: TextInputType.text,
-          onTab: () => SurAddPatientData().setFluoroscopyImage(),
-          suffixIcon: Image.asset(
-            Res.imagesEditIconff,
-            scale: 3,
+          suffixIcon: InkWell(
+            onTap: SurAddPatientData().setFluoroscopyImage,
+            child: Image.asset(Res.imagesEditIconff, scale: 3),
           ),
           validate: (value) => value!.validateEmpty(context),
         ),
@@ -478,7 +478,7 @@ class AddPatientSixthPage extends StatelessWidget {
             Expanded(
               child: DefaultButton(
                 title: "Next",
-                onTap: () => SurAddPatientData().nextPage(),
+                onTap: () => SurAddPatientData().addPatientSixth(context),
               ),
             ),
           ],

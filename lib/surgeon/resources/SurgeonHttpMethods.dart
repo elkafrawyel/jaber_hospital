@@ -162,6 +162,39 @@ class SurgeonHttpMethods {
     return false;
   }
 
+  Future<bool> addPatientSixth(AddPatientSixthDto model) async {
+    UserModel? users = context.read<UserCubit>().state.model;
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.patientPreOperative + "?user_id=${users.userData?[0].sId}",
+      returnType: ReturnType.Type,
+      methodType: MethodType.Put,
+      returnDataFun: (data) => data,
+      jsonBody: model.toJson(),
+      showLoader: true,
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    }
+    return false;
+  }
+
+  Future<LabsResponse?> getAllLabs() async {
+    dynamic data = await GenericHttp<LabsResponse>(context).callApi(
+      name: ApiNames.labs + '?limit=99999',
+      returnType: ReturnType.Type,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      // showLoader: true,
+      toJsonFunc: LabsResponse.fromJson,
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return null;
+    }
+    return null;
+  }
+
   Future<bool> updateSurgeonProfile(ProfileModel model) async {
     Map<String, dynamic> body = {};
     body.addAll(model.toJson());
