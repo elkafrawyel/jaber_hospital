@@ -29,8 +29,7 @@ class _SurNotificationsState extends State<SurNotifications> {
         bloc: notificationsData.notificationsCubit,
         builder: (context, state) {
           if (state is GenericUpdateState) {
-            return notificationsData.notificationsList!.isNotEmpty
-                ? ListView.separated(
+            return notificationsData.notificationsList!.isNotEmpty? ListView.separated(
               padding: const EdgeInsets.all(10),
               scrollDirection: Axis.vertical,
               physics: const BouncingScrollPhysics(),
@@ -39,10 +38,8 @@ class _SurNotificationsState extends State<SurNotifications> {
                 index: index,
                 notification: notificationsData.notificationsList?[index],
               ),
-              separatorBuilder: (_, __) =>
-              const SizedBox(height: 8.0),
-            )
-                : Center(
+              separatorBuilder: (_, __) => const SizedBox(height: 8.0),
+            ): Center(
               child: MyText(
                 title: 'No Notifications founded',
                 size: 14,
