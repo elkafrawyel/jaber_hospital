@@ -11,7 +11,7 @@ class BuildPreOpItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<PatientModel> list = PsychologistPatientData().patientsCubit.state.data;
+    List<PatientModel> list = SurPatientData().patientsCubit.state.data;
     return InkWell(
       onTap: ()=>Nav.navigateTo(SurPatientDetails(patientId: list[index].sId??''), navigatorType: NavigatorType.push) ,
       child: Container(
@@ -279,7 +279,7 @@ class BuildPreOpItem extends StatelessWidget {
                 ),
                 InkWell(
                   //open
-                  onTap: () => PsychologistPatientData().openOpdDetailsCard(context, list, index),
+                  onTap: () => SurPatientData().openOpdDetailsCard(context, list, index),
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Icon(

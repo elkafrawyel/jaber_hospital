@@ -3,6 +3,7 @@ import 'package:base_flutter/surgeon/models/patient_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/WidgetUtils.dart';

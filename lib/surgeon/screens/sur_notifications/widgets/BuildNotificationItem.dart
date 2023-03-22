@@ -2,8 +2,9 @@ part of'SurNotificationsWImports.dart';
 
 
 class BuildNotificationItem extends StatelessWidget {
-  const BuildNotificationItem({Key? key, required this.index}) : super(key: key);
+  const BuildNotificationItem({Key? key, required this.index, required this.notification}) : super(key: key);
   final int index;
+  final NotificationModel? notification;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class BuildNotificationItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyText(
-                  title: "Hany Tamer has added new activity to his profile, check his progress now",
+                  title: notification?.notifcationDoctorEn??"",
                   size: 12,
                   color: MyColors.black,
                 ),
@@ -38,7 +39,7 @@ class BuildNotificationItem extends StatelessWidget {
                   height: 5,
                 ),
                 MyText(
-                  title: "13:29 PM",
+                  title: notification?.createdDate??"13:29 PM",
                   size: 10,
                   color: MyColors.primary,
                   fontWeight: FontWeight.bold,

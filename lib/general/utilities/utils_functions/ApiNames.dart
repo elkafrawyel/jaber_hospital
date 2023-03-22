@@ -31,6 +31,7 @@ class ApiNames{
   static const String patientReflux = "patient_reflux";
   static const String patientProcedures = "patient_procedures";
   static const String patientPreOperative = "patient_preOperative";
+  static const String surgeonNotifications = "doctor_notification";
   static const String labs = "labs";
   /// companies
   static const String companyHomeOrders = "company_orders_completed_inProgress";
@@ -60,5 +61,9 @@ class ApiNames{
   static const String patientNames = "patient_names";
   static const String listMedication = "medication";
   static const String requestMedicationOrder = "medication_order";
+  static const String mdtPatientsPath = "patient_by_mdt_status";
+  static const String confirmMdtBookingPath = "patient_mdt";
+  // static const String confirmMdtBookingPath = "patient_mdt";
+  // static const String confirmMdtBookingPath = "patient_mdt";
 
 }

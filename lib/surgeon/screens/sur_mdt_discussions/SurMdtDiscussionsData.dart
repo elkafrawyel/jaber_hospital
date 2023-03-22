@@ -27,7 +27,8 @@ class SurMdtDiscussionsData {
   }
 
 
-  void navigateToTimeDialog(int?val , BuildContext context){
+  void navigateToTimeDialog(int? val , BuildContext context){
+    log("mdtDuration==> $val");
     SurMdtDiscussionsData().mdtDurationCubit.onUpdateData(val!);
     navigationKey.currentState?.pop();
     showDialog(

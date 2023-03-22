@@ -242,7 +242,7 @@ class SurAddPatientData {
   }
 
   Widget buildAddPatientPage(int index) {
-    index = 5;
+    // index = 5;
     switch (index) {
       case 0:
         return AddPatientFirstPage();

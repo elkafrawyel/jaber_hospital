@@ -43,8 +43,7 @@ class BuildPatientMDTDurationSheet extends StatelessWidget {
                 value: 2,
                 groupValue: state.data,
                 title: Text("10 Minutes"),
-                onChanged: (val) =>
-                    SurMdtDiscussionsData().navigateToTimeDialog(val, context),
+                onChanged: (val) => SurMdtDiscussionsData().navigateToTimeDialog(val, context),
               ),
             ],
           );

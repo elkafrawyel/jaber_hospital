@@ -60,4 +60,10 @@ class SurgeonRepository {
   Future<MedicationModel?> getListMedication(String pageNumber) => _surgeonHttpMethods.getListMedication(pageNumber);
 
   Future<bool> requestMedicationOrder(Map<String, dynamic> body) => _surgeonHttpMethods.requestMedicationOrder(body);
+
+  Future<NotificationsResponse?> getSurgeonNotifications()=> _surgeonHttpMethods.fetchSurgeonNotifications();
+
+  /// Mdt
+  Future<MdtPatientsResponse?> requestMdtReadyPatients(String mdtStatus) => _surgeonHttpMethods.fetchMdtReadyPatients(mdtStatus);
+  Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body) => _surgeonHttpMethods.confirmMdtBooking(body);
 }

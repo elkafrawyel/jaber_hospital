@@ -1,95 +1,122 @@
 part of 'mdt_w_imports.dart';
 
-class BuildNoResultDecision extends StatelessWidget {
+class BuildNoResultDecision extends StatefulWidget {
   const BuildNoResultDecision({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<BuildNoResultDecision> createState() => _BuildNoResultDecisionState();
+}
+
+class _BuildNoResultDecisionState extends State<BuildNoResultDecision> {
+  DecisionMdtData decisionMdtData = DecisionMdtData();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    decisionMdtData.init(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-          itemBuilder: (context, index) => Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                    color: Color(0xfff2f2f2),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        children: [
-                          CachedImage(
-                            url: 'https://picsum.photos/186',
-                            height: 60,
-                            width: 60,
-                            borderRadius: BorderRadius.circular(10),
-                            fit: BoxFit.cover,
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                MyText(
-                                  title: 'Ahmed Ali',
-                                  size: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                Row(
-                                  children: [
-                                    MyText(
-                                      title: 'Surgeon : ',
-                                      size: 11,
-                                      color: MyColors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    MyText(
-                                      title: 'Samer Hany',
-                                      size: 11,
-                                      color: MyColors.grey,
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    MyText(
-                                      title: 'Dietitian : ',
-                                      size: 11,
-                                      color: MyColors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    MyText(
-                                      title: 'Ahmed Jamil',
-                                      size: 11,
-                                      color: MyColors.grey,
-                                    ),
-                                  ],
-                                ),
-                              ],
+    return BlocBuilder<GenericBloc<MdtPatientsResponse?>,
+        GenericState<MdtPatientsResponse?>>(
+      bloc: decisionMdtData.decisionCubit,
+      builder: (context, state) {
+        if (state is GenericUpdateState) {
+          return Column(
+            children: [
+              ListView.builder(
+                itemCount: state.data?.patients?.length,
+                itemBuilder: (context, index) => Container(
+                  margin:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                      color: Color(0xfff2f2f2),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            CachedImage(
+                              url: 'https://picsum.photos/186',
+                              height: 60,
+                              width: 60,
+                              borderRadius: BorderRadius.circular(10),
+                              fit: BoxFit.cover,
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  MyText(
+                                    title: 'Ahmed Ali',
+                                    size: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  Row(
+                                    children: [
+                                      MyText(
+                                        title: 'Surgeon : ',
+                                        size: 11,
+                                        color: MyColors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      MyText(
+                                        title: 'Samer Hany',
+                                        size: 11,
+                                        color: MyColors.grey,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      MyText(
+                                        title: 'Dietitian : ',
+                                        size: 11,
+                                        color: MyColors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      MyText(
+                                        title: 'Ahmed Jamil',
+                                        size: 11,
+                                        color: MyColors.grey,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    DefaultButton(
-                      title: "Enter Result",
-                      onTap: () {
-                        SurMdtDiscussionsData().selectMDTResultCubit.onUpdateData(0);
-                        showModalBottomSheet(
-                            context: context,
-                            backgroundColor: Colors.transparent,
-                            builder: (context) => BuildMDTResultSheet());
-                      },
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 100, vertical: 5),
-                    ),
-                  ],
-                ),
-              )),
+                      DefaultButton(
+                        title: "Enter Result",
+                        onTap: () {
+                          SurMdtDiscussionsData().selectMDTResultCubit.onUpdateData(0);
+                          showModalBottomSheet(
+                              context: context,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) => BuildMDTResultSheet());
+                        },
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 100, vertical: 5),
+                      ),
+                    ],
+                  ),
+                ),),
+            ],
+          );
+        } else {
+          return LoadingWidget();
+        }
+      },
     );
   }
 }

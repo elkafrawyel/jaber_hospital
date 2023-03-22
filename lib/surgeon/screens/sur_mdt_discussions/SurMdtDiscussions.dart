@@ -20,14 +20,14 @@ class _SurMdtDiscussionsState extends State<SurMdtDiscussions>with SingleTickerP
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BuildSurMdtTabBar(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-          child: MyText(
-            title: '5 Patients',
-            size: 13,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+        //   child: MyText(
+        //     title: '5 Patients',
+        //     size: 13,
+        //     fontWeight: FontWeight.bold,
+        //   ),
+        // ),
         Expanded(
             child: TabBarView(
                 controller: SurMdtDiscussionsData().tabController,

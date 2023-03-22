@@ -5,6 +5,7 @@ class BuildBookTimesDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return GeneralAlertDialog(
       alertButtonType: AlertButtonType.noButton,
       alertTextType: AlertContentType.noTitle,
@@ -12,6 +13,7 @@ class BuildBookTimesDialog extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       customWidget: Container(
           color: Colors.white,
+          width: size.width * 0.96,
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             shrinkWrap: true,

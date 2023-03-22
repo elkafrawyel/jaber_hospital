@@ -5,6 +5,7 @@ class DoctorId {
   String? gender;
   String? civilId;
   String? title;
+  String? image;
 
   DoctorId(
       {this.sId,
@@ -12,6 +13,7 @@ class DoctorId {
         this.fullNameEn,
         this.gender,
         this.civilId,
+        this.image,
         this.title});
 
   DoctorId.fromJson(Map<String, dynamic> json) {
@@ -21,6 +23,7 @@ class DoctorId {
     gender = json['gender'];
     civilId = json['civil_id'];
     title = json['title'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +34,7 @@ class DoctorId {
     data['gender'] = this.gender;
     data['civil_id'] = this.civilId;
     data['title'] = this.title;
+    data['image'] = this.image;
     return data;
   }
 }

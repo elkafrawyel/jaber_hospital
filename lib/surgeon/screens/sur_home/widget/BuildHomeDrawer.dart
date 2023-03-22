@@ -114,13 +114,14 @@ class BuildSurHomeDrawer extends StatelessWidget {
                     children: [
                       ListTile(
                         title: Text("Discussions"),
-                        onTap:() => Nav.navigateTo(SurMdtDiscussions(), navigatorType: NavigatorType.push),
+                        onTap: () => Nav.navigateTo(SurMdtDiscussions(),
+                            navigatorType: NavigatorType.push),
                       ),
-
-                      ListTile(
-                        title: Text("Admin"),
-                        // onTap: () => Nav.navigateTo(CompMedicationsOrders(), navigatorType: NavigatorType.push),
-                      ),
+                      if (user?.mdtAdmin ?? false)
+                        ListTile(
+                          title: Text("Admin"),
+                          // onTap: () => Nav.navigateTo(CompMedicationsOrders(), navigatorType: NavigatorType.push),
+                        ),
                       //more child menu
                     ],
                   ),
@@ -235,12 +236,14 @@ class BuildSurHomeDrawer extends StatelessWidget {
                     children: [
                       ListTile(
                         title: Text("Medication"),
-                        onTap:() => Nav.navigateTo(SurMedicationOrder(), navigatorType: NavigatorType.push),
+                        onTap: () => Nav.navigateTo(SurMedicationOrder(),
+                            navigatorType: NavigatorType.push),
                       ),
 
                       ListTile(
                         title: Text("Admin"),
-                        onTap: () => Nav.navigateTo(SurMedicationOrder(), navigatorType: NavigatorType.push),
+                        onTap: () => Nav.navigateTo(SurMedicationOrder(),
+                            navigatorType: NavigatorType.push),
                       ),
                       //more child menu
                     ],

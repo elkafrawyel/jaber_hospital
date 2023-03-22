@@ -30,6 +30,7 @@ class UserModel {
 class UserData {
   String? sId;
   String? email;
+  bool? mdtAdmin;
   bool? verified;
   String? fullNameAr;
   String? fullNameEn;
@@ -50,6 +51,7 @@ class UserData {
   UserData(
       {this.sId,
         this.email,
+        this.mdtAdmin,
         this.verified,
         this.fullNameAr,
         this.fullNameEn,
@@ -71,6 +73,7 @@ class UserData {
     sId = json['_id'];
     email = json['email'];
     verified = json['verified'];
+    mdtAdmin = json['mdt_admin'];
     fullNameAr = json['full_name_ar'];
     fullNameEn = json['full_name_en'];
     compNameAr = json['company_name_ar'];
@@ -94,6 +97,7 @@ class UserData {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['email'] = this.email;
+    data['mdt_admin'] = this.mdtAdmin;
     data['verified'] = this.verified;
     data['full_name_ar'] = this.fullNameAr;
     data['full_name_en'] = this.fullNameEn;

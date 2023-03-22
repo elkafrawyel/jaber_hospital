@@ -356,4 +356,40 @@ class SurgeonHttpMethods {
     }
     return false;
   }
+
+  Future<NotificationsResponse?> fetchSurgeonNotifications() async {
+    log('fetchNotifications called...');
+    UserModel user = context.read<UserCubit>().state.model;
+    final data = await GenericHttp<NotificationsResponse>(context).callApi(
+      name: "${ApiNames.surgeonNotifications}?doctor_id=${user.userData?[0].sId}",
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => NotificationsResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<MdtPatientsResponse?> fetchMdtReadyPatients(String status) async {
+    MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
+      name: "${ApiNames.mdtPatientsPath}?mdt_status=$status",
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => MdtPatientsResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body) async {
+    final data = await GenericHttp<UpdateConsentResponse>(context).callApi(
+      name: ApiNames.confirmMdtBookingPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Put,
+      jsonBody: body,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
+    );
+    return data;
+  }
 }
