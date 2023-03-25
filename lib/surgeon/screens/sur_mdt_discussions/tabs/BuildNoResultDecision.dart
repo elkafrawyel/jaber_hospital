@@ -9,12 +9,14 @@ class BuildNoResultDecision extends StatefulWidget {
   State<BuildNoResultDecision> createState() => _BuildNoResultDecisionState();
 }
 
-class _BuildNoResultDecisionState extends State<BuildNoResultDecision> {
+class _BuildNoResultDecisionState extends State<BuildNoResultDecision> with SingleTickerProviderStateMixin{
   DecisionMdtData decisionMdtData = DecisionMdtData();
+  SurMdtDiscussionsData surMdtDiscussionsData = SurMdtDiscussionsData();
 
   @override
   void initState() {
     // TODO: implement initState
+    surMdtDiscussionsData.init(this);
     decisionMdtData.init(context);
     super.initState();
   }
@@ -26,9 +28,7 @@ class _BuildNoResultDecisionState extends State<BuildNoResultDecision> {
       bloc: decisionMdtData.decisionCubit,
       builder: (context, state) {
         if (state is GenericUpdateState) {
-          return Column(
-            children: [
-              ListView.builder(
+          return state.data!.patients!.isNotEmpty? ListView.builder(
                 itemCount: state.data?.patients?.length,
                 itemBuilder: (context, index) => Container(
                   margin:
@@ -110,9 +110,7 @@ class _BuildNoResultDecisionState extends State<BuildNoResultDecision> {
                       ),
                     ],
                   ),
-                ),),
-            ],
-          );
+                ),): Center(child: MyText(title: 'No data founded', size: 12,),);
         } else {
           return LoadingWidget();
         }

@@ -381,6 +381,17 @@ class SurgeonHttpMethods {
     return data;
   }
 
+  Future<MdtPatientsResponse?> fetchMdtAdminPatients() async {
+    MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
+      name: ApiNames.mdtAdminPatientsPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => MdtPatientsResponse.fromJson(json),
+    );
+    return data;
+  }
+
   Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body) async {
     final data = await GenericHttp<UpdateConsentResponse>(context).callApi(
       name: ApiNames.confirmMdtBookingPath,
@@ -388,6 +399,19 @@ class SurgeonHttpMethods {
       methodType: MethodType.Put,
       jsonBody: body,
       returnDataFun: (data) => data,
+      toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<UpdateConsentResponse?> sendMdtResult(Map<String, dynamic> body) async {
+    final data = await GenericHttp<UpdateConsentResponse>(context).callApi(
+      name: ApiNames.patientMdtResultPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Put,
+      jsonBody: body,
+      returnDataFun: (data) => data,
+      showLoader: true,
       toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
     );
     return data;

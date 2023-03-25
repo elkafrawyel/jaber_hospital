@@ -1,14 +1,27 @@
 part of 'SurMdtDiscussionsWImports.dart';
 
-class BuildReasonDialog extends StatelessWidget {
+class BuildReasonDialog extends StatefulWidget {
   final String? hint, headerTitle;
   const BuildReasonDialog({Key? key, this.hint, this.headerTitle})
       : super(key: key);
 
   @override
+  State<BuildReasonDialog> createState() => _BuildReasonDialogState();
+}
+
+class _BuildReasonDialogState extends State<BuildReasonDialog> {
+  SurMdtDiscussionsData surMdtDiscussionsData =SurMdtDiscussionsData();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    surMdtDiscussionsData.reason.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GeneralAlertDialog(
-
       alertButtonType: AlertButtonType.dueButton,
       alertTextType: AlertContentType.noTitle,
       alertImageType: AlertImageType.noImg,
@@ -21,7 +34,7 @@ class BuildReasonDialog extends StatelessWidget {
             children: [
               MyText(
                 alien: TextAlign.center,
-                title: headerTitle ?? "Reason",
+                title: widget.headerTitle ?? "Reason",
                 size: 14,
                 fontWeight: FontWeight.bold,
               ),
@@ -33,9 +46,9 @@ class BuildReasonDialog extends StatelessWidget {
                     ?.withOpacity(.8),
                 fieldTypes: FieldTypes.rich,
                 fillColor: MyColors.textFields,
-                hint: hint ?? "Reason",
+                hint: widget.hint ?? "Reason",
                 max: 3,
-                controller: SurMdtDiscussionsData().reason,
+                controller: surMdtDiscussionsData.reason,
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 action: TextInputAction.next,
                 type: TextInputType.text,
@@ -59,7 +72,12 @@ class BuildReasonDialog extends StatelessWidget {
       },
       onTapRightButton: () {
         navigationKey.currentState?.pop();
-        SurMdtDiscussionsData().decisionTypeCubit.onUpdateData(1);
+        surMdtDiscussionsData.decisionTypeCubit.onUpdateData(1);
+        Map<String, dynamic> reasonBody = {
+          "type": surMdtDiscussionsData.decisionTypeCubit.state.data,
+          "reason": surMdtDiscussionsData.reason.text.trim(),
+        };
+        log("reasonBody=> $reasonBody");
       },
     );
   }

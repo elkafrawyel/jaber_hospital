@@ -16,7 +16,7 @@ class _SurMdtDiscussionsState extends State<SurMdtDiscussions>with SingleTickerP
   }
   @override
   Widget build(BuildContext context) {
-    return GeneralScaffold(back: true, title: "MDT", body: Column(
+    return GeneralScaffold(back: true, title: "MDT Discussions", body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BuildSurMdtTabBar(),

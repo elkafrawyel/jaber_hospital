@@ -65,5 +65,7 @@ class SurgeonRepository {
 
   /// Mdt
   Future<MdtPatientsResponse?> requestMdtReadyPatients(String mdtStatus) => _surgeonHttpMethods.fetchMdtReadyPatients(mdtStatus);
+  Future<MdtPatientsResponse?> requestMdtAdminPatients() => _surgeonHttpMethods.fetchMdtAdminPatients();
   Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body) => _surgeonHttpMethods.confirmMdtBooking(body);
+  Future<UpdateConsentResponse?> mdtPatientResult(Map<String, dynamic> body) => _surgeonHttpMethods.sendMdtResult(body);
 }

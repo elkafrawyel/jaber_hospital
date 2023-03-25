@@ -81,12 +81,11 @@ class _DecisionMDTState extends State<DecisionMDT> {
             },
           ),
         ),
-        Expanded(
-          child: BlocBuilder<GenericBloc<int>, GenericState<int>>(
+        BlocBuilder<GenericBloc<int>, GenericState<int>>(
               bloc: SurMdtDiscussionsData().decisionTypeCubit,
               builder: (context, state) {
                 if (state.data == 0) {
-                  return BuildNoResultDecision();
+                  return Expanded(child: BuildNoResultDecision());
                 } else {
                   return Expanded(
                     child: ListView.builder(
@@ -181,7 +180,6 @@ class _DecisionMDTState extends State<DecisionMDT> {
                   );
                 }
               }),
-        ),
       ],
     );
   }

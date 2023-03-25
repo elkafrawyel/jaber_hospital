@@ -7,7 +7,7 @@ List<String> acceptanceDetails = [
   "Laparoscopic adjustable gastric band (LAGB)",
   "SADI-L",
   "Intragastric Ballon",
-  "Other",
+  // "Other",
 ];
 
 class BuildAcceptanceDetailsSheet extends StatelessWidget {

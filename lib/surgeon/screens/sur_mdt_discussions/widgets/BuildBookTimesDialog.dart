@@ -1,19 +1,31 @@
 part of 'SurMdtDiscussionsWImports.dart';
 
-class BuildBookTimesDialog extends StatelessWidget {
+class BuildBookTimesDialog extends StatefulWidget {
   const BuildBookTimesDialog({Key? key}) : super(key: key);
+
+  @override
+  State<BuildBookTimesDialog> createState() => _BuildBookTimesDialogState();
+}
+
+class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
+  bool isFirst = true;
+  DateTime next = DateTime.now();
+  String curMonDay = "";
+  String selectedTime = "";
+  var monday = 1;
+  final DateFormat dateFormat = new DateFormat('dd-MMMM-yyyy');
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return GeneralAlertDialog(
-      alertButtonType: AlertButtonType.noButton,
-      alertTextType: AlertContentType.noTitle,
-      alertImageType: AlertImageType.noImg,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      customWidget: Container(
+        alertButtonType: AlertButtonType.noButton,
+        alertTextType: AlertContentType.noTitle,
+        alertImageType: AlertImageType.noImg,
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+        customWidget: Container(
           color: Colors.white,
-          width: size.width * 0.96,
+          width: size.width * 0.98,
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             shrinkWrap: true,
@@ -39,14 +51,92 @@ class BuildBookTimesDialog extends StatelessWidget {
                   )
                 ],
               ),
-              MyText(
-                alien: TextAlign.center,
-                title: "Monday (18 August 2022)",
-                size: 14,
-                fontWeight: FontWeight.bold,
+              const SizedBox(
+                height: 16.0,
               ),
+              BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                  bloc: SurMdtDiscussionsData().selectBookDateCubit,
+                  builder: (context, state) {
+                    return Center(
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              log("previous");
+                              SurMdtDiscussionsData().getPreviousMonday();
+                            },
+                            child: RotatedBox(
+                                quarterTurns: 2,
+                                child: Icon(
+                                  Icons.forward,
+                                  size: 28,
+                                  color: MyColors.primary,
+                                )),
+                          ),
+                          const SizedBox(
+                            width: 16.0,
+                          ),
+                          Expanded(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                MyText(
+                                  alien: TextAlign.center,
+                                  title: "Monday ",
+                                  size: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                Expanded(
+                                  child: FittedBox(
+                                    child: MyText(
+                                      alien: TextAlign.center,
+                                      title: "(${state.data})",
+                                      // title: "(18 August 2022)",
+                                      size: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 16.0,
+                          ),
+                          InkWell(
+                              onTap: () {
+                                log("isLast icon");
+                                SurMdtDiscussionsData().getNextMonday();
+                                // if(isFirst){
+                                //   while(next.weekday!=monday)
+                                //   {
+                                //     next =next.add(new Duration(days: 1));
+                                //   }
+                                //   log('Recent monday $next');
+                                //   log("formattedDay==> ${next.day} - ${next.month} - ${next.year}");
+                                //   curMonDay = dateFormat.format(next);
+                                //   log("formattedDay==> $curMonDay");
+                                //   isFirst = false;
+                                //   setState(){};
+                                // } else{
+                                //   next = next.add(Duration(days: 7));
+                                //   log("next==> $next");
+                                //   log("formattedDay==> ${next.day} - ${next.month} - ${next.year}");
+                                //   curMonDay = dateFormat.format(next);
+                                //   log("formattedDay==> $curMonDay");
+                                // }
+                              },
+                              child: Icon(
+                                Icons.forward,
+                                size: 28,
+                                color: MyColors.primary,
+                              )),
+                        ],
+                      ),
+                    );
+                  }),
               SizedBox(
-                height: 20,
+                height: 16,
               ),
               BlocBuilder<GenericBloc<int>, GenericState<int>>(
                 bloc: SurMdtDiscussionsData().selectBookTimeCubit,
@@ -59,9 +149,12 @@ class BuildBookTimesDialog extends StatelessWidget {
                       children: List.generate(
                           times.length,
                           (index) => InkWell(
-                                onTap: () => SurMdtDiscussionsData()
-                                    .selectBookTimeCubit
-                                    .onUpdateData(index),
+                                onTap: () {
+                                  selectedTime = times[index];
+                                  SurMdtDiscussionsData()
+                                      .selectBookTimeCubit
+                                      .onUpdateData(index);
+                                },
                                 child: Container(
                                   height: 30,
                                   width: 80,
@@ -82,9 +175,17 @@ class BuildBookTimesDialog extends StatelessWidget {
                               )));
                 },
               ),
+              SizedBox(
+                height: 16,
+              ),
               DefaultButton(
                 title: "Confirm Booking",
                 onTap: () {
+                  Map<String, dynamic> body = {
+                    "date": SurMdtDiscussionsData().selectBookDateCubit.state.data,
+                    "time": times[SurMdtDiscussionsData().selectBookTimeCubit.state.data],
+                  };
+                  log("bookingBody=> $body");
                   navigationKey.currentState?.pop();
                   SurMdtDiscussionsData().tabController.animateTo(1);
                 },
@@ -92,8 +193,8 @@ class BuildBookTimesDialog extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
               )
             ],
-          )),
-    );
+          ),
+        ));
   }
 }
 

@@ -114,13 +114,12 @@ class BuildSurHomeDrawer extends StatelessWidget {
                     children: [
                       ListTile(
                         title: Text("Discussions"),
-                        onTap: () => Nav.navigateTo(SurMdtDiscussions(),
-                            navigatorType: NavigatorType.push),
+                        onTap: () => Nav.navigateTo(SurMdtDiscussions(), navigatorType: NavigatorType.push),
                       ),
-                      if (user?.mdtAdmin ?? false)
+                      // if (user?.mdtAdmin ?? false)
                         ListTile(
                           title: Text("Admin"),
-                          // onTap: () => Nav.navigateTo(CompMedicationsOrders(), navigatorType: NavigatorType.push),
+                          onTap: () => Nav.navigateTo(MDTAdminScreen(), navigatorType: NavigatorType.push),
                         ),
                       //more child menu
                     ],
