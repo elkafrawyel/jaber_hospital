@@ -116,7 +116,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                         title: Text("Discussions"),
                         onTap: () => Nav.navigateTo(SurMdtDiscussions(), navigatorType: NavigatorType.push),
                       ),
-                      // if (user?.mdtAdmin ?? false)
+                      if (user?.mdtAdmin ?? false)
                         ListTile(
                           title: Text("Admin"),
                           onTap: () => Nav.navigateTo(MDTAdminScreen(), navigatorType: NavigatorType.push),

@@ -33,6 +33,11 @@ class ApiNames{
   static const String patientPreOperative = "patient_preOperative";
   static const String surgeonNotifications = "doctor_notification";
   static const String labs = "labs";
+  static const String uploadFluoroscopyResult = "upload_fluoroscopy_result";
+  static const String uploadEgdResult = "upload_egd_result";
+  static const String downloadPatientInfo = "get_report_url";
+  static const String patientEgd = "patient_egd";
+
   /// companies
   static const String companyHomeOrders = "company_orders_completed_inProgress";
   static const String updateCompProfile = "update_company_profile";

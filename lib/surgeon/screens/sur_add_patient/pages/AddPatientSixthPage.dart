@@ -33,7 +33,8 @@ class AddPatientSixthPage extends StatelessWidget {
             Icons.arrow_drop_down,
             color: MyColors.primary,
           ),
-          onTab: () {
+          onTab: () async {
+            await SurAddPatientData().getAllLabs(context);
             showModalBottomSheet(
               backgroundColor: Colors.transparent,
               context: context,
@@ -62,7 +63,6 @@ class AddPatientSixthPage extends StatelessWidget {
                   child: BlocBuilder<GenericBloc<List<LabModel>>, GenericState<List<LabModel>>>(
                     bloc: SurAddPatientData().labsCubit,
                     builder: (context, state) {
-                      print('===============================${state.data.length}');
                       return Column(
                         children: [
                           Padding(
@@ -74,65 +74,68 @@ class AddPatientSixthPage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Expanded(
-                            child: ListView.builder(
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              itemCount: state.data.length,
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Checkbox(
-                                          value: state.data[index].isSelected,
-                                          onChanged: (value) {
-                                            state.data[index].isSelected = value!;
-                                            SurAddPatientData().labsCubit.onUpdateData(state.data);
-                                          },
-                                        ),
-                                        MyText(
-                                          title: state.data[index].labName ?? '',
-                                          size: 12,
-                                        ),
-                                      ],
-                                    ),
-                                    Visibility(
-                                      visible: state.data[index].isSelected,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                          state.data.isEmpty
+                              ? Center(child: CircularProgressIndicator())
+                              : Expanded(
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    itemCount: state.data.length,
+                                    itemBuilder: (context, index) {
+                                      return Column(
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                                            child: MyText(
-                                              title: "${state.data[index].labName} Lab Result:",
-                                              size: 12,
-                                              fontWeight: FontWeight.bold,
+                                          Row(
+                                            children: [
+                                              Checkbox(
+                                                value: state.data[index].isSelected,
+                                                onChanged: (value) {
+                                                  state.data[index].isSelected = value!;
+                                                  SurAddPatientData().labsCubit.onUpdateData(state.data);
+                                                },
+                                              ),
+                                              MyText(
+                                                title: state.data[index].labName ?? '',
+                                                size: 12,
+                                              ),
+                                            ],
+                                          ),
+                                          Visibility(
+                                            visible: state.data[index].isSelected,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                                  child: MyText(
+                                                    title: "${state.data[index].labName} Lab Result:",
+                                                    size: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                GenericTextField(
+                                                  hintColor:
+                                                      Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                                                  fieldTypes: FieldTypes.normal,
+                                                  fillColor: MyColors.textFields,
+                                                  hint: "Lab Result",
+                                                  controller: state.data[index].resultController,
+                                                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                                  action: TextInputAction.next,
+                                                  type: TextInputType.number,
+                                                  onTab: () {},
+                                                  validate: (value) => value!.validateEmpty(context),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          GenericTextField(
-                                            hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-                                            fieldTypes: FieldTypes.normal,
-                                            fillColor: MyColors.textFields,
-                                            hint: "Lab Result",
-                                            controller: state.data[index].resultController,
-                                            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                                            action: TextInputAction.next,
-                                            type: TextInputType.number,
-                                            onTab: () {},
-                                            validate: (value) => value!.validateEmpty(context),
+                                          Divider(
+                                            color: MyColors.greyWhite,
+                                            thickness: 1,
                                           ),
                                         ],
-                                      ),
-                                    ),
-                                    Divider(
-                                      color: MyColors.greyWhite,
-                                      thickness: 1,
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
+                                      );
+                                    },
+                                  ),
+                                ),
                           DefaultButton(
                             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 100),
                             title: "Save Results",

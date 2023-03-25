@@ -132,42 +132,47 @@ class SurAddPatientData {
 
   List<String> get SizeType => AddPatientDTOInfo.SizeType;
 
+  bool editing = false;
+  PatientDetailsModel? patientDetailsModel;
+
   /// #############################  init screen  #############################
-  void initScreen(BuildContext context) {
+  void initScreen(BuildContext context, {PatientDetailsModel? patientDetailsModel}) async {
+    editing = patientDetailsModel != null;
+    this.patientDetailsModel = patientDetailsModel;
     pageController = PageController();
     formKey1 = GlobalKey<FormState>();
     pageCubit = GenericBloc(1);
-    otherNotesDm = TextEditingController();
-    patientNameAr = TextEditingController();
-    patientGenderCubit = GenericBloc("male");
-    patientNameEn = TextEditingController();
-    patientId = TextEditingController();
-    patientFileNumber = TextEditingController();
-    patientMobile1 = TextEditingController();
-    patientMobile2 = TextEditingController();
-    patientEmail = TextEditingController();
+    otherNotesDm = TextEditingController(text: patientDetailsModel?.patient?.otherNotes ?? '');
+    patientGenderCubit = GenericBloc(patientDetailsModel?.patient?.gender == 'female' ? 'female' : 'male');
+    patientNameEn = TextEditingController(text: patientDetailsModel?.patient?.fullNameEn ?? '');
+    patientNameAr = TextEditingController(text: patientDetailsModel?.patient?.fullNameAr ?? '');
+    patientId = TextEditingController(text: patientDetailsModel?.patient?.civilId ?? '');
+    patientFileNumber = TextEditingController(text: patientDetailsModel?.patient?.publicId ?? '');
+    patientMobile1 = TextEditingController(text: patientDetailsModel?.patient?.telephone1 ?? '');
+    patientMobile2 = TextEditingController(text: patientDetailsModel?.patient?.telephone2 ?? '');
+    patientEmail = TextEditingController(text: patientDetailsModel?.patient?.email ?? '');
     RespiratoryDiseaseSelectionCubit = GenericBloc(false);
-    patientAge = TextEditingController();
-    patientWeight = TextEditingController();
-    patientHeight = TextEditingController();
-    BMI = TextEditingController();
-    otherNotes = TextEditingController();
+    patientAge = TextEditingController(text: patientDetailsModel?.patient?.age?.toString() ?? '');
+    patientWeight = TextEditingController(text: patientDetailsModel?.patient?.weight?.toString() ?? '');
+    patientHeight = TextEditingController(text: patientDetailsModel?.patient?.height?.toString() ?? '');
+    BMI = TextEditingController(text: patientDetailsModel?.patient?.bmi?.toString() ?? '');
+    otherNotes = TextEditingController(text: patientDetailsModel?.patient?.otherNotes?.toString() ?? '');
     refSelectionCubit = GenericBloc(false);
-    dmTypeSelectionCubit = GenericBloc(0);
+    dmTypeSelectionCubit = GenericBloc(patientDetailsModel?.patient?.dmType ?? false ? 1 : 0);
     diagnosisTypesCubit = GenericBloc([]);
     cardiacDiseaseCubit = GenericBloc("");
     respiratoryDiseaseCubit = GenericBloc([]);
     medicationsCubit = GenericBloc("");
     smokingHabitsCubit = GenericBloc("");
-    dmSelectCubit = GenericBloc(false);
-    historyBallonSelectionCubit = GenericBloc(false);
-    weightLossFrom = TextEditingController();
-    weightLossTo = TextEditingController();
-    removalDate = TextEditingController();
-    insertionDate = TextEditingController();
-    historyWeightLossSelectionCubit = GenericBloc(false);
-    outcomeResult = TextEditingController();
-    outcomeDate = TextEditingController();
+    dmSelectCubit = GenericBloc(patientDetailsModel?.patient?.dmType ?? false);
+    historyBallonSelectionCubit = GenericBloc(patientDetailsModel?.patient?.historyOfBallon ?? false);
+    weightLossFrom = TextEditingController(text: patientDetailsModel?.patient?.ballonWeightLossFrom?.toString() ?? '');
+    weightLossTo = TextEditingController(text: patientDetailsModel?.patient?.ballonWeightLossTo?.toString() ?? '');
+    removalDate = TextEditingController(text: patientDetailsModel?.patient?.ballonDateOfRemoval?.toString() ?? '');
+    insertionDate = TextEditingController(text: patientDetailsModel?.patient?.ballonDateOfInsertion?.toString() ?? '');
+    historyWeightLossSelectionCubit = GenericBloc(patientDetailsModel?.patient?.historyOfWeightLoss ?? false);
+    outcomeResult = TextEditingController(text: patientDetailsModel?.patient?.weightLossOutcomeResult?.toString());
+    outcomeDate = TextEditingController(text: patientDetailsModel?.patient?.weightLossOutcomeDate ?? '');
     medicationTypeCubit = GenericBloc([]);
     proceduresSelectionCubit = GenericBloc(false);
     proceduresOutcomeResultCubit = TextEditingController();
@@ -176,36 +181,39 @@ class SurAddPatientData {
     significantLabsController = TextEditingController();
     labsCubit = GenericBloc([]);
     selectedLabsCubit = GenericBloc([]);
-    ultrasoundCubit = GenericBloc(false);
-    USFindingsCubit = GenericBloc("");
-    otherUSFindingsController = TextEditingController();
-    FluoroscopyController = TextEditingController();
+    ultrasoundCubit = GenericBloc(patientDetailsModel?.patient?.ultrasound ?? false);
+    USFindingsCubit = GenericBloc(patientDetailsModel?.patient?.ultrasoundFindingOthersNote ?? '');
+    otherUSFindingsController = TextEditingController(
+      text: patientDetailsModel?.patient?.ultrasoundFindingOthersNote ?? '',
+    );
+    FluoroscopyController = TextEditingController(text: patientDetailsModel?.patient?.fluoroscopyResult ?? '');
     FluoroscopyImageCubit = GenericBloc(null);
-    otherNotesController = TextEditingController();
-    AnastomoticSizeController = TextEditingController();
-    EGDResultController = TextEditingController();
-    OtherOesophagusController = TextEditingController();
-    OtherStomachController = TextEditingController();
-    SizeController = TextEditingController();
-    OtherDuodenumController = TextEditingController();
-    EGDCubit = GenericBloc(false);
-    NormalOesophagusCubit = GenericBloc(false);
-    oesophagusCubit = GenericBloc(false);
-    oesophagusGradeCubit = GenericBloc(false);
-    oesophagusGradeTypeCubit = GenericBloc("");
-    barretOesophagusCubit = GenericBloc(false);
-    HiatusHerniaCubit = GenericBloc(false);
-    SizeCubit = GenericBloc("");
-    GastritisCubit = GenericBloc(false);
+    otherNotesController = TextEditingController(text: patientDetailsModel?.patient?.otherNotes ?? '');
+    AnastomoticSizeController =
+        TextEditingController(text: patientDetailsModel?.patient?.egdAnastomoticSizeNumber ?? '');
+    EGDResultController = TextEditingController(text: patientDetailsModel?.patient?.egdResults ?? '');
+    OtherOesophagusController = TextEditingController(text: patientDetailsModel?.patient?.egdOesophagusOther ?? '');
+    OtherStomachController = TextEditingController(text: patientDetailsModel?.patient?.egdStomachOthers ?? '');
+    SizeController = TextEditingController(text: patientDetailsModel?.patient?.egdHiatusHerniaSize ?? '');
+    OtherDuodenumController = TextEditingController(text: patientDetailsModel?.patient?.egdDuodenumOthers ?? '');
+    EGDCubit = GenericBloc(patientDetailsModel?.patient?.egd ?? false);
+    NormalOesophagusCubit = GenericBloc(patientDetailsModel?.patient?.egdOesophagusNormal ?? false);
+    oesophagusCubit = GenericBloc(patientDetailsModel?.patient?.egdOesophagusOesophagitis ?? false);
+    oesophagusGradeCubit = GenericBloc(patientDetailsModel?.patient?.egdOesophagusGrade ?? false);
+    oesophagusGradeTypeCubit = GenericBloc(patientDetailsModel?.patient?.egdOesophagusGradeType ?? "");
+    barretOesophagusCubit = GenericBloc(patientDetailsModel?.patient?.egdOesophagusBarrets ?? false);
+    HiatusHerniaCubit = GenericBloc(patientDetailsModel?.patient?.egdStomachHaitus ?? false);
+    SizeCubit = GenericBloc(patientDetailsModel?.patient?.egdHiatusHerniaSize ?? "");
+    GastritisCubit = GenericBloc(patientDetailsModel?.patient?.egdStomachGas ?? false);
     gastricUlcerCubit = GenericBloc(false);
     GastritisTypeCubit = GenericBloc("");
     HPyloriCubit = GenericBloc("");
-    PolypsCubit = GenericBloc(false);
-    PostSurgeryCubit = GenericBloc(false);
+    PolypsCubit = GenericBloc(patientDetailsModel?.patient?.egdStomachPolyps ?? false);
+    PostSurgeryCubit = GenericBloc(patientDetailsModel?.patient?.egdPreviousSurgery ?? false);
     PostSurgeryTypeCubit = GenericBloc("");
     PouchDilatationCubit = GenericBloc(false);
     AnastomoticSizeCubit = GenericBloc(false);
-    UlcerCubit = GenericBloc(false);
+    UlcerCubit = GenericBloc(patientDetailsModel?.patient?.egdUlcer ?? false);
     StrictureCubit = GenericBloc(false);
     BileCubit = GenericBloc(false);
     PreviousLSGStatusCubit = GenericBloc("");
@@ -214,7 +222,7 @@ class SurAddPatientData {
     OtherDuodenum = GenericBloc(false);
     EGDResultImageCubit = GenericBloc(null);
     TwistCubit = GenericBloc(false);
-    getAllLabs(context);
+
     onPageChanged();
   }
 
@@ -242,7 +250,7 @@ class SurAddPatientData {
   }
 
   Widget buildAddPatientPage(int index) {
-    // index = 5;
+    // index = 6;
     switch (index) {
       case 0:
         return AddPatientFirstPage();
@@ -309,22 +317,35 @@ class SurAddPatientData {
         nameEn: patientNameEn.text,
         age: age,
         email: patientEmail.text,
-        password: patientMobile1.text,
+        password: '',
         telephone1: patientMobile1.text,
         telephone2: patientMobile2.text,
         civilId: patientId.text,
         gender: patientGenderCubit.state.data,
         publicId: "137g352fs",
-        fileId: "234873456",
+        fileId: patientFileNumber.text,
         image: "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
       );
-      bool result = await SurgeonRepository(context).addPatientFirst(
-        userId: users.userData?[0].doctorRoleId?.sId ?? "",
-        model: model,
-      );
-      if (result) {
-        FocusScope.of(context).requestFocus(FocusNode());
-        nextPage();
+      if (editing) {
+        bool result = await SurgeonRepository(context).editPatientFirst(
+          userId: patientDetailsModel?.patient?.id ?? '',
+          model: model,
+        );
+
+        if (result) {
+          FocusScope.of(context).requestFocus(FocusNode());
+          nextPage();
+        }
+      } else {
+        bool result = await SurgeonRepository(context).addPatientFirst(
+          userId: users.userData?[0].doctorRoleId?.sId ?? "",
+          model: model,
+        );
+
+        if (result) {
+          FocusScope.of(context).requestFocus(FocusNode());
+          nextPage();
+        }
       }
     }
   }
@@ -402,6 +423,7 @@ class SurAddPatientData {
   }
 
   /// #############################  fifth page  #############################
+
   void addPatientFifth(BuildContext context) async {
     int? outComeResult = int.tryParse(proceduresOutcomeResultCubit.text);
     if (outComeResult == null) {
@@ -430,15 +452,19 @@ class SurAddPatientData {
   /// #############################  sixth page  #############################
 
   Future getAllLabs(BuildContext context) async {
-    LabsResponse? labsResponse = await SurgeonRepository(context).getAllLabs();
-    labsList = labsResponse?.data ?? [];
-
-    labsCubit.onUpdateData(labsList);
+    if (labsCubit.state.data.isNotEmpty) {
+      return;
+    }
+    labsList = await SurgeonRepository(context).getAllLabs()??[];
+    labsCubit.onUpdateToInitState(labsList);
   }
 
   void addPatientSixth(BuildContext context) async {
     if (FluoroscopyImageCubit.state.data != null) {
-      // upload image first
+      bool result = await SurgeonRepository(context).uploadFluoroscopyResult(FluoroscopyImageCubit.state.data!);
+      if (result) {
+        print('File uploaded Successfully');
+      }
     }
 
     AddPatientSixthDto model = AddPatientSixthDto(
@@ -450,6 +476,15 @@ class SurAddPatientData {
       ultrasound_finding_others: USFindingsCubit.state.data.contains('Others'),
       ultrasound_finding_others_note: otherNotesController.text,
       fluoroscopy_result: FluoroscopyController.text,
+      labs: selectedLabsCubit.state.data
+          .map(
+            (e) => PatientLabs(
+              labId: e.id,
+              status: true,
+              result: e.resultController?.text ?? '',
+            ),
+          )
+          .toList(),
     );
 
     bool result = await SurgeonRepository(context).addPatientSixth(model);
@@ -467,6 +502,67 @@ class SurAddPatientData {
   }
 
   /// #############################  seventh page  #############################
+
+  void addPatientSeventh(BuildContext context) async {
+    if (EGDResultImageCubit.state.data != null) {
+      bool result = await SurgeonRepository(context).uploadEgd(EGDResultImageCubit.state.data!);
+      if (result) {
+        print('File uploaded Successfully');
+      }
+    }
+
+    AddPatientSeventhDto model = AddPatientSeventhDto(
+      egd: EGDCubit.state.data,
+      egdResults: EGDResultController.text,
+      egdOesophagusNormal: NormalOesophagusCubit.state.data,
+      egdOesophagusOesophagitis: oesophagusCubit.state.data,
+      egdOesophagusGrade: oesophagusGradeCubit.state.data,
+      egdOesophagusGradeType: oesophagusGradeTypeCubit.state.data,
+      egdOesophagusOther: OtherOesophagusController.text,
+      egdOesophagusBarrets: barretOesophagusCubit.state.data,
+      egdStomachHaitus: HiatusHerniaCubit.state.data,
+      egdHiatusHerniaSize: SizeCubit.state.data,
+      egdHiatusHerniaSizeCm: SizeController.text,
+      egdStomachGas: GastritisCubit.state.data,
+      egdStomachHPylori: HPyloriCubit.state.data.contains('Positive'),
+      egdStomachPolyps: PolypsCubit.state.data,
+      egdUlcer: UlcerCubit.state.data,
+      egdStomachGrastricUlcer: gastricUlcerCubit.state.data,
+      egdStomachAntral: GastritisTypeCubit.state.data.contains('Antral gastritis'),
+      egdStomachFundal: GastritisTypeCubit.state.data.contains('Fundal gastritis'),
+      egdStomachBody: GastritisTypeCubit.state.data.contains('Body gastritis'),
+      egdStomachPang: GastritisTypeCubit.state.data.contains('Pangastritis'),
+      egdStomachOthers: OtherStomachController.text,
+      egdPreviousSurgery: PostSurgeryCubit.state.data,
+      egdPreviousSurgeryTypeLsg: PostSurgeryTypeCubit.state.data.contains('LSG'),
+      egdPreviousSurgeryTypeRygbp: PostSurgeryTypeCubit.state.data.contains('RYGBP'),
+      egdPreviousSurgeryTypeMgbp: PostSurgeryTypeCubit.state.data.contains('MGBP'),
+      egdPreviousSurgeryTypeLagb: PostSurgeryTypeCubit.state.data.contains('LAGB'),
+      egdNormal: NormalOesophagusCubit.state.data,
+      egdStructure: StrictureCubit.state.data,
+      egdTwist: TwistCubit.state.data,
+      egdPouchDialation: PouchDilatationCubit.state.data,
+      egdDuodenumOthers: OtherDuodenumController.text,
+      egdDuodenumNormal: NormalDuodenum.state.data,
+      egdDuodenumUlcer: UlcerCubit.state.data,
+      egdBile: BileCubit.state.data,
+      egdAnastomoticSize: AnastomoticSizeCubit.state.data,
+      egdAnastomoticSizeNumber: AnastomoticSizeController.text,
+      egdDilatedFundus: PreviousLSGStatusCubit.state.data.contains('Dilated fundus'),
+      egdPanDilatation: PreviousLSGStatusCubit.state.data.contains('Pan-dilatation'),
+    );
+
+    bool result = await SurgeonRepository(context).addPatientSeventh(model);
+    if (result) {
+      FocusScope.of(context).requestFocus(FocusNode());
+      if (editing) {
+        CustomToast.showToastNotification('Editing Patient Completed', color: Colors.red);
+      } else {
+        CustomToast.showToastNotification('Adding Patient Completed', color: Colors.red);
+      }
+      Navigator.of(context).pop();
+    }
+  }
 
   setEGDResultImage() async {
     var image = await Utils.getImage();

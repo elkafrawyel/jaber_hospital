@@ -24,7 +24,7 @@ class _SurAddPatientState extends State<PsychologistAddPatient> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        appBar: BuildAddPatientAppBar(),
+        // appBar: BuildAddPatientAppBar(editing: ,),
         body: Column(
           children: [
             BlocBuilder<GenericBloc<int>, GenericState<int>>(

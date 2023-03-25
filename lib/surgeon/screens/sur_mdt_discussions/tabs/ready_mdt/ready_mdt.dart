@@ -154,7 +154,7 @@ class _ReadyMDTState extends State<ReadyMDT> {
                       )
                     : Center(
                         child: MyText(
-                          title: 'No ready patients',
+                          title: 'There are no ready patients at the moment,  start booking for the patients, and check later',
                           size: 14,
                           color: MyColors.grey,
                         ),

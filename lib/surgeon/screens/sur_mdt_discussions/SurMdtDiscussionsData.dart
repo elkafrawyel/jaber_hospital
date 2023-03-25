@@ -87,5 +87,9 @@ class SurMdtDiscussionsData {
       selectBookDateCubit.onUpdateData(curMonDay);
     }
   }
+
+  Future sendMdtPatResult(BuildContext context, Map<String, dynamic> body) async{
+    await SurgeonRepository(context).mdtPatientResult(body);
+  }
 }
 

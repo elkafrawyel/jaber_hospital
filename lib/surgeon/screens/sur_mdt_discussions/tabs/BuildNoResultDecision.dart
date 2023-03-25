@@ -44,7 +44,7 @@ class _BuildNoResultDecisionState extends State<BuildNoResultDecision> with Sing
                         child: Row(
                           children: [
                             CachedImage(
-                              url: 'https://picsum.photos/186',
+                              url: state.data?.patients?[index].image??'https://picsum.photos/186',
                               height: 60,
                               width: 60,
                               borderRadius: BorderRadius.circular(10),
@@ -56,7 +56,7 @@ class _BuildNoResultDecisionState extends State<BuildNoResultDecision> with Sing
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   MyText(
-                                    title: 'Ahmed Ali',
+                                    title: state.data?.patients?[index].fullNameEn??'',
                                     size: 12,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -69,7 +69,7 @@ class _BuildNoResultDecisionState extends State<BuildNoResultDecision> with Sing
                                         fontWeight: FontWeight.bold,
                                       ),
                                       MyText(
-                                        title: 'Samer Hany',
+                                        title: state.data?.patients?[index].surgeonId?.fullNameEn??"",
                                         size: 11,
                                         color: MyColors.grey,
                                       ),
@@ -84,7 +84,7 @@ class _BuildNoResultDecisionState extends State<BuildNoResultDecision> with Sing
                                         fontWeight: FontWeight.bold,
                                       ),
                                       MyText(
-                                        title: 'Ahmed Jamil',
+                                        title: state.data?.patients?[index].dietationId?.fullNameEn??"",
                                         size: 11,
                                         color: MyColors.grey,
                                       ),
@@ -96,18 +96,18 @@ class _BuildNoResultDecisionState extends State<BuildNoResultDecision> with Sing
                           ],
                         ),
                       ),
-                      DefaultButton(
-                        title: "Enter Result",
-                        onTap: () {
-                          SurMdtDiscussionsData().selectMDTResultCubit.onUpdateData(0);
-                          showModalBottomSheet(
-                              context: context,
-                              backgroundColor: Colors.transparent,
-                              builder: (context) => BuildMDTResultSheet());
-                        },
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 100, vertical: 5),
-                      ),
+                      // DefaultButton(
+                      //   title: "Enter Result",
+                      //   onTap: () {
+                      //     SurMdtDiscussionsData().selectMDTResultCubit.onUpdateData(0);
+                      //     showModalBottomSheet(
+                      //         context: context,
+                      //         backgroundColor: Colors.transparent,
+                      //         builder: (context) => BuildMDTResultSheet());
+                      //   },
+                      //   margin: const EdgeInsets.symmetric(
+                      //       horizontal: 100, vertical: 5),
+                      // ),
                     ],
                   ),
                 ),): Center(child: MyText(title: 'No data founded', size: 12,),);

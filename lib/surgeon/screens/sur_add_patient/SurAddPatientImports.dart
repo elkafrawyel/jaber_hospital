@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:base_flutter/general/utilities/tf_custom_widgets/tf_custom_widgets.dart';
 import 'package:base_flutter/surgeon/models/dto/add_patient_fifth_dto.dart';
+import 'package:base_flutter/surgeon/models/dto/add_patient_seventh_dto.dart';
 import 'package:base_flutter/surgeon/models/dto/add_patient_sixth_dto.dart';
 import 'package:base_flutter/surgeon/resources/SurgeonRepoImports.dart';
 import 'package:base_flutter/surgeon/screens/sur_add_patient/pages/PagesWImports.dart';
@@ -20,6 +21,7 @@ import '../../models/dto/add_patient_fourth_dto.dart';
 import '../../models/dto/add_patient_second_dto.dart';
 import '../../models/dto/add_patient_third_dto.dart';
 import '../../models/labs_response.dart';
+import '../../models/patient_details_model.dart';
 import '../../models/significant_labs_model.dart';
 
 part 'SurAddPatient.dart';

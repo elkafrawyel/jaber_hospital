@@ -107,24 +107,6 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                               onTap: () {
                                 log("isLast icon");
                                 SurMdtDiscussionsData().getNextMonday();
-                                // if(isFirst){
-                                //   while(next.weekday!=monday)
-                                //   {
-                                //     next =next.add(new Duration(days: 1));
-                                //   }
-                                //   log('Recent monday $next');
-                                //   log("formattedDay==> ${next.day} - ${next.month} - ${next.year}");
-                                //   curMonDay = dateFormat.format(next);
-                                //   log("formattedDay==> $curMonDay");
-                                //   isFirst = false;
-                                //   setState(){};
-                                // } else{
-                                //   next = next.add(Duration(days: 7));
-                                //   log("next==> $next");
-                                //   log("formattedDay==> ${next.day} - ${next.month} - ${next.year}");
-                                //   curMonDay = dateFormat.format(next);
-                                //   log("formattedDay==> $curMonDay");
-                                // }
                               },
                               child: Icon(
                                 Icons.forward,
@@ -180,12 +162,13 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
               ),
               DefaultButton(
                 title: "Confirm Booking",
-                onTap: () {
+                onTap: () async{
                   Map<String, dynamic> body = {
-                    "date": SurMdtDiscussionsData().selectBookDateCubit.state.data,
-                    "time": times[SurMdtDiscussionsData().selectBookTimeCubit.state.data],
+                    "mdt_date_time": SurMdtDiscussionsData().selectBookDateCubit.state.data,
+                    "mdt_session_duration": times[SurMdtDiscussionsData().selectBookTimeCubit.state.data],
                   };
                   log("bookingBody=> $body");
+                  await SurgeonRepository(context).confirmMdtBooking(body);
                   navigationKey.currentState?.pop();
                   SurMdtDiscussionsData().tabController.animateTo(1);
                 },

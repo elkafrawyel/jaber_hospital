@@ -1,9 +1,9 @@
 part of 'SurAddPatientWImports.dart';
 
 class BuildAddPatientAppBar extends StatelessWidget with PreferredSizeWidget {
-  const BuildAddPatientAppBar({
-    Key? key,
-  }) : super(key: key);
+  final bool editing;
+
+  const BuildAddPatientAppBar({Key? key, required this.editing}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,26 +23,21 @@ class BuildAddPatientAppBar extends StatelessWidget with PreferredSizeWidget {
         builder: (context, state) {
           return Text.rich(
             TextSpan(
-              text: 'Add Patient',
-              style: WidgetUtils.textStyle.copyWith(
-                  color: MyColors.primary, fontWeight: FontWeight.bold),
+              text: editing ? 'Edit Patient' : 'Add Patient',
+              style: WidgetUtils.textStyle.copyWith(color: MyColors.primary, fontWeight: FontWeight.bold),
               children: [
                 TextSpan(
                   text: ' (',
-                  style: WidgetUtils.textStyle.copyWith(
-                      color: MyColors.primary, fontWeight: FontWeight.bold),
+                  style: WidgetUtils.textStyle.copyWith(color: MyColors.primary, fontWeight: FontWeight.bold),
                 ),
                 TextSpan(
                   text: '${state.data}',
                   style: WidgetUtils.textStyle.copyWith(
-                      color:
-                          state.data == 7 ? MyColors.primary : MyColors.black,
-                      fontWeight: FontWeight.bold),
+                      color: state.data == 7 ? MyColors.primary : MyColors.black, fontWeight: FontWeight.bold),
                 ),
                 TextSpan(
                   text: '/7)',
-                  style: WidgetUtils.textStyle.copyWith(
-                      color: MyColors.primary, fontWeight: FontWeight.bold),
+                  style: WidgetUtils.textStyle.copyWith(color: MyColors.primary, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -51,7 +46,7 @@ class BuildAddPatientAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
       actions: [
         InkWell(
-          onTap: ()=> navigationKey.currentState?.pop(),
+          onTap: () => navigationKey.currentState?.pop(),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: MyText(

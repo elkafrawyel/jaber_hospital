@@ -826,7 +826,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                               "final_feedback": feedbackStatus,
                                             };
                                             UpdateOrderStatusResponse? result = await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
-                                              name: "${ApiNames.feedbackStatus}?user_id=${ state.data?.patient?.sId}",
+                                              name: "${ApiNames.feedbackStatus}?user_id=${ state.data?.patient?.id}",
                                               returnType: ReturnType.Model,
                                               methodType: MethodType.Put,
                                               returnDataFun: (data) => data,
@@ -867,8 +867,8 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                   if (bookedDate != null) {
                                     log("bookedDate==> ${psychologistPatientDetailsData.dateBloc.state.data}");
                                       Map<String, dynamic> body ={
-                                        "doctor_id": state.data?.patient?.surgeonId?.sId ?? '',
-                                        "patient_id": state.data?.patient?.sId??"",
+                                        "doctor_id": state.data?.patient?.surgeonId?.id ?? '',
+                                        "patient_id": state.data?.patient?.id??"",
                                         "appointment_date": bookedDate,
                                       };
                                       UpdateOrderStatusResponse? result = await GenericHttp<UpdateOrderStatusResponse>(context).callApi(

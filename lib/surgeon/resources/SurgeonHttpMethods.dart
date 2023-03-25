@@ -94,6 +94,24 @@ class SurgeonHttpMethods {
     return false;
   }
 
+
+  Future<bool> editPatientFirst(String userId, AddPatientFirstDto model) async {
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.patientBasicInfo + "?user_id=$userId",
+      returnType: ReturnType.Type,
+      methodType: MethodType.Put,
+      returnDataFun: (data) => data,
+      jsonBody: model.toJson(),
+      showLoader: true,
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    }
+    return false;
+  }
+
+
   Future<bool> addPatientSecond(AddPatientSecondDto model) async {
     UserModel? users = context.read<UserCubit>().state.model;
     dynamic data = await GenericHttp<bool>(context).callApi(
@@ -177,22 +195,6 @@ class SurgeonHttpMethods {
       return true;
     }
     return false;
-  }
-
-  Future<LabsResponse?> getAllLabs() async {
-    dynamic data = await GenericHttp<LabsResponse>(context).callApi(
-      name: ApiNames.labs + '?limit=99999',
-      returnType: ReturnType.Type,
-      methodType: MethodType.Get,
-      returnDataFun: (data) => data,
-      // showLoader: true,
-      toJsonFunc: LabsResponse.fromJson,
-    );
-    if (data != null) {
-      CustomToast.showSnackBar(context, data["message"]["message_en"]);
-      return null;
-    }
-    return null;
   }
 
   Future<bool> updateSurgeonProfile(ProfileModel model) async {
@@ -416,4 +418,114 @@ class SurgeonHttpMethods {
     );
     return data;
   }
+
+  Future<bool> downloadPatientInfo(String patientId) async {
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.downloadPatientInfo + "?patient_id=${patientId}",
+      returnType: ReturnType.Type,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data["data"]["report_url"],
+      toJsonFunc: (json) => PatientDetailsModel.fromJson(json),
+    );
+    if (data != null) {
+      print(data);
+
+      try {
+        Directory downloadsDir = await getTemporaryDirectory();
+        var filePath = '${downloadsDir.path}/patient_$patientId.pdf';
+        Dio dio = new Dio();
+        Response response = await dio.download(data, filePath);
+        if (response.statusCode! >= 200 || response.statusCode! <= 300)
+          CustomToast.showSnackBar(context, 'Patient Information Downloaded Successfully');
+        else
+          CustomToast.showSnackBar(context, 'Patient Information Download Failed');
+        return true;
+      } catch (e) {
+        CustomToast.showSnackBar(context, 'Patient Information Download Failed');
+
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+
+  Future<bool> addPatientSeventh(AddPatientSeventhDto model) async {
+    UserModel? users = context.read<UserCubit>().state.model;
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.patientEgd + "?user_id=${users.userData?[0].sId}",
+      // name: ApiNames.patientEgd + "?user_id=63d841866514c4eaa12e0128",
+      returnType: ReturnType.Type,
+      methodType: MethodType.Put,
+      returnDataFun: (data) => data,
+      jsonBody: model.toJson(),
+      showLoader: true,
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> uploadFluoroscopyResult(File file) async {
+    UserModel? users = context.read<UserCubit>().state.model;
+    Map<String, dynamic> body = {
+      'patient_id': users.userData![0].sId,
+      // 'patient_id': '63d841866514c4eaa12e0128',
+      'file': file,
+    };
+    body.removeWhere((key, value) => value == null);
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.uploadFluoroscopyResult,
+      returnType: ReturnType.Type,
+      methodType: MethodType.Put,
+      returnDataFun: (data) => data["data"],
+      jsonBody: body,
+      showLoader: true,
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> uploadEgd(File file) async {
+    UserModel? users = context.read<UserCubit>().state.model;
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.uploadEgdResult,
+      returnType: ReturnType.Type,
+      methodType: MethodType.Put,
+      showLoader: true,
+      jsonBody: {
+        'patient_id': users.userData![0].sId,
+        // 'patient_id': '63d841866514c4eaa12e0128',
+        'fileToUpload': file,
+      },
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    }
+    return false;
+  }
+
+  Future<List<LabModel>> getAllLabs() async {
+    dynamic data = await GenericHttp<LabsResponse>(context).callApi(
+      name: ApiNames.labs + '?limit=99999',
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      showLoader: false,
+      toJsonFunc: LabsResponse.fromJson,
+    );
+
+    if (data != null) {
+      return (data as LabsResponse).data ?? [];
+    }
+    return [];
+  }
+
 }

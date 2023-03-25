@@ -3,7 +3,9 @@ part of 'SurPatientDetailsImports.dart';
 class SurPatientDetailsData {
   //  single tone class
   static SurPatientDetailsData _instance = new SurPatientDetailsData._();
+
   factory SurPatientDetailsData() => _instance;
+
   SurPatientDetailsData._();
 
   late TextEditingController appointmentDate;
@@ -25,8 +27,7 @@ class SurPatientDetailsData {
   }
 
   void getPatientDetails(BuildContext context, String patientId) async {
-    PatientDetailsModel? data =
-        await SurgeonRepository(context).getPatientDetails(patientId);
+    PatientDetailsModel? data = await SurgeonRepository(context).getPatientDetails(patientId);
     patientDetailsCubit.onUpdateData(data);
   }
 
@@ -38,8 +39,7 @@ class SurPatientDetailsData {
 
   String time(String date) {
     DateTime dateTime = DateTime.parse(date);
-    String returnDate =
-        "${dateTime.hour}:${dateTime.minute} ${dateTime.hour > 12 ? "PM" : "AM"}";
+    String returnDate = "${dateTime.hour}:${dateTime.minute} ${dateTime.hour > 12 ? "PM" : "AM"}";
     return returnDate;
   }
 
@@ -64,16 +64,18 @@ class SurPatientDetailsData {
   void addAppointment(BuildContext context, String patientId) async {
     if (formKey.currentState!.validate()) {
       bool res = await SurgeonRepository(context)
-          .addAppointment(patientId, dateBloc.state.data??'', notes.text,clinicName.text);
+          .addAppointment(patientId, dateBloc.state.data ?? '', notes.text, clinicName.text);
       if (res) {
         navigationKey.currentState!.pop();
         navigationKey.currentState!.pop();
-        navigationKey.currentState!.push(MaterialPageRoute(
-            builder: (_) => SurPatientDetails(patientId: patientId)));
+        navigationKey.currentState!.push(MaterialPageRoute(builder: (_) => SurPatientDetails(patientId: patientId)));
       }
     }
   }
 
-  // drhussein83@gmail.com
+  void downloadInfo(BuildContext context) async {
+    bool? result = await SurgeonRepository(context).downloadPatientInfo(patientDetailsCubit.state.data!.patient!.id!);
+  }
 
+// drhussein83@gmail.com
 }

@@ -1,7 +1,9 @@
 part of 'SurAddPatientImports.dart';
 
 class SurAddPatient extends StatefulWidget {
-  const SurAddPatient({Key? key}) : super(key: key);
+  final PatientDetailsModel? patientDetailsModel;
+
+  const SurAddPatient({Key? key, this.patientDetailsModel}) : super(key: key);
 
   @override
   State<SurAddPatient> createState() => _SurAddPatientState();
@@ -10,7 +12,7 @@ class SurAddPatient extends StatefulWidget {
 class _SurAddPatientState extends State<SurAddPatient> {
   @override
   void initState() {
-    SurAddPatientData().initScreen(context);
+    SurAddPatientData().initScreen(context, patientDetailsModel: widget.patientDetailsModel);
     super.initState();
   }
 
@@ -25,7 +27,7 @@ class _SurAddPatientState extends State<SurAddPatient> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        appBar: BuildAddPatientAppBar(),
+        appBar: BuildAddPatientAppBar(editing: widget.patientDetailsModel != null),
         body: Column(
           children: [
             BlocBuilder<GenericBloc<int>, GenericState<int>>(

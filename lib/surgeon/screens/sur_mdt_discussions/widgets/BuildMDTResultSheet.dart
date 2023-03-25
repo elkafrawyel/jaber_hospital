@@ -69,8 +69,6 @@ class BuildMDTResultSheet extends StatelessWidget {
                 onChanged: (val) =>
                     SurMdtDiscussionsData().onSelectResult(val, context),
               ),
-
-
             ],
           );
         },

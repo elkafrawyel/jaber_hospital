@@ -24,6 +24,14 @@ class SurgeonRepository {
   Future<bool> addPatientFirst({required String userId, required AddPatientFirstDto model}) =>
       _surgeonHttpMethods.addPatientFirst(userId, model);
 
+  Future<bool> editPatientFirst({
+    required String userId,
+    required AddPatientFirstDto model,
+  }) =>
+      _surgeonHttpMethods.editPatientFirst(
+        userId,
+        model,
+      );
   Future<bool> addPatientSecond(AddPatientSecondDto model) => _surgeonHttpMethods.addPatientSecond(model);
 
   Future<bool> addPatientThird(AddPatientThirdDto model) => _surgeonHttpMethods.addPatientThird(model);
@@ -34,7 +42,7 @@ class SurgeonRepository {
 
   Future<bool> addPatientSixth(AddPatientSixthDto model) => _surgeonHttpMethods.addPatientSixth(model);
 
-  Future<LabsResponse?> getAllLabs() => _surgeonHttpMethods.getAllLabs();
+  Future<List<LabModel>?> getAllLabs() => _surgeonHttpMethods.getAllLabs();
 
   Future<PatientDetailsModel?> getPatientDetails(String patientId) => _surgeonHttpMethods.getPatientDetails(patientId);
 
@@ -68,4 +76,13 @@ class SurgeonRepository {
   Future<MdtPatientsResponse?> requestMdtAdminPatients() => _surgeonHttpMethods.fetchMdtAdminPatients();
   Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body) => _surgeonHttpMethods.confirmMdtBooking(body);
   Future<UpdateConsentResponse?> mdtPatientResult(Map<String, dynamic> body) => _surgeonHttpMethods.sendMdtResult(body);
+
+  Future<bool> downloadPatientInfo(String patientId) => _surgeonHttpMethods.downloadPatientInfo(patientId);
+
+  Future<bool> addPatientSeventh(AddPatientSeventhDto model) => _surgeonHttpMethods.addPatientSeventh(model);
+
+  Future<bool> uploadFluoroscopyResult(File file) => _surgeonHttpMethods.uploadFluoroscopyResult(file);
+
+  Future<bool> uploadEgd(File file) => _surgeonHttpMethods.uploadEgd(file);
+
 }
