@@ -402,7 +402,6 @@ class SurAddPatientData {
   }
 
   /// #############################  fifth page  #############################
-
   void addPatientFifth(BuildContext context) async {
     int? outComeResult = int.tryParse(proceduresOutcomeResultCubit.text);
     if (outComeResult == null) {
