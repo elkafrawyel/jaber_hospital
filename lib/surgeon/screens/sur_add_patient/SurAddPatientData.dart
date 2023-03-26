@@ -317,7 +317,7 @@ class SurAddPatientData {
         nameEn: patientNameEn.text,
         age: age,
         email: patientEmail.text,
-        password: '',
+        password: '${patientNameEn.text}@${patientMobile1.text}',
         telephone1: patientMobile1.text,
         telephone2: patientMobile2.text,
         civilId: patientId.text,

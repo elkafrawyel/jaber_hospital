@@ -66,7 +66,7 @@ dependencies:
   flutter_launcher_icons: ^0.10.0
   url_launcher: ^6.1.5
   # **************** Utils ***************************
-  modal_bottom_sheet: ^2.0.1
+#  modal_bottom_sheet: ^2.1.2
 #  tf_custom_widgets: ^1.1.14
   flutter_staggered_animations: ^1.0.0
   liquid_pull_to_refresh: ^3.0.1

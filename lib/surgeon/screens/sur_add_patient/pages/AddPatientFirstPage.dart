@@ -158,7 +158,7 @@ class AddPatientFirstPage extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 action: TextInputAction.next,
                 type: TextInputType.phone,
-                validate: (value) => value!.validatePhone(context),
+                validate: (value) => null,
               ),
               MyText(
                 title: "Patient age",
