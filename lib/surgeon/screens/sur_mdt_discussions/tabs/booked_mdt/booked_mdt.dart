@@ -19,8 +19,8 @@ class _BookedMDTState extends State<BookedMDT> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GenericBloc<MdtPatientsResponse?>,
-        GenericState<MdtPatientsResponse?>>(
+    return BlocBuilder<GenericBloc<List<MdtPatientModel>?>,
+        GenericState<List<MdtPatientModel>?>>(
       bloc: bookedMdtData.bookedCubit,
       builder: (context, state) {
         if (state is GenericUpdateState) {
@@ -30,13 +30,13 @@ class _BookedMDTState extends State<BookedMDT> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                 child: MyText(
-                  title: '${state.data?.patients?.length} Patients',
+                  title: '${state.data?.length} Patients',
                   size: 13,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Expanded(child: ListView.builder(
-                itemCount: state.data?.patients?.length,
+                itemCount: state.data?.length,
                 itemBuilder: (context, index) => Container(
                   margin: const EdgeInsets.symmetric(
                       horizontal: 20, vertical: 10),
@@ -51,7 +51,7 @@ class _BookedMDTState extends State<BookedMDT> {
                         child: Row(
                           children: [
                             CachedImage(
-                              url: state.data?.patients?[index].image??'https://picsum.photos/122',
+                              url: state.data?[index].image??'https://picsum.photos/122',
                               height: 60,
                               width: 60,
                               borderRadius: BorderRadius.circular(10),
@@ -67,7 +67,7 @@ class _BookedMDTState extends State<BookedMDT> {
                                     children: [
                                       Expanded(
                                         child: MyText(
-                                          title: state.data?.patients?[index].fullNameEn??'',
+                                          title: state.data?[index].fullNameEn??'',
                                           size: 12,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -98,7 +98,7 @@ class _BookedMDTState extends State<BookedMDT> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                       MyText(
-                                        title: state.data?.patients?[index].surgeonId?.fullNameEn??"",
+                                        title: state.data?[index].surgeonId?.fullNameEn??"",
                                         size: 11,
                                         color: MyColors.grey,
                                       ),
@@ -113,7 +113,7 @@ class _BookedMDTState extends State<BookedMDT> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                       MyText(
-                                        title: state.data?.patients?[index].dietationId?.fullNameEn??"",
+                                        title: state.data?[index].dietationId?.fullNameEn??"",
                                         size: 11,
                                         color: MyColors.grey,
                                       ),
@@ -138,7 +138,7 @@ class _BookedMDTState extends State<BookedMDT> {
                             ),
                             Expanded(
                               child: MyText(
-                                title: state.data?.patients?[index].mdtDateTime??"",
+                                title: state.data?[index].mdtDateTime??"",
                                 size: 11,
                                 color: MyColors.primary,
                               ),
@@ -148,7 +148,7 @@ class _BookedMDTState extends State<BookedMDT> {
                                 showDialog(
                                   context: context,
                                   builder: (context) =>
-                                      BuildBookTimesDialog(),
+                                      BuildBookTimesDialog(patientId: state.data?[index].id??""),
                                 );
                               },
                               child: MyText(

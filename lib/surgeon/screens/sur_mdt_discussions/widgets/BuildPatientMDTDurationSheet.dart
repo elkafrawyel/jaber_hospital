@@ -3,8 +3,9 @@ part of 'SurMdtDiscussionsWImports.dart';
 
 class BuildPatientMDTDurationSheet extends StatelessWidget {
   const BuildPatientMDTDurationSheet({
-    Key? key,
+    Key? key, required this.patientId
   }) : super(key: key);
+  final String patientId;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,8 @@ class BuildPatientMDTDurationSheet extends StatelessWidget {
                 value: 1,
                 groupValue: state.data,
                 title: Text("5 Minutes"),
-                onChanged: (val) =>
-                    SurMdtDiscussionsData().navigateToTimeDialog(val, context),
+                onChanged: (val) => SurMdtDiscussionsData().navigateToTimeDialog(val, context),
+                // onChanged: (val) => SurMdtDiscussionsData().navigateToTimeDialog(val, context),
               ),
               const  Divider(),
               RadioListTile(
@@ -44,6 +45,7 @@ class BuildPatientMDTDurationSheet extends StatelessWidget {
                 groupValue: state.data,
                 title: Text("10 Minutes"),
                 onChanged: (val) => SurMdtDiscussionsData().navigateToTimeDialog(val, context),
+                // onChanged: (val) => SurMdtDiscussionsData().navigateToTimeDialog(val, context),
               ),
             ],
           );

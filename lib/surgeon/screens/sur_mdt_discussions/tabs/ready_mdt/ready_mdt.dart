@@ -19,8 +19,8 @@ class _ReadyMDTState extends State<ReadyMDT> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GenericBloc<MdtPatientsResponse?>,
-        GenericState<MdtPatientsResponse?>>(
+    return BlocBuilder<GenericBloc<List<MdtPatientModel>?>,
+        GenericState<List<MdtPatientModel>?>>(
       bloc: readyData.readyCubit,
       builder: (context, state) {
         log("state=> $state");
@@ -32,15 +32,15 @@ class _ReadyMDTState extends State<ReadyMDT> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 child: MyText(
-                  title: '${state.data?.patients?.length} Patients',
+                  title: '${state.data?.length} Patients',
                   size: 13,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Expanded(
-                child: state.data!.patients!.isNotEmpty
+                child: state.data!.isNotEmpty
                     ? ListView.builder(
-                        itemCount: state.data?.patients?.length,
+                        itemCount: state.data?.length,
                         itemBuilder: (context, index) => Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
@@ -56,7 +56,7 @@ class _ReadyMDTState extends State<ReadyMDT> {
                                 child: Row(
                                   children: [
                                     CachedImage(
-                                      url: state.data?.patients?[index].image??'https://picsum.photos/186',
+                                      url: state.data?[index].image??'https://picsum.photos/186',
                                       height: 60,
                                       width: 60,
                                       borderRadius: BorderRadius.circular(10),
@@ -72,7 +72,7 @@ class _ReadyMDTState extends State<ReadyMDT> {
                                             children: [
                                               Expanded(
                                                 child: MyText(
-                                                  title: state.data?.patients?[index].fullNameEn ?? "",
+                                                  title: state.data?[index].fullNameEn ?? "",
                                                   size: 12,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -106,7 +106,7 @@ class _ReadyMDTState extends State<ReadyMDT> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                               MyText(
-                                                title: state.data?.patients?[index].surgeonId?.fullNameEn??"",
+                                                title: state.data?[index].surgeonId?.fullNameEn??"",
                                                 size: 11,
                                                 color: MyColors.grey,
                                               ),
@@ -121,7 +121,7 @@ class _ReadyMDTState extends State<ReadyMDT> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                               MyText(
-                                                title: state.data?.patients?[index].dietationId?.fullNameEn??"",
+                                                title: state.data?[index].dietationId?.fullNameEn??"",
                                                 size: 11,
                                                 color: MyColors.grey,
                                               ),
@@ -145,7 +145,7 @@ class _ReadyMDTState extends State<ReadyMDT> {
                                       backgroundColor: Colors.transparent,
                                       context: context,
                                       builder: (context) =>
-                                          BuildPatientMDTDurationSheet());
+                                          BuildPatientMDTDurationSheet(patientId: state.data?[index].id??""));
                                 },
                               ),
                             ],
@@ -153,10 +153,14 @@ class _ReadyMDTState extends State<ReadyMDT> {
                         ),
                       )
                     : Center(
-                        child: MyText(
-                          title: 'There are no ready patients at the moment,  start booking for the patients, and check later',
-                          size: 14,
-                          color: MyColors.grey,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: MyText(
+                            title: 'There are no ready patients at the moment,  start booking for the patients, and check later',
+                            size: 14,
+                            color: MyColors.grey,
+                            alien: TextAlign.center,
+                          ),
                         ),
                       ),
               ),

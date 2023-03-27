@@ -11,7 +11,9 @@ List<String> acceptanceDetails = [
 ];
 
 class BuildAcceptanceDetailsSheet extends StatelessWidget {
-  const BuildAcceptanceDetailsSheet({Key? key}) : super(key: key);
+  const BuildAcceptanceDetailsSheet({Key? key, required this.patientId, required this.index}) : super(key: key);
+  final String patientId;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +53,14 @@ class BuildAcceptanceDetailsSheet extends StatelessWidget {
                 ),
               ),
               DefaultButton(
-                title: "Confirm Decision",
+                title: "Confirm",
                 onTap: () {
                   navigationKey.currentState!.pop();
-                  // SurMdtDiscussionsData().onConfirmAcceptance(context);
+                  Map<String, dynamic> body = {
+                    "mdt_results": "accept",
+                    "patient_id": patientId,
+                  };
+                  MdtAdminData().sentMdtPatientRes(context, body, index);
                   if(state.data==6) {
                     showDialog(context: context, builder: (context) => BuildReasonDialog(hint: "Other...",headerTitle: "Other Details",));
                   }else{

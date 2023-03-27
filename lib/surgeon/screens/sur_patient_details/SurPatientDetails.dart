@@ -598,7 +598,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                           width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                           decoration: BoxDecoration(
                             color: MyColors.textFields,
@@ -620,62 +620,68 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                   width: 50,
                                   borderRadius: BorderRadius.circular(5)),
                               const SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  MyText(
-                                      title: state.data?.patient?.fullNameEn ?? "",
-                                      size: 14,
-                                      fontWeight: FontWeight.bold),
-                                  const SizedBox(height: 2),
-                                  MyText(
-                                      title: 'Follow up session',
-                                      color: MyColors.grey,
-                                      size: 12,
-                                      fontWeight: FontWeight.bold),
-                                  const SizedBox(height: 2),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            Res.imagesVector,
-                                            scale: 3,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    MyText(
+                                        title: state.data?.patient?.fullNameEn ?? "",
+                                        size: 14,
+                                        fontWeight: FontWeight.bold),
+                                    const SizedBox(height: 2),
+                                    MyText(
+                                        title: 'Follow up session',
+                                        color: MyColors.grey,
+                                        size: 12,
+                                        fontWeight: FontWeight.bold),
+                                    const SizedBox(height: 2),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              Res.imagesVector,
+                                              scale: 3,
+                                            ),
+                                            const SizedBox(width: 5),
+                                            MyText(
+                                              title: state.data!.appointments![0].appointmentDate!.contains("-")
+                                                  ? SurPatientDetailsData()
+                                                      .date(state.data?.appointments?[0].appointmentDate ?? "")
+                                                  : state.data?.appointments![0].appointmentDate ?? '',
+                                              overflow: TextOverflow.ellipsis,
+                                              size: 10,
+                                              color: MyColors.primary,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(width: 26),
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              Image.asset(
+                                                Res.imagesClockIcon,
+                                                scale: 3,
+                                              ),
+                                              const SizedBox(width: 5),
+                                              Expanded(
+                                                child: MyText(
+                                                  title: state.data?.appointments?[index].appointmentDate ?? "",
+                                                  size: 10,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  color: MyColors.primary,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          const SizedBox(width: 5),
-                                          MyText(
-                                            title: state.data!.appointments![0].appointmentDate!.contains("-")
-                                                ? SurPatientDetailsData()
-                                                    .date(state.data?.appointments?[0].appointmentDate ?? "")
-                                                : state.data?.appointments![0].appointmentDate ?? '',
-                                            overflow: TextOverflow.ellipsis,
-                                            size: 10,
-                                            color: MyColors.primary,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(width: 30),
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            Res.imagesClockIcon,
-                                            scale: 3,
-                                          ),
-                                          const SizedBox(width: 5),
-                                          MyText(
-                                            title: state.data?.appointments?[index].appointmentDate ?? "",
-                                            size: 10,
-                                            overflow: TextOverflow.ellipsis,
-                                            color: MyColors.primary,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               )
                             ],
                           ),

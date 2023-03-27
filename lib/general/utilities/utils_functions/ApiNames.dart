@@ -68,8 +68,9 @@ class ApiNames{
   static const String requestMedicationOrder = "medication_order";
   static const String mdtPatientsPath = "patient_by_mdt_status";
   static const String confirmMdtBookingPath = "patient_mdt";
+  static const String updatePatientMdtStatusPath = "patient_mdt_status";
   static const String patientMdtResultPath = "patient_mdt_results";
-  static const String mdtAdminPatientsPath = "all_patients_overall_status_true";
+  static const String mdtAdminPatientsPath = "today_patients_mdt";
   // static const String confirmMdtBookingPath = "patient_mdt";
 
 }

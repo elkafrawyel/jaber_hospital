@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/widgets/loading_widget.dart';
+import '../../../models/mdt_patient_model.dart';
 import '../../../models/mdt_patients_response.dart';
 import '../SurMdtDiscussionsImports.dart';
 import '../widgets/SurMdtDiscussionsWImports.dart';
