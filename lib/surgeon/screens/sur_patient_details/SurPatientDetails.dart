@@ -16,6 +16,13 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
     super.initState();
   }
 
+  bool isOpened = false;
+
+  toggleTimeLine() {
+    isOpened = !isOpened;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return GeneralScaffold(
@@ -179,7 +186,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                   Image.asset(Res.imagesWeightIcon, scale: 3),
                                   const SizedBox(width: 10),
                                   MyText(
-                                    title: '101 KG',
+                                    title: '${state.data?.patient?.weight} KG',
                                     size: 12,
                                   ),
                                 ],
@@ -190,7 +197,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 Image.asset(Res.imagesHeightIcon, scale: 3),
                                 const SizedBox(width: 10),
                                 MyText(
-                                  title: '177 CM',
+                                  title: '${state.data?.patient?.height} CM',
                                   size: 12,
                                 ),
                               ],
@@ -201,182 +208,262 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       Row(
                         children: [
                           Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: List.generate(
-                                  5,
-                                  (index) => Stack(
-                                        alignment: Alignment.centerLeft,
-                                        children: [
-                                          if (index <= 3)
-                                            Container(
-                                              width: MediaQuery.of(context).size.width / 6,
-                                              height: 5,
-                                              color: MyColors.primary,
-                                            ),
-                                          CircleAvatar(
-                                            backgroundColor: MyColors.primary,
-                                            radius: 12.0,
-                                            child: Icon(Icons.check, color: Colors.white, size: 15),
-                                          ),
-                                        ],
-                                      )),
+                            child: SizedBox(
+                              height: 58,
+                              // child: Row(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: List.generate(
+                              //       5,
+                              //       (index) => Stack(
+                              //             alignment: Alignment.centerLeft,
+                              //             children: [
+                              //               if (index <= 3)
+                              //                 Container(
+                              //                   width: MediaQuery.of(context).size.width / 6,
+                              //                   height: 5,
+                              //                   color: MyColors.primary,
+                              //                 ),
+                              //               CircleAvatar(
+                              //                 backgroundColor: MyColors.primary,
+                              //                 radius: 12.0,
+                              //                 child: Icon(Icons.check,
+                              //                     color: Colors.white, size: 15),
+                              //               ),
+                              //             ],
+                              //           )),
+                              // ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Expanded(
+                                    child: TimelineTile(
+                                      axis: TimelineAxis.horizontal,
+                                      alignment: TimelineAlign.center,
+                                      isFirst: true,
+                                      indicatorStyle: IndicatorStyle(
+                                        height: 26,
+                                        color: MyColors.primary,
+                                        iconStyle: IconStyle(
+                                          color: Colors.white,
+                                          iconData: Icons.check,
+                                        ),
+                                      ),
+                                      beforeLineStyle: LineStyle(
+                                        color: MyColors.primary,
+                                        thickness: 6,
+                                      ),
+                                      endChild: MyText(
+                                        title: "Surgery OPD",
+                                        size: 8,
+                                        color: MyColors.primary,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: TimelineTile(
+                                      axis: TimelineAxis.horizontal,
+                                      alignment: TimelineAlign.center,
+                                      beforeLineStyle: LineStyle(
+                                        color: (state.data?.patient?.dietationFeedbackDecision ?? '').isNotEmpty
+                                            ? MyColors.primary
+                                            : Colors.red,
+                                        thickness: 6,
+                                      ),
+                                      afterLineStyle: LineStyle(
+                                        color: (state.data?.patient?.dietationFeedbackDecision ?? '').isNotEmpty
+                                            ? MyColors.primary
+                                            : Colors.red,
+                                        thickness: 6,
+                                      ),
+                                      indicatorStyle: IndicatorStyle(
+                                        height: 26,
+                                        color: (state.data?.patient?.dietationFeedbackDecision ?? '').isNotEmpty
+                                            ? MyColors.primary
+                                            : Colors.red,
+                                        iconStyle: IconStyle(
+                                          color: Colors.white,
+                                          iconData: Icons.check,
+                                        ),
+                                      ),
+                                      endChild: MyText(
+                                        title: "Dietitian",
+                                        size: 8,
+                                        color: (state.data?.patient?.dietationFeedbackDecision ?? '').isNotEmpty
+                                            ? MyColors.primary
+                                            : Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: TimelineTile(
+                                      axis: TimelineAxis.horizontal,
+                                      alignment: TimelineAlign.center,
+                                      beforeLineStyle: LineStyle(
+                                        color: (state.data?.patient?.feedback ?? '').isNotEmpty
+                                            ? MyColors.primary
+                                            : Colors.red,
+                                        thickness: 6,
+                                      ),
+                                      afterLineStyle: LineStyle(
+                                        color: (state.data?.patient?.feedback ?? '').isNotEmpty
+                                            ? MyColors.primary
+                                            : Colors.red,
+                                        thickness: 6,
+                                      ),
+                                      indicatorStyle: IndicatorStyle(
+                                        height: 26,
+                                        color: (state.data?.patient?.feedback ?? '').isNotEmpty
+                                            ? MyColors.primary
+                                            : Colors.red,
+                                        iconStyle: IconStyle(
+                                          color: Colors.white,
+                                          iconData: Icons.check,
+                                        ),
+                                      ),
+                                      endChild: MyText(
+                                        title: "Physiotherapy",
+                                        size: 8,
+                                        color: (state.data?.patient?.feedback ?? '').isNotEmpty
+                                            ? MyColors.primary
+                                            : Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: TimelineTile(
+                                      axis: TimelineAxis.horizontal,
+                                      alignment: TimelineAlign.center,
+                                      beforeLineStyle: LineStyle(
+                                        color:
+                                            (state.data?.patient?.watchedClip ?? false) ? MyColors.primary : Colors.red,
+                                        thickness: 6,
+                                      ),
+                                      afterLineStyle: LineStyle(
+                                        color:
+                                            (state.data?.patient?.watchedClip ?? false) ? MyColors.primary : Colors.red,
+                                        thickness: 6,
+                                      ),
+                                      indicatorStyle: IndicatorStyle(
+                                        height: 26,
+                                        color:
+                                            (state.data?.patient?.watchedClip ?? false) ? MyColors.primary : Colors.red,
+                                        iconStyle: IconStyle(
+                                          color: Colors.white,
+                                          iconData: Icons.check,
+                                        ),
+                                      ),
+                                      endChild: MyText(
+                                        title: "Education",
+                                        size: 8,
+                                        color:
+                                            (state.data?.patient?.watchedClip ?? false) ? MyColors.primary : Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: TimelineTile(
+                                      axis: TimelineAxis.horizontal,
+                                      alignment: TimelineAlign.center,
+                                      isLast: true,
+                                      beforeLineStyle: LineStyle(
+                                        color: (state.data?.patient?.finalFeedback ?? '').isNotEmpty
+                                            ? MyColors.primary
+                                            : Colors.red,
+                                        thickness: 6,
+                                      ),
+                                      indicatorStyle: IndicatorStyle(
+                                        height: 26,
+                                        color: (state.data?.patient?.finalFeedback ?? '').isNotEmpty
+                                            ? MyColors.primary
+                                            : Colors.red,
+                                        iconStyle: IconStyle(
+                                          color: Colors.white,
+                                          iconData: Icons.check,
+                                        ),
+                                      ),
+                                      endChild: MyText(
+                                        title: "Psychology",
+                                        size: 8,
+                                        color: (state.data?.patient?.finalFeedback ?? '').isNotEmpty
+                                            ? MyColors.primary
+                                            : Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 2),
-                                    child: Column(
-                                      children: [
-                                        FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: MyText(
-                                            alien: TextAlign.center,
-                                            title: "Surgery OPD",
-                                            size: 9,
-                                            color: MyColors.primary,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 2),
-                                    child: Column(
-                                      children: [
-                                        FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: MyText(
-                                            alien: TextAlign.center,
-                                            title: "Dietitian",
-                                            size: 9,
-                                            color: MyColors.primary,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 2),
-                                    child: Column(
-                                      children: [
-                                        FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: MyText(
-                                            alien: TextAlign.center,
-                                            title: "Physiotherapy",
-                                            size: 9,
-                                            color: MyColors.primary,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 2),
-                                    child: Column(
-                                      children: [
-                                        FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: MyText(
-                                            alien: TextAlign.center,
-                                            title: "Education",
-                                            size: 9,
-                                            color: MyColors.primary,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 2),
-                                    child: Column(
-                                      children: [
-                                        FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: MyText(
-                                            alien: TextAlign.center,
-                                            title: "Psychology",
-                                            size: 9,
-                                            color: MyColors.primary,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
+                          InkWell(
+                            //open
+                            onTap: () => toggleTimeLine(),
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: Icon(isOpened ? Icons.keyboard_arrow_down : Icons.arrow_forward_ios,
+                                  size: isOpened ? 22 : 15),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 10,
                           )
                         ],
                       ),
-                      Divider(color: MyColors.grey),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            MyText(title: "Surgery OPD Details;", size: 10, fontWeight: FontWeight.bold),
-                            const SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor: MyColors.primary,
-                                      radius: 12.0,
-                                      child: Icon(Icons.check, color: Colors.white, size: 15),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    MyText(title: "EGD", size: 9),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor: MyColors.primary,
-                                      radius: 12.0,
-                                      child: Icon(Icons.check, color: Colors.white, size: 15),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    MyText(title: "US", size: 9),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor: MyColors.primary,
-                                      radius: 12.0,
-                                      child: Icon(Icons.check, color: Colors.white, size: 15),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    MyText(title: "Surgery OPD", size: 9),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
+                      const SizedBox(height: 10),
+                      Visibility(visible: isOpened, child: Divider(color: MyColors.grey)),
+                      Visibility(
+                        visible: isOpened,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              MyText(title: "Surgery OPD Details;", size: 10, fontWeight: FontWeight.bold),
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundColor:
+                                            state.data?.patient?.egd == true ? MyColors.primary : Colors.red,
+                                        radius: 12.0,
+                                        child: Icon(state.data?.patient?.egd == true ? Icons.check : Icons.close,
+                                            color: Colors.white, size: 15),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      MyText(title: "EGD", size: 9),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundColor:
+                                            state.data?.patient?.ultrasound == true ? MyColors.primary : Colors.red,
+                                        radius: 12.0,
+                                        child: Icon(state.data?.patient?.ultrasound == true ? Icons.check : Icons.close,
+                                            color: Colors.white, size: 15),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      MyText(title: "US", size: 9),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundColor:
+                                            state.data?.patient?.surgionVisit == true ? MyColors.primary : Colors.red,
+                                        radius: 12.0,
+                                        child: Icon(
+                                            state.data?.patient?.surgionVisit == true ? Icons.check : Icons.close,
+                                            color: Colors.white,
+                                            size: 15),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      MyText(title: "Surgery OPD", size: 9),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -591,7 +678,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     fontWeight: FontWeight.bold),
                 if (state.data!.appointments!.isNotEmpty)
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 7,
+                    height: MediaQuery.of(context).size.height / 6,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: state.data?.appointments?.length ?? 0,
@@ -665,7 +752,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                           ),
                                           const SizedBox(width: 5),
                                           MyText(
-                                            title: state.data?.appointments?[index].appointmentDate ?? "",
+                                            title: state.data?.appointments?[index].appointmentDate ?? '',
                                             size: 10,
                                             overflow: TextOverflow.ellipsis,
                                             color: MyColors.primary,
@@ -764,18 +851,18 @@ class buildAddAppointmentSheet extends StatelessWidget {
                 );
               },
             ),
-            MyText(title: "Clinic Name", size: 12, fontWeight: FontWeight.bold),
-            GenericTextField(
-              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-              fieldTypes: FieldTypes.normal,
-              fillColor: MyColors.textFields,
-              hint: "Clinic Name",
-              controller: SurPatientDetailsData().clinicName,
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              action: TextInputAction.next,
-              type: TextInputType.text,
-              validate: (value) => value!.validateEmpty(context),
-            ),
+            // MyText(title: "Clinic Name", size: 12, fontWeight: FontWeight.bold),
+            // GenericTextField(
+            //   hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+            //   fieldTypes: FieldTypes.normal,
+            //   fillColor: MyColors.textFields,
+            //   hint: "Clinic Name",
+            //   controller: SurPatientDetailsData().clinicName,
+            //   margin: const EdgeInsets.symmetric(vertical: 10),
+            //   action: TextInputAction.next,
+            //   type: TextInputType.text,
+            //   validate: (value) => value!.validateEmpty(context),
+            // ),
             MyText(title: "Notes", size: 12, fontWeight: FontWeight.bold),
             GenericTextField(
               hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
@@ -786,7 +873,7 @@ class buildAddAppointmentSheet extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 10),
               action: TextInputAction.next,
               type: TextInputType.text,
-              validate: (value) => value!.validateEmpty(context),
+              validate: (value) => null,
             ),
             DefaultButton(
                 title: "Confirm Date",

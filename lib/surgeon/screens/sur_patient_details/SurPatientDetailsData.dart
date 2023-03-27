@@ -63,8 +63,12 @@ class SurPatientDetailsData {
 
   void addAppointment(BuildContext context, String patientId) async {
     if (formKey.currentState!.validate()) {
-      bool res = await SurgeonRepository(context)
-          .addAppointment(patientId, dateBloc.state.data ?? '', notes.text, clinicName.text);
+      bool res = await SurgeonRepository(context).addAppointment(
+        patientId,
+        dateBloc.state.data ?? '',
+        notes.text,
+        // clinicName.text,
+      );
       if (res) {
         navigationKey.currentState!.pop();
         navigationKey.currentState!.pop();
@@ -76,6 +80,7 @@ class SurPatientDetailsData {
   void downloadInfo(BuildContext context) async {
     bool? result = await SurgeonRepository(context).downloadPatientInfo(patientDetailsCubit.state.data!.patient!.id!);
   }
+
 
 // drhussein83@gmail.com
 }

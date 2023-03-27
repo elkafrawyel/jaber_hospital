@@ -50,13 +50,13 @@ class SurgeonRepository {
     String patientId,
     String date,
     String comments,
-    String clinicName,
+    // String clinicName,
   ) =>
       _surgeonHttpMethods.addAppointment(
         patientId,
         date,
         comments,
-        clinicName,
+        // clinicName,
       );
 
   Future<List<MedicationsOrdersModel>> getMedicationOrders(int index) => _surgeonHttpMethods.getMedicationOrders(index);

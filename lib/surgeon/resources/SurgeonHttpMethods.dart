@@ -94,7 +94,6 @@ class SurgeonHttpMethods {
     return false;
   }
 
-
   Future<bool> editPatientFirst(String userId, AddPatientFirstDto model) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
       name: ApiNames.patientBasicInfo + "?user_id=$userId",
@@ -110,7 +109,6 @@ class SurgeonHttpMethods {
     }
     return false;
   }
-
 
   Future<bool> addPatientSecond(AddPatientSecondDto model) async {
     UserModel? users = context.read<UserCubit>().state.model;
@@ -183,7 +181,7 @@ class SurgeonHttpMethods {
   Future<bool> addPatientSixth(AddPatientSixthDto model) async {
     UserModel? users = context.read<UserCubit>().state.model;
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.patientPreOperative + "?user_id=${users.userData?[0].sId}",
+      name: ApiNames.patientPreOperative + "?patient_id=${users.userData?[0].sId}",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -241,15 +239,20 @@ class SurgeonHttpMethods {
     }
   }
 
-  Future<bool> addAppointment(String patientId, String date, String comments, String clinicName) async {
+  Future<bool> addAppointment(
+    String patientId,
+    String date,
+    String comments,
+    // String clinicName,
+  ) async {
     var user = context.read<UserCubit>().state.model;
     Map<String, dynamic> body = {
       "doctor_id": user.userData?[0].sId,
       "patient_id": patientId,
       "appointment_date": date,
       "comments": comments,
-      "clinic_name_en": clinicName,
-      "clinic_name_ar": clinicName,
+      // "clinic_name_en": clinicName,
+      // "clinic_name_ar": clinicName,
     };
     dynamic data = await GenericHttp<bool>(context).callApi(
       name: ApiNames.addAppointment,
@@ -450,7 +453,6 @@ class SurgeonHttpMethods {
     }
   }
 
-
   Future<bool> addPatientSeventh(AddPatientSeventhDto model) async {
     UserModel? users = context.read<UserCubit>().state.model;
     dynamic data = await GenericHttp<bool>(context).callApi(
@@ -527,5 +529,4 @@ class SurgeonHttpMethods {
     }
     return [];
   }
-
 }

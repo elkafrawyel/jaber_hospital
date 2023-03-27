@@ -1273,7 +1273,7 @@ class AddPatientSeventhPage extends StatelessWidget {
             ),
             Expanded(
               child: DefaultButton(
-                title: "Add Patient",
+                title: SurAddPatientData().editing ? "Edit Patient" : "Add Patient",
                 onTap: () {
                   SurAddPatientData().addPatientSeventh(context);
                 },

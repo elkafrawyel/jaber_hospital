@@ -13,6 +13,7 @@ class AddPatientSecondDto {
   bool? respiratoryDisVte;
   bool? respiratoryDisAnticoag;
   bool? respiratoryDisAntiplate;
+  bool? respiratory_dis;
   String? coMorbiditiesOtherNotes;
 
   AddPatientSecondDto(
@@ -29,6 +30,7 @@ class AddPatientSecondDto {
         this.cardiacDiseaseHf,
         this.respiratoryDisVte,
         this.respiratoryDisAnticoag,
+        this.respiratory_dis,
         this.respiratoryDisAntiplate,
         this.coMorbiditiesOtherNotes});
 
@@ -45,6 +47,7 @@ class AddPatientSecondDto {
     cardiacDiseaseIhd = json['cardiac_disease_ihd'];
     cardiacDiseaseHf = json['cardiac_disease_hf'];
     respiratoryDisVte = json['respiratory_dis_vte'];
+    respiratory_dis = json['respiratory_dis'];
     respiratoryDisAnticoag = json['respiratory_dis_anticoag'];
     respiratoryDisAntiplate = json['respiratory_dis_antiplate'];
     coMorbiditiesOtherNotes = json['co_morbidities_other_notes'];
@@ -63,10 +66,12 @@ class AddPatientSecondDto {
     data['pcos'] = this.pcos;
     data['cardiac_disease_ihd'] = this.cardiacDiseaseIhd;
     data['cardiac_disease_hf'] = this.cardiacDiseaseHf;
-    data['respiratory_dis_vte'] = this.respiratoryDisVte;
-    data['respiratory_dis_anticoag'] = this.respiratoryDisAnticoag;
-    data['respiratory_dis_antiplate'] = this.respiratoryDisAntiplate;
+    data['vte'] = this.respiratoryDisVte;
+    data['anticoag'] = this.respiratoryDisAnticoag;
+    data['antiplate'] = this.respiratoryDisAntiplate;
     data['co_morbidities_other_notes'] = this.coMorbiditiesOtherNotes;
+    data['respiratory_dis'] = this.respiratory_dis;
+
     return data;
   }
 }

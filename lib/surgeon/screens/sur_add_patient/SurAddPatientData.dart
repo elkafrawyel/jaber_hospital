@@ -151,20 +151,49 @@ class SurAddPatientData {
     patientMobile1 = TextEditingController(text: patientDetailsModel?.patient?.telephone1 ?? '');
     patientMobile2 = TextEditingController(text: patientDetailsModel?.patient?.telephone2 ?? '');
     patientEmail = TextEditingController(text: patientDetailsModel?.patient?.email ?? '');
-    RespiratoryDiseaseSelectionCubit = GenericBloc(false);
+    RespiratoryDiseaseSelectionCubit = GenericBloc(patientDetailsModel?.patient?.respiratoryDis ?? false);
     patientAge = TextEditingController(text: patientDetailsModel?.patient?.age?.toString() ?? '');
     patientWeight = TextEditingController(text: patientDetailsModel?.patient?.weight?.toString() ?? '');
     patientHeight = TextEditingController(text: patientDetailsModel?.patient?.height?.toString() ?? '');
     BMI = TextEditingController(text: patientDetailsModel?.patient?.bmi?.toString() ?? '');
     otherNotes = TextEditingController(text: patientDetailsModel?.patient?.otherNotes?.toString() ?? '');
-    refSelectionCubit = GenericBloc(false);
+    refSelectionCubit = GenericBloc(patientDetailsModel?.patient?.reflux ?? false);
     dmTypeSelectionCubit = GenericBloc(patientDetailsModel?.patient?.dmType ?? false ? 1 : 0);
     diagnosisTypesCubit = GenericBloc([]);
-    cardiacDiseaseCubit = GenericBloc("");
+    if (patientDetailsModel?.patient?.htn ?? false) {
+      diagnosisTypesCubit.state.data.add('HTN');
+    }
+    if (patientDetailsModel?.patient?.dyslipidemia ?? false) {
+      diagnosisTypesCubit.state.data.add('Dyslipidemia');
+    }
+    if (patientDetailsModel?.patient?.osa ?? false) {
+      diagnosisTypesCubit.state.data.add('OSA');
+    }
+    if (patientDetailsModel?.patient?.fattyLiver ?? false) {
+      diagnosisTypesCubit.state.data.add('Fatty Liver');
+    }
+    if (patientDetailsModel?.patient?.pcos ?? false) {
+      diagnosisTypesCubit.state.data.add('PCOS');
+    }
+    cardiacDiseaseCubit = GenericBloc(patientDetailsModel?.patient?.cardiacDiseaseIhd == null
+        ? ""
+        : patientDetailsModel!.patient!.cardiacDiseaseIhd!
+            ? "IHD"
+            : "HF");
     respiratoryDiseaseCubit = GenericBloc([]);
+    if (patientDetailsModel?.patient?.vte ?? false) {
+      respiratoryDiseaseCubit.state.data.add('VTE');
+    }
+    if (patientDetailsModel?.patient?.antiplate ?? false) {
+      respiratoryDiseaseCubit.state.data.add('Antiplatelets');
+    }
+    if (patientDetailsModel?.patient?.anticoag ?? false) {
+      respiratoryDiseaseCubit.state.data.add('Anticoagulants');
+    }
     medicationsCubit = GenericBloc("");
     smokingHabitsCubit = GenericBloc("");
-    dmSelectCubit = GenericBloc(patientDetailsModel?.patient?.dmType ?? false);
+    dmSelectCubit = GenericBloc(
+        (patientDetailsModel?.patient?.dmTypel ?? false) ? (patientDetailsModel?.patient?.dmTypell ?? false) : false);
     historyBallonSelectionCubit = GenericBloc(patientDetailsModel?.patient?.historyOfBallon ?? false);
     weightLossFrom = TextEditingController(text: patientDetailsModel?.patient?.ballonWeightLossFrom?.toString() ?? '');
     weightLossTo = TextEditingController(text: patientDetailsModel?.patient?.ballonWeightLossTo?.toString() ?? '');
@@ -363,6 +392,7 @@ class SurAddPatientData {
       pcos: diagnosisTypesCubit.state.data.contains("PCOS") ? true : false,
       cardiacDiseaseIhd: cardiacDiseaseCubit.state.data == "IHD" ? true : false,
       cardiacDiseaseHf: cardiacDiseaseCubit.state.data == "HF" ? true : false,
+      respiratory_dis: RespiratoryDiseaseSelectionCubit.state.data,
       respiratoryDisVte: respiratoryDiseaseCubit.state.data.contains("VTE") ? true : false,
       respiratoryDisAnticoag: respiratoryDiseaseCubit.state.data.contains("Anticoagulants") ? true : false,
       respiratoryDisAntiplate: respiratoryDiseaseCubit.state.data.contains("Antiplatelets") ? true : false,
@@ -426,7 +456,7 @@ class SurAddPatientData {
 
   void addPatientFifth(BuildContext context) async {
     int? outComeResult = int.tryParse(proceduresOutcomeResultCubit.text);
-    if (outComeResult == null) {
+    if (outComeResult == null && proceduresSelectionCubit.state.data) {
       CustomToast.showToastNotification('Enter valid outcome result', color: Colors.red);
       return;
     }
@@ -455,7 +485,7 @@ class SurAddPatientData {
     if (labsCubit.state.data.isNotEmpty) {
       return;
     }
-    labsList = await SurgeonRepository(context).getAllLabs()??[];
+    labsList = await SurgeonRepository(context).getAllLabs() ?? [];
     labsCubit.onUpdateToInitState(labsList);
   }
 
@@ -568,6 +598,24 @@ class SurAddPatientData {
     var image = await Utils.getImage();
     if (image != null) {
       EGDResultImageCubit.onUpdateData(image);
+    }
+  }
+
+  chooseFromDate(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
+    AdaptivePicker.datePicker(
+      context: context,
+      title: tr(context, "selectStartDate"), //الرجاء تحديد تاريخ بداية اللعبة
+      onConfirm: (date) => onConfirmFromDate(date),
+    );
+  }
+
+  onConfirmFromDate(date) {
+    if (date != null) {
+      DateTime startDate = date;
+      String dateStr = DateFormat("dd-MM-yyyy").format(date);
+      // dateBloc.onUpdateData(dateStr);
+      // print(dateBloc.state.data);
     }
   }
 }
