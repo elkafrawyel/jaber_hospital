@@ -17,6 +17,7 @@ import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../resources/SurgeonRepoImports.dart';
 import '../SurMdtDiscussionsImports.dart';
 import '../mdt_admin/mdt_admin_data.dart';
+import '../tabs/ready_mdt/ready_mdt_data.dart';
 
 part 'BuildAcceptanceDetailsSheet.dart';
 part 'BuildBookTimesDialog.dart';

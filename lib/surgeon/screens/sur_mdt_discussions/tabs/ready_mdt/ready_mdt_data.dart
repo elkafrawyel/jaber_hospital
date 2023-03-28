@@ -38,6 +38,7 @@ class ReadyMdtData{
       "mdt_status":"booked",
       "patient_id": patientId,
     };
+    log("updateReadyBody=> $body");
     UpdateConsentResponse? result = await SurgeonRepository(context).updateReadyMdtStatus(body);
     if(result?.success??false){
       readyPatients?.removeAt(index);

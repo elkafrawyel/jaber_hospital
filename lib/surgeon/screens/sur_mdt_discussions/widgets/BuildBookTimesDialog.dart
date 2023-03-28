@@ -164,9 +164,10 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
               DefaultButton(
                 title: "Confirm Booking",
                 onTap: () async{
+                  log("duration=> ${times[SurMdtDiscussionsData().selectBookTimeCubit.state.data]==1?5:10}");
                   Map<String, dynamic> body = {
                     "mdt_date_time": SurMdtDiscussionsData().selectBookDateCubit.state.data,
-                    "mdt_session_duration": times[SurMdtDiscussionsData().selectBookTimeCubit.state.data],
+                    "mdt_session_duration": times[SurMdtDiscussionsData().selectBookTimeCubit.state.data]==1?5:10,
                   };
                   log("bookingBody=> $body");
                   await SurgeonRepository(context).confirmMdtBooking(body, widget.patientId);
