@@ -10,9 +10,18 @@ class ReloadsItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(),
+        Container(
+          padding: const EdgeInsets.all(3.0),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade100,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(Icons.check, color: Colors.white),
+        ),
         Expanded(child: MyText(title: '', size: 9,)),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               width: 24,

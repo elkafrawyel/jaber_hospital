@@ -2,7 +2,9 @@ part of 'SurMdtDiscussionsWImports.dart';
 
 class BuildReasonDialog extends StatefulWidget {
   final String? hint, headerTitle;
-  const BuildReasonDialog({Key? key, this.hint, this.headerTitle})
+  final String? patientId;
+  final int? index;
+  const BuildReasonDialog({Key? key, this.hint, this.headerTitle, required this.patientId, required this.index})
       : super(key: key);
 
   @override
@@ -73,11 +75,14 @@ class _BuildReasonDialogState extends State<BuildReasonDialog> {
       onTapRightButton: () {
         navigationKey.currentState?.pop();
         surMdtDiscussionsData.decisionTypeCubit.onUpdateData(1);
-        Map<String, dynamic> reasonBody = {
-          "type": surMdtDiscussionsData.decisionTypeCubit.state.data,
-          "reason": surMdtDiscussionsData.reason.text.trim(),
+        Map<String, dynamic> body = {
+          "mdt_results": "refuse",
+          "mdt_comment": surMdtDiscussionsData.reason.text.trim(),
+          "operation_type": '',
+          "patient_id": widget.patientId,
         };
-        log("reasonBody=> $reasonBody");
+        log("reasonBody=> $body");
+        MdtAdminData().sentMdtPatientRes(context, body, widget.index??0);
       },
     );
   }
