@@ -74,7 +74,9 @@ class SurgeonRepository {
   /// Mdt
   Future<MdtPatientsResponse?> requestMdtReadyPatients(String mdtStatus) => _surgeonHttpMethods.fetchMdtReadyPatients(mdtStatus);
   Future<MdtPatientsResponse?> requestMdtAdminPatients() => _surgeonHttpMethods.fetchMdtAdminPatients();
-  Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body) => _surgeonHttpMethods.confirmMdtBooking(body);
+  Future<UpdateConsentResponse?> updateReadyMdtStatus(Map<String, dynamic> body) =>
+      _surgeonHttpMethods.updateReadyMdtStatus(body);
+  Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body, String patientId) => _surgeonHttpMethods.confirmMdtBooking(body, patientId);
   Future<UpdateConsentResponse?> mdtPatientResult(Map<String, dynamic> body) => _surgeonHttpMethods.sendMdtResult(body);
 
   Future<bool> downloadPatientInfo(String patientId) => _surgeonHttpMethods.downloadPatientInfo(patientId);
@@ -84,5 +86,4 @@ class SurgeonRepository {
   Future<bool> uploadFluoroscopyResult(File file) => _surgeonHttpMethods.uploadFluoroscopyResult(file);
 
   Future<bool> uploadEgd(File file) => _surgeonHttpMethods.uploadEgd(file);
-
 }

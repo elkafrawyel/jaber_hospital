@@ -1,7 +1,8 @@
 part of 'SurMdtDiscussionsWImports.dart';
 
 class BuildBookTimesDialog extends StatefulWidget {
-  const BuildBookTimesDialog({Key? key}) : super(key: key);
+  const BuildBookTimesDialog({Key? key, this.patientId = ""}) : super(key: key);
+  final String patientId;
 
   @override
   State<BuildBookTimesDialog> createState() => _BuildBookTimesDialogState();
@@ -163,12 +164,13 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
               DefaultButton(
                 title: "Confirm Booking",
                 onTap: () async{
+                  log("duration=> ${times[SurMdtDiscussionsData().selectBookTimeCubit.state.data]==1?5:10}");
                   Map<String, dynamic> body = {
                     "mdt_date_time": SurMdtDiscussionsData().selectBookDateCubit.state.data,
-                    "mdt_session_duration": times[SurMdtDiscussionsData().selectBookTimeCubit.state.data],
+                    "mdt_session_duration": times[SurMdtDiscussionsData().selectBookTimeCubit.state.data]==1?5:10,
                   };
                   log("bookingBody=> $body");
-                  await SurgeonRepository(context).confirmMdtBooking(body);
+                  await SurgeonRepository(context).confirmMdtBooking(body, widget.patientId);
                   navigationKey.currentState?.pop();
                   SurMdtDiscussionsData().tabController.animateTo(1);
                 },

@@ -47,20 +47,22 @@ class SurMdtDiscussionsData {
     );
   }
 
-  void onSelectResult(int?val , BuildContext context){
+  void onSelectResult(int?val , BuildContext context, String patientId, int index){
     SurMdtDiscussionsData().selectMDTResultCubit.onUpdateData(val!);
     navigationKey.currentState?.pop();
     if(selectMDTResultCubit.state.data==1){
       showModalBottomSheet(
         backgroundColor: Colors.transparent,
           context: context,
-          builder: (context) => BuildAcceptanceDetailsSheet(),
+          builder: (context) => BuildAcceptanceDetailsSheet(patientId: patientId, index: index),
       );
     }else if(selectMDTResultCubit.state.data==2){
-      showDialog(context: context, builder: (context) => BuildReasonDialog(hint: "Refusal Reason",headerTitle: "Refusal Reason",));
+      showDialog(context: context, builder: (context) => BuildReasonDialog(patientId: patientId,
+        index: index, hint: "Refusal Reason",headerTitle: "Refusal Reason",));
 
     }else  if(selectMDTResultCubit.state.data==3){
-      showDialog(context: context, builder: (context) => BuildReasonDialog(hint: "Rediscussion Reason",headerTitle: "Re-Discussion Reason",));
+      showDialog(context: context, builder: (context) => BuildReasonDialog(patientId: patientId,
+        index: index, hint: "Rediscussion Reason",headerTitle: "Re-Discussion Reason",));
     }
   }
 

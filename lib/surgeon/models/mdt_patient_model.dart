@@ -1,7 +1,7 @@
 import '../../general/models/doctor_model.dart';
 
 class MdtPatientModel {
-  String? sId;
+  String? id;
   String? fullNameAr;
   String? fullNameEn;
   String? image;
@@ -13,7 +13,7 @@ class MdtPatientModel {
   String? mdtResults;
 
   MdtPatientModel(
-      {this.sId,
+      {this.id,
         this.fullNameAr,
         this.fullNameEn,
         this.image,
@@ -25,7 +25,7 @@ class MdtPatientModel {
         this.mdtResults});
 
   MdtPatientModel.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
+    id = json['_id'];
     fullNameAr = json['full_name_ar'];
     fullNameEn = json['full_name_en'];
     image = json['image'];
@@ -43,7 +43,7 @@ class MdtPatientModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
+    data['_id'] = this.id;
     data['full_name_ar'] = this.fullNameAr;
     data['full_name_en'] = this.fullNameEn;
     data['image'] = this.image;

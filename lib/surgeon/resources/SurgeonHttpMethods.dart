@@ -397,13 +397,26 @@ class SurgeonHttpMethods {
     return data;
   }
 
-  Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body) async {
+  Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body, String patientId) async {
     final data = await GenericHttp<UpdateConsentResponse>(context).callApi(
-      name: ApiNames.confirmMdtBookingPath,
+      name: "${ApiNames.confirmMdtBookingPath}?user_id=$patientId",
       returnType: ReturnType.Model,
       methodType: MethodType.Put,
       jsonBody: body,
       returnDataFun: (data) => data,
+      toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<UpdateConsentResponse?> updateReadyMdtStatus(Map<String, dynamic> body) async {
+    final data = await GenericHttp<UpdateConsentResponse>(context).callApi(
+      name: ApiNames.updatePatientMdtStatusPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Put,
+      jsonBody: body,
+      returnDataFun: (data) => data,
+      showLoader: true,
       toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
     );
     return data;

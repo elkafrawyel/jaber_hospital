@@ -3,8 +3,11 @@ part  of 'SurMdtDiscussionsWImports.dart';
 
 class BuildMDTResultSheet extends StatelessWidget {
   const BuildMDTResultSheet({
-    Key? key,
+    Key? key, required this.patient,
+    required this.index
   }) : super(key: key);
+  final MdtPatientModel? patient;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +43,7 @@ class BuildMDTResultSheet extends StatelessWidget {
                   color: MyColors.black,
                   fontWeight: FontWeight.bold,
                 ),
-                onChanged: (val) =>
-                    SurMdtDiscussionsData().onSelectResult(val, context),
+                onChanged: (val) => SurMdtDiscussionsData().onSelectResult(val, context, patient?.id??"", index??0),
               ),
               const Divider(),
               RadioListTile(
@@ -54,7 +56,7 @@ class BuildMDTResultSheet extends StatelessWidget {
           color: MyColors.black,
           ),
                 onChanged: (val) =>
-                    SurMdtDiscussionsData().onSelectResult(val, context),
+                    SurMdtDiscussionsData().onSelectResult(val, context,patient?.id??"", index??0),
               ),
               const Divider(),
               RadioListTile(
@@ -67,7 +69,7 @@ class BuildMDTResultSheet extends StatelessWidget {
                   color: MyColors.black,
                 ),
                 onChanged: (val) =>
-                    SurMdtDiscussionsData().onSelectResult(val, context),
+                    SurMdtDiscussionsData().onSelectResult(val, context, patient?.id??"", index??0),
               ),
             ],
           );

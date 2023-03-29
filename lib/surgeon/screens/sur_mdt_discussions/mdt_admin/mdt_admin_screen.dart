@@ -8,7 +8,7 @@ import '../../../../general/utilities/tf_custom_widgets/widgets/DefaultButton.da
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/widgets/GenScaffold.dart';
 import '../../../../general/widgets/loading_widget.dart';
-import '../../../models/mdt_patients_response.dart';
+import '../../../models/mdt_patient_model.dart';
 import '../SurMdtDiscussionsImports.dart';
 import '../widgets/SurMdtDiscussionsWImports.dart';
 import 'mdt_admin_data.dart';
@@ -37,153 +37,8 @@ class _MDTAdminState extends State<MDTAdminScreen> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     return GeneralScaffold(
       back: true, title: "MDT (Admin)",
-      // body: ListView.builder(
-      //   itemCount: 4,
-      //   itemBuilder: (context, index) => Container(
-      //     margin: const EdgeInsets.symmetric(
-      //         horizontal: 20, vertical: 10),
-      //     padding: const EdgeInsets.symmetric(vertical: 10),
-      //     decoration: BoxDecoration(
-      //         color: Color(0xfff2f2f2),
-      //         borderRadius: BorderRadius.circular(15)),
-      //     child: Column(
-      //       crossAxisAlignment: CrossAxisAlignment.start,
-      //       children: [
-      //         Padding(
-      //           padding: const EdgeInsets.symmetric(horizontal: 20),
-      //           child: Row(
-      //             children: [
-      //               CachedImage(
-      //                 url: 'https://picsum.photos/122',
-      //                 height: 60,
-      //                 width: 60,
-      //                 borderRadius: BorderRadius.circular(10),
-      //                 fit: BoxFit.cover,
-      //               ),
-      //               const SizedBox(width: 10),
-      //               Expanded(
-      //                 child: Column(
-      //                   crossAxisAlignment:
-      //                   CrossAxisAlignment.start,
-      //                   children: [
-      //                     Row(
-      //                       children: [
-      //                         Expanded(
-      //                           child: MyText(
-      //                             title: 'FADY HANY',
-      //                             size: 12,
-      //                             fontWeight: FontWeight.bold,
-      //                           ),
-      //                         ),
-      //                         // Container(
-      //                         //   padding: const EdgeInsets.symmetric(
-      //                         //       horizontal: 6, vertical: 3),
-      //                         //   decoration: BoxDecoration(
-      //                         //     color: Color(0xffaff7c3),
-      //                         //     borderRadius:
-      //                         //     BorderRadius.circular(20),
-      //                         //   ),
-      //                         //   child: MyText(
-      //                         //     title: 'Ready',
-      //                         //     size: 9,
-      //                         //     color: Colors.green,
-      //                         //     fontWeight: FontWeight.bold,
-      //                         //   ),
-      //                         // ),
-      //                       ],
-      //                     ),
-      //                     Row(
-      //                       children: [
-      //                         MyText(
-      //                           title: 'Surgeon : ',
-      //                           size: 11,
-      //                           color: MyColors.black,
-      //                           fontWeight: FontWeight.bold,
-      //                         ),
-      //                         MyText(
-      //                           title: "Samer hany",
-      //                           size: 11,
-      //                           color: MyColors.grey,
-      //                         ),
-      //                       ],
-      //                     ),
-      //                     Row(
-      //                       children: [
-      //                         MyText(
-      //                           title: 'Dietitian : ',
-      //                           size: 11,
-      //                           color: MyColors.black,
-      //                           fontWeight: FontWeight.bold,
-      //                         ),
-      //                         MyText(
-      //                           title: "Ahmed jamil",
-      //                           size: 11,
-      //                           color: MyColors.grey,
-      //                         ),
-      //                       ],
-      //                     ),
-      //                   ],
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //         const Divider(),
-      //         Padding(
-      //           padding: const EdgeInsets.symmetric(horizontal: 20),
-      //           child: Row(
-      //             children: [
-      //               MyText(
-      //                 title: 'MDT Date : ',
-      //                 size: 11,
-      //                 color: MyColors.black,
-      //                 fontWeight: FontWeight.bold,
-      //               ),
-      //               Expanded(
-      //                 child: MyText(
-      //                   title: "16 August 2023",
-      //                   size: 11,
-      //                   color: MyColors.primary,
-      //                 ),
-      //               ),
-      //               InkWell(
-      //                 onTap: () {
-      //                   showDialog(
-      //                     context: context,
-      //                     builder: (context) =>
-      //                         BuildBookTimesDialog(),
-      //                   );
-      //                 },
-      //                 child: MyText(
-      //                   title: '(Change)',
-      //                   size: 11,
-      //                   decoration: TextDecoration.underline,
-      //                   color: MyColors.primary,
-      //                   fontWeight: FontWeight.bold,
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //         DefaultButton(
-      //           width: 160,
-      //           margin: const EdgeInsets.symmetric(
-      //               horizontal: 16, vertical: 5),
-      //           title: "Enter Result",
-      //           onTap: () {
-      //             SurMdtDiscussionsData().selectMDTResultCubit.onUpdateData(0);
-      //             showModalBottomSheet(
-      //                 context: context,
-      //                 backgroundColor: Colors.transparent,
-      //                 builder: (context) => BuildMDTResultSheet());
-      //           },
-      //         ),
-      //       ],
-      //     ),
-      //   ),),
-
-      body: BlocBuilder<GenericBloc<MdtPatientsResponse?>,
-          GenericState<MdtPatientsResponse?>>(
+      body: BlocBuilder<GenericBloc<List<MdtPatientModel>?>,
+          GenericState<List<MdtPatientModel>?>>(
         bloc: mdtAdminData.mdtAdminCubit,
         builder: (context, state) {
           if (state is GenericUpdateState) {
@@ -193,13 +48,13 @@ class _MDTAdminState extends State<MDTAdminScreen> with SingleTickerProviderStat
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                   child: MyText(
-                    title: '${state.data?.patients?.length} Patients',
+                    title: '${state.data?.length} Patients',
                     size: 13,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Expanded(child: ListView.builder(
-                  itemCount: state.data?.patients?.length,
+                  itemCount: state.data?.length,
                   itemBuilder: (context, index) => Container(
                     margin: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 10),
@@ -215,7 +70,7 @@ class _MDTAdminState extends State<MDTAdminScreen> with SingleTickerProviderStat
                           child: Row(
                             children: [
                               CachedImage(
-                                url: state.data?.patients?[index].image??'https://picsum.photos/122',
+                                url: state.data?[index].image??'https://picsum.photos/122',
                                 height: 60,
                                 width: 60,
                                 borderRadius: BorderRadius.circular(10),
@@ -231,7 +86,7 @@ class _MDTAdminState extends State<MDTAdminScreen> with SingleTickerProviderStat
                                       children: [
                                         Expanded(
                                           child: MyText(
-                                            title: state.data?.patients?[index].fullNameEn??"",
+                                            title: state.data?[index].fullNameEn??"",
                                             size: 12,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -262,7 +117,7 @@ class _MDTAdminState extends State<MDTAdminScreen> with SingleTickerProviderStat
                                           fontWeight: FontWeight.bold,
                                         ),
                                         MyText(
-                                          title: state.data?.patients?[index].surgeonId?.fullNameEn??"",
+                                          title: state.data?[index].surgeonId?.fullNameEn??"",
                                           size: 11,
                                           color: MyColors.grey,
                                         ),
@@ -277,7 +132,7 @@ class _MDTAdminState extends State<MDTAdminScreen> with SingleTickerProviderStat
                                           fontWeight: FontWeight.bold,
                                         ),
                                         MyText(
-                                          title: state.data?.patients?[index].dietationId?.fullNameEn??"",
+                                          title: state.data?[index].dietationId?.fullNameEn??"",
                                           size: 11,
                                           color: MyColors.grey,
                                         ),
@@ -302,7 +157,7 @@ class _MDTAdminState extends State<MDTAdminScreen> with SingleTickerProviderStat
                               ),
                               Expanded(
                                 child: MyText(
-                                  title: state.data?.patients?[index].mdtDateTime??"",
+                                  title: state.data?[index].mdtDateTime??"",
                                   size: 11,
                                   color: MyColors.primary,
                                 ),
@@ -335,7 +190,7 @@ class _MDTAdminState extends State<MDTAdminScreen> with SingleTickerProviderStat
                             showModalBottomSheet(
                                 context: context,
                                 backgroundColor: Colors.transparent,
-                                builder: (context) => BuildMDTResultSheet());
+                                builder: (context) => BuildMDTResultSheet(patient: state.data![index], index: index,));
                           },
                         ),
                       ],
