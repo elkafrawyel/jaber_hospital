@@ -740,11 +740,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                               ),
                                               const SizedBox(width: 5),
                                               MyText(
-                                                title: state.data!.appointments![index].appointmentDate.toString(),
-                                                // title: state.data!.appointments![index].appointmentDate!.contains("-")
-                                                //     ? SurPatientDetailsData()
-                                                //         .date(state.data?.appointments?[index].appointmentDate ?? "")
-                                                //     : state.data?.appointments![index].appointmentDate ?? '',
+                                                // title: state.data!.appointments![index].appointmentDate.toString(),
+                                                title: state.data!.appointments![index].appointmentDate!.contains("-")
+                                                    ? SurPatientDetailsData()
+                                                        .date(state.data?.appointments?[index].appointmentDate ?? "")
+                                                    : state.data?.appointments![index].appointmentDate ?? '',
                                                 overflow: TextOverflow.ellipsis,
                                                 size: 10,
                                                 color: MyColors.primary,
@@ -828,8 +828,8 @@ class buildAddAppointmentSheet extends StatelessWidget {
       alertImageType: AlertImageType.noImg,
       customWidget: Form(
         key: SurPatientDetailsData().formKey,
-        child: ListView(
-          shrinkWrap: true,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MyText(
                 title: "Add Appointment",

@@ -62,110 +62,112 @@ class GeneralAlertDialog extends StatelessWidget {
         padding: padding ??
             const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
         width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            customWidget ?? Container(),
-            Builder(builder: (context) {
-              if (alertImageType == AlertImageType.success) {
-                return Container(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: Image.asset(
-                      Res.imagesCheck,
-                      scale: 3,
-                    ));
-              } else if(alertImageType == AlertImageType.success){
-                return Container(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: alertImageType == AlertImageType.warning
-                        ? Image.asset(
-                      Res.imagesClose,
-                      scale: 3,
-                    )
-                        : const SizedBox());
-              }else {
-                return const SizedBox();
-              }
-            }),
-            Builder(builder: (context){
-              if(alertTextType == AlertContentType.noTitle){
-                return alertTextChild ?? const SizedBox() ;
-              }else if(alertTextType == AlertContentType.title){
-                return Column(
-                  children: [
-                    Container(
-                      child: Visibility(
-                        visible: alertTextType == AlertContentType.title,
-                        child: MyText(
-                          alien: TextAlign.center,
-                          title: headTitle ?? '',
-                          color: Colors.black,
-                          size: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              }else if(alertTextType == AlertContentType.fullTitle){
-                return Column(
-                  children: [
-                    Container(
-                      child: Column(
-                        children: [
-                          MyText(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              customWidget ?? Container(),
+              Builder(builder: (context) {
+                if (alertImageType == AlertImageType.success) {
+                  return Container(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: Image.asset(
+                        Res.imagesCheck,
+                        scale: 3,
+                      ));
+                } else if(alertImageType == AlertImageType.success){
+                  return Container(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: alertImageType == AlertImageType.warning
+                          ? Image.asset(
+                        Res.imagesClose,
+                        scale: 3,
+                      )
+                          : const SizedBox());
+                }else {
+                  return const SizedBox();
+                }
+              }),
+              Builder(builder: (context){
+                if(alertTextType == AlertContentType.noTitle){
+                  return alertTextChild ?? const SizedBox() ;
+                }else if(alertTextType == AlertContentType.title){
+                  return Column(
+                    children: [
+                      Container(
+                        child: Visibility(
+                          visible: alertTextType == AlertContentType.title,
+                          child: MyText(
                             alien: TextAlign.center,
                             title: headTitle ?? '',
-                            color:headTitleColor?? Colors.black,
+                            color: Colors.black,
                             size: 14,
                             fontWeight: FontWeight.bold,
                           ),
-                          MyText(
-                            alien: TextAlign.center,
-                            title: subTitle ?? '',
-                            color: Colors.grey,
-                            size: 11,
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              }else{
-                return const SizedBox();
-              }
-            }),
-            if (alertButtonType == AlertButtonType.noButton) Container(),
-            if (alertButtonType == AlertButtonType.button)
-              DefaultButton(
-                margin: const EdgeInsets.only(top: 10),
-                title: buttonTitle ?? '',
-                onTap: onTapButton ?? () {},
-              ),
-            if (alertButtonType == AlertButtonType.dueButton)
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: DefaultButton(
-                        title: rightButtonTitle ?? '',
-                        onTap: onTapRightButton ?? () {},
+                    ],
+                  );
+                }else if(alertTextType == AlertContentType.fullTitle){
+                  return Column(
+                    children: [
+                      Container(
+                        child: Column(
+                          children: [
+                            MyText(
+                              alien: TextAlign.center,
+                              title: headTitle ?? '',
+                              color:headTitleColor?? Colors.black,
+                              size: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            MyText(
+                              alien: TextAlign.center,
+                              title: subTitle ?? '',
+                              color: Colors.grey,
+                              size: 11,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: DefaultButton(
-                        color: Colors.white,
-                        textColor: MyColors.primary,
-                        borderColor: MyColors.primary,
-                        title: leftButtonTitle ?? '',
-                        onTap: onTapLeftButton ?? () {},
-                      ),
-                    )
-                  ],
+                    ],
+                  );
+                }else{
+                  return const SizedBox();
+                }
+              }),
+              if (alertButtonType == AlertButtonType.noButton) Container(),
+              if (alertButtonType == AlertButtonType.button)
+                DefaultButton(
+                  margin: const EdgeInsets.only(top: 10),
+                  title: buttonTitle ?? '',
+                  onTap: onTapButton ?? () {},
                 ),
-              ),
-          ],
+              if (alertButtonType == AlertButtonType.dueButton)
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: DefaultButton(
+                          title: rightButtonTitle ?? '',
+                          onTap: onTapRightButton ?? () {},
+                        ),
+                      ),
+                      Expanded(
+                        child: DefaultButton(
+                          color: Colors.white,
+                          textColor: MyColors.primary,
+                          borderColor: MyColors.primary,
+                          title: leftButtonTitle ?? '',
+                          onTap: onTapLeftButton ?? () {},
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
