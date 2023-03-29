@@ -82,7 +82,6 @@ class SurAddPatientData {
 
   List<String> get USFindings => AddPatientDTOInfo.USFindings;
   late TextEditingController otherUSFindingsController;
-  late TextEditingController FluoroscopyController;
   late GenericBloc<File?> FluoroscopyImageCubit;
   late TextEditingController otherNotesController;
   late TextEditingController AnastomoticSizeController;
@@ -215,7 +214,6 @@ class SurAddPatientData {
     otherUSFindingsController = TextEditingController(
       text: patientDetailsModel?.patient?.ultrasoundFindingOthersNote ?? '',
     );
-    FluoroscopyController = TextEditingController(text: patientDetailsModel?.patient?.fluoroscopyResult ?? '');
     FluoroscopyImageCubit = GenericBloc(null);
     otherNotesController = TextEditingController(text: patientDetailsModel?.patient?.otherNotes ?? '');
     AnastomoticSizeController =
@@ -279,7 +277,7 @@ class SurAddPatientData {
   }
 
   Widget buildAddPatientPage(int index) {
-    // index = 6;
+    // index = 1;
     switch (index) {
       case 0:
         return AddPatientFirstPage();
@@ -455,14 +453,9 @@ class SurAddPatientData {
   /// #############################  fifth page  #############################
 
   void addPatientFifth(BuildContext context) async {
-    int? outComeResult = int.tryParse(proceduresOutcomeResultCubit.text);
-    if (outComeResult == null && proceduresSelectionCubit.state.data) {
-      CustomToast.showToastNotification('Enter valid outcome result', color: Colors.red);
-      return;
-    }
     AddPatientFifthDto model = AddPatientFifthDto(
       previousBariatric: proceduresSelectionCubit.state.data,
-      bariatricOutcomeResult: outComeResult,
+      bariatricOutcomeResult: int.tryParse(proceduresOutcomeResultCubit.text),
       bariatricOutcomeDate: proceduresOutcomeDateCubit.text,
       surgeryTypeLsg: surgeryTypeCubit.state.data.contains('LSG'),
       surgeryTypeLagb: surgeryTypeCubit.state.data.contains('LAGB'),
@@ -505,7 +498,7 @@ class SurAddPatientData {
       ultrasound_finding_cirrhos: USFindingsCubit.state.data.contains('Cirrhos'),
       ultrasound_finding_others: USFindingsCubit.state.data.contains('Others'),
       ultrasound_finding_others_note: otherNotesController.text,
-      fluoroscopy_result: FluoroscopyController.text,
+      fluoroscopy_result: 'uploaded image link',
       labs: selectedLabsCubit.state.data
           .map(
             (e) => PatientLabs(
@@ -605,17 +598,15 @@ class SurAddPatientData {
     FocusScope.of(context).requestFocus(FocusNode());
     AdaptivePicker.datePicker(
       context: context,
-      title: tr(context, "selectStartDate"), //الرجاء تحديد تاريخ بداية اللعبة
+      title: tr(context, "Date"),
       onConfirm: (date) => onConfirmFromDate(date),
     );
   }
 
   onConfirmFromDate(date) {
     if (date != null) {
-      DateTime startDate = date;
       String dateStr = DateFormat("dd-MM-yyyy").format(date);
-      // dateBloc.onUpdateData(dateStr);
-      // print(dateBloc.state.data);
+       insertionDate.text = dateStr;
     }
   }
 }

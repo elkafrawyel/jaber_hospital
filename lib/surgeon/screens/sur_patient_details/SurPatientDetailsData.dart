@@ -32,7 +32,11 @@ class SurPatientDetailsData {
   }
 
   String date(String date) {
-    DateTime dateTime = DateTime.parse(date);
+    print('==========================>$date');
+    DateTime? dateTime = DateTime.tryParse(date);
+    if (dateTime == null) {
+      return '';
+    }
     String returnDate = "${dateTime.day}/${dateTime.month}/${dateTime.year}";
     return returnDate;
   }
@@ -80,7 +84,6 @@ class SurPatientDetailsData {
   void downloadInfo(BuildContext context) async {
     bool? result = await SurgeonRepository(context).downloadPatientInfo(patientDetailsCubit.state.data!.patient!.id!);
   }
-
 
 // drhussein83@gmail.com
 }

@@ -91,6 +91,8 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         child: Image.file(
                                           state.data!,
                                           fit: BoxFit.cover,
+                                          width: 100,
+                                          height: 110,
                                         ),
                                       ),
                                       InkWell(

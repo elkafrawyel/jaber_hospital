@@ -98,30 +98,64 @@ class AddPatientFourthPage extends StatelessWidget {
                         ],
                       ),
                       MyText(title: "Date Of Insertion", size: 12, fontWeight: FontWeight.bold),
-                      GenericTextField(
-                        hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-                        fieldTypes: FieldTypes.normal,
-                        fillColor: MyColors.textFields,
-                        hint: "Date Of Insertion",
-                        controller: SurAddPatientData().insertionDate,
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        action: TextInputAction.next,
-                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2, color: MyColors.primary),
-                        type: TextInputType.text,
-                        validate: (value) => value!.validateEmpty(context),
+                      InkWell(
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          AdaptivePicker.datePicker(
+                            context: context,
+                            title: tr(context, "Date"),
+                            onConfirm: (date) {
+                              if (date != null) {
+                                String dateStr = DateFormat("dd-MM-yyyy").format(date);
+                                SurAddPatientData().insertionDate.text = dateStr;
+                              }
+                            },
+                          );
+                        },
+                        child: IgnorePointer(
+                          child: GenericTextField(
+                            hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                            fieldTypes: FieldTypes.normal,
+                            fillColor: MyColors.textFields,
+                            hint: "Date Of Insertion",
+                            controller: SurAddPatientData().insertionDate,
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            action: TextInputAction.next,
+                            suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2, color: MyColors.primary),
+                            type: TextInputType.text,
+                            validate: (value) => value!.validateEmpty(context),
+                          ),
+                        ),
                       ),
                       MyText(title: "Date Of Removal", size: 12, fontWeight: FontWeight.bold),
-                      GenericTextField(
-                        hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-                        fieldTypes: FieldTypes.normal,
-                        fillColor: MyColors.textFields,
-                        hint: "Date Of Removal",
-                        controller: SurAddPatientData().removalDate,
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        action: TextInputAction.next,
-                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2, color: MyColors.primary),
-                        type: TextInputType.text,
-                        validate: (value) => value!.validateEmpty(context),
+                      InkWell(
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          AdaptivePicker.datePicker(
+                            context: context,
+                            title: tr(context, "Date"),
+                            onConfirm: (date) {
+                              if (date != null) {
+                                String dateStr = DateFormat("dd-MM-yyyy").format(date);
+                                SurAddPatientData().removalDate.text = dateStr;
+                              }
+                            },
+                          );
+                        },
+                        child: IgnorePointer(
+                          child: GenericTextField(
+                            hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                            fieldTypes: FieldTypes.normal,
+                            fillColor: MyColors.textFields,
+                            hint: "Date Of Removal",
+                            controller: SurAddPatientData().removalDate,
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            action: TextInputAction.next,
+                            suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2, color: MyColors.primary),
+                            type: TextInputType.text,
+                            validate: (value) => value!.validateEmpty(context),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -193,17 +227,34 @@ class AddPatientFourthPage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: MyColors.black,
                       ),
-                      GenericTextField(
-                        hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-                        fieldTypes: FieldTypes.normal,
-                        fillColor: MyColors.textFields,
-                        hint: "Outcome Date",
-                        controller: SurAddPatientData().outcomeDate,
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        action: TextInputAction.next,
-                        suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2, color: MyColors.primary),
-                        type: TextInputType.text,
-                        validate: (value) => value!.validateEmpty(context),
+                      InkWell(
+                        onTap:(){
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          AdaptivePicker.datePicker(
+                            context: context,
+                            title: tr(context, "Date"),
+                            onConfirm: (date) {
+                              if (date != null) {
+                                String dateStr = DateFormat("dd-MM-yyyy").format(date);
+                                SurAddPatientData().outcomeDate.text = dateStr;
+                              }
+                            },
+                          );
+                        },
+                        child: IgnorePointer(
+                          child: GenericTextField(
+                            hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                            fieldTypes: FieldTypes.normal,
+                            fillColor: MyColors.textFields,
+                            hint: "Outcome Date",
+                            controller: SurAddPatientData().outcomeDate,
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            action: TextInputAction.next,
+                            suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2, color: MyColors.primary),
+                            type: TextInputType.text,
+                            validate: (value) => value!.validateEmpty(context),
+                          ),
+                        ),
                       ),
                       MyText(
                         title: "Medication Type:",

@@ -672,13 +672,14 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
                 const Divider(thickness: 1, height: 30),
                 MyText(
-                    title: "Upcoming Appointment With ${state.data?.patient?.surgeonId?.fullNameEn ?? ''}",
-                    size: 14,
-                    color: MyColors.primary,
-                    fontWeight: FontWeight.bold),
+                  title: "Upcoming Appointment With ${state.data?.patient?.surgeonId?.fullNameEn ?? ''}",
+                  size: 14,
+                  color: MyColors.primary,
+                  fontWeight: FontWeight.w800,
+                ),
                 if (state.data!.appointments!.isNotEmpty)
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 6,
+                    height: 140,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: state.data?.appointments?.length ?? 0,
@@ -687,6 +688,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                           width: MediaQuery.of(context).size.width,
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
                           decoration: BoxDecoration(
                             color: MyColors.textFields,
                             borderRadius: BorderRadius.circular(10),
@@ -700,6 +702,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                             ],
                           ),
                           child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CachedImage(
                                   url: state.data?.patient?.image ?? "",
@@ -707,62 +710,72 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                   width: 50,
                                   borderRadius: BorderRadius.circular(5)),
                               const SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  MyText(
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    MyText(
                                       title: state.data?.patient?.fullNameEn ?? "",
                                       size: 14,
-                                      fontWeight: FontWeight.bold),
-                                  const SizedBox(height: 2),
-                                  MyText(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    const SizedBox(height: 4),
+                                    MyText(
                                       title: 'Follow up session',
                                       color: MyColors.grey,
                                       size: 12,
-                                      fontWeight: FontWeight.bold),
-                                  const SizedBox(height: 2),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Image.asset(
-                                            Res.imagesVector,
-                                            scale: 3,
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                Res.imagesVector,
+                                                scale: 3,
+                                              ),
+                                              const SizedBox(width: 5),
+                                              MyText(
+                                                title: state.data!.appointments![index].appointmentDate.toString(),
+                                                // title: state.data!.appointments![index].appointmentDate!.contains("-")
+                                                //     ? SurPatientDetailsData()
+                                                //         .date(state.data?.appointments?[index].appointmentDate ?? "")
+                                                //     : state.data?.appointments![index].appointmentDate ?? '',
+                                                overflow: TextOverflow.ellipsis,
+                                                size: 10,
+                                                color: MyColors.primary,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ],
                                           ),
-                                          const SizedBox(width: 5),
-                                          MyText(
-                                            title: state.data!.appointments![0].appointmentDate!.contains("-")
-                                                ? SurPatientDetailsData()
-                                                    .date(state.data?.appointments?[0].appointmentDate ?? "")
-                                                : state.data?.appointments![0].appointmentDate ?? '',
-                                            overflow: TextOverflow.ellipsis,
-                                            size: 10,
-                                            color: MyColors.primary,
-                                            fontWeight: FontWeight.bold,
+                                          Spacer(),
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                Res.imagesClockIcon,
+                                                scale: 3,
+                                              ),
+                                              const SizedBox(width: 5),
+                                              MyText(
+                                                title: DateFormat("hh:mm a").format(DateTime.tryParse(
+                                                        state.data?.appointments?[index].appointmentDate ?? '') ??
+                                                    DateTime.now()),
+                                                size: 10,
+                                                overflow: TextOverflow.ellipsis,
+                                                color: MyColors.primary,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(width: 30),
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            Res.imagesClockIcon,
-                                            scale: 3,
-                                          ),
-                                          const SizedBox(width: 5),
-                                          MyText(
-                                            title: state.data?.appointments?[index].appointmentDate ?? '',
-                                            size: 10,
-                                            overflow: TextOverflow.ellipsis,
-                                            color: MyColors.primary,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                    ),
+                                  ],
+                                ),
                               )
                             ],
                           ),

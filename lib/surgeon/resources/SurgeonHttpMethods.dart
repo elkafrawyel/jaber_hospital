@@ -431,23 +431,39 @@ class SurgeonHttpMethods {
       toJsonFunc: (json) => PatientDetailsModel.fromJson(json),
     );
     if (data != null) {
-      print(data);
+      print('=============$data');
 
-      try {
-        Directory downloadsDir = await getTemporaryDirectory();
-        var filePath = '${downloadsDir.path}/patient_$patientId.pdf';
-        Dio dio = new Dio();
-        Response response = await dio.download(data, filePath);
-        if (response.statusCode! >= 200 || response.statusCode! <= 300)
-          CustomToast.showSnackBar(context, 'Patient Information Downloaded Successfully');
-        else
-          CustomToast.showSnackBar(context, 'Patient Information Download Failed');
-        return true;
-      } catch (e) {
-        CustomToast.showSnackBar(context, 'Patient Information Download Failed');
+      Nav.navigateTo(WebViewScreen(url: data), navigatorType: NavigatorType.push);
 
-        return false;
-      }
+      return true;
+      // try {
+      //   Directory downloadsDir = await getTemporaryDirectory();
+      //   var filePath = '${downloadsDir.path}/patient_$patientId.pdf';
+      //   Dio dio = new Dio(
+      //     BaseOptions(
+      //       contentType: "application/x-www-form-urlencoded; charset=utf-8",
+      //       followRedirects: true,
+      //     ),
+      //   );
+      //   Response response = await dio.download(
+      //     data,
+      //     filePath,
+      //     onReceiveProgress: (received, total) {
+      //       int percentage = ((received / total) * 100).floor();
+      //       print(percentage);
+      //     },
+      //   );
+      // if (response.statusCode! >= 200 || response.statusCode! <= 300)
+      //   CustomToast.showSnackBar(context, 'Patient Information Downloaded Successfully');
+      // else
+      //   CustomToast.showSnackBar(context, 'Patient Information Download Failed');
+      // return true;
+      // }
+      // catch (e) {
+      // CustomToast.showSnackBar(context, 'Patient Information Download Failed');
+      //
+      // return false;
+      // }
     } else {
       return false;
     }
@@ -488,7 +504,7 @@ class SurgeonHttpMethods {
       showLoader: true,
     );
     if (data != null) {
-      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      // CustomToast.showSnackBar(context, data["message"]["message_en"]);
       return true;
     }
     return false;

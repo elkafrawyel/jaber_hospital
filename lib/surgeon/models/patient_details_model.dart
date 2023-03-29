@@ -615,7 +615,7 @@ class Patient {
   String? eduFeedback;
   String? notes;
   String? mdtDateTime;
-  num? mdtSessionDuration;
+  dynamic mdtSessionDuration;
   String? mdtResults;
   String? mdtComments;
   bool? status;
