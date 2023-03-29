@@ -85,14 +85,9 @@ class _WebViewScreenState extends State<WebViewScreen> {
           try {
             Directory downloadsDir = await getTemporaryDirectory();
             var filePath = '${downloadsDir.path}/${url.suggestedFilename}';
-            Dio dio = new Dio(
-              BaseOptions(
-                contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                followRedirects: true,
-              ),
-            );
+            Dio dio = new Dio();
             Response response = await dio.download(
-              'fileUrl',
+              fileUrl,
               filePath,
               onReceiveProgress: (received, total) {
                 int percentage = ((received / total) * 100).floor();
