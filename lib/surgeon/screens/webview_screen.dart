@@ -92,7 +92,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
               ),
             );
             Response response = await dio.download(
-              '$fileUrl.pdf',
+              'fileUrl',
               filePath,
               onReceiveProgress: (received, total) {
                 int percentage = ((received / total) * 100).floor();
