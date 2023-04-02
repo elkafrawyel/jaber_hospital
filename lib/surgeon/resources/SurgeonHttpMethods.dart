@@ -78,8 +78,8 @@ class SurgeonHttpMethods {
     }
   }
 
-  Future<bool> addPatientFirst(String userId, AddPatientFirstDto model) async {
-    dynamic data = await GenericHttp<bool>(context).callApi(
+  Future<String?> addPatientFirst(String userId, AddPatientFirstDto model) async {
+    dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
       name: ApiNames.patientBasicInfo + "?user_id=$userId",
       returnType: ReturnType.Type,
       methodType: MethodType.Post,
@@ -89,9 +89,10 @@ class SurgeonHttpMethods {
     );
     if (data != null) {
       CustomToast.showSnackBar(context, data["message"]["message_en"]);
-      return true;
+      String id = data['data']['_id'];
+      return id;
     }
-    return false;
+    return null;
   }
 
   Future<bool> editPatientFirst(String userId, AddPatientFirstDto model) async {

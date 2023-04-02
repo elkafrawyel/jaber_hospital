@@ -453,6 +453,12 @@ class AddPatientSixthPage extends StatelessWidget {
             }
           },
         ),
+        if (SurAddPatientData().patientDetailsModel?.patient?.fluoroscopyResult?.isNotEmpty ?? false)
+          Image.network(
+            SurAddPatientData().patientDetailsModel?.patient?.fluoroscopyResult ?? '',
+            width: 100,
+            height: 100,
+          ),
         const SizedBox(height: 10),
         MyText(
           title: "Other notes",

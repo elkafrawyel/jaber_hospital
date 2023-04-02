@@ -13,17 +13,21 @@ class BuildPreOpItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<PatientModel> list = SurPatientData().patientsCubit.state.data;
-    return InkWell(
-      onTap: () =>
-          Nav.navigateTo(SurPatientDetails(patientId: list[index].sId ?? ''), navigatorType: NavigatorType.push),
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () {
+              Nav.navigateTo(
+                SurPatientDetails(patientId: list[index].sId ?? ''),
+                navigatorType: NavigatorType.push,
+              );
+            },
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
@@ -113,351 +117,351 @@ class BuildPreOpItem extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(color: MyColors.grey),
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 58,
-                    // child: Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: List.generate(
-                    //       5,
-                    //       (index) => Stack(
-                    //             alignment: Alignment.centerLeft,
-                    //             children: [
-                    //               if (index <= 3)
-                    //                 Container(
-                    //                   width: MediaQuery.of(context).size.width / 6,
-                    //                   height: 5,
-                    //                   color: MyColors.primary,
-                    //                 ),
-                    //               CircleAvatar(
-                    //                 backgroundColor: MyColors.primary,
-                    //                 radius: 12.0,
-                    //                 child: Icon(Icons.check,
-                    //                     color: Colors.white, size: 15),
-                    //               ),
-                    //             ],
-                    //           )),
-                    // ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: TimelineTile(
-                            axis: TimelineAxis.horizontal,
-                            alignment: TimelineAlign.center,
-                            isFirst: true,
-                            indicatorStyle: IndicatorStyle(
-                              height: 26,
-                              color: MyColors.primary,
-                              iconStyle: IconStyle(
-                                color: Colors.white,
-                                iconData: Icons.check,
-                              ),
-                            ),
-                            beforeLineStyle: LineStyle(
-                              color: MyColors.primary,
-                              thickness: 6,
-                            ),
-                            endChild: MyText(
-                              title: "Surgery OPD",
-                              size: 8,
-                              color: MyColors.primary,
+          ),
+          Divider(color: MyColors.grey),
+          Row(
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: 58,
+                  // child: Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: List.generate(
+                  //       5,
+                  //       (index) => Stack(
+                  //             alignment: Alignment.centerLeft,
+                  //             children: [
+                  //               if (index <= 3)
+                  //                 Container(
+                  //                   width: MediaQuery.of(context).size.width / 6,
+                  //                   height: 5,
+                  //                   color: MyColors.primary,
+                  //                 ),
+                  //               CircleAvatar(
+                  //                 backgroundColor: MyColors.primary,
+                  //                 radius: 12.0,
+                  //                 child: Icon(Icons.check,
+                  //                     color: Colors.white, size: 15),
+                  //               ),
+                  //             ],
+                  //           )),
+                  // ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: TimelineTile(
+                          axis: TimelineAxis.horizontal,
+                          alignment: TimelineAlign.center,
+                          isFirst: true,
+                          indicatorStyle: IndicatorStyle(
+                            height: 26,
+                            color: MyColors.primary,
+                            iconStyle: IconStyle(
+                              color: Colors.white,
+                              iconData: Icons.check,
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: TimelineTile(
-                            axis: TimelineAxis.horizontal,
-                            alignment: TimelineAlign.center,
-                            beforeLineStyle: LineStyle(
-                              color: (list[index].dietationFeedbackDecision ?? '').isNotEmpty
-                                  ? MyColors.primary
-                                  : Colors.red,
-                              thickness: 6,
-                            ),
-                            afterLineStyle: LineStyle(
-                              color: (list[index].dietationFeedbackDecision ?? '').isNotEmpty
-                                  ? MyColors.primary
-                                  : Colors.red,
-                              thickness: 6,
-                            ),
-                            indicatorStyle: IndicatorStyle(
-                              height: 26,
-                              color: (list[index].dietationFeedbackDecision ?? '').isNotEmpty
-                                  ? MyColors.primary
-                                  : Colors.red,
-                              iconStyle: IconStyle(
-                                color: Colors.white,
-                                iconData: Icons.check,
-                              ),
-                            ),
-                            endChild: MyText(
-                              title: "Dietitian",
-                              size: 8,
-                              color: (list[index].dietationFeedbackDecision ?? '').isNotEmpty
-                                  ? MyColors.primary
-                                  : Colors.red,
-                            ),
+                          beforeLineStyle: LineStyle(
+                            color: MyColors.primary,
+                            thickness: 6,
+                          ),
+                          endChild: MyText(
+                            title: "Surgery OPD",
+                            size: 8,
+                            color: MyColors.primary,
                           ),
                         ),
-                        Expanded(
-                          child: TimelineTile(
-                            axis: TimelineAxis.horizontal,
-                            alignment: TimelineAlign.center,
-                            beforeLineStyle: LineStyle(
-                              color: (list[index].feedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
-                              thickness: 6,
-                            ),
-                            afterLineStyle: LineStyle(
-                              color: (list[index].feedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
-                              thickness: 6,
-                            ),
-                            indicatorStyle: IndicatorStyle(
-                              height: 26,
-                              color: (list[index].feedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
-                              iconStyle: IconStyle(
-                                color: Colors.white,
-                                iconData: Icons.check,
-                              ),
-                            ),
-                            endChild: MyText(
-                              title: "Physiotherapy",
-                              size: 8,
-                              color: (list[index].feedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                      ),
+                      Expanded(
+                        child: TimelineTile(
+                          axis: TimelineAxis.horizontal,
+                          alignment: TimelineAlign.center,
+                          beforeLineStyle: LineStyle(
+                            color: (list[index].dietationFeedbackDecision ?? '').isNotEmpty
+                                ? MyColors.primary
+                                : Colors.red,
+                            thickness: 6,
+                          ),
+                          afterLineStyle: LineStyle(
+                            color: (list[index].dietationFeedbackDecision ?? '').isNotEmpty
+                                ? MyColors.primary
+                                : Colors.red,
+                            thickness: 6,
+                          ),
+                          indicatorStyle: IndicatorStyle(
+                            height: 26,
+                            color: (list[index].dietationFeedbackDecision ?? '').isNotEmpty
+                                ? MyColors.primary
+                                : Colors.red,
+                            iconStyle: IconStyle(
+                              color: Colors.white,
+                              iconData: Icons.check,
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: TimelineTile(
-                            axis: TimelineAxis.horizontal,
-                            alignment: TimelineAlign.center,
-                            beforeLineStyle: LineStyle(
-                              color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
-                              thickness: 6,
-                            ),
-                            afterLineStyle: LineStyle(
-                              color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
-                              thickness: 6,
-                            ),
-                            indicatorStyle: IndicatorStyle(
-                              height: 26,
-                              color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
-                              iconStyle: IconStyle(
-                                color: Colors.white,
-                                iconData: Icons.check,
-                              ),
-                            ),
-                            endChild: MyText(
-                              title: "Education",
-                              size: 8,
-                              color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
-                            ),
+                          endChild: MyText(
+                            title: "Dietitian",
+                            size: 8,
+                            color: (list[index].dietationFeedbackDecision ?? '').isNotEmpty
+                                ? MyColors.primary
+                                : Colors.red,
                           ),
                         ),
-                        Expanded(
-                          child: TimelineTile(
-                            axis: TimelineAxis.horizontal,
-                            alignment: TimelineAlign.center,
-                            isLast: true,
-                            beforeLineStyle: LineStyle(
-                              color: (list[index].finalFeedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
-                              thickness: 6,
-                            ),
-                            indicatorStyle: IndicatorStyle(
-                              height: 26,
-                              color: (list[index].finalFeedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
-                              iconStyle: IconStyle(
-                                color: Colors.white,
-                                iconData: Icons.check,
-                              ),
-                            ),
-                            endChild: MyText(
-                              title: "Psychology",
-                              size: 8,
-                              color: (list[index].finalFeedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                      ),
+                      Expanded(
+                        child: TimelineTile(
+                          axis: TimelineAxis.horizontal,
+                          alignment: TimelineAlign.center,
+                          beforeLineStyle: LineStyle(
+                            color: (list[index].feedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                            thickness: 6,
+                          ),
+                          afterLineStyle: LineStyle(
+                            color: (list[index].feedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                            thickness: 6,
+                          ),
+                          indicatorStyle: IndicatorStyle(
+                            height: 26,
+                            color: (list[index].feedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                            iconStyle: IconStyle(
+                              color: Colors.white,
+                              iconData: Icons.check,
                             ),
                           ),
+                          endChild: MyText(
+                            title: "Physiotherapy",
+                            size: 8,
+                            color: (list[index].feedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Expanded(
+                        child: TimelineTile(
+                          axis: TimelineAxis.horizontal,
+                          alignment: TimelineAlign.center,
+                          beforeLineStyle: LineStyle(
+                            color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
+                            thickness: 6,
+                          ),
+                          afterLineStyle: LineStyle(
+                            color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
+                            thickness: 6,
+                          ),
+                          indicatorStyle: IndicatorStyle(
+                            height: 26,
+                            color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
+                            iconStyle: IconStyle(
+                              color: Colors.white,
+                              iconData: Icons.check,
+                            ),
+                          ),
+                          endChild: MyText(
+                            title: "Education",
+                            size: 8,
+                            color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: TimelineTile(
+                          axis: TimelineAxis.horizontal,
+                          alignment: TimelineAlign.center,
+                          isLast: true,
+                          beforeLineStyle: LineStyle(
+                            color: (list[index].finalFeedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                            thickness: 6,
+                          ),
+                          indicatorStyle: IndicatorStyle(
+                            height: 26,
+                            color: (list[index].finalFeedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                            iconStyle: IconStyle(
+                              color: Colors.white,
+                              iconData: Icons.check,
+                            ),
+                          ),
+                          endChild: MyText(
+                            title: "Psychology",
+                            size: 8,
+                            color: (list[index].finalFeedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                InkWell(
-                  //open
-                  onTap: () => SurPatientData().openOpdDetailsCard(context, list, index),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: Icon(list[index].isOpen == true ? Icons.keyboard_arrow_down : Icons.arrow_forward_ios,
-                        size: list[index].isOpen == true ? 22 : 15),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(height: 10),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //         children: [
-            //           Expanded(
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 2),
-            //               child: Column(
-            //                 children: [
-            //                   FittedBox(
-            //                     fit: BoxFit.scaleDown,
-            //                     child: MyText(
-            //                       alien: TextAlign.center,
-            //                       title: "Surgery OPD",
-            //                       size: 9,
-            //                       color: MyColors.primary,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //           Expanded(
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 2),
-            //               child: Column(
-            //                 children: [
-            //                   FittedBox(
-            //                     fit: BoxFit.scaleDown,
-            //                     child: MyText(
-            //                       alien: TextAlign.center,
-            //                       title: "Dietitian",
-            //                       size: 9,
-            //                       color: MyColors.primary,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //           Expanded(
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 2),
-            //               child: Column(
-            //                 children: [
-            //                   FittedBox(
-            //                     fit: BoxFit.scaleDown,
-            //                     child: MyText(
-            //                       alien: TextAlign.center,
-            //                       title: "Physiotherapy",
-            //                       size: 9,
-            //                       color: MyColors.primary,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //           Expanded(
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 2),
-            //               child: Column(
-            //                 children: [
-            //                   FittedBox(
-            //                     fit: BoxFit.scaleDown,
-            //                     child: MyText(
-            //                       alien: TextAlign.center,
-            //                       title: "Education",
-            //                       size: 9,
-            //                       color: MyColors.primary,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //           Expanded(
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 2),
-            //               child: Column(
-            //                 children: [
-            //                   FittedBox(
-            //                     fit: BoxFit.scaleDown,
-            //                     child: MyText(
-            //                       alien: TextAlign.center,
-            //                       title: "Psychology",
-            //                       size: 9,
-            //                       color: MyColors.primary,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //     const SizedBox(
-            //       width: 10,
-            //     )
-            //   ],
-            // ),
-            Visibility(visible: list[index].isOpen == true, child: Divider(color: MyColors.grey)),
-            Visibility(
-              visible: list[index].isOpen == true,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MyText(title: "Surgery OPD Details;", size: 10, fontWeight: FontWeight.bold),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: list[index].egd == true ? MyColors.primary : Colors.red,
-                              radius: 12.0,
-                              child: Icon(list[index].egd == true ? Icons.check : Icons.close,
-                                  color: Colors.white, size: 15),
-                            ),
-                            const SizedBox(width: 10),
-                            MyText(title: "EGD", size: 9),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: list[index].ultrasound == true ? MyColors.primary : Colors.red,
-                              radius: 12.0,
-                              child: Icon(list[index].ultrasound == true ? Icons.check : Icons.close,
-                                  color: Colors.white, size: 15),
-                            ),
-                            const SizedBox(width: 10),
-                            MyText(title: "US", size: 9),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: list[index].surgionVisit == true ? MyColors.primary : Colors.red,
-                              radius: 12.0,
-                              child: Icon(list[index].surgionVisit == true ? Icons.check : Icons.close,
-                                  color: Colors.white, size: 15),
-                            ),
-                            const SizedBox(width: 10),
-                            MyText(title: "Surgery OPD", size: 9),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
                 ),
               ),
-            )
-          ],
-        ),
+              InkWell(
+                //open
+                onTap: () => SurPatientData().openOpdDetailsCard(context, list, index),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: Icon(list[index].isOpen == true ? Icons.keyboard_arrow_down : Icons.arrow_forward_ios,
+                      size: list[index].isOpen == true ? 22 : 15),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //         children: [
+          //           Expanded(
+          //             child: Padding(
+          //               padding: const EdgeInsets.only(left: 2),
+          //               child: Column(
+          //                 children: [
+          //                   FittedBox(
+          //                     fit: BoxFit.scaleDown,
+          //                     child: MyText(
+          //                       alien: TextAlign.center,
+          //                       title: "Surgery OPD",
+          //                       size: 9,
+          //                       color: MyColors.primary,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //           Expanded(
+          //             child: Padding(
+          //               padding: const EdgeInsets.only(left: 2),
+          //               child: Column(
+          //                 children: [
+          //                   FittedBox(
+          //                     fit: BoxFit.scaleDown,
+          //                     child: MyText(
+          //                       alien: TextAlign.center,
+          //                       title: "Dietitian",
+          //                       size: 9,
+          //                       color: MyColors.primary,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //           Expanded(
+          //             child: Padding(
+          //               padding: const EdgeInsets.only(left: 2),
+          //               child: Column(
+          //                 children: [
+          //                   FittedBox(
+          //                     fit: BoxFit.scaleDown,
+          //                     child: MyText(
+          //                       alien: TextAlign.center,
+          //                       title: "Physiotherapy",
+          //                       size: 9,
+          //                       color: MyColors.primary,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //           Expanded(
+          //             child: Padding(
+          //               padding: const EdgeInsets.only(left: 2),
+          //               child: Column(
+          //                 children: [
+          //                   FittedBox(
+          //                     fit: BoxFit.scaleDown,
+          //                     child: MyText(
+          //                       alien: TextAlign.center,
+          //                       title: "Education",
+          //                       size: 9,
+          //                       color: MyColors.primary,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //           Expanded(
+          //             child: Padding(
+          //               padding: const EdgeInsets.only(left: 2),
+          //               child: Column(
+          //                 children: [
+          //                   FittedBox(
+          //                     fit: BoxFit.scaleDown,
+          //                     child: MyText(
+          //                       alien: TextAlign.center,
+          //                       title: "Psychology",
+          //                       size: 9,
+          //                       color: MyColors.primary,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //     const SizedBox(
+          //       width: 10,
+          //     )
+          //   ],
+          // ),
+          Visibility(visible: list[index].isOpen == true, child: Divider(color: MyColors.grey)),
+          Visibility(
+            visible: list[index].isOpen == true,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MyText(title: "Surgery OPD Details;", size: 10, fontWeight: FontWeight.bold),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: list[index].egd == true ? MyColors.primary : Colors.red,
+                            radius: 12.0,
+                            child: Icon(list[index].egd == true ? Icons.check : Icons.close,
+                                color: Colors.white, size: 15),
+                          ),
+                          const SizedBox(width: 10),
+                          MyText(title: "EGD", size: 9),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: list[index].ultrasound == true ? MyColors.primary : Colors.red,
+                            radius: 12.0,
+                            child: Icon(list[index].ultrasound == true ? Icons.check : Icons.close,
+                                color: Colors.white, size: 15),
+                          ),
+                          const SizedBox(width: 10),
+                          MyText(title: "US", size: 9),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: list[index].surgionVisit == true ? MyColors.primary : Colors.red,
+                            radius: 12.0,
+                            child: Icon(list[index].surgionVisit == true ? Icons.check : Icons.close,
+                                color: Colors.white, size: 15),
+                          ),
+                          const SizedBox(width: 10),
+                          MyText(title: "Surgery OPD", size: 9),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

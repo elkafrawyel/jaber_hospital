@@ -21,7 +21,7 @@ class SurgeonRepository {
 
   Future<bool> updateSurgeonProfile(ProfileModel model) => _surgeonHttpMethods.updateSurgeonProfile(model);
 
-  Future<bool> addPatientFirst({required String userId, required AddPatientFirstDto model}) =>
+  Future<String?> addPatientFirst({required String userId, required AddPatientFirstDto model}) =>
       _surgeonHttpMethods.addPatientFirst(userId, model);
 
   Future<bool> editPatientFirst({
@@ -32,6 +32,7 @@ class SurgeonRepository {
         userId,
         model,
       );
+
   Future<bool> addPatientSecond(AddPatientSecondDto model) => _surgeonHttpMethods.addPatientSecond(model);
 
   Future<bool> addPatientThird(AddPatientThirdDto model) => _surgeonHttpMethods.addPatientThird(model);
@@ -69,14 +70,20 @@ class SurgeonRepository {
 
   Future<bool> requestMedicationOrder(Map<String, dynamic> body) => _surgeonHttpMethods.requestMedicationOrder(body);
 
-  Future<NotificationsResponse?> getSurgeonNotifications()=> _surgeonHttpMethods.fetchSurgeonNotifications();
+  Future<NotificationsResponse?> getSurgeonNotifications() => _surgeonHttpMethods.fetchSurgeonNotifications();
 
   /// Mdt
-  Future<MdtPatientsResponse?> requestMdtReadyPatients(String mdtStatus) => _surgeonHttpMethods.fetchMdtReadyPatients(mdtStatus);
+  Future<MdtPatientsResponse?> requestMdtReadyPatients(String mdtStatus) =>
+      _surgeonHttpMethods.fetchMdtReadyPatients(mdtStatus);
+
   Future<MdtPatientsResponse?> requestMdtAdminPatients() => _surgeonHttpMethods.fetchMdtAdminPatients();
+
   Future<UpdateConsentResponse?> updateReadyMdtStatus(Map<String, dynamic> body) =>
       _surgeonHttpMethods.updateReadyMdtStatus(body);
-  Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body, String patientId) => _surgeonHttpMethods.confirmMdtBooking(body, patientId);
+
+  Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body, String patientId) =>
+      _surgeonHttpMethods.confirmMdtBooking(body, patientId);
+
   Future<UpdateConsentResponse?> mdtPatientResult(Map<String, dynamic> body) => _surgeonHttpMethods.sendMdtResult(body);
 
   Future<bool> downloadPatientInfo(String patientId) => _surgeonHttpMethods.downloadPatientInfo(patientId);

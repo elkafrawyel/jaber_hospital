@@ -83,30 +83,28 @@ class AddPatientSeventhPage extends StatelessWidget {
                               bloc: SurAddPatientData().EGDResultImageCubit,
                               builder: (context, state) {
                                 if (state.data != null) {
-                                  return Stack(
-                                    children: [
-                                      Container(
-                                        height: 200,
-                                        width: double.infinity,
-                                        child: Image.file(
+                                  return Center(
+                                    child: Stack(
+                                      children: [
+                                        Image.file(
                                           state.data!,
                                           fit: BoxFit.cover,
                                           width: 100,
-                                          height: 110,
+                                          height: 100,
                                         ),
-                                      ),
-                                      InkWell(
-                                        onTap: () => SurAddPatientData().EGDResultImageCubit.onUpdateData(null),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8),
-                                          child: Icon(
-                                            Icons.delete_forever,
-                                            size: 20,
-                                            color: Colors.red,
+                                        InkWell(
+                                          onTap: () => SurAddPatientData().EGDResultImageCubit.onUpdateData(null),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Icon(
+                                              Icons.delete_forever,
+                                              size: 20,
+                                              color: Colors.red,
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
+                                        )
+                                      ],
+                                    ),
                                   );
                                 } else {
                                   return const SizedBox();
@@ -114,6 +112,12 @@ class AddPatientSeventhPage extends StatelessWidget {
                               },
                             ),
                             const Divider(),
+                            if (SurAddPatientData().patientDetailsModel?.patient?.egdResults?.isNotEmpty ?? false)
+                              Image.network(
+                                SurAddPatientData().patientDetailsModel?.patient?.egdResults ?? '',
+                                width: 100,
+                                height: 100,
+                              ),
                             MyText(
                               title: "Oesophagus:",
                               size: 12,

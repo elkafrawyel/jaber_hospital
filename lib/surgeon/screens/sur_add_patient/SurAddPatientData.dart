@@ -133,6 +133,7 @@ class SurAddPatientData {
 
   bool editing = false;
   PatientDetailsModel? patientDetailsModel;
+  String? addedPatientId;
 
   /// #############################  init screen  #############################
   void initScreen(BuildContext context, {PatientDetailsModel? patientDetailsModel}) async {
@@ -277,7 +278,7 @@ class SurAddPatientData {
   }
 
   Widget buildAddPatientPage(int index) {
-    // index = 1;
+    // index = 6;
     switch (index) {
       case 0:
         return AddPatientFirstPage();
@@ -353,9 +354,9 @@ class SurAddPatientData {
         fileId: patientFileNumber.text,
         image: "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
       );
-      if (editing) {
+      if (editing || addedPatientId != null) {
         bool result = await SurgeonRepository(context).editPatientFirst(
-          userId: patientDetailsModel?.patient?.id ?? '',
+          userId: addedPatientId ?? patientDetailsModel?.patient?.id ?? '',
           model: model,
         );
 
@@ -364,13 +365,14 @@ class SurAddPatientData {
           nextPage();
         }
       } else {
-        bool result = await SurgeonRepository(context).addPatientFirst(
+        String? patientId = await SurgeonRepository(context).addPatientFirst(
           userId: users.userData?[0].doctorRoleId?.sId ?? "",
           model: model,
         );
 
-        if (result) {
+        if (patientId != null) {
           FocusScope.of(context).requestFocus(FocusNode());
+          addedPatientId = patientId;
           nextPage();
         }
       }
@@ -606,7 +608,7 @@ class SurAddPatientData {
   onConfirmFromDate(date) {
     if (date != null) {
       String dateStr = DateFormat("dd-MM-yyyy").format(date);
-       insertionDate.text = dateStr;
+      insertionDate.text = dateStr;
     }
   }
 }
