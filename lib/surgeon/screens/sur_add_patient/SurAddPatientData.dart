@@ -31,7 +31,8 @@ class SurAddPatientData {
   late GenericBloc<bool> dmSelectCubit;
   late GenericBloc<int> dmTypeSelectionCubit;
   late GenericBloc<List<String>> diagnosisTypesCubit;
-  late GenericBloc<String> cardiacDiseaseCubit;
+  late GenericBloc<String> cardiacDiseaseIHDCubit;
+  late GenericBloc<String> cardiacDiseaseHFCubit;
   late GenericBloc<List<String>> respiratoryDiseaseCubit;
   late TextEditingController otherNotesDm;
 
@@ -175,11 +176,8 @@ class SurAddPatientData {
     if (patientDetailsModel?.patient?.pcos ?? false) {
       diagnosisTypesCubit.state.data.add('PCOS');
     }
-    cardiacDiseaseCubit = GenericBloc(patientDetailsModel?.patient?.cardiacDiseaseIhd == null
-        ? ""
-        : patientDetailsModel!.patient!.cardiacDiseaseIhd!
-            ? "IHD"
-            : "HF");
+    cardiacDiseaseIHDCubit = GenericBloc((patientDetailsModel?.patient?.cardiacDiseaseIhd ?? false) ? "IHD" : '');
+    cardiacDiseaseHFCubit = GenericBloc((patientDetailsModel?.patient?.cardiacDiseaseHf ?? false) ? "HF" : '');
     respiratoryDiseaseCubit = GenericBloc([]);
     if (patientDetailsModel?.patient?.vte ?? false) {
       respiratoryDiseaseCubit.state.data.add('VTE');
@@ -390,8 +388,8 @@ class SurAddPatientData {
       osa: diagnosisTypesCubit.state.data.contains("OSA") ? true : false,
       fattyLiver: diagnosisTypesCubit.state.data.contains("Fatty Liver") ? true : false,
       pcos: diagnosisTypesCubit.state.data.contains("PCOS") ? true : false,
-      cardiacDiseaseIhd: cardiacDiseaseCubit.state.data == "IHD" ? true : false,
-      cardiacDiseaseHf: cardiacDiseaseCubit.state.data == "HF" ? true : false,
+      cardiacDiseaseIhd: cardiacDiseaseHFCubit.state.data == "HF" ? true : false,
+      cardiacDiseaseHf: cardiacDiseaseIHDCubit.state.data == "IHD" ? true : false,
       respiratory_dis: RespiratoryDiseaseSelectionCubit.state.data,
       respiratoryDisVte: respiratoryDiseaseCubit.state.data.contains("VTE") ? true : false,
       respiratoryDisAnticoag: respiratoryDiseaseCubit.state.data.contains("Anticoagulants") ? true : false,

@@ -146,38 +146,64 @@ class AddPatientSecondPage extends StatelessWidget {
           fontWeight: FontWeight.bold,
           color: MyColors.black,
         ),
-        BlocBuilder<GenericBloc<String>, GenericState<String>>(
-          bloc: SurAddPatientData().cardiacDiseaseCubit,
-          builder: (context, state) {
-            return Wrap(
-              spacing: 10,
-              direction: Axis.horizontal,
-              children: List.generate(
-                SurAddPatientData().cardiacDiseaseTypes.length,
-                (index) => Padding(
+        Wrap(
+          spacing: 10,
+          direction: Axis.horizontal,
+          children: [
+            BlocBuilder<GenericBloc<String>, GenericState<String>>(
+              bloc: SurAddPatientData().cardiacDiseaseIHDCubit,
+              builder: (context, state) {
+                return Padding(
                   padding: const EdgeInsets.only(right: 30),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Radio(
-                        value: SurAddPatientData().cardiacDiseaseTypes[index],
-                        groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData().cardiacDiseaseCubit.onUpdateData(value!),
+                      Checkbox(
+                        value: state.data == 'IHD',
+                        onChanged: (value) =>
+                            SurAddPatientData().cardiacDiseaseIHDCubit.onUpdateData(value! ? 'IHD' : ''),
                       ),
                       Flexible(
                         child: MyText(
-                          title: SurAddPatientData().cardiacDiseaseTypes[index],
+                          title: 'IHD',
                           size: 12,
                           color: MyColors.black,
                         ),
                       )
                     ],
                   ),
-                ),
-              ),
-            );
-          },
+                );
+              },
+            ),
+            BlocBuilder<GenericBloc<String>, GenericState<String>>(
+              bloc: SurAddPatientData().cardiacDiseaseHFCubit,
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Checkbox(
+                        value: state.data == 'HF',
+                        onChanged: (value) => SurAddPatientData().cardiacDiseaseHFCubit.onUpdateData(
+                              value! ? 'HF' : '',
+                            ),
+                      ),
+                      Flexible(
+                        child: MyText(
+                          title: 'HF',
+                          size: 12,
+                          color: MyColors.black,
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
         ),
         MyText(
           title: "Respiratory Disease:",

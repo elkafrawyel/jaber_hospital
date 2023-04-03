@@ -88,6 +88,7 @@ class AddPatientFifthPage extends StatelessWidget {
                             controller: SurAddPatientData().proceduresOutcomeDateCubit,
                             margin: const EdgeInsets.symmetric(vertical: 10),
                             action: TextInputAction.next,
+                            suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2, color: MyColors.primary),
                             type: TextInputType.text,
                             validate: (value) => value!.validateEmpty(context),
                           ),
