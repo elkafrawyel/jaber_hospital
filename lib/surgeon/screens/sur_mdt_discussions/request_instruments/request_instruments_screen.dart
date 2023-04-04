@@ -1,21 +1,34 @@
+import 'dart:developer';
+
+import 'package:base_flutter/surgeon/models/medication_model.dart';
 import 'package:base_flutter/surgeon/models/patient_details_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tf_validator/tf_validator.dart';
 
 import '../../../../general/constants/MyColors.dart';
+import '../../../../general/utilities/tf_custom_widgets/Inputs/DropdownTextField.dart';
 import '../../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
+import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/widgets/GenScaffold.dart';
+import '../../../../general/widgets/app_drop_menu.dart';
+import '../../../../general/widgets/loading_widget.dart';
+import 'request_instruments_data.dart';
+import 'widgets/access.dart';
+import 'widgets/energy_widget.dart';
+import 'widgets/vessel_sealing_widget.dart';
 
 class RequestInstrumentsScreen extends StatefulWidget {
-  const RequestInstrumentsScreen({Key? key, required this.patient}) : super(key: key);
-  final Patient patient;
+  const RequestInstrumentsScreen({Key? key,}) : super(key: key);
+  // final Patient patient;
 
   @override
   State<RequestInstrumentsScreen> createState() => _RequestInstrumentsScreenState();
 }
 
 class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
+  RequestInstrumentsData requestInstrumentsData= RequestInstrumentsData();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -23,6 +36,7 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
   @override
   void initState() {
     // TODO: implement initState
+    requestInstrumentsData.init(context);
     super.initState();
   }
 
@@ -36,6 +50,7 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyText(
                   title: 'Patient Name',
@@ -43,14 +58,13 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                   fontWeight: FontWeight.bold,
                 ),
                 GenericTextField(
-                  hintColor:
-                  Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-                  fieldTypes: FieldTypes.normal,
+                  hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                  fieldTypes: FieldTypes.disable,
                   fillColor:  MyColors.textFields,
-                  hint: "الاسم",
+                  hint: "Patient Name",
                   controller: nameController,
                   margin: const EdgeInsets.symmetric(vertical: 10),
-                  action: TextInputAction.next,
+                  action: TextInputAction.none,
                   type: TextInputType.text,
                   validate: (value) => value!.validateEmpty(context),
                 ),
@@ -79,13 +93,17 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                 GenericTextField(
                   hintColor:
                   Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-                  fieldTypes: FieldTypes.disable,
+                  fieldTypes: FieldTypes.clickable,
                   fillColor: MyColors.textFields,
                   hint: "Date",
                   controller: dateController,
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   action: TextInputAction.next,
                   type: TextInputType.text,
+                  onTab: (){
+                    log("pick date...");
+
+                  },
                   validate: (value) => value!.validateEmpty(context),
                 ),
                 MyText(
@@ -94,6 +112,33 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                   fontWeight: FontWeight.bold,
                 ),
 
+                BlocBuilder<GenericBloc<List<CompanyId>?>,
+                    GenericState<List<CompanyId>?>>(
+                  bloc: requestInstrumentsData.companiesCubit,
+                  builder: (context, state) {
+                    if (state is GenericUpdateState) {
+                      return AppDropMenu<CompanyId>(
+                        hint: "Company",
+                        items: requestInstrumentsData.companies,
+                        expanded: true,
+                        selectedItem: requestInstrumentsData.selectedCompany,
+                        onChanged: (value) {
+                          CompanyId company = value as CompanyId;
+                          log("val=> ${company.sId}");
+                          log("val=> ${company.companyNameEn}");
+                          requestInstrumentsData.selectedCompany = company;
+                          setState(() {});
+                          // controller.changeSelectedInterest(category);
+                        },
+                      );
+                    } else {
+                      return LoadingWidget();
+                    }
+                  },
+                ),
+                VesselSealingWidget(),
+                AccessWidget(),
+                EnergyWidget(),
               ],
             ),
           )),

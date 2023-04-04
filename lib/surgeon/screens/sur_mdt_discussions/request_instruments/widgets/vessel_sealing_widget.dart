@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../general/constants/MyColors.dart';
+
 class VesselSealingWidget extends StatefulWidget {
   const VesselSealingWidget({Key? key}) : super(key: key);
 
@@ -15,6 +17,8 @@ class _VesselSealingWidgetState extends State<VesselSealingWidget> {
   Widget build(BuildContext context) {
     return ExpansionTile(
       title: const Text('ExpansionTile'),
+      backgroundColor: Color(0xFFD3E0F6),
+      iconColor: MyColors.primary,
       children: data.map((data) {
         return ListTile(title: Text(data));
       }).toList());

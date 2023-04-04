@@ -13,8 +13,7 @@ class OperationsDate extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            MyText(
-                title: 'تاريخ العملية', size: 12, fontWeight: FontWeight.bold),
+            MyText(title: 'تاريخ العملية', size: 12, fontWeight: FontWeight.bold),
           ],
         ),
         Container(

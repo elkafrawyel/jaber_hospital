@@ -1,36 +1,51 @@
 class CompanyId {
   String? sId;
-  String? companyNameAr;
+  String? email;
+  String? image;
+  String? publicId;
+  bool? status;
   String? companyNameEn;
+  String? landLine;
+  String? companyContactMobile;
   String? companyContactPerson;
   String? companyAddress;
-  String? companyContactMobile;
 
   CompanyId(
       {this.sId,
-        this.companyNameAr,
+        this.email,
+        this.image,
+        this.publicId,
+        this.status,
         this.companyNameEn,
+        this.companyContactMobile,
         this.companyContactPerson,
-        this.companyAddress,
-        this.companyContactMobile});
+        this.landLine,
+        this.companyAddress});
 
   CompanyId.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    companyNameAr = json['company_name_ar'];
+    email = json['email'];
+    image = json['image'];
+    status = json['status'];
+    publicId = json['public_id'];
     companyNameEn = json['company_name_en'];
     companyContactPerson = json['company_contact_person'];
-    companyAddress = json['company_address'];
     companyContactMobile = json['company_contact_mobile'];
+    companyAddress = json['company_address'];
+    landLine = json['land_line'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
-    data['company_name_ar'] = this.companyNameAr;
-    data['company_name_en'] = this.companyNameEn;
+    data['email'] = this.email;
+    data['image'] = this.image;
+    data['public_id'] = this.publicId;
+    data['status'] = this.status;
     data['company_contact_person'] = this.companyContactPerson;
-    data['company_address'] = this.companyAddress;
     data['company_contact_mobile'] = this.companyContactMobile;
+    data['company_address'] = this.companyAddress;
+    data['land_line'] = this.landLine;
     return data;
   }
 }

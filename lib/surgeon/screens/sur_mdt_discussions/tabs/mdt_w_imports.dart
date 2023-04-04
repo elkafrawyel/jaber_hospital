@@ -16,7 +16,7 @@ import 'booked_mdt/booked_mdt_data.dart';
 import 'discussion_mdt/decision_mdt_data.dart';
 import 'ready_mdt/ready_mdt_data.dart';
 
-part 'BuildNoResultDecision.dart';
+part 'BuildResultDecision.dart';
 part 'booked_mdt/booked_mdt.dart';
 part 'discussion_mdt/decision_mdt.dart';
 part 'ready_mdt/ready_mdt.dart';

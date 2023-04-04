@@ -1,5 +1,4 @@
 class ApiNames{
-
   static const String baseUrl = "http://34.163.160.147/backend/api/";
   static const String branch = "1";
 
@@ -71,6 +70,8 @@ class ApiNames{
   static const String updatePatientMdtStatusPath = "patient_mdt_status";
   static const String patientMdtResultPath = "patient_mdt_results";
   static const String mdtAdminPatientsPath = "today_patients_mdt";
+  static const String companiesPath = "company";
+  static const String companyInstrumentsPath = "instruments_for_company";
   // static const String confirmMdtBookingPath = "patient_mdt";
 
 }

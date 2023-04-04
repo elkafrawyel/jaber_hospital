@@ -8,48 +8,56 @@ class ReloadsItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(3.0),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            shape: BoxShape.circle,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          // Container(
+          //   padding: const EdgeInsets.all(1.0),
+          //   decoration: BoxDecoration(
+          //     color: Colors.grey.shade100,
+          //     shape: BoxShape.circle,
+          //   ),
+          //   child: Icon(Icons.check, color: Colors.white),
+          // ),
+          Checkbox(
+            value: true,
+            onChanged: (value) {},
           ),
-          child: Icon(Icons.check, color: Colors.white),
-        ),
-        Expanded(child: MyText(title: '', size: 9,)),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 24,
-              height: 24,
-              padding: const EdgeInsets.all(4.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: MyColors.primary)
-              ),
-              child: Icon(Icons.add)
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 3.0),
-              child: MyText(title: '', size: 9,),
-            ),
-            Container(
-                width: 24,
-                height: 24,
-                padding: const EdgeInsets.all(4.0),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: MyColors.primary)
+          const SizedBox(
+            width: 6.0,
+          ),
+          Expanded(
+              child: MyText(
+            title: 'Blue Echelon Reload 60 MM',
+            size: 9,
+          )),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: MyColors.primary)),
+                  child: Icon(Icons.add)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: MyText(
+                  title: '4',
+                  size: 14,
+                  fontWeight: FontWeight.w600,
                 ),
-                child: Icon(Icons.remove)
-            ),
-          ],
-        ),
-      ],
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: MyColors.primary)),
+                  child: Icon(Icons.remove)),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

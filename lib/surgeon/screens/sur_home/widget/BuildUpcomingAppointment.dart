@@ -17,12 +17,16 @@ class BuildUpcomingAppointment extends StatelessWidget {
                 title: 'Upcoming Appointments',
                 size: 12,
                 fontWeight: FontWeight.bold),
-            MyText(
-              title: 'See All',
-              size: 10,
-              fontWeight: FontWeight.bold,
-              color: MyColors.primary,
-              decoration: TextDecoration.underline,
+            InkWell(
+              onTap: ()=> log("handle seeAll click..."),
+              // onTap: ()=> Nav.navigateTo(CompOrdersScreen(initialIndex: 0), navigatorType: NavigatorType.push),
+              child: MyText(
+                title: 'See All',
+                size: 10,
+                fontWeight: FontWeight.bold,
+                color: MyColors.primary,
+                decoration: TextDecoration.underline,
+              ),
             ),
           ],
         ),

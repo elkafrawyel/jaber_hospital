@@ -86,4 +86,8 @@ class SurgeonRepository {
   Future<bool> uploadFluoroscopyResult(File file) => _surgeonHttpMethods.uploadFluoroscopyResult(file);
 
   Future<bool> uploadEgd(File file) => _surgeonHttpMethods.uploadEgd(file);
+  /// request instruments
+  Future<CompaniesResponse?> fetchCompanies() => _surgeonHttpMethods.getCompanies();
+  Future<CompaniesResponse?> fetchCompanyInstruments(String companyId) => _surgeonHttpMethods.fetchCompanyInstruments(companyId);
+
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 
 class CheckItemWidget extends StatelessWidget {
@@ -18,7 +17,7 @@ class CheckItemWidget extends StatelessWidget {
           child: Icon(Icons.check, color: Colors.white),
         ),
         Expanded(
-          child: MyText(title: "", size: 10,),
+          child: MyText(title: "12 MM", size: 10),
         )
       ],
     );
