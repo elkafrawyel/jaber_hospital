@@ -74,28 +74,29 @@ class AddPatientFirstPage extends StatelessWidget {
                 type: TextInputType.text,
                 validate: (value) => value!.validateEmpty(context),
               ),
-              MyText(
-                title: "Civil ID",
-                size: 12,
-                fontWeight: FontWeight.bold,
-              ),
-              GenericTextField(
-                hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-                fieldTypes: FieldTypes.normal,
-                fillColor: MyColors.textFields,
-                hint: "Civil ID",
-                controller: SurAddPatientData().patientId,
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                action: TextInputAction.next,
-                type: TextInputType.number,
-                validate: (value) {
-                  if (value!.validateEmpty(context) != null) {
-                    return value.validateEmpty(context);
-                  } else if (value.length != 12) {
-                    return "ID must be 12 digit";
-                  }
-                },
-              ),
+              // MyText(
+              //   title: "Civil ID",
+              //   size: 12,
+              //   fontWeight: FontWeight.bold,
+              // ),
+              // GenericTextField(
+              //   hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+              //   fieldTypes: FieldTypes.normal,
+              //   fillColor: MyColors.textFields,
+              //   hint: "Civil ID",
+              //   controller: SurAddPatientData().patientId,
+              //   margin: const EdgeInsets.symmetric(vertical: 10),
+              //   action: TextInputAction.next,
+              //   type: TextInputType.number,
+              //   validate: (value) => null,
+              //   // validate: (value) {
+              //   //   if (value!.validateEmpty(context) != null) {
+              //   //     return value.validateEmpty(context);
+              //   //   } else if (value.length != 12) {
+              //   //     return "ID must be 12 digit";
+              //   //   }
+              //   // },
+              // ),
               MyText(
                 title: "Patient file number",
                 size: 12,

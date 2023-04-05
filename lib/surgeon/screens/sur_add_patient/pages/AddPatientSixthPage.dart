@@ -458,6 +458,7 @@ class AddPatientSixthPage extends StatelessWidget {
             SurAddPatientData().patientDetailsModel?.patient?.fluoroscopyResult ?? '',
             width: 100,
             height: 100,
+            errorBuilder: (e, c, d) => SizedBox(),
           ),
         const SizedBox(height: 10),
         MyText(

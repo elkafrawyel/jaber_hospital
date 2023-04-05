@@ -1,7 +1,15 @@
 part of 'PagesWImports.dart';
 
-class AddPatientSeventhPage extends StatelessWidget {
+class AddPatientSeventhPage extends StatefulWidget {
   const AddPatientSeventhPage({Key? key}) : super(key: key);
+
+  @override
+  State<AddPatientSeventhPage> createState() => _AddPatientSeventhPageState();
+}
+
+class _AddPatientSeventhPageState extends State<AddPatientSeventhPage> {
+  bool isNormal = false;
+  bool isOesoph = false;
 
   @override
   Widget build(BuildContext context) {
@@ -63,21 +71,26 @@ class AddPatientSeventhPage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: MyColors.black,
                             ),
-                            GenericTextField(
-                              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-                              fieldTypes: FieldTypes.clickable,
-                              fillColor: MyColors.textFields,
-                              hint: "EGD Result..",
-                              controller: SurAddPatientData().EGDResultController,
-                              margin: const EdgeInsets.symmetric(vertical: 10),
-                              action: TextInputAction.next,
-                              type: TextInputType.text,
-                              onTab: () => SurAddPatientData().setEGDResultImage(),
-                              suffixIcon: Image.asset(
-                                Res.imagesEditIconff,
-                                scale: 3,
+                            InkWell(
+                              onTap: SurAddPatientData().setEGDResultImage,
+                              child: IgnorePointer(
+                                child: GenericTextField(
+                                  hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                                  fieldTypes: FieldTypes.clickable,
+                                  fillColor: MyColors.textFields,
+                                  hint: "EGD Result..",
+                                  controller: SurAddPatientData().EGDResultController,
+                                  margin: const EdgeInsets.symmetric(vertical: 10),
+                                  action: TextInputAction.next,
+                                  type: TextInputType.text,
+                                  onTab: () => SurAddPatientData().setEGDResultImage(),
+                                  suffixIcon: Image.asset(
+                                    Res.imagesEditIconff,
+                                    scale: 3,
+                                  ),
+                                  validate: (value) => value!.validateEmpty(context),
+                                ),
                               ),
-                              validate: (value) => value!.validateEmpty(context),
                             ),
                             BlocBuilder<GenericBloc<File?>, GenericState<File?>>(
                               bloc: SurAddPatientData().EGDResultImageCubit,
@@ -117,6 +130,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                 SurAddPatientData().patientDetailsModel?.patient?.egdResults ?? '',
                                 width: 100,
                                 height: 100,
+                                errorBuilder: (e, c, d) => SizedBox(),
                               ),
                             MyText(
                               title: "Oesophagus:",
@@ -139,8 +153,12 @@ class AddPatientSeventhPage extends StatelessWidget {
                                     Radio(
                                         value: true,
                                         groupValue: state.data,
-                                        onChanged: (value) =>
-                                            SurAddPatientData().NormalOesophagusCubit.onUpdateData(value!)),
+                                        onChanged: (value) {
+                                          SurAddPatientData().NormalOesophagusCubit.onUpdateData(value!);
+                                          setState(() {
+                                            isNormal = true;
+                                          });
+                                        }),
                                     MyText(
                                       title: "Yes",
                                       size: 12,
@@ -150,8 +168,12 @@ class AddPatientSeventhPage extends StatelessWidget {
                                     Radio(
                                         value: false,
                                         groupValue: state.data,
-                                        onChanged: (value) =>
-                                            SurAddPatientData().NormalOesophagusCubit.onUpdateData(value!)),
+                                        onChanged: (value) {
+                                          SurAddPatientData().NormalOesophagusCubit.onUpdateData(value!);
+                                          setState(() {
+                                            isNormal = false;
+                                          });
+                                        }),
                                     MyText(
                                       title: "No",
                                       size: 12,
@@ -161,159 +183,241 @@ class AddPatientSeventhPage extends StatelessWidget {
                                 );
                               },
                             ),
-                            MyText(
-                              title: "Oesophagitis",
-                              size: 12,
-                              fontWeight: FontWeight.bold,
-                              color: MyColors.black,
-                            ),
-                            BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                              bloc: SurAddPatientData().oesophagusCubit,
-                              builder: (context, state) {
-                                return Row(
-                                  children: [
-                                    Radio(
-                                        value: true,
-                                        groupValue: state.data,
-                                        onChanged: (value) => SurAddPatientData().oesophagusCubit.onUpdateData(value!)),
-                                    MyText(
-                                      title: "Yes",
-                                      size: 12,
-                                      color: MyColors.black,
-                                    ),
-                                    const SizedBox(width: 40),
-                                    Radio(
-                                        value: false,
-                                        groupValue: state.data,
-                                        onChanged: (value) => SurAddPatientData().oesophagusCubit.onUpdateData(value!)),
-                                    MyText(
-                                      title: "No",
-                                      size: 12,
-                                      color: MyColors.black,
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                            MyText(
-                              title: "Oesophagitis Grade",
-                              size: 12,
-                              fontWeight: FontWeight.bold,
-                              color: MyColors.black,
-                            ),
-                            BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                              bloc: SurAddPatientData().oesophagusGradeCubit,
-                              builder: (context, state) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Radio(
-                                            value: true,
-                                            groupValue: state.data,
-                                            onChanged: (value) =>
-                                                SurAddPatientData().oesophagusGradeCubit.onUpdateData(value!)),
-                                        MyText(
-                                          title: "Yes",
-                                          size: 12,
-                                          color: MyColors.black,
+                            if (!isNormal)
+                              MyText(
+                                title: "Oesophagitis",
+                                size: 12,
+                                fontWeight: FontWeight.bold,
+                                color: MyColors.black,
+                              ),
+                            if (!isNormal)
+                              BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                                bloc: SurAddPatientData().oesophagusCubit,
+                                builder: (context, state) {
+                                  return Row(
+                                    children: [
+                                      Radio(
+                                          value: true,
+                                          groupValue: state.data,
+                                          onChanged: (value) {
+                                            SurAddPatientData().oesophagusCubit.onUpdateData(value!);
+                                            setState(() {
+                                              isOesoph = true;
+                                            });
+                                          }),
+                                      MyText(
+                                        title: "Yes",
+                                        size: 12,
+                                        color: MyColors.black,
+                                      ),
+                                      const SizedBox(width: 40),
+                                      Radio(
+                                          value: false,
+                                          groupValue: state.data,
+                                          onChanged: (value) {
+                                            SurAddPatientData().oesophagusCubit.onUpdateData(value!);
+                                            setState(() {
+                                              isOesoph = false;
+                                            });
+                                          }),
+                                      MyText(
+                                        title: "No",
+                                        size: 12,
+                                        color: MyColors.black,
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            if (!isNormal && isOesoph)
+                              MyText(
+                                title: "Oesophagitis Grade Type",
+                                size: 12,
+                                fontWeight: FontWeight.bold,
+                                color: MyColors.black,
+                              ),
+                            if (!isNormal && isOesoph)
+                              BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                                bloc: SurAddPatientData().oesophagusGradeTypeCubit,
+                                builder: (context, state) {
+                                  return Wrap(
+                                    alignment: WrapAlignment.spaceBetween,
+                                    direction: Axis.horizontal,
+                                    children: List.generate(
+                                      SurAddPatientData().oesophagusGradeType.length,
+                                      (index) => Container(
+                                        width: MediaQuery.of(context).size.width / 2.6,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Radio(
+                                              value: SurAddPatientData().oesophagusGradeType[index],
+                                              groupValue: state.data,
+                                              onChanged: (value) =>
+                                                  SurAddPatientData().oesophagusGradeTypeCubit.onUpdateData(value!),
+                                            ),
+                                            Expanded(
+                                              child: MyText(
+                                                title: SurAddPatientData().oesophagusGradeType[index],
+                                                size: 12,
+                                                color: MyColors.black,
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                        const SizedBox(width: 40),
-                                        Radio(
-                                            value: false,
-                                            groupValue: state.data,
-                                            onChanged: (value) =>
-                                                SurAddPatientData().oesophagusGradeCubit.onUpdateData(value!)),
-                                        MyText(
-                                          title: "No",
-                                          size: 12,
-                                          color: MyColors.black,
-                                        ),
-                                      ],
-                                    ),
-                                    Offstage(
-                                      offstage: !state.data,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Oesophagitis Grade Type",
-                                            size: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.black,
-                                          ),
-                                          BlocBuilder<GenericBloc<String>, GenericState<String>>(
-                                            bloc: SurAddPatientData().oesophagusGradeTypeCubit,
-                                            builder: (context, state) {
-                                              return Wrap(
-                                                alignment: WrapAlignment.spaceBetween,
-                                                direction: Axis.horizontal,
-                                                children: List.generate(
-                                                  SurAddPatientData().oesophagusGradeType.length,
-                                                  (index) => Container(
-                                                    width: MediaQuery.of(context).size.width / 2.6,
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.start,
-                                                      mainAxisSize: MainAxisSize.min,
-                                                      children: [
-                                                        Radio(
-                                                          value: SurAddPatientData().oesophagusGradeType[index],
-                                                          groupValue: state.data,
-                                                          onChanged: (value) => SurAddPatientData()
-                                                              .oesophagusGradeTypeCubit
-                                                              .onUpdateData(value!),
-                                                        ),
-                                                        Expanded(
-                                                          child: MyText(
-                                                            title: SurAddPatientData().oesophagusGradeType[index],
-                                                            size: 12,
-                                                            color: MyColors.black,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-
-                                              return Wrap(
-                                                spacing: 10,
-                                                direction: Axis.horizontal,
-                                                children: List.generate(
-                                                  SurAddPatientData().oesophagusGradeType.length,
-                                                  (index) => Padding(
-                                                    padding: const EdgeInsets.only(right: 50),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.start,
-                                                      mainAxisSize: MainAxisSize.min,
-                                                      children: [
-                                                        Radio(
-                                                          value: SurAddPatientData().oesophagusGradeType[index],
-                                                          groupValue: state.data,
-                                                          onChanged: (value) => SurAddPatientData()
-                                                              .oesophagusGradeTypeCubit
-                                                              .onUpdateData(value!),
-                                                        ),
-                                                        MyText(
-                                                          title: SurAddPatientData().oesophagusGradeType[index],
-                                                          size: 12,
-                                                          color: MyColors.black,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ],
                                       ),
                                     ),
-                                  ],
-                                );
-                              },
-                            ),
+                                  );
+
+                                  return Wrap(
+                                    spacing: 10,
+                                    direction: Axis.horizontal,
+                                    children: List.generate(
+                                      SurAddPatientData().oesophagusGradeType.length,
+                                      (index) => Padding(
+                                        padding: const EdgeInsets.only(right: 50),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Radio(
+                                              value: SurAddPatientData().oesophagusGradeType[index],
+                                              groupValue: state.data,
+                                              onChanged: (value) =>
+                                                  SurAddPatientData().oesophagusGradeTypeCubit.onUpdateData(value!),
+                                            ),
+                                            MyText(
+                                              title: SurAddPatientData().oesophagusGradeType[index],
+                                              size: 12,
+                                              color: MyColors.black,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            // MyText(
+                            //   title: "Oesophagitis Grade",
+                            //   size: 12,
+                            //   fontWeight: FontWeight.bold,
+                            //   color: MyColors.black,
+                            // ),
+                            // BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                            //   bloc: SurAddPatientData().oesophagusGradeCubit,
+                            //   builder: (context, state) {
+                            //     return Column(
+                            //       crossAxisAlignment: CrossAxisAlignment.start,
+                            //       children: [
+                            //         Row(
+                            //           children: [
+                            //             Radio(
+                            //                 value: true,
+                            //                 groupValue: state.data,
+                            //                 onChanged: (value) =>
+                            //                     SurAddPatientData().oesophagusGradeCubit.onUpdateData(value!)),
+                            //             MyText(
+                            //               title: "Yes",
+                            //               size: 12,
+                            //               color: MyColors.black,
+                            //             ),
+                            //             const SizedBox(width: 40),
+                            //             Radio(
+                            //                 value: false,
+                            //                 groupValue: state.data,
+                            //                 onChanged: (value) =>
+                            //                     SurAddPatientData().oesophagusGradeCubit.onUpdateData(value!)),
+                            //             MyText(
+                            //               title: "No",
+                            //               size: 12,
+                            //               color: MyColors.black,
+                            //             ),
+                            //           ],
+                            //         ),
+                            //         Offstage(
+                            //           offstage: !state.data,
+                            //           child: Column(
+                            //             crossAxisAlignment: CrossAxisAlignment.start,
+                            //             children: [
+                            //               MyText(
+                            //                 title: "Oesophagitis Grade Type",
+                            //                 size: 12,
+                            //                 fontWeight: FontWeight.bold,
+                            //                 color: MyColors.black,
+                            //               ),
+                            //               BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                            //                 bloc: SurAddPatientData().oesophagusGradeTypeCubit,
+                            //                 builder: (context, state) {
+                            //                   return Wrap(
+                            //                     alignment: WrapAlignment.spaceBetween,
+                            //                     direction: Axis.horizontal,
+                            //                     children: List.generate(
+                            //                       SurAddPatientData().oesophagusGradeType.length,
+                            //                       (index) => Container(
+                            //                         width: MediaQuery.of(context).size.width / 2.6,
+                            //                         child: Row(
+                            //                           mainAxisAlignment: MainAxisAlignment.start,
+                            //                           mainAxisSize: MainAxisSize.min,
+                            //                           children: [
+                            //                             Radio(
+                            //                               value: SurAddPatientData().oesophagusGradeType[index],
+                            //                               groupValue: state.data,
+                            //                               onChanged: (value) => SurAddPatientData()
+                            //                                   .oesophagusGradeTypeCubit
+                            //                                   .onUpdateData(value!),
+                            //                             ),
+                            //                             Expanded(
+                            //                               child: MyText(
+                            //                                 title: SurAddPatientData().oesophagusGradeType[index],
+                            //                                 size: 12,
+                            //                                 color: MyColors.black,
+                            //                               ),
+                            //                             )
+                            //                           ],
+                            //                         ),
+                            //                       ),
+                            //                     ),
+                            //                   );
+                            //
+                            //                   return Wrap(
+                            //                     spacing: 10,
+                            //                     direction: Axis.horizontal,
+                            //                     children: List.generate(
+                            //                       SurAddPatientData().oesophagusGradeType.length,
+                            //                       (index) => Padding(
+                            //                         padding: const EdgeInsets.only(right: 50),
+                            //                         child: Row(
+                            //                           mainAxisAlignment: MainAxisAlignment.start,
+                            //                           mainAxisSize: MainAxisSize.min,
+                            //                           children: [
+                            //                             Radio(
+                            //                               value: SurAddPatientData().oesophagusGradeType[index],
+                            //                               groupValue: state.data,
+                            //                               onChanged: (value) => SurAddPatientData()
+                            //                                   .oesophagusGradeTypeCubit
+                            //                                   .onUpdateData(value!),
+                            //                             ),
+                            //                             MyText(
+                            //                               title: SurAddPatientData().oesophagusGradeType[index],
+                            //                               size: 12,
+                            //                               color: MyColors.black,
+                            //                             )
+                            //                           ],
+                            //                         ),
+                            //                       ),
+                            //                     ),
+                            //                   );
+                            //                 },
+                            //               ),
+                            //             ],
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     );
+                            //   },
+                            // ),
                             MyText(
                               title: "Barret’s Oesophagus",
                               size: 12,

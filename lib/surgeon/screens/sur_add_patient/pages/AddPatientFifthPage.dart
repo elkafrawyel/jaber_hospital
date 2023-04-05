@@ -16,7 +16,7 @@ class AddPatientFifthPage extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         MyText(
-          title: "Previous bariatric revisional procedures:",
+          title: "Previous bariatric procedures:",
           size: 12,
           fontWeight: FontWeight.bold,
           color: MyColors.black,

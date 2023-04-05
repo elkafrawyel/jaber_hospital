@@ -276,7 +276,7 @@ class SurAddPatientData {
   }
 
   Widget buildAddPatientPage(int index) {
-    // index = 6;
+    index = 1;
     switch (index) {
       case 0:
         return AddPatientFirstPage();
@@ -346,7 +346,7 @@ class SurAddPatientData {
         password: '${patientNameEn.text}@${patientMobile1.text}',
         telephone1: patientMobile1.text,
         telephone2: patientMobile2.text,
-        civilId: patientId.text,
+        // civilId: patientId.text,
         gender: patientGenderCubit.state.data,
         publicId: "137g352fs",
         fileId: patientFileNumber.text,
@@ -441,7 +441,8 @@ class SurAddPatientData {
       medicationTypeSaxenda: medicationTypeCubit.state.data.contains("Saxenda"),
       medicationTypeTrulicity: medicationTypeCubit.state.data.contains("Trulicity"),
       medicationTypeVictoza: medicationTypeCubit.state.data.contains("Victoza"),
-      medicationTypeWegovo: medicationTypeCubit.state.data.contains("Wegovo"),
+      medicationTypeWegovo: medicationTypeCubit.state.data.contains("Wegovy"),
+      medicationTypeMounjaro: medicationTypeCubit.state.data.contains("Mounjaro"),
     );
     bool result = await SurgeonRepository(context).addPatientFourth(model);
     if (result) {
@@ -536,7 +537,7 @@ class SurAddPatientData {
 
     AddPatientSeventhDto model = AddPatientSeventhDto(
       egd: EGDCubit.state.data,
-      egdResults: EGDResultController.text,
+      // egdResults: EGDResultController.text,
       egdOesophagusNormal: NormalOesophagusCubit.state.data,
       egdOesophagusOesophagitis: oesophagusCubit.state.data,
       egdOesophagusGrade: oesophagusGradeCubit.state.data,
