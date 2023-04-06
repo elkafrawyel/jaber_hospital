@@ -6,6 +6,7 @@ import '../../../../general/utilities/tf_custom_widgets/utils/WidgetUtils.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../res/res.dart';
+import '../../../models/appointment_model.dart';
 
 part 'BuildSurFollowUpItem.dart';
 part 'BuildSurFollowUpsTabBar.dart';

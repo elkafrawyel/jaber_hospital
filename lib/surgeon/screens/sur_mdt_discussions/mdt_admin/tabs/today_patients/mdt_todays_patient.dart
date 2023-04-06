@@ -14,7 +14,6 @@ import '../../../widgets/SurMdtDiscussionsWImports.dart';
 import 'mdt_todays_patients_data.dart';
 import 'widgets/admin_patient_widget.dart';
 
-
 class MdtTodaysPatients extends StatefulWidget {
   const MdtTodaysPatients({Key? key}) : super(key: key);
 
@@ -22,7 +21,8 @@ class MdtTodaysPatients extends StatefulWidget {
   State<MdtTodaysPatients> createState() => _MDTAdminState();
 }
 
-class _MDTAdminState extends State<MdtTodaysPatients> with SingleTickerProviderStateMixin{
+class _MDTAdminState extends State<MdtTodaysPatients>
+    with SingleTickerProviderStateMixin {
   MdtTodaysPatientsData mdtAdminData = MdtTodaysPatientsData();
   SurMdtDiscussionsData surMdtDiscussionsData = SurMdtDiscussionsData();
 
@@ -36,29 +36,41 @@ class _MDTAdminState extends State<MdtTodaysPatients> with SingleTickerProviderS
 
   @override
   Widget build(BuildContext context) {
-    return GeneralScaffold(
-      back: true, title: "MDT (Admin)",
+    return Scaffold(
       body: BlocBuilder<GenericBloc<List<MdtPatientModel>?>,
           GenericState<List<MdtPatientModel>?>>(
         bloc: mdtAdminData.mdtAdminCubit,
         builder: (context, state) {
           if (state is GenericUpdateState) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                  child: MyText(
-                    title: '${state.data?.length} Patients',
-                    size: 13,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Expanded(child: ListView.builder(
-                  itemCount: state.data?.length,
-                  itemBuilder: (context, index) => AdminPatientWidget(patientModel: state.data![index],index: index),),),
-              ],
-            );
+            return state.data!.isNotEmpty
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: MyText(
+                          title: '${state.data?.length} Patients',
+                          size: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: state.data?.length,
+                          itemBuilder: (context, index) => AdminPatientWidget(
+                              patientModel: state.data![index], index: index),
+                        ),
+                      ),
+                    ],
+                  )
+                : Center(
+                    child: MyText(
+                      title: 'No patients founded',
+                      size: 12,
+                      color: MyColors.grey,
+                    ),
+                  );
           } else {
             return LoadingWidget();
           }
@@ -67,7 +79,7 @@ class _MDTAdminState extends State<MdtTodaysPatients> with SingleTickerProviderS
     );
   }
 
-  DateTime nextDay(DateTime date){
+  DateTime nextDay(DateTime date) {
     print("date==> $date");
     date.add(Duration(days: 7));
     print("next==> ${date.add(Duration(days: 7))}");

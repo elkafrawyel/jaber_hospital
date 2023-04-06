@@ -18,7 +18,7 @@ class _MdtAdminState extends State<MdtAdmin> with SingleTickerProviderStateMixin
   @override
   void initState() {
     // TODO: implement initState
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
   @override
