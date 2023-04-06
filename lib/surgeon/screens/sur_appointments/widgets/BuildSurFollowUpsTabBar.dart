@@ -24,10 +24,10 @@ class BuildSurFollowUpsTabBar extends StatelessWidget {
           unselectedLabelColor: MyColors.grey,
           tabs: [
             Tab(
-              child: Text("Upcoming Follow-ups"),
+              child: Text("Upcoming"),
             ),
             Tab(
-              child: Text("Past Follow-ups"),
+              child: Text("Past"),
             ),
           ]),
     );

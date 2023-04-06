@@ -12,12 +12,12 @@ class AllReadyPatientsData{
   static final AllReadyPatientsData _instance = AllReadyPatientsData._();
   factory AllReadyPatientsData() => _instance;
 
-  late GenericBloc<List<MdtPatientModel>?> mdtAdminCubit;
+  late GenericBloc<List<MdtPatientModel>?> readyMdtCubit;
   late GenericBloc<bool> loadingHome;
   List<MdtPatientModel>? readyPatients = [];
 
   void init(BuildContext context) {
-    this.mdtAdminCubit = GenericBloc<List<MdtPatientModel>?>(null);
+    this.readyMdtCubit = GenericBloc<List<MdtPatientModel>?>(null);
     fetchMdtReadyPatients(context);
   }
 
@@ -25,6 +25,6 @@ class AllReadyPatientsData{
     MdtPatientsResponse? result = await SurgeonRepository(context).requestMdtAdminPatients();
     log("AdminPatients=> ${result?.patients?.length}");
     readyPatients = result?.patients??[];
-    mdtAdminCubit.onUpdateData(readyPatients);
+    readyMdtCubit.onUpdateData(readyPatients);
   }
 }

@@ -226,8 +226,7 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
                     title: "Confirm Request",
                     margin:
                         const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-                    onTap: () =>
-                        SurOrderMedicationsData().onAddMedication(context),
+                    onTap: () => SurOrderMedicationsData().onAddMedication(context),
                   )
                 ],
               ),

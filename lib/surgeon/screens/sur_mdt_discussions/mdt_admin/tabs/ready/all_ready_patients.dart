@@ -23,7 +23,7 @@ class _AllReadyPatientsState extends State<AllReadyPatients> {
   @override
   void initState() {
     // TODO: implement initState
-    allReadyPatientsData.fetchMdtReadyPatients(context);
+    allReadyPatientsData.init(context);
     super.initState();
   }
 
@@ -32,10 +32,10 @@ class _AllReadyPatientsState extends State<AllReadyPatients> {
     return Scaffold(
       body: BlocBuilder<GenericBloc<List<MdtPatientModel>?>,
           GenericState<List<MdtPatientModel>?>>(
-        bloc: allReadyPatientsData.mdtAdminCubit,
+        bloc: allReadyPatientsData.readyMdtCubit,
         builder: (context, state) {
           if (state is GenericUpdateState) {
-            return Column(
+            return state.data!.isNotEmpty?Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
@@ -50,6 +50,12 @@ class _AllReadyPatientsState extends State<AllReadyPatients> {
                   itemCount: state.data?.length,
                   itemBuilder: (context, index) => PatientReadyWidget(patientModel: state.data![index],),),),
               ],
+            ): Center(
+              child: MyText(
+                title: 'No patients founded',
+                size: 12,
+                color: MyColors.grey,
+              ),
             );
           } else {
             return LoadingWidget();

@@ -82,6 +82,9 @@ class SurgeonRepository {
   Future<UpdateConsentResponse?> rescheduleMdtPatientStatus(String patientId) =>
       _surgeonHttpMethods.rescheduleMdtPatientStatus(patientId);
 
+  Future<AppointmentsResponse?> fetchSurAppointments(bool isUpcoming) =>
+      _surgeonHttpMethods.fetchSurAppointments(isUpcoming);
+
   Future<bool> downloadPatientInfo(String patientId) => _surgeonHttpMethods.downloadPatientInfo(patientId);
 
   Future<bool> addPatientSeventh(AddPatientSeventhDto model) => _surgeonHttpMethods.addPatientSeventh(model);
@@ -89,6 +92,7 @@ class SurgeonRepository {
   Future<bool> uploadFluoroscopyResult(File file) => _surgeonHttpMethods.uploadFluoroscopyResult(file);
 
   Future<bool> uploadEgd(File file) => _surgeonHttpMethods.uploadEgd(file);
+
   /// request instruments
   Future<CompaniesResponse?> fetchCompanies() => _surgeonHttpMethods.getCompanies();
   Future<CompanyInstrumentsResponse?> fetchCompanyInstruments(String companyId) => _surgeonHttpMethods.fetchCompanyInstruments(companyId);

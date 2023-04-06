@@ -4,6 +4,7 @@ import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/gene
 import 'package:flutter/material.dart';
 
 import '../../../models/companies_response.dart';
+import '../../../models/company_instruments_response.dart';
 import '../../../models/medication_model.dart';
 import '../../../resources/SurgeonRepoImports.dart';
 
@@ -14,7 +15,7 @@ class RequestInstrumentsData{
   factory RequestInstrumentsData() => _instance;
 
   late GenericBloc<List<CompanyId>?> companiesCubit;
-  late GenericBloc<CompaniesResponse?> companyInstrumentsCubit;
+  late GenericBloc<CompanyInstrumentsResponse?> companyInstrumentsCubit;
   List<CompanyId> companies = [];
   late TextEditingController nameController;
   late TextEditingController mobileController;
@@ -23,7 +24,7 @@ class RequestInstrumentsData{
 
   void init(BuildContext context) {
     this.companiesCubit = GenericBloc<List<CompanyId>?>([]);
-    this.companyInstrumentsCubit = GenericBloc<CompaniesResponse?>(null);
+    this.companyInstrumentsCubit = GenericBloc<CompanyInstrumentsResponse?>(null);
     fetchCompanies(context);
   }
 
@@ -36,7 +37,7 @@ class RequestInstrumentsData{
   }
 
   Future<void> fetchCompanyInstruments(BuildContext context, String companyId) async {
-    CompaniesResponse? result = await SurgeonRepository(context).fetchCompanyInstruments(companyId);
+    CompanyInstrumentsResponse? result = await SurgeonRepository(context).fetchCompanyInstruments(companyId);
     log("companies=> ${companies.length}");
     companyInstrumentsCubit.onUpdateData(result);
   }

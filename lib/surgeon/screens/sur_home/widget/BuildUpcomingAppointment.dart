@@ -18,8 +18,7 @@ class BuildUpcomingAppointment extends StatelessWidget {
                 size: 12,
                 fontWeight: FontWeight.bold),
             InkWell(
-              onTap: ()=> log("handle seeAll click..."),
-              // onTap: ()=> Nav.navigateTo(CompOrdersScreen(initialIndex: 0), navigatorType: NavigatorType.push),
+              onTap: ()=> Nav.navigateTo(SurAppointments(), navigatorType: NavigatorType.push),
               child: MyText(
                 title: 'See All',
                 size: 10,

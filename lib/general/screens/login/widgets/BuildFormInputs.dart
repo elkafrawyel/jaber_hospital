@@ -23,7 +23,7 @@ class BuildFormInputs extends StatelessWidget {
                   fieldTypes: FieldTypes.normal,
                   fillColor: dark ? Colors.transparent : MyColors.textFields,
                   hint:
-                      state.data==1 ? "Enter Your CivilId" : "Enter Your Email",
+                      state.data==1 ? "Enter Your fileNo" : "Enter Your Email",
                   controller:
                       state.data==1 ? loginData.civilId : loginData.email,
                   margin: const EdgeInsets.symmetric(vertical: 10),
@@ -31,7 +31,7 @@ class BuildFormInputs extends StatelessWidget {
                   type: TextInputType.text,
                   validate: (value) {
                     if (state.data==1) {
-                      return value!.isEmpty ? "Civil id required" : null;
+                      return value!.isEmpty ? "File no required" : null;
                     } else {
                       return value!.validateEmail(context);
                     }

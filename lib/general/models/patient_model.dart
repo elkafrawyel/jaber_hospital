@@ -1,29 +1,41 @@
 class PatientId {
   String? sId;
-  String? fullNameAr;
-  String? fullNameEn;
+  String? image;
+  String? fileId;
+  String? firstNameEn;
+  String? firstNameAr;
+  String? lastNameAr;
+  String? lastNameEn;
+  String? mobile;
   String? gender;
-  String? civilId;
   int? age;
   int? weight;
   int? height;
 
   PatientId(
       {this.sId,
-        this.fullNameAr,
-        this.fullNameEn,
+        this.image,
+        this.fileId,
         this.gender,
-        this.civilId,
+        this.mobile,
+        this.firstNameEn,
+        this.firstNameAr,
+        this.lastNameAr,
+        this.lastNameEn,
         this.age,
         this.weight,
         this.height});
 
   PatientId.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    fullNameAr = json['full_name_ar'];
-    fullNameEn = json['full_name_en'];
+    image = json['image'];
+    fileId = json['file_id'];
+    firstNameEn = json['first_name_en'];
+    firstNameAr = json['first_name_ar'];
+    lastNameAr = json['last_name_ar'];
+    lastNameEn = json['last_name_en'];
     gender = json['gender'];
-    civilId = json['civil_id'];
+    mobile = json['mobile'];
     age = json['age'];
     weight = json['weight'];
     height = json['height'];
@@ -32,10 +44,14 @@ class PatientId {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
-    data['full_name_ar'] = this.fullNameAr;
-    data['full_name_en'] = this.fullNameEn;
+    data['image'] = this.image;
+    data['file_id'] = this.fileId;
+    data['first_name_en'] = this.firstNameEn;
+    data['first_name_ar'] = this.firstNameAr;
+    data['last_name_ar'] = this.lastNameAr;
+    data['last_name_en'] = this.lastNameEn;
     data['gender'] = this.gender;
-    data['civil_id'] = this.civilId;
+    data['mobile'] = this.mobile;
     data['age'] = this.age;
     data['weight'] = this.weight;
     data['height'] = this.height;

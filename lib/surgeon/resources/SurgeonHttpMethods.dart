@@ -383,6 +383,7 @@ class SurgeonHttpMethods {
     return data;
   }
 
+
   Future<MdtPatientsResponse?> fetchMdtAdminPatients() async {
     MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
       name: ApiNames.mdtAdminPatientsPath,
@@ -401,6 +402,17 @@ class SurgeonHttpMethods {
       methodType: MethodType.Get,
       returnDataFun: (data) => data,
       toJsonFunc: (json) => MdtPatientsResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<AppointmentsResponse?> fetchSurAppointments(bool isUpcoming) async {
+    AppointmentsResponse data = await GenericHttp<AppointmentsResponse>(context).callApi(
+      name: isUpcoming?ApiNames.surFutureAppointmentsPath:ApiNames.surPastAppointmentsPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => AppointmentsResponse.fromJson(json),
     );
     return data;
   }

@@ -3,7 +3,9 @@ part of 'SurFollowUpsTabBarWImports.dart';
 class BuildSurFollowUpItem extends StatelessWidget {
   const BuildSurFollowUpItem({
     Key? key,
+    required this.appointmentModel
   }) : super(key: key);
+  final AppointmentModel appointmentModel;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class BuildSurFollowUpItem extends StatelessWidget {
             child: Row(
               children: [
                 CachedImage(
-                  url: 'https://picsum.photos/130',
+                  url: appointmentModel.patientId?.image??'https://picsum.photos/130',
                   height: 65,
                   width: 55,
                   borderRadius: BorderRadius.circular(10),
@@ -31,14 +33,30 @@ class BuildSurFollowUpItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MyText(
-                        title: 'Ahmed Ali',
-                        size: 12,
-                        fontWeight: FontWeight.bold,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          MyText(
+                            title: appointmentModel.patientId?.firstNameEn??"",
+                            size: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          MyText(
+                            title: appointmentModel.patientId?.lastNameEn??"",
+                            size: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 5),
                       MyText(
-                        title: 'Follow up session',
+                        title: appointmentModel.clinicNameEn??"",
+                        size: 11,
+                        color: MyColors.primary,
+                      ),
+                      MyText(
+                        title: appointmentModel.comments??"",
                         size: 11,
                         color: MyColors.grey,
                       ),
@@ -55,7 +73,7 @@ class BuildSurFollowUpItem extends StatelessWidget {
                               ),
                               const SizedBox(width: 5),
                               MyText(
-                                title: '14 AUG 2022',
+                                title: appointmentModel.appointmentDate??"",
                                 size: 9,
                                 color: MyColors.primary,
                                 fontWeight: FontWeight.bold,

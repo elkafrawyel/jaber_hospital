@@ -30,7 +30,7 @@ class GeneralHttpMethods {
   Future<bool> patientLogin(String civilId, String pass,String role) async {
     String? _deviceId = await messaging.getToken();
     Map<String, dynamic> body = {
-      "civil_id": "$civilId",
+      "file_id": "$civilId",
       "role": "$role",
       "password": "$pass",
     };

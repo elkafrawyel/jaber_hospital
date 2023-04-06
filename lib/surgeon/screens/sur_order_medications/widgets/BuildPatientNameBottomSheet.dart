@@ -82,7 +82,7 @@ class _BuildPatientNameBottomSheetState
                         return Column(
                           children: [
                             RadioListTile(
-                              value: state.data[index].fullNameEn,
+                              value: '${state.data[index].firstNameEn} ${state.data[index].lastNameEn}',
                               groupValue:
                                   SurOrderMedicationsData().patientName.text,
                               onChanged: (value) {
@@ -93,7 +93,7 @@ class _BuildPatientNameBottomSheetState
                                     .onUpdateData(state.data);
                               },
                               title: MyText(
-                                title: state.data[index].fullNameEn ?? '',
+                                title: '${state.data[index].firstNameEn} ${state.data[index].lastNameEn}',
                                 size: 12,
                                 color: MyColors.black,
                               ),

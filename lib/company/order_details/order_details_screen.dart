@@ -50,7 +50,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 children: [
                   _buildRowItem(
                       title: "Patient Name",
-                      value: widget.orderModel.patientId?.fullNameEn ?? ""),
+                      value: "${widget.orderModel.patientId?.firstNameEn} ${widget.orderModel.patientId?.lastNameEn}"),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: Divider(
@@ -59,7 +59,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   ),
                   _buildRowItem(
                       title: "Patient Mobile",
-                      value: widget.orderModel.patientId?.fullNameEn ?? ""),
+                      value: widget.orderModel.patientId?.mobile?? ""),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: Divider(

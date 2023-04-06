@@ -119,7 +119,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                       if (user?.mdtAdmin ?? false)
                         ListTile(
                           title: Text("Admin"),
-                          onTap: () => Nav.navigateTo(MdtTodaysPatients(), navigatorType: NavigatorType.push),
+                          onTap: () => Nav.navigateTo(MdtAdmin(), navigatorType: NavigatorType.push),
                         ),
                       //more child menu
                     ],
@@ -204,10 +204,10 @@ class BuildSurHomeDrawer extends StatelessWidget {
                   ),
                   ListTile(
                     leading: Image.asset(Res.imagesAppointmentsdrawer, scale: 2.8),
-                    onTap: () => Nav.navigateTo(RequestInstrumentsScreen(), navigatorType: NavigatorType.push),
-                    // onTap: () => Nav.navigateTo(SurFollowUps(), navigatorType: NavigatorType.push),
+                    // onTap: () => Nav.navigateTo(RequestInstrumentsScreen(), navigatorType: NavigatorType.push),
+                    onTap: () => Nav.navigateTo(SurAppointments(), navigatorType: NavigatorType.push),
                     title: MyText(
-                      title: "Follow-ups",
+                      title: "Appointments",
                       size: 12,
                       color: MyColors.black,
                       fontWeight: FontWeight.bold,

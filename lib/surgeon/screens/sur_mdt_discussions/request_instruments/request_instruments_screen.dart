@@ -1,23 +1,19 @@
 import 'dart:developer';
 
 import 'package:base_flutter/surgeon/models/medication_model.dart';
-import 'package:base_flutter/surgeon/models/patient_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tf_validator/tf_validator.dart';
 
 import '../../../../general/constants/MyColors.dart';
-import '../../../../general/utilities/tf_custom_widgets/Inputs/DropdownTextField.dart';
 import '../../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/widgets/GenScaffold.dart';
 import '../../../../general/widgets/app_drop_menu.dart';
 import '../../../../general/widgets/loading_widget.dart';
+import '../../../models/company_instruments_response.dart';
 import 'request_instruments_data.dart';
-import 'widgets/access.dart';
-import 'widgets/energy_widget.dart';
-import 'widgets/vessel_sealing_widget.dart';
 
 class RequestInstrumentsScreen extends StatefulWidget {
   const RequestInstrumentsScreen({Key? key,}) : super(key: key);
@@ -111,7 +107,6 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                   size: 10,
                   fontWeight: FontWeight.bold,
                 ),
-
                 BlocBuilder<GenericBloc<List<CompanyId>?>,
                     GenericState<List<CompanyId>?>>(
                   bloc: requestInstrumentsData.companiesCubit,
@@ -128,6 +123,7 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                           log("val=> ${company.companyNameEn}");
                           requestInstrumentsData.selectedCompany = company;
                           setState(() {});
+                          requestInstrumentsData.fetchCompanyInstruments(context, company.sId??"");
                           // controller.changeSelectedInterest(category);
                         },
                       );
@@ -136,9 +132,21 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                     }
                   },
                 ),
-                VesselSealingWidget(),
-                AccessWidget(),
-                EnergyWidget(),
+                BlocBuilder<GenericBloc<CompanyInstrumentsResponse?>,
+                    GenericState<CompanyInstrumentsResponse?>>(
+                  bloc: requestInstrumentsData.companyInstrumentsCubit,
+                  builder: (context, state) {
+                    if (state is GenericUpdateState) {
+                      return Column(
+                        children: [
+
+                        ],
+                      );
+                    } else {
+                      return LoadingWidget();
+                    }
+                  },
+                ),
               ],
             ),
           )),

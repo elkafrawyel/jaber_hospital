@@ -699,13 +699,30 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         color: MyColors.black,
                         fontWeight: FontWeight.bold),
                   ),
-                DefaultButton(
-                    title: "Add Appointment",
-                    onTap: () {
-                      showDialog(
-                          context: context, builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
-                    },
-                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: DefaultButton(
+                          title: "Add Appointment",
+                          onTap: () {
+                            showDialog(
+                                context: context, builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
+                          },
+                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
+                    ),
+                    const SizedBox(width: 16.0),
+                    if(state.data!.appointments!.isNotEmpty&&state.data?.patient?.operationStatus=="Post-op")...[
+                      Expanded(
+                        child: DefaultButton(
+                            title: "Order Medications",
+                            onTap: ()=> Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
+                            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
+                      ),
+                    ],
+                  ],
+                ),
+
               ],
             );
           } else {
