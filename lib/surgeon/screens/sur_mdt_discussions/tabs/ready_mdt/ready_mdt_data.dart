@@ -27,7 +27,7 @@ class ReadyMdtData{
   }
 
   Future<void> fetchReadyPatients(BuildContext context, String mdtStatus) async {
-    MdtPatientsResponse? result = await SurgeonRepository(context).requestMdtReadyPatients(mdtStatus);
+    MdtPatientsResponse? result = await SurgeonRepository(context).requestMdtPatientsByStatus(mdtStatus);
     log("patients=> ${result?.patients?.length}");
     readyPatients = result?.patients??[];
     readyCubit.onUpdateData(readyPatients);

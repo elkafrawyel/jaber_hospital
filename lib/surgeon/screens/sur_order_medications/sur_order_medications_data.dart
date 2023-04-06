@@ -153,24 +153,23 @@ class SurOrderMedicationsData {
       List<Map<String, dynamic>> medication =[];
       for (int i = 0; i < selectedMedicationCubit.state.data.length; i++) {
         medication.addAll([{
-          "\"id\"": "\"${selectedMedicationCubit.state.data[i].sId ?? ""}\"",
-          "\"quantity\"" : selectedMedicationCubit.state.data[i].quantity ?? 0,
+          "id": "${selectedMedicationCubit.state.data[i].sId ?? ""}",
+          "quantity" : selectedMedicationCubit.state.data[i].quantity ?? 0,
 
         }]);
       }
       Map<String, dynamic> body = {
-        "\"doctor_id\"": "\"${context.read<UserCubit>().state.model.userData?[0].sId}\"",
-        "\"company_id\"": "\"${selectedMedicationCubit.state.data[0].companyId?.sId}\"",
-        "patient_id": "\"${selectedPatientModel?.sId}\"",
-        "mobile_number": "\"${Utils.convertDigitsToLatin(PatientMobileNumber.text)}\"",
-        "medications": medication.toString(),
-        "order_start_date" : "\"${dateBloc.state.data}\"",
-        "order_status":"\"routed to company\"",
+        "doctor_id": "${context.read<UserCubit>().state.model.userData?[0].sId}",
+        "company_id": "${selectedMedicationCubit.state.data[0].companyId?.sId}",
+        "patient_id": "${selectedPatientModel?.sId}",
+        "mobile_number": "${Utils.convertDigitsToLatin(PatientMobileNumber.text)}",
+        "medications": medication,
+        "order_start_date" : "${dateBloc.state.data}",
+        "order_status":"routed to company",
         "status": true,
-
       };
-      var result =
-          await SurgeonRepository(context).requestMedicationOrder(body);
+      log("medicationOrderBody=> ${jsonEncode(body)}");
+      var result = await SurgeonRepository(context).requestMedicationOrder(body);
     }
   }
 

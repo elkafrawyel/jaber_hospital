@@ -23,7 +23,7 @@ class BookedMdtData{
   }
 
   Future<void> fetchBookedPatients(BuildContext context, String mdtStatus) async {
-    MdtPatientsResponse? result = await SurgeonRepository(context).requestMdtReadyPatients(mdtStatus);
+    MdtPatientsResponse? result = await SurgeonRepository(context).requestMdtPatientsByStatus(mdtStatus);
     log("patients=> ${result?.patients?.length}");
     bookedPatients = result?.patients??[];
     bookedCubit.onUpdateData(bookedPatients);

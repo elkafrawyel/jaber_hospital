@@ -23,7 +23,6 @@ class _SurMedicationOrderState extends State<SurMedicationOrder>
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BuildOrderMedicationTabBar(),
             Expanded(
               child: BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
                 bloc: SurMedicationsOrderData().loading,
@@ -35,11 +34,18 @@ class _SurMedicationOrderState extends State<SurMedicationOrder>
                       builder: (context, state) {
                         if (state is GenericUpdateState<
                             List<MedicationsOrdersModel>>) {
-                          return ListView.builder(
-                            itemBuilder: (context, index) {
-                              return BuildMedicationItem(index: index);
-                            },
-                            itemCount: state.data.length,
+                          return Column(
+                            children: [
+                              BuildOrderMedicationTabBar(),
+                              Expanded(
+                                child: ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    return BuildMedicationItem(index: index);
+                                  },
+                                  itemCount: state.data.length,
+                                ),
+                              )
+                            ],
                           );
                         }
                         return Center(child: LoadingDialog.showLoadingView());

@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../general/constants/MyColors.dart';
+import '../../../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
+import '../../../../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
+import '../../../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../../../../general/widgets/loading_widget.dart';
+import '../../../../../models/mdt_patient_model.dart';
+import 'all_ready_patients_data.dart';
+import 'widgets/patient_ready_item.dart';
+
+class AllReadyPatients extends StatefulWidget {
+  const AllReadyPatients({Key? key}) : super(key: key);
+
+  @override
+  State<AllReadyPatients> createState() => _AllReadyPatientsState();
+}
+
+class _AllReadyPatientsState extends State<AllReadyPatients> {
+  AllReadyPatientsData allReadyPatientsData = AllReadyPatientsData();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    allReadyPatientsData.fetchMdtReadyPatients(context);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocBuilder<GenericBloc<List<MdtPatientModel>?>,
+          GenericState<List<MdtPatientModel>?>>(
+        bloc: allReadyPatientsData.mdtAdminCubit,
+        builder: (context, state) {
+          if (state is GenericUpdateState) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                  child: MyText(
+                    title: '${state.data?.length} Patients',
+                    size: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Expanded(child: ListView.builder(
+                  itemCount: state.data?.length,
+                  itemBuilder: (context, index) => PatientReadyWidget(patientModel: state.data![index],),),),
+              ],
+            );
+          } else {
+            return LoadingWidget();
+          }
+        },
+      ),
+    );
+  }
+}

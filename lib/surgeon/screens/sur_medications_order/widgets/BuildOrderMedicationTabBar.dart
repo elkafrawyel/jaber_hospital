@@ -46,7 +46,7 @@ class BuildOrderMedicationTabBar extends StatelessWidget {
               padding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: MyText(
-                title: '4 ${SurMedicationsOrderData().orderNumType}',
+                title: '${SurMedicationsOrderData().medicationsOrdersCubit.state.data.length} ${SurMedicationsOrderData().orderNumType}',
                 size: 13,
                 fontWeight: FontWeight.bold,
               ),

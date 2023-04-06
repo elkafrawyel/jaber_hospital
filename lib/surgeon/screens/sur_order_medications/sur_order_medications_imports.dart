@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:base_flutter/general/utilities/http/dio/dio_helper.dart';

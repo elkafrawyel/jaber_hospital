@@ -27,7 +27,7 @@ import '../../sur_account_settings/SurAccountSettingWImports.dart';
 import '../../sur_follow_ups/SurFollowUpsImports.dart';
 import '../../sur_home_patient/SurHomePatientImports.dart';
 import '../../sur_mdt_discussions/SurMdtDiscussionsImports.dart';
-import '../../sur_mdt_discussions/mdt_admin/mdt_admin_screen.dart';
+import '../../sur_mdt_discussions/mdt_admin/tabs/today_patients/mdt_todays_patient.dart';
 import '../../sur_mdt_discussions/request_instruments/request_instruments_screen.dart';
 import '../../sur_notifications/SurNotificationsImports.dart';
 import '../../sur_oprations/SurOperationsImports.dart';

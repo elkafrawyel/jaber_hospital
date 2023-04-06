@@ -62,11 +62,13 @@ class BuildMedicationItem extends StatelessWidget {
                                 Image.asset(Res.imagesCalendar,
                                     scale: 3, color: MyColors.primary),
                                 const SizedBox(width: 5),
-                                MyText(
-                                  title: model.orderStartDate??'' ,
-                                  size: 10,
-                                  color: MyColors.primary,
-                                  fontWeight: FontWeight.bold,
+                                Expanded(
+                                  child: MyText(
+                                    title: model.orderStartDate??'' ,
+                                    size: 10,
+                                    color: MyColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             ),

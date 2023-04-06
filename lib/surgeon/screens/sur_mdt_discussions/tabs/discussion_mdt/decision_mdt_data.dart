@@ -20,7 +20,7 @@ class DecisionMdtData{
   }
 
   Future<void> fetchDecisionPatients(BuildContext context, String mdtStatus) async {
-    MdtPatientsResponse? result = await SurgeonRepository(context).requestMdtReadyPatients(mdtStatus);
+    MdtPatientsResponse? result = await SurgeonRepository(context).requestMdtPatientsByStatus(mdtStatus);
     log("decisionPatients=> ${result?.patients?.length}");
     decisionCubit.onUpdateData(result);
   }

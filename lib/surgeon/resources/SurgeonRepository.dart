@@ -72,12 +72,15 @@ class SurgeonRepository {
   Future<NotificationsResponse?> getSurgeonNotifications()=> _surgeonHttpMethods.fetchSurgeonNotifications();
 
   /// Mdt
-  Future<MdtPatientsResponse?> requestMdtReadyPatients(String mdtStatus) => _surgeonHttpMethods.fetchMdtReadyPatients(mdtStatus);
+  Future<MdtPatientsResponse?> requestMdtPatientsByStatus(String mdtStatus) => _surgeonHttpMethods.fetchMdtPatientsByStatus(mdtStatus);
   Future<MdtPatientsResponse?> requestMdtAdminPatients() => _surgeonHttpMethods.fetchMdtAdminPatients();
+  Future<MdtPatientsResponse?> requestMdtAllReadyPatients() => _surgeonHttpMethods.fetchMdtAllReadyPatients();
   Future<UpdateConsentResponse?> updateReadyMdtStatus(Map<String, dynamic> body) =>
       _surgeonHttpMethods.updateReadyMdtStatus(body);
   Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body, String patientId) => _surgeonHttpMethods.confirmMdtBooking(body, patientId);
   Future<UpdateConsentResponse?> mdtPatientResult(Map<String, dynamic> body) => _surgeonHttpMethods.sendMdtResult(body);
+  Future<UpdateConsentResponse?> rescheduleMdtPatientStatus(String patientId) =>
+      _surgeonHttpMethods.rescheduleMdtPatientStatus(patientId);
 
   Future<bool> downloadPatientInfo(String patientId) => _surgeonHttpMethods.downloadPatientInfo(patientId);
 
@@ -88,6 +91,6 @@ class SurgeonRepository {
   Future<bool> uploadEgd(File file) => _surgeonHttpMethods.uploadEgd(file);
   /// request instruments
   Future<CompaniesResponse?> fetchCompanies() => _surgeonHttpMethods.getCompanies();
-  Future<CompaniesResponse?> fetchCompanyInstruments(String companyId) => _surgeonHttpMethods.fetchCompanyInstruments(companyId);
+  Future<CompanyInstrumentsResponse?> fetchCompanyInstruments(String companyId) => _surgeonHttpMethods.fetchCompanyInstruments(companyId);
 
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:base_flutter/general/utilities/http/dio/dio_helper.dart';
 import 'package:base_flutter/general/utilities/http/dio/utils/DioUtils.dart';
 import 'package:flutter/material.dart';
@@ -94,6 +96,7 @@ class GenericHttp<T> {
     bool? showLoader,
     Function(dynamic data)? toJsonFunc,
   }) async {
+    log("DioHelper body=>$json");
     var data = await DioHelper(
       context: context,
     ).post(url: name, body: json, showLoader: showLoader ?? true,query: query);

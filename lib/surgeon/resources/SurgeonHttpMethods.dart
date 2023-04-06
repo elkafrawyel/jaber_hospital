@@ -372,7 +372,7 @@ class SurgeonHttpMethods {
     return data;
   }
 
-  Future<MdtPatientsResponse?> fetchMdtReadyPatients(String status) async {
+  Future<MdtPatientsResponse?> fetchMdtPatientsByStatus(String status) async {
     MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
       name: "${ApiNames.mdtPatientsPath}?mdt_status=$status",
       returnType: ReturnType.Model,
@@ -386,6 +386,17 @@ class SurgeonHttpMethods {
   Future<MdtPatientsResponse?> fetchMdtAdminPatients() async {
     MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
       name: ApiNames.mdtAdminPatientsPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => MdtPatientsResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<MdtPatientsResponse?> fetchMdtAllReadyPatients() async {
+    MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
+      name: ApiNames.mdtReadyPatientsPath,
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,
@@ -425,6 +436,18 @@ class SurgeonHttpMethods {
       returnType: ReturnType.Model,
       methodType: MethodType.Put,
       jsonBody: body,
+      returnDataFun: (data) => data,
+      showLoader: true,
+      toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<UpdateConsentResponse?> rescheduleMdtPatientStatus(String patientId) async {
+    final data = await GenericHttp<UpdateConsentResponse>(context).callApi(
+      name: "${ApiNames.rescheduleMdtPatientPath}?patient_id=$patientId",
+      returnType: ReturnType.Model,
+      methodType: MethodType.Put,
       returnDataFun: (data) => data,
       showLoader: true,
       toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
@@ -552,7 +575,7 @@ class SurgeonHttpMethods {
     return data;
   }
 
-  Future<CompaniesResponse> fetchCompanyInstruments(String companyId) async {
+  Future<CompanyInstrumentsResponse> fetchCompanyInstruments(String companyId) async {
     Map<String, dynamic> query = {
       "company_id": companyId,
     };
@@ -561,7 +584,7 @@ class SurgeonHttpMethods {
       returnType: ReturnType.Model,
       query: query,
       methodType: MethodType.Get,
-      returnDataFun: (data) => data["data"],
+      returnDataFun: (data) => data,
       toJsonFunc: (json) => CompaniesResponse.fromJson(json),
     );
     return data;

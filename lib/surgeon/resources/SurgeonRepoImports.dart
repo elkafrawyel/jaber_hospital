@@ -21,6 +21,7 @@ import '../../general/models/notifications_response.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../patient/models/update_consent_response.dart';
 import '../models/companies_response.dart';
+import '../models/company_instruments_response.dart';
 import '../models/dto/add_patient_fourth_dto.dart';
 import '../models/dto/add_patient_second_dto.dart';
 import '../models/dto/add_patient_seventh_dto.dart';

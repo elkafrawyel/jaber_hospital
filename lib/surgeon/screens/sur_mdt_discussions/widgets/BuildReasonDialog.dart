@@ -84,7 +84,7 @@ class _BuildReasonDialogState extends State<BuildReasonDialog> {
           "patient_id": widget.patientId,
         };
         log("reasonBody=> $body");
-        MdtAdminData().sentMdtPatientRes(context, body, widget.index??0);
+        MdtTodaysPatientsData().sentMdtPatientRes(context, body, widget.index??0);
       },
     );
   }

@@ -119,7 +119,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                       if (user?.mdtAdmin ?? false)
                         ListTile(
                           title: Text("Admin"),
-                          onTap: () => Nav.navigateTo(MDTAdminScreen(), navigatorType: NavigatorType.push),
+                          onTap: () => Nav.navigateTo(MdtTodaysPatients(), navigatorType: NavigatorType.push),
                         ),
                       //more child menu
                     ],
