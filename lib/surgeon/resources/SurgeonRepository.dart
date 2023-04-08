@@ -80,6 +80,10 @@ class SurgeonRepository {
       _surgeonHttpMethods.updateReadyMdtStatus(body);
   Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body, String patientId) => _surgeonHttpMethods.confirmMdtBooking(body, patientId);
   Future<UpdateConsentResponse?> mdtPatientResult(Map<String, dynamic> body) => _surgeonHttpMethods.sendMdtResult(body);
+  Future<UpdateConsentResponse?> rescheduleMdtPatientStatus(String patientId) =>
+      _surgeonHttpMethods.rescheduleMdtPatientStatus(patientId);
+
+  Future<AppointmentsResponse?> fetchSurAppointments(bool isUpcoming) => _surgeonHttpMethods.fetchSurAppointments(isUpcoming);
 
   Future<bool> downloadPatientInfo(String patientId) => _surgeonHttpMethods.downloadPatientInfo(patientId);
 

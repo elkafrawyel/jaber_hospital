@@ -376,9 +376,20 @@ class SurgeonHttpMethods {
     return data;
   }
 
-  Future<MdtPatientsResponse?> fetchMdtReadyPatients(String status) async {
+  Future<MdtPatientsResponse?> fetchMdtPatientsByStatus(String status) async {
     MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
       name: "${ApiNames.mdtPatientsPath}?mdt_status=$status",
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => MdtPatientsResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<MdtPatientsResponse?> fetchMdtAllReadyPatients() async {
+    MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
+      name: ApiNames.mdtReadyPatientsPath,
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,
@@ -432,6 +443,29 @@ class SurgeonHttpMethods {
       returnDataFun: (data) => data,
       showLoader: true,
       toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<UpdateConsentResponse?> rescheduleMdtPatientStatus(String patientId) async {
+    final data = await GenericHttp<UpdateConsentResponse>(context).callApi(
+      name: "${ApiNames.rescheduleMdtPatientPath}?patient_id=$patientId",
+      returnType: ReturnType.Model,
+      methodType: MethodType.Put,
+      returnDataFun: (data) => data,
+      showLoader: true,
+      toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<AppointmentsResponse?> fetchSurAppointments(bool isUpcoming) async {
+    AppointmentsResponse data = await GenericHttp<AppointmentsResponse>(context).callApi(
+      name: isUpcoming?ApiNames.surFutureAppointmentsPath:ApiNames.surPastAppointmentsPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => AppointmentsResponse.fromJson(json),
     );
     return data;
   }

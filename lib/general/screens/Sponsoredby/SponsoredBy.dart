@@ -17,14 +17,13 @@ class _SponsoredByState extends State<SponsoredBy> {
     Res.imagesCentral,
   ];
 
-  static const int allValue = 3;
-  double curValue = 3;
+  static const int allValue = 1;
+  double curValue = 1;
   Timer? timer;
 
   void startTimer() {
-    timer = Timer.periodic(Duration(milliseconds: allValue), (timer) {
+    timer = Timer.periodic(Duration(seconds: allValue), (timer) {
       log("curValue==> $curValue}");
-      log("timer==> $timer}");
       if (curValue > 0) {
         setState(() {
           curValue--;
