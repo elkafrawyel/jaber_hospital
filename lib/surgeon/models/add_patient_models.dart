@@ -38,8 +38,9 @@ class AddPatientDTOInfo {
     "Victoza",
     "Saxenda",
     "Ozempic",
-    "Wegovo",
+    "Wegovy",
     "Trulicity",
+    "Mounjaro"
   ];
 
   /// screen 5

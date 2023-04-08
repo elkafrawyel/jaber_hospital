@@ -2,6 +2,7 @@ part of 'SurPatientWImports.dart';
 
 class BuildPrePostItem extends StatelessWidget {
   final int index;
+
   const BuildPrePostItem({
     Key? key,
     required this.index,
@@ -10,18 +11,20 @@ class BuildPrePostItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<PatientModel> list = SurPatientData().patientsCubit.state.data;
-    return InkWell(
-      onTap: () => Nav.navigateTo(
-          SurPatientDetails(patientId: list[index].sId ?? ''),
-          navigatorType: NavigatorType.push),
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-            color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
-        child: Column(
-          children: [
-            Padding(
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
+      child: Column(
+        children: [
+          InkWell(
+            onTap: () {
+              Nav.navigateTo(
+                SurPatientDetails(patientId: list[index].sId ?? ''),
+                navigatorType: NavigatorType.push,
+              );
+            },
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
@@ -51,8 +54,7 @@ class BuildPrePostItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].surgeonId?.fullNameEn ??
-                                  'Samer Hany',
+                              title: list[index].surgeonId?.fullNameEn ?? 'Samer Hany',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -67,8 +69,7 @@ class BuildPrePostItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].dietationId?.fullNameEn ??
-                                  'Ahmed Jamil',
+                              title: list[index].dietationId?.fullNameEn ?? 'Ahmed Jamil',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -80,50 +81,48 @@ class BuildPrePostItem extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(color: MyColors.grey),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      MyText(
-                        title: 'Operation Type : ',
-                        size: 11,
-                        color: MyColors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      MyText(
-                        title:
-                            list[index].operationType ?? 'Laparoscopic RYGBP',
-                        size: 11,
-                        color: MyColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      MyText(
-                        title: 'Operation Done On : ',
-                        size: 11,
-                        color: MyColors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      MyText(
-                        title: list[index].operationDate?.split("T").first ??
-                            '16 August 2022',
-                        size: 11,
-                        color: MyColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+          ),
+          Divider(color: MyColors.grey),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    MyText(
+                      title: 'Operation Type : ',
+                      size: 11,
+                      color: MyColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: list[index].operationType ?? 'Laparoscopic RYGBP',
+                      size: 11,
+                      color: MyColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    MyText(
+                      title: 'Operation Done On : ',
+                      size: 11,
+                      color: MyColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: list[index].operationDate?.split("T").first ?? '16 August 2022',
+                      size: 11,
+                      color: MyColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -16,7 +16,7 @@ class AddPatientFifthPage extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         MyText(
-          title: "Previous bariatric revisional procedures:",
+          title: "Previous bariatric procedures:",
           size: 12,
           fontWeight: FontWeight.bold,
           color: MyColors.black,
@@ -65,16 +65,34 @@ class AddPatientFifthPage extends StatelessWidget {
                         validate: (value) => value!.validateEmpty(context),
                       ),
                       MyText(title: "Outcome Date", size: 12, fontWeight: FontWeight.bold),
-                      GenericTextField(
-                        hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-                        fieldTypes: FieldTypes.normal,
-                        fillColor: MyColors.textFields,
-                        hint: "Outcome date",
-                        controller: SurAddPatientData().proceduresOutcomeDateCubit,
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        action: TextInputAction.next,
-                        type: TextInputType.text,
-                        validate: (value) => value!.validateEmpty(context),
+                      InkWell(
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          AdaptivePicker.datePicker(
+                            context: context,
+                            title: tr(context, "Date"),
+                            onConfirm: (date) {
+                              if (date != null) {
+                                String dateStr = DateFormat("dd-MM-yyyy").format(date);
+                                SurAddPatientData().proceduresOutcomeDateCubit.text = dateStr;
+                              }
+                            },
+                          );
+                        },
+                        child: IgnorePointer(
+                          child: GenericTextField(
+                            hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                            fieldTypes: FieldTypes.normal,
+                            fillColor: MyColors.textFields,
+                            hint: "Outcome date",
+                            controller: SurAddPatientData().proceduresOutcomeDateCubit,
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            action: TextInputAction.next,
+                            suffixIcon: Image.asset(Res.imagesCalendar, scale: 2.2, color: MyColors.primary),
+                            type: TextInputType.text,
+                            validate: (value) => value!.validateEmpty(context),
+                          ),
+                        ),
                       ),
                       MyText(title: "Surgery Type:", size: 12, fontWeight: FontWeight.bold),
                       BlocBuilder<GenericBloc<String>, GenericState<String>>(

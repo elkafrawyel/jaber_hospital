@@ -12,6 +12,7 @@ class AddPatientFourthDto {
   bool? medicationTypeOzempic;
   bool? medicationTypeWegovo;
   bool? medicationTypeTrulicity;
+  bool? medicationTypeMounjaro;
 
   AddPatientFourthDto({
     this.historyOfBallon,
@@ -26,6 +27,7 @@ class AddPatientFourthDto {
     this.medicationTypeSaxenda,
     this.medicationTypeOzempic,
     this.medicationTypeWegovo,
+    this.medicationTypeMounjaro,
     this.medicationTypeTrulicity,
   });
 
@@ -43,6 +45,7 @@ class AddPatientFourthDto {
     medicationTypeOzempic = json['medication_type_ozempic'];
     medicationTypeWegovo = json['medication_type_wegovo'];
     medicationTypeTrulicity = json['medication_type_trulicity'];
+    medicationTypeMounjaro = json['medication_type_mounjaro'];
   }
 
   Map<String, dynamic> toJson() {
@@ -60,6 +63,7 @@ class AddPatientFourthDto {
     data['medication_type_ozempic'] = this.medicationTypeOzempic;
     data['medication_type_wegovo'] = this.medicationTypeWegovo;
     data['medication_type_trulicity'] = this.medicationTypeTrulicity;
+    data['medication_type_mounjaroy'] = this.medicationTypeMounjaro;
     return data;
   }
 }

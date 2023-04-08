@@ -34,9 +34,7 @@ class AddPatientSecondPage extends StatelessWidget {
                       value: true,
                       groupValue: state.data,
                       onChanged: (value) {
-                        SurAddPatientData()
-                            .dmSelectCubit
-                            .onUpdateData(value!);
+                        SurAddPatientData().dmSelectCubit.onUpdateData(value!);
                       },
                     ),
                     MyText(
@@ -48,9 +46,7 @@ class AddPatientSecondPage extends StatelessWidget {
                     Radio(
                         value: false,
                         groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData()
-                            .dmSelectCubit
-                            .onUpdateData(value!)),
+                        onChanged: (value) => SurAddPatientData().dmSelectCubit.onUpdateData(value!)),
                     MyText(
                       title: "No",
                       size: 12,
@@ -77,9 +73,7 @@ class AddPatientSecondPage extends StatelessWidget {
                               Radio(
                                   value: 1,
                                   groupValue: state.data,
-                                  onChanged: (value) => SurAddPatientData()
-                                      .dmTypeSelectionCubit
-                                      .onUpdateData(value!)),
+                                  onChanged: (value) => SurAddPatientData().dmTypeSelectionCubit.onUpdateData(value!)),
                               MyText(
                                 title: "Type I",
                                 size: 12,
@@ -89,9 +83,7 @@ class AddPatientSecondPage extends StatelessWidget {
                               Radio(
                                   value: 2,
                                   groupValue: state.data,
-                                  onChanged: (value) => SurAddPatientData()
-                                      .dmTypeSelectionCubit
-                                      .onUpdateData(value!)),
+                                  onChanged: (value) => SurAddPatientData().dmTypeSelectionCubit.onUpdateData(value!)),
                               MyText(
                                 title: "Type II",
                                 size: 12,
@@ -126,11 +118,9 @@ class AddPatientSecondPage extends StatelessWidget {
                                 value: state.data.contains(list[index]),
                                 onChanged: (value) {
                                   if (value!) {
-                                    diaCubit.onUpdateData(
-                                        state.data..add(list[index]));
+                                    diaCubit.onUpdateData(state.data..add(list[index]));
                                   } else {
-                                    diaCubit.onUpdateData(
-                                        state.data..remove(list[index]));
+                                    diaCubit.onUpdateData(state.data..remove(list[index]));
                                   }
                                   log("${state.data}");
                                 },
@@ -140,6 +130,7 @@ class AddPatientSecondPage extends StatelessWidget {
                                 title: list[index],
                                 size: 12,
                                 color: MyColors.black,
+                                fontWeight: FontWeight.bold,
                               ),
                               const SizedBox(width: 40),
                             ],
@@ -156,40 +147,64 @@ class AddPatientSecondPage extends StatelessWidget {
           fontWeight: FontWeight.bold,
           color: MyColors.black,
         ),
-        BlocBuilder<GenericBloc<String>, GenericState<String>>(
-          bloc: SurAddPatientData().cardiacDiseaseCubit,
-          builder: (context, state) {
-            return Wrap(
-              spacing: 10,
-              direction: Axis.horizontal,
-              children: List.generate(
-                SurAddPatientData().cardiacDiseaseTypes.length,
-                (index) => Padding(
+        Wrap(
+          spacing: 10,
+          direction: Axis.horizontal,
+          children: [
+            BlocBuilder<GenericBloc<String>, GenericState<String>>(
+              bloc: SurAddPatientData().cardiacDiseaseIHDCubit,
+              builder: (context, state) {
+                return Padding(
                   padding: const EdgeInsets.only(right: 30),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Radio(
-                        value: SurAddPatientData().cardiacDiseaseTypes[index],
-                        groupValue: state.data,
-                        onChanged: (value) => SurAddPatientData()
-                            .cardiacDiseaseCubit
-                            .onUpdateData(value!),
+                      Checkbox(
+                        value: state.data == 'IHD',
+                        onChanged: (value) =>
+                            SurAddPatientData().cardiacDiseaseIHDCubit.onUpdateData(value! ? 'IHD' : ''),
                       ),
                       Flexible(
                         child: MyText(
-                          title: SurAddPatientData().cardiacDiseaseTypes[index],
+                          title: 'IHD',
                           size: 12,
                           color: MyColors.black,
                         ),
                       )
                     ],
                   ),
-                ),
-              ),
-            );
-          },
+                );
+              },
+            ),
+            BlocBuilder<GenericBloc<String>, GenericState<String>>(
+              bloc: SurAddPatientData().cardiacDiseaseHFCubit,
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Checkbox(
+                        value: state.data == 'HF',
+                        onChanged: (value) => SurAddPatientData().cardiacDiseaseHFCubit.onUpdateData(
+                              value! ? 'HF' : '',
+                            ),
+                      ),
+                      Flexible(
+                        child: MyText(
+                          title: 'HF',
+                          size: 12,
+                          color: MyColors.black,
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
         ),
         MyText(
           title: "Respiratory Disease:",
@@ -205,9 +220,7 @@ class AddPatientSecondPage extends StatelessWidget {
                 Radio(
                     value: true,
                     groupValue: state.data,
-                    onChanged: (value) => SurAddPatientData()
-                        .RespiratoryDiseaseSelectionCubit
-                        .onUpdateData(value!)),
+                    onChanged: (value) => SurAddPatientData().RespiratoryDiseaseSelectionCubit.onUpdateData(value!)),
                 MyText(
                   title: "Yes",
                   size: 12,
@@ -217,9 +230,7 @@ class AddPatientSecondPage extends StatelessWidget {
                 Radio(
                     value: false,
                     groupValue: state.data,
-                    onChanged: (value) => SurAddPatientData()
-                        .RespiratoryDiseaseSelectionCubit
-                        .onUpdateData(value!)),
+                    onChanged: (value) => SurAddPatientData().RespiratoryDiseaseSelectionCubit.onUpdateData(value!)),
                 MyText(
                   title: "No",
                   size: 12,
@@ -233,8 +244,7 @@ class AddPatientSecondPage extends StatelessWidget {
           bloc: SurAddPatientData().respiratoryDiseaseCubit,
           builder: (context, state) {
             var cardiacCubit = SurAddPatientData().respiratoryDiseaseCubit;
-            final List<String> list =
-                SurAddPatientData().respiratoryDiseaseTypes;
+            final List<String> list = SurAddPatientData().respiratoryDiseaseTypes;
             return Wrap(
               direction: Axis.horizontal,
               children: List.generate(
@@ -248,11 +258,9 @@ class AddPatientSecondPage extends StatelessWidget {
                                   value: state.data.contains(list[index]),
                                   onChanged: (value) {
                                     if (value!) {
-                                      cardiacCubit.onUpdateData(
-                                          state.data..add(list[index]));
+                                      cardiacCubit.onUpdateData(state.data..add(list[index]));
                                     } else {
-                                      cardiacCubit.onUpdateData(
-                                          state.data..remove(list[index]));
+                                      cardiacCubit.onUpdateData(state.data..remove(list[index]));
                                     }
                                   }),
                               MyText(
@@ -277,8 +285,7 @@ class AddPatientSecondPage extends StatelessWidget {
         ),
         GenericTextField(
           max: 3,
-          hintColor:
-              Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+          hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
           fieldTypes: FieldTypes.rich,
           fillColor: MyColors.textFields,
           hint: "Other notes",
@@ -288,6 +295,7 @@ class AddPatientSecondPage extends StatelessWidget {
           type: TextInputType.text,
           validate: (value) => value!.validateEmpty(context),
         ),
+
         Row(
           children: [
             Expanded(

@@ -31,7 +31,8 @@ class SurAddPatientData {
   late GenericBloc<bool> dmSelectCubit;
   late GenericBloc<int> dmTypeSelectionCubit;
   late GenericBloc<List<String>> diagnosisTypesCubit;
-  late GenericBloc<String> cardiacDiseaseCubit;
+  late GenericBloc<String> cardiacDiseaseIHDCubit;
+  late GenericBloc<String> cardiacDiseaseHFCubit;
   late GenericBloc<List<String>> respiratoryDiseaseCubit;
   late TextEditingController otherNotesDm;
 
@@ -82,7 +83,6 @@ class SurAddPatientData {
 
   List<String> get USFindings => AddPatientDTOInfo.USFindings;
   late TextEditingController otherUSFindingsController;
-  late TextEditingController FluoroscopyController;
   late GenericBloc<File?> FluoroscopyImageCubit;
   late TextEditingController otherNotesController;
   late TextEditingController AnastomoticSizeController;
@@ -134,6 +134,7 @@ class SurAddPatientData {
 
   bool editing = false;
   PatientDetailsModel? patientDetailsModel;
+  String? addedPatientId;
 
   /// #############################  init screen  #############################
   void initScreen(BuildContext context, {PatientDetailsModel? patientDetailsModel}) async {
@@ -151,20 +152,46 @@ class SurAddPatientData {
     patientMobile1 = TextEditingController(text: patientDetailsModel?.patient?.telephone1 ?? '');
     patientMobile2 = TextEditingController(text: patientDetailsModel?.patient?.telephone2 ?? '');
     patientEmail = TextEditingController(text: patientDetailsModel?.patient?.email ?? '');
-    RespiratoryDiseaseSelectionCubit = GenericBloc(false);
+    RespiratoryDiseaseSelectionCubit = GenericBloc(patientDetailsModel?.patient?.respiratoryDis ?? false);
     patientAge = TextEditingController(text: patientDetailsModel?.patient?.age?.toString() ?? '');
     patientWeight = TextEditingController(text: patientDetailsModel?.patient?.weight?.toString() ?? '');
     patientHeight = TextEditingController(text: patientDetailsModel?.patient?.height?.toString() ?? '');
     BMI = TextEditingController(text: patientDetailsModel?.patient?.bmi?.toString() ?? '');
     otherNotes = TextEditingController(text: patientDetailsModel?.patient?.otherNotes?.toString() ?? '');
-    refSelectionCubit = GenericBloc(false);
+    refSelectionCubit = GenericBloc(patientDetailsModel?.patient?.reflux ?? false);
     dmTypeSelectionCubit = GenericBloc(patientDetailsModel?.patient?.dmType ?? false ? 1 : 0);
     diagnosisTypesCubit = GenericBloc([]);
-    cardiacDiseaseCubit = GenericBloc("");
+    if (patientDetailsModel?.patient?.htn ?? false) {
+      diagnosisTypesCubit.state.data.add('HTN');
+    }
+    if (patientDetailsModel?.patient?.dyslipidemia ?? false) {
+      diagnosisTypesCubit.state.data.add('Dyslipidemia');
+    }
+    if (patientDetailsModel?.patient?.osa ?? false) {
+      diagnosisTypesCubit.state.data.add('OSA');
+    }
+    if (patientDetailsModel?.patient?.fattyLiver ?? false) {
+      diagnosisTypesCubit.state.data.add('Fatty Liver');
+    }
+    if (patientDetailsModel?.patient?.pcos ?? false) {
+      diagnosisTypesCubit.state.data.add('PCOS');
+    }
+    cardiacDiseaseIHDCubit = GenericBloc((patientDetailsModel?.patient?.cardiacDiseaseIhd ?? false) ? "IHD" : '');
+    cardiacDiseaseHFCubit = GenericBloc((patientDetailsModel?.patient?.cardiacDiseaseHf ?? false) ? "HF" : '');
     respiratoryDiseaseCubit = GenericBloc([]);
+    if (patientDetailsModel?.patient?.vte ?? false) {
+      respiratoryDiseaseCubit.state.data.add('VTE');
+    }
+    if (patientDetailsModel?.patient?.antiplate ?? false) {
+      respiratoryDiseaseCubit.state.data.add('Antiplatelets');
+    }
+    if (patientDetailsModel?.patient?.anticoag ?? false) {
+      respiratoryDiseaseCubit.state.data.add('Anticoagulants');
+    }
     medicationsCubit = GenericBloc("");
     smokingHabitsCubit = GenericBloc("");
-    dmSelectCubit = GenericBloc(patientDetailsModel?.patient?.dmType ?? false);
+    dmSelectCubit = GenericBloc(
+        (patientDetailsModel?.patient?.dmTypel ?? false) ? (patientDetailsModel?.patient?.dmTypell ?? false) : false);
     historyBallonSelectionCubit = GenericBloc(patientDetailsModel?.patient?.historyOfBallon ?? false);
     weightLossFrom = TextEditingController(text: patientDetailsModel?.patient?.ballonWeightLossFrom?.toString() ?? '');
     weightLossTo = TextEditingController(text: patientDetailsModel?.patient?.ballonWeightLossTo?.toString() ?? '');
@@ -186,7 +213,6 @@ class SurAddPatientData {
     otherUSFindingsController = TextEditingController(
       text: patientDetailsModel?.patient?.ultrasoundFindingOthersNote ?? '',
     );
-    FluoroscopyController = TextEditingController(text: patientDetailsModel?.patient?.fluoroscopyResult ?? '');
     FluoroscopyImageCubit = GenericBloc(null);
     otherNotesController = TextEditingController(text: patientDetailsModel?.patient?.otherNotes ?? '');
     AnastomoticSizeController =
@@ -250,7 +276,7 @@ class SurAddPatientData {
   }
 
   Widget buildAddPatientPage(int index) {
-    // index = 6;
+    index = 1;
     switch (index) {
       case 0:
         return AddPatientFirstPage();
@@ -320,15 +346,15 @@ class SurAddPatientData {
         password: '${patientNameEn.text}@${patientMobile1.text}',
         telephone1: patientMobile1.text,
         telephone2: patientMobile2.text,
-        civilId: patientId.text,
+        // civilId: patientId.text,
         gender: patientGenderCubit.state.data,
         publicId: "137g352fs",
         fileId: patientFileNumber.text,
         image: "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
       );
-      if (editing) {
+      if (editing || addedPatientId != null) {
         bool result = await SurgeonRepository(context).editPatientFirst(
-          userId: patientDetailsModel?.patient?.id ?? '',
+          userId: addedPatientId ?? patientDetailsModel?.patient?.id ?? '',
           model: model,
         );
 
@@ -337,13 +363,14 @@ class SurAddPatientData {
           nextPage();
         }
       } else {
-        bool result = await SurgeonRepository(context).addPatientFirst(
+        String? patientId = await SurgeonRepository(context).addPatientFirst(
           userId: users.userData?[0].doctorRoleId?.sId ?? "",
           model: model,
         );
 
-        if (result) {
+        if (patientId != null) {
           FocusScope.of(context).requestFocus(FocusNode());
+          addedPatientId = patientId;
           nextPage();
         }
       }
@@ -361,8 +388,9 @@ class SurAddPatientData {
       osa: diagnosisTypesCubit.state.data.contains("OSA") ? true : false,
       fattyLiver: diagnosisTypesCubit.state.data.contains("Fatty Liver") ? true : false,
       pcos: diagnosisTypesCubit.state.data.contains("PCOS") ? true : false,
-      cardiacDiseaseIhd: cardiacDiseaseCubit.state.data == "IHD" ? true : false,
-      cardiacDiseaseHf: cardiacDiseaseCubit.state.data == "HF" ? true : false,
+      cardiacDiseaseIhd: cardiacDiseaseHFCubit.state.data == "HF" ? true : false,
+      cardiacDiseaseHf: cardiacDiseaseIHDCubit.state.data == "IHD" ? true : false,
+      respiratory_dis: RespiratoryDiseaseSelectionCubit.state.data,
       respiratoryDisVte: respiratoryDiseaseCubit.state.data.contains("VTE") ? true : false,
       respiratoryDisAnticoag: respiratoryDiseaseCubit.state.data.contains("Anticoagulants") ? true : false,
       respiratoryDisAntiplate: respiratoryDiseaseCubit.state.data.contains("Antiplatelets") ? true : false,
@@ -413,7 +441,8 @@ class SurAddPatientData {
       medicationTypeSaxenda: medicationTypeCubit.state.data.contains("Saxenda"),
       medicationTypeTrulicity: medicationTypeCubit.state.data.contains("Trulicity"),
       medicationTypeVictoza: medicationTypeCubit.state.data.contains("Victoza"),
-      medicationTypeWegovo: medicationTypeCubit.state.data.contains("Wegovo"),
+      medicationTypeWegovo: medicationTypeCubit.state.data.contains("Wegovy"),
+      medicationTypeMounjaro: medicationTypeCubit.state.data.contains("Mounjaro"),
     );
     bool result = await SurgeonRepository(context).addPatientFourth(model);
     if (result) {
@@ -425,14 +454,9 @@ class SurAddPatientData {
   /// #############################  fifth page  #############################
 
   void addPatientFifth(BuildContext context) async {
-    int? outComeResult = int.tryParse(proceduresOutcomeResultCubit.text);
-    if (outComeResult == null) {
-      CustomToast.showToastNotification('Enter valid outcome result', color: Colors.red);
-      return;
-    }
     AddPatientFifthDto model = AddPatientFifthDto(
       previousBariatric: proceduresSelectionCubit.state.data,
-      bariatricOutcomeResult: outComeResult,
+      bariatricOutcomeResult: int.tryParse(proceduresOutcomeResultCubit.text),
       bariatricOutcomeDate: proceduresOutcomeDateCubit.text,
       surgeryTypeLsg: surgeryTypeCubit.state.data.contains('LSG'),
       surgeryTypeLagb: surgeryTypeCubit.state.data.contains('LAGB'),
@@ -455,7 +479,7 @@ class SurAddPatientData {
     if (labsCubit.state.data.isNotEmpty) {
       return;
     }
-    labsList = await SurgeonRepository(context).getAllLabs()??[];
+    labsList = await SurgeonRepository(context).getAllLabs() ?? [];
     labsCubit.onUpdateToInitState(labsList);
   }
 
@@ -475,7 +499,7 @@ class SurAddPatientData {
       ultrasound_finding_cirrhos: USFindingsCubit.state.data.contains('Cirrhos'),
       ultrasound_finding_others: USFindingsCubit.state.data.contains('Others'),
       ultrasound_finding_others_note: otherNotesController.text,
-      fluoroscopy_result: FluoroscopyController.text,
+      fluoroscopy_result: 'uploaded image link',
       labs: selectedLabsCubit.state.data
           .map(
             (e) => PatientLabs(
@@ -513,7 +537,7 @@ class SurAddPatientData {
 
     AddPatientSeventhDto model = AddPatientSeventhDto(
       egd: EGDCubit.state.data,
-      egdResults: EGDResultController.text,
+      // egdResults: EGDResultController.text,
       egdOesophagusNormal: NormalOesophagusCubit.state.data,
       egdOesophagusOesophagitis: oesophagusCubit.state.data,
       egdOesophagusGrade: oesophagusGradeCubit.state.data,
@@ -568,6 +592,22 @@ class SurAddPatientData {
     var image = await Utils.getImage();
     if (image != null) {
       EGDResultImageCubit.onUpdateData(image);
+    }
+  }
+
+  chooseFromDate(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
+    AdaptivePicker.datePicker(
+      context: context,
+      title: tr(context, "Date"),
+      onConfirm: (date) => onConfirmFromDate(date),
+    );
+  }
+
+  onConfirmFromDate(date) {
+    if (date != null) {
+      String dateStr = DateFormat("dd-MM-yyyy").format(date);
+      insertionDate.text = dateStr;
     }
   }
 }

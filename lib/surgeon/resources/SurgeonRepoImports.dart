@@ -18,6 +18,7 @@ import '../../customer/model/dto/add_patient_dto.dart';
 import '../../general/blocks/user_cubit/user_cubit.dart';
 import '../../general/models/UserModel.dart';
 import '../../general/models/notifications_response.dart';
+import '../../general/utilities/utils_functions/Navigator.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../patient/models/update_consent_response.dart';
 import '../models/apointments_response.dart';
@@ -38,6 +39,7 @@ import '../models/patient_details_model.dart';
 import '../models/patient_model.dart';
 import '../models/patient_name_model.dart';
 import '../models/surgeon_home_model.dart';
+import '../screens/webview_screen.dart';
 
 part 'SurgeonHttpMethods.dart';
 part 'SurgeonRepository.dart';

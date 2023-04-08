@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:base_flutter/general/utilities/tf_custom_widgets/tf_custom_widgets.dart';
+import 'package:base_flutter/general/utilities/utils_functions/AdaptivePicker.dart';
 import 'package:base_flutter/surgeon/models/dto/add_patient_fifth_dto.dart';
 import 'package:base_flutter/surgeon/models/dto/add_patient_seventh_dto.dart';
 import 'package:base_flutter/surgeon/models/dto/add_patient_sixth_dto.dart';
@@ -9,6 +10,8 @@ import 'package:base_flutter/surgeon/screens/sur_add_patient/pages/PagesWImports
 import 'package:base_flutter/surgeon/screens/sur_add_patient/widgets/SurAddPatientWImports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:tf_validator/tf_validator.dart';
 
 import '../../../customer/model/dto/add_patient_dto.dart';
 import '../../../general/blocks/user_cubit/user_cubit.dart';

@@ -401,53 +401,65 @@ class AddPatientSixthPage extends StatelessWidget {
           fontWeight: FontWeight.bold,
           color: MyColors.black,
         ),
-        GenericTextField(
-          hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-          fieldTypes: FieldTypes.normal,
-          fillColor: MyColors.textFields,
-          hint: "Enter or upload Fluoroscopy result",
-          controller: SurAddPatientData().FluoroscopyController,
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          action: TextInputAction.next,
-          type: TextInputType.text,
-          suffixIcon: InkWell(
-            onTap: SurAddPatientData().setFluoroscopyImage,
-            child: Image.asset(Res.imagesEditIconff, scale: 3),
+        InkWell(
+          onTap: SurAddPatientData().setFluoroscopyImage,
+          child: IgnorePointer(
+            child: GenericTextField(
+              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+              fieldTypes: FieldTypes.normal,
+              fillColor: MyColors.textFields,
+              hint: "Enter or upload Fluoroscopy result",
+              controller: TextEditingController(),
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              action: TextInputAction.next,
+              type: TextInputType.text,
+              suffixIcon: InkWell(
+                onTap: SurAddPatientData().setFluoroscopyImage,
+                child: Image.asset(Res.imagesEditIconff, scale: 3),
+              ),
+              validate: (value) => value!.validateEmpty(context),
+            ),
           ),
-          validate: (value) => value!.validateEmpty(context),
         ),
         BlocBuilder<GenericBloc<File?>, GenericState<File?>>(
           bloc: SurAddPatientData().FluoroscopyImageCubit,
           builder: (context, state) {
             if (state.data != null) {
-              return Stack(
-                children: [
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    child: Image.file(
+              return Center(
+                child: Stack(
+                  children: [
+                    Image.file(
                       state.data!,
                       fit: BoxFit.cover,
+                      width: 100,
+                      height: 100,
                     ),
-                  ),
-                  InkWell(
-                    onTap: () => SurAddPatientData().FluoroscopyImageCubit.onUpdateData(null),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Icon(
-                        Icons.delete_forever,
-                        size: 20,
-                        color: Colors.red,
+                    InkWell(
+                      onTap: () => SurAddPatientData().FluoroscopyImageCubit.onUpdateData(null),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Icon(
+                          Icons.delete_forever,
+                          size: 20,
+                          color: Colors.red,
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               );
             } else {
               return const SizedBox();
             }
           },
         ),
+        if (SurAddPatientData().patientDetailsModel?.patient?.fluoroscopyResult?.isNotEmpty ?? false)
+          Image.network(
+            SurAddPatientData().patientDetailsModel?.patient?.fluoroscopyResult ?? '',
+            width: 100,
+            height: 100,
+            errorBuilder: (e, c, d) => SizedBox(),
+          ),
         const SizedBox(height: 10),
         MyText(
           title: "Other notes",

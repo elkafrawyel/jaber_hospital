@@ -78,8 +78,8 @@ class SurgeonHttpMethods {
     }
   }
 
-  Future<bool> addPatientFirst(String userId, AddPatientFirstDto model) async {
-    dynamic data = await GenericHttp<bool>(context).callApi(
+  Future<String?> addPatientFirst(String userId, AddPatientFirstDto model) async {
+    dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
       name: ApiNames.patientBasicInfo + "?user_id=$userId",
       returnType: ReturnType.Type,
       methodType: MethodType.Post,
@@ -89,11 +89,11 @@ class SurgeonHttpMethods {
     );
     if (data != null) {
       CustomToast.showSnackBar(context, data["message"]["message_en"]);
-      return true;
+      String id = data['data']['_id'];
+      return id;
     }
-    return false;
+    return null;
   }
-
 
   Future<bool> editPatientFirst(String userId, AddPatientFirstDto model) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
@@ -110,7 +110,6 @@ class SurgeonHttpMethods {
     }
     return false;
   }
-
 
   Future<bool> addPatientSecond(AddPatientSecondDto model) async {
     UserModel? users = context.read<UserCubit>().state.model;
@@ -183,7 +182,7 @@ class SurgeonHttpMethods {
   Future<bool> addPatientSixth(AddPatientSixthDto model) async {
     UserModel? users = context.read<UserCubit>().state.model;
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.patientPreOperative + "?user_id=${users.userData?[0].sId}",
+      name: ApiNames.patientPreOperative + "?patient_id=${users.userData?[0].sId}",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -241,15 +240,20 @@ class SurgeonHttpMethods {
     }
   }
 
-  Future<bool> addAppointment(String patientId, String date, String comments, String clinicName) async {
+  Future<bool> addAppointment(
+    String patientId,
+    String date,
+    String comments,
+    // String clinicName,
+  ) async {
     var user = context.read<UserCubit>().state.model;
     Map<String, dynamic> body = {
       "doctor_id": user.userData?[0].sId,
       "patient_id": patientId,
       "appointment_date": date,
       "comments": comments,
-      "clinic_name_en": clinicName,
-      "clinic_name_ar": clinicName,
+      // "clinic_name_en": clinicName,
+      // "clinic_name_ar": clinicName,
     };
     dynamic data = await GenericHttp<bool>(context).callApi(
       name: ApiNames.addAppointment,
@@ -372,7 +376,7 @@ class SurgeonHttpMethods {
     return data;
   }
 
-  Future<MdtPatientsResponse?> fetchMdtPatientsByStatus(String status) async {
+  Future<MdtPatientsResponse?> fetchMdtReadyPatients(String status) async {
     MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
       name: "${ApiNames.mdtPatientsPath}?mdt_status=$status",
       returnType: ReturnType.Model,
@@ -383,7 +387,6 @@ class SurgeonHttpMethods {
     return data;
   }
 
-
   Future<MdtPatientsResponse?> fetchMdtAdminPatients() async {
     MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
       name: ApiNames.mdtAdminPatientsPath,
@@ -391,28 +394,6 @@ class SurgeonHttpMethods {
       methodType: MethodType.Get,
       returnDataFun: (data) => data,
       toJsonFunc: (json) => MdtPatientsResponse.fromJson(json),
-    );
-    return data;
-  }
-
-  Future<MdtPatientsResponse?> fetchMdtAllReadyPatients() async {
-    MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
-      name: ApiNames.mdtReadyPatientsPath,
-      returnType: ReturnType.Model,
-      methodType: MethodType.Get,
-      returnDataFun: (data) => data,
-      toJsonFunc: (json) => MdtPatientsResponse.fromJson(json),
-    );
-    return data;
-  }
-
-  Future<AppointmentsResponse?> fetchSurAppointments(bool isUpcoming) async {
-    AppointmentsResponse data = await GenericHttp<AppointmentsResponse>(context).callApi(
-      name: isUpcoming?ApiNames.surFutureAppointmentsPath:ApiNames.surPastAppointmentsPath,
-      returnType: ReturnType.Model,
-      methodType: MethodType.Get,
-      returnDataFun: (data) => data,
-      toJsonFunc: (json) => AppointmentsResponse.fromJson(json),
     );
     return data;
   }
@@ -455,18 +436,6 @@ class SurgeonHttpMethods {
     return data;
   }
 
-  Future<UpdateConsentResponse?> rescheduleMdtPatientStatus(String patientId) async {
-    final data = await GenericHttp<UpdateConsentResponse>(context).callApi(
-      name: "${ApiNames.rescheduleMdtPatientPath}?patient_id=$patientId",
-      returnType: ReturnType.Model,
-      methodType: MethodType.Put,
-      returnDataFun: (data) => data,
-      showLoader: true,
-      toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
-    );
-    return data;
-  }
-
   Future<bool> downloadPatientInfo(String patientId) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
       name: ApiNames.downloadPatientInfo + "?patient_id=${patientId}",
@@ -476,28 +445,43 @@ class SurgeonHttpMethods {
       toJsonFunc: (json) => PatientDetailsModel.fromJson(json),
     );
     if (data != null) {
-      print(data);
+      print('=============$data');
 
-      try {
-        Directory downloadsDir = await getTemporaryDirectory();
-        var filePath = '${downloadsDir.path}/patient_$patientId.pdf';
-        Dio dio = new Dio();
-        Response response = await dio.download(data, filePath);
-        if (response.statusCode! >= 200 || response.statusCode! <= 300)
-          CustomToast.showSnackBar(context, 'Patient Information Downloaded Successfully');
-        else
-          CustomToast.showSnackBar(context, 'Patient Information Download Failed');
-        return true;
-      } catch (e) {
-        CustomToast.showSnackBar(context, 'Patient Information Download Failed');
+      Nav.navigateTo(WebViewScreen(url: data), navigatorType: NavigatorType.push);
 
-        return false;
-      }
+      return true;
+      // try {
+      //   Directory downloadsDir = await getTemporaryDirectory();
+      //   var filePath = '${downloadsDir.path}/patient_$patientId.pdf';
+      //   Dio dio = new Dio(
+      //     BaseOptions(
+      //       contentType: "application/x-www-form-urlencoded; charset=utf-8",
+      //       followRedirects: true,
+      //     ),
+      //   );
+      //   Response response = await dio.download(
+      //     data,
+      //     filePath,
+      //     onReceiveProgress: (received, total) {
+      //       int percentage = ((received / total) * 100).floor();
+      //       print(percentage);
+      //     },
+      //   );
+      // if (response.statusCode! >= 200 || response.statusCode! <= 300)
+      //   CustomToast.showSnackBar(context, 'Patient Information Downloaded Successfully');
+      // else
+      //   CustomToast.showSnackBar(context, 'Patient Information Download Failed');
+      // return true;
+      // }
+      // catch (e) {
+      // CustomToast.showSnackBar(context, 'Patient Information Download Failed');
+      //
+      // return false;
+      // }
     } else {
       return false;
     }
   }
-
 
   Future<bool> addPatientSeventh(AddPatientSeventhDto model) async {
     UserModel? users = context.read<UserCubit>().state.model;
@@ -534,7 +518,7 @@ class SurgeonHttpMethods {
       showLoader: true,
     );
     if (data != null) {
-      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      // CustomToast.showSnackBar(context, data["message"]["message_en"]);
       return true;
     }
     return false;

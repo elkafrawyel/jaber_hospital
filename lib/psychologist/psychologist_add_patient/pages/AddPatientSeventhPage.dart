@@ -36,9 +36,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                           Radio(
                               value: true,
                               groupValue: state.data,
-                              onChanged: (value) => psychologistAddPatientData
-                                  .EGDCubit
-                                  .onUpdateData(value!)),
+                              onChanged: (value) => psychologistAddPatientData.EGDCubit.onUpdateData(value!)),
                           MyText(
                             title: "Yes",
                             size: 12,
@@ -48,9 +46,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                           Radio(
                               value: false,
                               groupValue: state.data,
-                              onChanged: (value) => psychologistAddPatientData
-                                  .EGDCubit
-                                  .onUpdateData(value!)),
+                              onChanged: (value) => psychologistAddPatientData.EGDCubit.onUpdateData(value!)),
                           MyText(
                             title: "No",
                             size: 12,
@@ -70,16 +66,11 @@ class AddPatientSeventhPage extends StatelessWidget {
                               color: MyColors.black,
                             ),
                             GenericTextField(
-                              hintColor: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1
-                                  ?.color
-                                  ?.withOpacity(.8),
+                              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                               fieldTypes: FieldTypes.clickable,
                               fillColor: MyColors.textFields,
                               hint: "EGD Result..",
-                              controller:
-                              psychologistAddPatientData.EGDResultController,
+                              controller: psychologistAddPatientData.EGDResultController,
                               margin: const EdgeInsets.symmetric(vertical: 10),
                               action: TextInputAction.next,
                               type: TextInputType.text,
@@ -88,11 +79,9 @@ class AddPatientSeventhPage extends StatelessWidget {
                                 Res.imagesEditIconff,
                                 scale: 3,
                               ),
-                              validate: (value) =>
-                                  value!.validateEmpty(context),
+                              validate: (value) => value!.validateEmpty(context),
                             ),
-                            BlocBuilder<GenericBloc<File?>,
-                                GenericState<File?>>(
+                            BlocBuilder<GenericBloc<File?>, GenericState<File?>>(
                               bloc: psychologistAddPatientData.EGDResultImageCubit,
                               builder: (context, state) {
                                 if (state.data != null) {
@@ -107,9 +96,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () => psychologistAddPatientData
-                                            .EGDResultImageCubit
-                                            .onUpdateData(null),
+                                        onTap: () => psychologistAddPatientData.EGDResultImageCubit.onUpdateData(null),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8),
                                           child: Icon(
@@ -149,9 +136,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: true,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .NormalOesophagusCubit
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.NormalOesophagusCubit.onUpdateData(value!)),
                                     MyText(
                                       title: "Yes",
                                       size: 12,
@@ -162,9 +147,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: false,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .NormalOesophagusCubit
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.NormalOesophagusCubit.onUpdateData(value!)),
                                     MyText(
                                       title: "No",
                                       size: 12,
@@ -189,9 +172,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: true,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .oesophagusCubit
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.oesophagusCubit.onUpdateData(value!)),
                                     MyText(
                                       title: "Yes",
                                       size: 12,
@@ -202,9 +183,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: false,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .oesophagusCubit
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.oesophagusCubit.onUpdateData(value!)),
                                     MyText(
                                       title: "No",
                                       size: 12,
@@ -232,9 +211,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             value: true,
                                             groupValue: state.data,
                                             onChanged: (value) =>
-                                                psychologistAddPatientData
-                                                    .oesophagusGradeCubit
-                                                    .onUpdateData(value!)),
+                                                psychologistAddPatientData.oesophagusGradeCubit.onUpdateData(value!)),
                                         MyText(
                                           title: "Yes",
                                           size: 12,
@@ -245,9 +222,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             value: false,
                                             groupValue: state.data,
                                             onChanged: (value) =>
-                                                psychologistAddPatientData
-                                                    .oesophagusGradeCubit
-                                                    .onUpdateData(value!)),
+                                                psychologistAddPatientData.oesophagusGradeCubit.onUpdateData(value!)),
                                         MyText(
                                           title: "No",
                                           size: 12,
@@ -258,8 +233,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                     Offstage(
                                       offstage: !state.data,
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           MyText(
                                             title: "Oesophagitis Grade Type",
@@ -267,52 +241,33 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                             color: MyColors.black,
                                           ),
-                                          BlocBuilder<GenericBloc<String>,
-                                              GenericState<String>>(
-                                            bloc: psychologistAddPatientData
-                                                .oesophagusGradeTypeCubit,
+                                          BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                                            bloc: psychologistAddPatientData.oesophagusGradeTypeCubit,
                                             builder: (context, state) {
                                               return Wrap(
-                                                alignment:
-                                                    WrapAlignment.spaceBetween,
+                                                alignment: WrapAlignment.spaceBetween,
                                                 direction: Axis.horizontal,
                                                 children: List.generate(
-                                                  psychologistAddPatientData
-                                                      .oesophagusGradeType
-                                                      .length,
+                                                  psychologistAddPatientData.oesophagusGradeType.length,
                                                   (index) => Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            2.6,
+                                                    width: MediaQuery.of(context).size.width / 2.6,
                                                     child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      mainAxisSize: MainAxisSize.min,
                                                       children: [
                                                         Radio(
-                                                          value: psychologistAddPatientData
-                                                                  .oesophagusGradeType[
-                                                              index],
-                                                          groupValue:
-                                                              state.data,
-                                                          onChanged: (value) =>
-                                                              psychologistAddPatientData
-                                                                  .oesophagusGradeTypeCubit
-                                                                  .onUpdateData(
-                                                                      value!),
+                                                          value: psychologistAddPatientData.oesophagusGradeType[index],
+                                                          groupValue: state.data,
+                                                          onChanged: (value) => psychologistAddPatientData
+                                                              .oesophagusGradeTypeCubit
+                                                              .onUpdateData(value!),
                                                         ),
                                                         Expanded(
                                                           child: MyText(
-                                                            title: psychologistAddPatientData
-                                                                    .oesophagusGradeType[
-                                                                index],
+                                                            title:
+                                                                psychologistAddPatientData.oesophagusGradeType[index],
                                                             size: 12,
-                                                            color:
-                                                                MyColors.black,
+                                                            color: MyColors.black,
                                                           ),
                                                         )
                                                       ],
@@ -320,7 +275,6 @@ class AddPatientSeventhPage extends StatelessWidget {
                                                   ),
                                                 ),
                                               );
-
                                             },
                                           ),
                                         ],
@@ -345,9 +299,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: true,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .BileCubit
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.BileCubit.onUpdateData(value!)),
                                     MyText(
                                       title: "Yes",
                                       size: 12,
@@ -358,9 +310,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: false,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .BileCubit
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.BileCubit.onUpdateData(value!)),
                                     MyText(
                                       title: "No",
                                       size: 12,
@@ -377,21 +327,15 @@ class AddPatientSeventhPage extends StatelessWidget {
                               color: MyColors.black,
                             ),
                             GenericTextField(
-                              hintColor: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1
-                                  ?.color
-                                  ?.withOpacity(.8),
+                              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                               fieldTypes: FieldTypes.normal,
                               fillColor: MyColors.textFields,
                               hint: "Other...",
-                              controller:
-                              psychologistAddPatientData.OtherOesophagusController,
+                              controller: psychologistAddPatientData.OtherOesophagusController,
                               margin: const EdgeInsets.symmetric(vertical: 10),
                               action: TextInputAction.next,
                               type: TextInputType.text,
-                              validate: (value) =>
-                                  value!.validateEmpty(context),
+                              validate: (value) => value!.validateEmpty(context),
                             ),
                             const Divider(),
                             MyText(
@@ -419,9 +363,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             value: true,
                                             groupValue: state.data,
                                             onChanged: (value) =>
-                                                psychologistAddPatientData
-                                                    .HiatusHerniaCubit
-                                                    .onUpdateData(value!)),
+                                                psychologistAddPatientData.HiatusHerniaCubit.onUpdateData(value!)),
                                         MyText(
                                           title: "Yes",
                                           size: 12,
@@ -432,9 +374,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             value: false,
                                             groupValue: state.data,
                                             onChanged: (value) =>
-                                                psychologistAddPatientData
-                                                    .HiatusHerniaCubit
-                                                    .onUpdateData(value!)),
+                                                psychologistAddPatientData.HiatusHerniaCubit.onUpdateData(value!)),
                                         MyText(
                                           title: "No",
                                           size: 12,
@@ -445,8 +385,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                     Offstage(
                                       offstage: !state.data,
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           MyText(
                                             title: "Size",
@@ -454,53 +393,31 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                             color: MyColors.black,
                                           ),
-                                          BlocBuilder<GenericBloc<String>,
-                                              GenericState<String>>(
+                                          BlocBuilder<GenericBloc<String>, GenericState<String>>(
                                             bloc: psychologistAddPatientData.SizeCubit,
                                             builder: (context, state) {
                                               return Wrap(
-                                                alignment:
-                                                    WrapAlignment.spaceBetween,
+                                                alignment: WrapAlignment.spaceBetween,
                                                 direction: Axis.horizontal,
                                                 children: List.generate(
-                                                  psychologistAddPatientData
-                                                      .SizeType
-                                                      .length,
+                                                  psychologistAddPatientData.SizeType.length,
                                                   (index) => Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            2.6,
+                                                    width: MediaQuery.of(context).size.width / 2.6,
                                                     child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      mainAxisSize: MainAxisSize.min,
                                                       children: [
                                                         Radio(
-                                                          value:
-                                                          psychologistAddPatientData
-                                                                      .SizeType[
-                                                                  index],
-                                                          groupValue:
-                                                              state.data,
+                                                          value: psychologistAddPatientData.SizeType[index],
+                                                          groupValue: state.data,
                                                           onChanged: (value) =>
-                                                              psychologistAddPatientData
-                                                                  .SizeCubit
-                                                                  .onUpdateData(
-                                                                      value!),
+                                                              psychologistAddPatientData.SizeCubit.onUpdateData(value!),
                                                         ),
                                                         Expanded(
                                                           child: MyText(
-                                                            title:
-                                                            psychologistAddPatientData
-                                                                        .SizeType[
-                                                                    index],
+                                                            title: psychologistAddPatientData.SizeType[index],
                                                             size: 12,
-                                                            color:
-                                                                MyColors.black,
+                                                            color: MyColors.black,
                                                           ),
                                                         )
                                                       ],
@@ -562,22 +479,15 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             color: MyColors.black,
                                           ),
                                           GenericTextField(
-                                            hintColor: Theme.of(context)
-                                                .textTheme
-                                                .subtitle1
-                                                ?.color
-                                                ?.withOpacity(.8),
+                                            hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                                             fieldTypes: FieldTypes.normal,
                                             fillColor: MyColors.textFields,
                                             hint: "Size in cm",
-                                            controller: psychologistAddPatientData
-                                                .SizeController,
-                                            margin: const EdgeInsets.symmetric(
-                                                vertical: 10),
+                                            controller: psychologistAddPatientData.SizeController,
+                                            margin: const EdgeInsets.symmetric(vertical: 10),
                                             action: TextInputAction.next,
                                             type: TextInputType.text,
-                                            validate: (value) =>
-                                                value!.validateEmpty(context),
+                                            validate: (value) => value!.validateEmpty(context),
                                           ),
                                         ],
                                       ),
@@ -604,9 +514,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             value: true,
                                             groupValue: state.data,
                                             onChanged: (value) =>
-                                                psychologistAddPatientData
-                                                    .GastritisCubit
-                                                    .onUpdateData(value!)),
+                                                psychologistAddPatientData.GastritisCubit.onUpdateData(value!)),
                                         MyText(
                                           title: "Yes",
                                           size: 12,
@@ -617,9 +525,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             value: false,
                                             groupValue: state.data,
                                             onChanged: (value) =>
-                                                psychologistAddPatientData
-                                                    .GastritisCubit
-                                                    .onUpdateData(value!)),
+                                                psychologistAddPatientData.GastritisCubit.onUpdateData(value!)),
                                         MyText(
                                           title: "No",
                                           size: 12,
@@ -630,8 +536,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                     Offstage(
                                       offstage: !state.data,
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           MyText(
                                             title: "Gastritis Type",
@@ -639,52 +544,31 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                             color: MyColors.black,
                                           ),
-                                          BlocBuilder<GenericBloc<String>,
-                                              GenericState<String>>(
-                                            bloc: psychologistAddPatientData
-                                                .GastritisTypeCubit,
+                                          BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                                            bloc: psychologistAddPatientData.GastritisTypeCubit,
                                             builder: (context, state) {
                                               return Wrap(
-                                                alignment:
-                                                    WrapAlignment.spaceBetween,
+                                                alignment: WrapAlignment.spaceBetween,
                                                 direction: Axis.horizontal,
                                                 children: List.generate(
-                                                  psychologistAddPatientData
-                                                      .GastritisType
-                                                      .length,
+                                                  psychologistAddPatientData.GastritisType.length,
                                                   (index) => Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            2.6,
+                                                    width: MediaQuery.of(context).size.width / 2.6,
                                                     child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      mainAxisSize: MainAxisSize.min,
                                                       children: [
                                                         Radio(
-                                                          value: psychologistAddPatientData
-                                                                  .GastritisType[
-                                                              index],
-                                                          groupValue:
-                                                              state.data,
-                                                          onChanged: (value) =>
-                                                              psychologistAddPatientData
-                                                                  .GastritisTypeCubit
-                                                                  .onUpdateData(
-                                                                      value!),
+                                                          value: psychologistAddPatientData.GastritisType[index],
+                                                          groupValue: state.data,
+                                                          onChanged: (value) => psychologistAddPatientData
+                                                              .GastritisTypeCubit.onUpdateData(value!),
                                                         ),
                                                         Expanded(
                                                           child: MyText(
-                                                            title: psychologistAddPatientData
-                                                                    .GastritisType[
-                                                                index],
+                                                            title: psychologistAddPatientData.GastritisType[index],
                                                             size: 12,
-                                                            color:
-                                                                MyColors.black,
+                                                            color: MyColors.black,
                                                           ),
                                                         )
                                                       ],
@@ -752,9 +636,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: true,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .gastricUlcerCubit
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.gastricUlcerCubit.onUpdateData(value!)),
                                     MyText(
                                       title: "Yes",
                                       size: 12,
@@ -765,9 +647,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: false,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .gastricUlcerCubit
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.gastricUlcerCubit.onUpdateData(value!)),
                                     MyText(
                                       title: "No",
                                       size: 12,
@@ -783,8 +663,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: MyColors.black,
                             ),
-                            BlocBuilder<GenericBloc<String>,
-                                GenericState<String>>(
+                            BlocBuilder<GenericBloc<String>, GenericState<String>>(
                               bloc: psychologistAddPatientData.HPyloriCubit,
                               builder: (context, state) {
                                 return Wrap(
@@ -793,22 +672,17 @@ class AddPatientSeventhPage extends StatelessWidget {
                                   children: List.generate(
                                     psychologistAddPatientData.HPyloriType.length,
                                     (index) => Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Radio(
-                                          value: psychologistAddPatientData
-                                              .HPyloriType[index],
+                                          value: psychologistAddPatientData.HPyloriType[index],
                                           groupValue: state.data,
                                           onChanged: (value) =>
-                                              psychologistAddPatientData
-                                                  .HPyloriCubit
-                                                  .onUpdateData(value!),
+                                              psychologistAddPatientData.HPyloriCubit.onUpdateData(value!),
                                         ),
                                         MyText(
-                                          title: psychologistAddPatientData
-                                              .HPyloriType[index],
+                                          title: psychologistAddPatientData.HPyloriType[index],
                                           size: 12,
                                           color: MyColors.black,
                                         )
@@ -833,9 +707,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: true,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .PolypsCubit
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.PolypsCubit.onUpdateData(value!)),
                                     MyText(
                                       title: "Yes",
                                       size: 12,
@@ -846,9 +718,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: false,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .PolypsCubit
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.PolypsCubit.onUpdateData(value!)),
                                     MyText(
                                       title: "No",
                                       size: 12,
@@ -859,21 +729,15 @@ class AddPatientSeventhPage extends StatelessWidget {
                               },
                             ),
                             GenericTextField(
-                              hintColor: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1
-                                  ?.color
-                                  ?.withOpacity(.8),
+                              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                               fieldTypes: FieldTypes.normal,
                               fillColor: MyColors.textFields,
                               hint: "Other...",
-                              controller:
-                              psychologistAddPatientData.OtherStomachController,
+                              controller: psychologistAddPatientData.OtherStomachController,
                               margin: const EdgeInsets.symmetric(vertical: 10),
                               action: TextInputAction.next,
                               type: TextInputType.text,
-                              validate: (value) =>
-                                  value!.validateEmpty(context),
+                              validate: (value) => value!.validateEmpty(context),
                             ),
                             MyText(
                               title: "Previous Surgery",
@@ -893,9 +757,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             value: true,
                                             groupValue: state.data,
                                             onChanged: (value) =>
-                                                psychologistAddPatientData
-                                                    .PostSurgeryCubit
-                                                    .onUpdateData(value!)),
+                                                psychologistAddPatientData.PostSurgeryCubit.onUpdateData(value!)),
                                         MyText(
                                           title: "Yes",
                                           size: 12,
@@ -906,9 +768,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             value: false,
                                             groupValue: state.data,
                                             onChanged: (value) =>
-                                                psychologistAddPatientData
-                                                    .PostSurgeryCubit
-                                                    .onUpdateData(value!)),
+                                                psychologistAddPatientData.PostSurgeryCubit.onUpdateData(value!)),
                                         MyText(
                                           title: "No",
                                           size: 12,
@@ -919,8 +779,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                     Offstage(
                                       offstage: !state.data,
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           MyText(
                                             title: "Previous Surgery Type",
@@ -928,56 +787,36 @@ class AddPatientSeventhPage extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                             color: MyColors.black,
                                           ),
-                                          BlocBuilder<GenericBloc<String>,
-                                              GenericState<String>>(
-                                            bloc: psychologistAddPatientData
-                                                .PostSurgeryTypeCubit,
+                                          BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                                            bloc: psychologistAddPatientData.PostSurgeryTypeCubit,
                                             builder: (context, state) {
                                               return Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Wrap(
-                                                    alignment: WrapAlignment
-                                                        .spaceBetween,
+                                                    alignment: WrapAlignment.spaceBetween,
                                                     direction: Axis.horizontal,
                                                     children: List.generate(
-                                                      psychologistAddPatientData
-                                                          .PreviousSurgeryType
-                                                          .length,
+                                                      psychologistAddPatientData.PreviousSurgeryType.length,
                                                       (index) => Container(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            2.6,
+                                                        width: MediaQuery.of(context).size.width / 2.6,
                                                         child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          mainAxisSize: MainAxisSize.min,
                                                           children: [
                                                             Radio(
-                                                              value: psychologistAddPatientData
-                                                                      .PreviousSurgeryType[
-                                                                  index],
-                                                              groupValue:
-                                                                  state.data,
-                                                              onChanged: (value) =>
-                                                                  psychologistAddPatientData
-                                                                      .PostSurgeryTypeCubit
-                                                                      .onUpdateData(
-                                                                          value!),
+                                                              value:
+                                                                  psychologistAddPatientData.PreviousSurgeryType[index],
+                                                              groupValue: state.data,
+                                                              onChanged: (value) => psychologistAddPatientData
+                                                                  .PostSurgeryTypeCubit.onUpdateData(value!),
                                                             ),
                                                             Expanded(
                                                               child: MyText(
                                                                 title: psychologistAddPatientData
-                                                                        .PreviousSurgeryType[
-                                                                    index],
+                                                                    .PreviousSurgeryType[index],
                                                                 size: 12,
-                                                                color: MyColors
-                                                                    .black,
+                                                                color: MyColors.black,
                                                               ),
                                                             )
                                                           ],
@@ -986,74 +825,44 @@ class AddPatientSeventhPage extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Offstage(
-                                                    offstage:
-                                                        state.data != "LSG",
-                                                    child: BlocBuilder<
-                                                        GenericBloc<String>,
-                                                        GenericState<String>>(
-                                                      bloc: psychologistAddPatientData
-                                                          .PreviousLSGStatusCubit,
-                                                      builder:
-                                                          (context, state) {
+                                                    offstage: state.data != "LSG",
+                                                    child: BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                                                      bloc: psychologistAddPatientData.PreviousLSGStatusCubit,
+                                                      builder: (context, state) {
                                                         return Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             MyText(
-                                                              title:
-                                                                  "Previous LSG Status",
+                                                              title: "Previous LSG Status",
                                                               size: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: MyColors
-                                                                  .black,
+                                                              fontWeight: FontWeight.bold,
+                                                              color: MyColors.black,
                                                             ),
                                                             Wrap(
-                                                              alignment:
-                                                                  WrapAlignment
-                                                                      .spaceBetween,
-                                                              direction: Axis
-                                                                  .horizontal,
-                                                              children:
-                                                                  List.generate(
-                                                                    psychologistAddPatientData
-                                                                    .PostLSGStatusType
-                                                                    .length,
-                                                                (index) =>
-                                                                    Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width /
-                                                                      2.6,
+                                                              alignment: WrapAlignment.spaceBetween,
+                                                              direction: Axis.horizontal,
+                                                              children: List.generate(
+                                                                psychologistAddPatientData.PostLSGStatusType.length,
+                                                                (index) => Container(
+                                                                  width: MediaQuery.of(context).size.width / 2.6,
                                                                   child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .start,
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .min,
+                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                    mainAxisSize: MainAxisSize.min,
                                                                     children: [
                                                                       Radio(
                                                                         value: psychologistAddPatientData
                                                                             .PostLSGStatusType[index],
-                                                                        groupValue:
-                                                                            state.data,
+                                                                        groupValue: state.data,
                                                                         onChanged: (value) => psychologistAddPatientData
-                                                                            .PreviousLSGStatusCubit
+                                                                                .PreviousLSGStatusCubit
                                                                             .onUpdateData(value!),
                                                                       ),
                                                                       Expanded(
-                                                                        child:
-                                                                            MyText(
-                                                                          title:
-                                                                          psychologistAddPatientData.PostLSGStatusType[index],
-                                                                          size:
-                                                                              12,
-                                                                          color:
-                                                                              MyColors.black,
+                                                                        child: MyText(
+                                                                          title: psychologistAddPatientData
+                                                                              .PostLSGStatusType[index],
+                                                                          size: 12,
+                                                                          color: MyColors.black,
                                                                         ),
                                                                       )
                                                                     ],
@@ -1067,296 +876,174 @@ class AddPatientSeventhPage extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Offstage(
-                                                    offstage: state.data ==
-                                                            "LSG" ||
-                                                        state.data == "LAGB",
-                                                    child: BlocBuilder<
-                                                        GenericBloc<String>,
-                                                        GenericState<String>>(
-                                                      bloc: psychologistAddPatientData
-                                                          .HPyloriCubit,
-                                                      builder:
-                                                          (context, state) {
+                                                    offstage: state.data == "LSG" || state.data == "LAGB",
+                                                    child: BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                                                      bloc: psychologistAddPatientData.HPyloriCubit,
+                                                      builder: (context, state) {
                                                         return Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             MyText(
-                                                              title:
-                                                                  "Pouch Dilatation",
+                                                              title: "Pouch Dilatation",
                                                               size: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: MyColors
-                                                                  .black,
+                                                              fontWeight: FontWeight.bold,
+                                                              color: MyColors.black,
                                                             ),
-                                                            BlocBuilder<
-                                                                GenericBloc<
-                                                                    bool>,
-                                                                GenericState<
-                                                                    bool>>(
-                                                              bloc: psychologistAddPatientData
-                                                                  .PouchDilatationCubit,
-                                                              builder: (context,
-                                                                  state) {
+                                                            BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                                                              bloc: psychologistAddPatientData.PouchDilatationCubit,
+                                                              builder: (context, state) {
                                                                 return Row(
                                                                   children: [
                                                                     Radio(
-                                                                        value:
-                                                                            true,
-                                                                        groupValue:
-                                                                            state
-                                                                                .data,
+                                                                        value: true,
+                                                                        groupValue: state.data,
                                                                         onChanged: (value) => psychologistAddPatientData
-                                                                            .PouchDilatationCubit
-                                                                            .onUpdateData(value!)),
+                                                                            .PouchDilatationCubit.onUpdateData(value!)),
                                                                     MyText(
-                                                                      title:
-                                                                          "Yes",
+                                                                      title: "Yes",
                                                                       size: 12,
-                                                                      color: MyColors
-                                                                          .black,
+                                                                      color: MyColors.black,
                                                                     ),
-                                                                    const SizedBox(
-                                                                        width:
-                                                                            40),
+                                                                    const SizedBox(width: 40),
                                                                     Radio(
-                                                                        value:
-                                                                            false,
-                                                                        groupValue:
-                                                                            state
-                                                                                .data,
+                                                                        value: false,
+                                                                        groupValue: state.data,
                                                                         onChanged: (value) => psychologistAddPatientData
-                                                                            .PouchDilatationCubit
-                                                                            .onUpdateData(value!)),
+                                                                            .PouchDilatationCubit.onUpdateData(value!)),
                                                                     MyText(
-                                                                      title:
-                                                                          "No",
+                                                                      title: "No",
                                                                       size: 12,
-                                                                      color: MyColors
-                                                                          .black,
+                                                                      color: MyColors.black,
                                                                     ),
                                                                   ],
                                                                 );
                                                               },
                                                             ),
+                                                            // MyText(
+                                                            //   title: "Anastomotic Size",
+                                                            //   size: 12,
+                                                            //   fontWeight: FontWeight.bold,
+                                                            //   color: MyColors.black,
+                                                            // ),
+                                                            // BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                                                            //   bloc: psychologistAddPatientData.AnastomoticSizeCubit,
+                                                            //   builder: (context, state) {
+                                                            //     return Row(
+                                                            //       children: [
+                                                            //         Radio(
+                                                            //             value: true,
+                                                            //             groupValue: state.data,
+                                                            //             onChanged: (value) => psychologistAddPatientData
+                                                            //                 .AnastomoticSizeCubit.onUpdateData(value!)),
+                                                            //         MyText(
+                                                            //           title: "Yes",
+                                                            //           size: 12,
+                                                            //           color: MyColors.black,
+                                                            //         ),
+                                                            //         const SizedBox(width: 40),
+                                                            //         Radio(
+                                                            //             value: false,
+                                                            //             groupValue: state.data,
+                                                            //             onChanged: (value) => psychologistAddPatientData
+                                                            //                 .AnastomoticSizeCubit.onUpdateData(value!)),
+                                                            //         MyText(
+                                                            //           title: "No",
+                                                            //           size: 12,
+                                                            //           color: MyColors.black,
+                                                            //         ),
+                                                            //       ],
+                                                            //     );
+                                                            //   },
+                                                            // ),
                                                             MyText(
-                                                              title:
-                                                                  "Anastomotic Size",
+                                                              title: "Anastomotic size",
                                                               size: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: MyColors
-                                                                  .black,
-                                                            ),
-                                                            BlocBuilder<
-                                                                GenericBloc<
-                                                                    bool>,
-                                                                GenericState<
-                                                                    bool>>(
-                                                              bloc: psychologistAddPatientData
-                                                                  .AnastomoticSizeCubit,
-                                                              builder: (context,
-                                                                  state) {
-                                                                return Row(
-                                                                  children: [
-                                                                    Radio(
-                                                                        value:
-                                                                            true,
-                                                                        groupValue:
-                                                                            state
-                                                                                .data,
-                                                                        onChanged: (value) => psychologistAddPatientData
-                                                                            .AnastomoticSizeCubit
-                                                                            .onUpdateData(value!)),
-                                                                    MyText(
-                                                                      title:
-                                                                          "Yes",
-                                                                      size: 12,
-                                                                      color: MyColors
-                                                                          .black,
-                                                                    ),
-                                                                    const SizedBox(
-                                                                        width:
-                                                                            40),
-                                                                    Radio(
-                                                                        value:
-                                                                            false,
-                                                                        groupValue:
-                                                                            state
-                                                                                .data,
-                                                                        onChanged: (value) => psychologistAddPatientData
-                                                                            .AnastomoticSizeCubit
-                                                                            .onUpdateData(value!)),
-                                                                    MyText(
-                                                                      title:
-                                                                          "No",
-                                                                      size: 12,
-                                                                      color: MyColors
-                                                                          .black,
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
-                                                            ),
-                                                            MyText(
-                                                              title:
-                                                                  "Anastomotic size",
-                                                              size: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: MyColors
-                                                                  .black,
+                                                              fontWeight: FontWeight.bold,
+                                                              color: MyColors.black,
                                                             ),
                                                             GenericTextField(
-                                                              hintColor: Theme.of(
-                                                                      context)
+                                                              hintColor: Theme.of(context)
                                                                   .textTheme
                                                                   .subtitle1
                                                                   ?.color
-                                                                  ?.withOpacity(
-                                                                      .8),
-                                                              fieldTypes:
-                                                                  FieldTypes
-                                                                      .normal,
-                                                              fillColor: MyColors
-                                                                  .textFields,
-                                                              hint:
-                                                                  "Anastomotic size",
+                                                                  ?.withOpacity(.8),
+                                                              fieldTypes: FieldTypes.normal,
+                                                              fillColor: MyColors.textFields,
+                                                              hint: "Anastomotic size",
                                                               controller:
-                                                              psychologistAddPatientData
-                                                                      .AnastomoticSizeController,
-                                                              margin: const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical: 10),
-                                                              action:
-                                                                  TextInputAction
-                                                                      .next,
-                                                              type:
-                                                                  TextInputType
-                                                                      .text,
-                                                              validate: (value) =>
-                                                                  value!.validateEmpty(
-                                                                      context),
+                                                                  psychologistAddPatientData.AnastomoticSizeController,
+                                                              margin: const EdgeInsets.symmetric(vertical: 10),
+                                                              action: TextInputAction.next,
+                                                              type: TextInputType.text,
+                                                              validate: (value) => value!.validateEmpty(context),
                                                             ),
                                                             MyText(
                                                               title: "Ulcer",
                                                               size: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: MyColors
-                                                                  .black,
+                                                              fontWeight: FontWeight.bold,
+                                                              color: MyColors.black,
                                                             ),
-                                                            BlocBuilder<
-                                                                GenericBloc<
-                                                                    bool>,
-                                                                GenericState<
-                                                                    bool>>(
-                                                              bloc: psychologistAddPatientData
-                                                                  .UlcerCubit,
-                                                              builder: (context,
-                                                                  state) {
+                                                            BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                                                              bloc: psychologistAddPatientData.UlcerCubit,
+                                                              builder: (context, state) {
                                                                 return Row(
                                                                   children: [
                                                                     Radio(
-                                                                        value:
-                                                                            true,
-                                                                        groupValue:
-                                                                            state
-                                                                                .data,
+                                                                        value: true,
+                                                                        groupValue: state.data,
                                                                         onChanged: (value) => psychologistAddPatientData
-                                                                            .UlcerCubit
-                                                                            .onUpdateData(value!)),
+                                                                            .UlcerCubit.onUpdateData(value!)),
                                                                     MyText(
-                                                                      title:
-                                                                          "Yes",
+                                                                      title: "Yes",
                                                                       size: 12,
-                                                                      color: MyColors
-                                                                          .black,
+                                                                      color: MyColors.black,
                                                                     ),
-                                                                    const SizedBox(
-                                                                        width:
-                                                                            40),
+                                                                    const SizedBox(width: 40),
                                                                     Radio(
-                                                                        value:
-                                                                            false,
-                                                                        groupValue:
-                                                                            state
-                                                                                .data,
+                                                                        value: false,
+                                                                        groupValue: state.data,
                                                                         onChanged: (value) => psychologistAddPatientData
-                                                                            .UlcerCubit
-                                                                            .onUpdateData(value!)),
+                                                                            .UlcerCubit.onUpdateData(value!)),
                                                                     MyText(
-                                                                      title:
-                                                                          "No",
+                                                                      title: "No",
                                                                       size: 12,
-                                                                      color: MyColors
-                                                                          .black,
+                                                                      color: MyColors.black,
                                                                     ),
                                                                   ],
                                                                 );
                                                               },
                                                             ),
                                                             MyText(
-                                                              title:
-                                                                  "Stricture",
+                                                              title: "Stricture",
                                                               size: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: MyColors
-                                                                  .black,
+                                                              fontWeight: FontWeight.bold,
+                                                              color: MyColors.black,
                                                             ),
-                                                            BlocBuilder<
-                                                                GenericBloc<
-                                                                    bool>,
-                                                                GenericState<
-                                                                    bool>>(
-                                                              bloc: psychologistAddPatientData
-                                                                  .StrictureCubit,
-                                                              builder: (context,
-                                                                  state) {
+                                                            BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                                                              bloc: psychologistAddPatientData.StrictureCubit,
+                                                              builder: (context, state) {
                                                                 return Row(
                                                                   children: [
                                                                     Radio(
-                                                                        value:
-                                                                            true,
-                                                                        groupValue:
-                                                                            state
-                                                                                .data,
+                                                                        value: true,
+                                                                        groupValue: state.data,
                                                                         onChanged: (value) => psychologistAddPatientData
-                                                                            .StrictureCubit
-                                                                            .onUpdateData(value!)),
+                                                                            .StrictureCubit.onUpdateData(value!)),
                                                                     MyText(
-                                                                      title:
-                                                                          "Yes",
+                                                                      title: "Yes",
                                                                       size: 12,
-                                                                      color: MyColors
-                                                                          .black,
+                                                                      color: MyColors.black,
                                                                     ),
-                                                                    const SizedBox(
-                                                                        width:
-                                                                            40),
+                                                                    const SizedBox(width: 40),
                                                                     Radio(
-                                                                        value:
-                                                                            false,
-                                                                        groupValue:
-                                                                            state
-                                                                                .data,
+                                                                        value: false,
+                                                                        groupValue: state.data,
                                                                         onChanged: (value) => psychologistAddPatientData
-                                                                            .StrictureCubit
-                                                                            .onUpdateData(value!)),
+                                                                            .StrictureCubit.onUpdateData(value!)),
                                                                     MyText(
-                                                                      title:
-                                                                          "No",
+                                                                      title: "No",
                                                                       size: 12,
-                                                                      color: MyColors
-                                                                          .black,
+                                                                      color: MyColors.black,
                                                                     ),
                                                                   ],
                                                                 );
@@ -1365,98 +1052,79 @@ class AddPatientSeventhPage extends StatelessWidget {
                                                             MyText(
                                                               title: "Bile",
                                                               size: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: MyColors
-                                                                  .black,
+                                                              fontWeight: FontWeight.bold,
+                                                              color: MyColors.black,
                                                             ),
-                                                            BlocBuilder<
-                                                                GenericBloc<
-                                                                    bool>,
-                                                                GenericState<
-                                                                    bool>>(
-                                                              bloc:
-                                                              psychologistAddPatientData
-                                                                      .BileCubit,
-                                                              builder: (context,
-                                                                  state) {
+                                                            BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                                                              bloc: psychologistAddPatientData.BileCubit,
+                                                              builder: (context, state) {
                                                                 return Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
                                                                     Row(
                                                                       children: [
                                                                         Radio(
-                                                                            value:
-                                                                                true,
-                                                                            groupValue:
-                                                                                state.data,
-                                                                            onChanged: (value) => psychologistAddPatientData.BileCubit.onUpdateData(value!)),
+                                                                            value: true,
+                                                                            groupValue: state.data,
+                                                                            onChanged: (value) =>
+                                                                                psychologistAddPatientData.BileCubit
+                                                                                    .onUpdateData(value!)),
                                                                         MyText(
-                                                                          title:
-                                                                              "Yes",
-                                                                          size:
-                                                                              12,
-                                                                          color:
-                                                                              MyColors.black,
+                                                                          title: "Yes",
+                                                                          size: 12,
+                                                                          color: MyColors.black,
                                                                         ),
-                                                                        const SizedBox(
-                                                                            width:
-                                                                                40),
+                                                                        const SizedBox(width: 40),
                                                                         Radio(
-                                                                            value:
-                                                                                false,
-                                                                            groupValue:
-                                                                                state.data,
-                                                                            onChanged: (value) => psychologistAddPatientData.BileCubit.onUpdateData(value!)),
+                                                                            value: false,
+                                                                            groupValue: state.data,
+                                                                            onChanged: (value) =>
+                                                                                psychologistAddPatientData.BileCubit
+                                                                                    .onUpdateData(value!)),
                                                                         MyText(
-                                                                          title:
-                                                                              "No",
-                                                                          size:
-                                                                              12,
-                                                                          color:
-                                                                              MyColors.black,
+                                                                          title: "No",
+                                                                          size: 12,
+                                                                          color: MyColors.black,
                                                                         ),
                                                                       ],
                                                                     ),
                                                                     Offstage(
-                                                                      offstage:
-                                                                          !state
-                                                                              .data,
-                                                                      child:
-                                                                          Column(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
+                                                                      offstage: !state.data,
+                                                                      child: Column(
+                                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                                         children: [
                                                                           MyText(
-                                                                            title:
-                                                                                "Twist",
-                                                                            size:
-                                                                                12,
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            color:
-                                                                                MyColors.black,
+                                                                            title: "Twist",
+                                                                            size: 12,
+                                                                            fontWeight: FontWeight.bold,
+                                                                            color: MyColors.black,
                                                                           ),
-                                                                          BlocBuilder<
-                                                                              GenericBloc<bool>,
+                                                                          BlocBuilder<GenericBloc<bool>,
                                                                               GenericState<bool>>(
-                                                                            bloc:
-                                                                            psychologistAddPatientData.TwistCubit,
-                                                                            builder:
-                                                                                (context, state) {
+                                                                            bloc: psychologistAddPatientData.TwistCubit,
+                                                                            builder: (context, state) {
                                                                               return Row(
                                                                                 children: [
-                                                                                  Radio(value: true, groupValue: state.data, onChanged: (value) => psychologistAddPatientData.TwistCubit.onUpdateData(value!)),
+                                                                                  Radio(
+                                                                                      value: true,
+                                                                                      groupValue: state.data,
+                                                                                      onChanged: (value) =>
+                                                                                          psychologistAddPatientData
+                                                                                                  .TwistCubit
+                                                                                              .onUpdateData(value!)),
                                                                                   MyText(
                                                                                     title: "Yes",
                                                                                     size: 12,
                                                                                     color: MyColors.black,
                                                                                   ),
                                                                                   const SizedBox(width: 40),
-                                                                                  Radio(value: false, groupValue: state.data, onChanged: (value) => psychologistAddPatientData.TwistCubit.onUpdateData(value!)),
+                                                                                  Radio(
+                                                                                      value: false,
+                                                                                      groupValue: state.data,
+                                                                                      onChanged: (value) =>
+                                                                                          psychologistAddPatientData
+                                                                                                  .TwistCubit
+                                                                                              .onUpdateData(value!)),
                                                                                   MyText(
                                                                                     title: "No",
                                                                                     size: 12,
@@ -1514,9 +1182,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: true,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .NormalDuodenum
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.NormalDuodenum.onUpdateData(value!)),
                                     MyText(
                                       title: "Yes",
                                       size: 12,
@@ -1527,9 +1193,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: false,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .NormalDuodenum
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.NormalDuodenum.onUpdateData(value!)),
                                     MyText(
                                       title: "No",
                                       size: 12,
@@ -1554,9 +1218,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: true,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .DuodenalUlcer
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.DuodenalUlcer.onUpdateData(value!)),
                                     MyText(
                                       title: "Yes",
                                       size: 12,
@@ -1567,9 +1229,7 @@ class AddPatientSeventhPage extends StatelessWidget {
                                         value: false,
                                         groupValue: state.data,
                                         onChanged: (value) =>
-                                            psychologistAddPatientData
-                                                .DuodenalUlcer
-                                                .onUpdateData(value!)),
+                                            psychologistAddPatientData.DuodenalUlcer.onUpdateData(value!)),
                                     MyText(
                                       title: "No",
                                       size: 12,
@@ -1586,21 +1246,15 @@ class AddPatientSeventhPage extends StatelessWidget {
                               color: MyColors.black,
                             ),
                             GenericTextField(
-                              hintColor: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1
-                                  ?.color
-                                  ?.withOpacity(.8),
+                              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                               fieldTypes: FieldTypes.normal,
                               fillColor: MyColors.textFields,
                               hint: "Other...",
-                              controller:
-                              psychologistAddPatientData.OtherDuodenumController,
+                              controller: psychologistAddPatientData.OtherDuodenumController,
                               margin: const EdgeInsets.symmetric(vertical: 10),
                               action: TextInputAction.next,
                               type: TextInputType.text,
-                              validate: (value) =>
-                                  value!.validateEmpty(context),
+                              validate: (value) => value!.validateEmpty(context),
                             ),
                           ],
                         ),

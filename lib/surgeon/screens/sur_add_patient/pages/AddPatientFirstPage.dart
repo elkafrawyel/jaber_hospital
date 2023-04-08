@@ -5,11 +5,11 @@ class AddPatientFirstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      children: [
-        Form(
-          key: SurAddPatientData().formKey1,
+    return SingleChildScrollView(
+      child: Form(
+        key: SurAddPatientData().formKey1,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -74,28 +74,29 @@ class AddPatientFirstPage extends StatelessWidget {
                 type: TextInputType.text,
                 validate: (value) => value!.validateEmpty(context),
               ),
-              MyText(
-                title: "Patient ID",
-                size: 12,
-                fontWeight: FontWeight.bold,
-              ),
-              GenericTextField(
-                hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-                fieldTypes: FieldTypes.normal,
-                fillColor: MyColors.textFields,
-                hint: "Patient ID",
-                controller: SurAddPatientData().patientId,
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                action: TextInputAction.next,
-                type: TextInputType.number,
-                validate: (value) {
-                  if (value!.validateEmpty(context) != null) {
-                    return value.validateEmpty(context);
-                  } else if (value.length != 12) {
-                    return "ID must be 12 digit";
-                  }
-                },
-              ),
+              // MyText(
+              //   title: "Civil ID",
+              //   size: 12,
+              //   fontWeight: FontWeight.bold,
+              // ),
+              // GenericTextField(
+              //   hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+              //   fieldTypes: FieldTypes.normal,
+              //   fillColor: MyColors.textFields,
+              //   hint: "Civil ID",
+              //   controller: SurAddPatientData().patientId,
+              //   margin: const EdgeInsets.symmetric(vertical: 10),
+              //   action: TextInputAction.next,
+              //   type: TextInputType.number,
+              //   validate: (value) => null,
+              //   // validate: (value) {
+              //   //   if (value!.validateEmpty(context) != null) {
+              //   //     return value.validateEmpty(context);
+              //   //   } else if (value.length != 12) {
+              //   //     return "ID must be 12 digit";
+              //   //   }
+              //   // },
+              // ),
               MyText(
                 title: "Patient file number",
                 size: 12,
@@ -109,7 +110,7 @@ class AddPatientFirstPage extends StatelessWidget {
                 controller: SurAddPatientData().patientFileNumber,
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 action: TextInputAction.next,
-                type: TextInputType.number,
+                type: TextInputType.text,
                 validate: (value) => value!.validateEmpty(context),
               ),
               MyText(
@@ -126,7 +127,7 @@ class AddPatientFirstPage extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 action: TextInputAction.next,
                 type: TextInputType.emailAddress,
-                validate: (value) => value!.validateEmail(context),
+                validate: (value) => null,
               ),
               MyText(
                 title: "Patient mobile 1",
@@ -177,7 +178,7 @@ class AddPatientFirstPage extends StatelessWidget {
                 validate: (value) => value!.validateEmpty(context),
               ),
               MyText(
-                title: "Patient weight",
+                title: "Patient weight (CM)",
                 size: 12,
                 fontWeight: FontWeight.bold,
               ),
@@ -185,7 +186,7 @@ class AddPatientFirstPage extends StatelessWidget {
                 hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                 fieldTypes: FieldTypes.normal,
                 fillColor: MyColors.textFields,
-                hint: "Patient weight",
+                hint: "Patient weight (CM)",
                 controller: SurAddPatientData().patientWeight,
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 action: TextInputAction.next,
@@ -194,7 +195,7 @@ class AddPatientFirstPage extends StatelessWidget {
                 validate: (value) => value!.validateEmpty(context),
               ),
               MyText(
-                title: "Patient height",
+                title: "Patient height (CM)",
                 size: 12,
                 fontWeight: FontWeight.bold,
               ),
@@ -202,7 +203,7 @@ class AddPatientFirstPage extends StatelessWidget {
                 hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                 fieldTypes: FieldTypes.normal,
                 fillColor: MyColors.textFields,
-                hint: "Patient height",
+                hint: "Patient height (CM)",
                 controller: SurAddPatientData().patientHeight,
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 action: TextInputAction.next,
@@ -248,8 +249,8 @@ class AddPatientFirstPage extends StatelessWidget {
               ),
             ],
           ),
-        )
-      ],
+        ),
+      ),
     );
   }
 }

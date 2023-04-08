@@ -32,7 +32,11 @@ class SurPatientDetailsData {
   }
 
   String date(String date) {
-    DateTime dateTime = DateTime.parse(date);
+    print('==========================>$date');
+    DateTime? dateTime = DateTime.tryParse(date);
+    if (dateTime == null) {
+      return '';
+    }
     String returnDate = "${dateTime.day}/${dateTime.month}/${dateTime.year}";
     return returnDate;
   }
@@ -63,8 +67,12 @@ class SurPatientDetailsData {
 
   void addAppointment(BuildContext context, String patientId) async {
     if (formKey.currentState!.validate()) {
-      bool res = await SurgeonRepository(context)
-          .addAppointment(patientId, dateBloc.state.data ?? '', notes.text, clinicName.text);
+      bool res = await SurgeonRepository(context).addAppointment(
+        patientId,
+        dateBloc.state.data ?? '',
+        notes.text,
+        // clinicName.text,
+      );
       if (res) {
         navigationKey.currentState!.pop();
         navigationKey.currentState!.pop();

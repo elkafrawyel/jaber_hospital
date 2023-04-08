@@ -15,7 +15,7 @@ class PatientModel {
   String? dietationFeedbackDecision;
   String? finalFeedback;
   String? feedback;
-  bool? isOpen ;
+  bool? isOpen;
 
   PatientModel({
     this.sId,
@@ -45,12 +45,8 @@ class PatientModel {
     operationStatus = json['operation_status'];
     operationDate = json['operation_date'];
     operationType = json['operation_type'];
-    surgeonId = json['surgeon_id'] != null
-        ? new SurgeonId.fromJson(json['surgeon_id'])
-        : null;
-    dietationId = json['dietation_id'] != null
-        ? new SurgeonId.fromJson(json['dietation_id'])
-        : null;
+    surgeonId = json['surgeon_id'] != null ? new SurgeonId.fromJson(json['surgeon_id']) : null;
+    dietationId = json['dietation_id'] != null ? new SurgeonId.fromJson(json['dietation_id']) : null;
     ultrasound = json['ultrasound'];
     egd = json['egd'];
     surgionVisit = json['surgion_visit'];
