@@ -4,7 +4,6 @@ import '../../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/g
 import '../../../../models/apointments_response.dart';
 import '../../../../models/appointment_model.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../resources/SurgeonRepoImports.dart';
 
 class PastAppointmentsData{

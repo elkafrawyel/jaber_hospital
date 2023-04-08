@@ -17,8 +17,8 @@ class _SponsoredByState extends State<SponsoredBy> {
     Res.imagesCentral,
   ];
 
-  static const int allValue = 2;
-  double curValue = 2;
+  static const int allValue = 3;
+  double curValue = 3;
   Timer? timer;
 
   void startTimer() {
