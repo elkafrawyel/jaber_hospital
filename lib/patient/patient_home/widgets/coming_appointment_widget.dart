@@ -49,7 +49,7 @@ class ComingAppointmentWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MyText(
-                      title: appointmentModel.doctorId?.fullNameAr??"",
+                      title: "${appointmentModel.doctorId?.firstNameAr} ${appointmentModel.doctorId?.lastNameAr}",
                       size: 13,
                       fontWeight: FontWeight.bold),
                   MyText(title:appointmentModel.doctorId?.title??"", size: 12, color: Colors.grey),

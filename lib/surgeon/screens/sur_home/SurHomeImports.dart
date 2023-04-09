@@ -4,6 +4,7 @@ import 'package:base_flutter/surgeon/resources/SurgeonRepoImports.dart';
 import 'package:base_flutter/surgeon/screens/sur_home/widget/SurHomeWImports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../general/blocks/user_cubit/user_cubit.dart';
 import '../../../res/res.dart';

@@ -47,7 +47,8 @@ class _SurNotificationsState extends State<SurNotifications> {
               ),
             );
           } else {
-            return LoadingWidget();
+            return Expanded(
+                child: Center(child: LoadingDialog.showLoadingView()));
           }
         },
       ),);

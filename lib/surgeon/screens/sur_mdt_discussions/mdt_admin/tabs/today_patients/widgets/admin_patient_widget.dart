@@ -47,7 +47,7 @@ class AdminPatientWidget extends StatelessWidget {
                         children: [
                           Expanded(
                             child: MyText(
-                              title: patientModel.fullNameEn??"",
+                              title: "${patientModel.firstNameEn} ${patientModel.lastNameEn}",
                               size: 12,
                               fontWeight: FontWeight.bold,
                             ),
@@ -63,7 +63,7 @@ class AdminPatientWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                           MyText(
-                            title: patientModel.surgeonId?.fullNameEn??"",
+                            title: "${patientModel.surgeonId?.firstNameEn} ${patientModel.surgeonId?.lastNameEn}",
                             size: 11,
                             color: MyColors.grey,
                           ),
@@ -78,7 +78,7 @@ class AdminPatientWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                           MyText(
-                            title: patientModel.dietationId?.fullNameEn??"",
+                            title: "${patientModel.dietationId?.firstNameEn} ${patientModel.dietationId?.lastNameEn}",
                             size: 11,
                             color: MyColors.grey,
                           ),

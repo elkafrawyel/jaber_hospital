@@ -224,8 +224,7 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
                   ),
                   DefaultButton(
                     title: "Confirm Request",
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+                    margin: const EdgeInsets.symmetric(vertical: 28, horizontal: 48),
                     onTap: () => SurOrderMedicationsData().onAddMedication(context),
                   )
                 ],

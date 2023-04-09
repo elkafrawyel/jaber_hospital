@@ -59,9 +59,9 @@ class _BuildResultDecisionState extends State<BuildResultDecision>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     MyText(
-                                      title: state.data?.patients?[index]
-                                              .fullNameEn ??
-                                          '',
+                                      title: '${state.data?.patients?[index]
+                                          .firstNameEn} ${state.data?.patients?[index]
+                                          .lastNameEn}',
                                       size: 12,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -74,9 +74,9 @@ class _BuildResultDecisionState extends State<BuildResultDecision>
                                           fontWeight: FontWeight.bold,
                                         ),
                                         MyText(
-                                          title: state.data?.patients?[index]
-                                                  .surgeonId?.fullNameEn ??
-                                              "",
+                                          title: "${state.data?.patients?[index]
+                                              .surgeonId?.firstNameEn} ${state.data?.patients?[index]
+                                              .surgeonId?.lastNameEn}",
                                           size: 11,
                                           color: MyColors.grey,
                                         ),
@@ -91,9 +91,9 @@ class _BuildResultDecisionState extends State<BuildResultDecision>
                                           fontWeight: FontWeight.bold,
                                         ),
                                         MyText(
-                                          title: state.data?.patients?[index]
-                                                  .dietationId?.fullNameEn ??
-                                              "",
+                                          title: "${state.data?.patients?[index]
+                                              .dietationId?.firstNameEn} ${state.data?.patients?[index]
+                                              .dietationId?.lastNameEn}",
                                           size: 11,
                                           color: MyColors.grey,
                                         ),

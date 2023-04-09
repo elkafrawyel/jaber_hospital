@@ -2,8 +2,10 @@ import '../../general/models/doctor_model.dart';
 
 class MdtPatientModel {
   String? id;
-  String? fullNameAr;
-  String? fullNameEn;
+  String? firstNameEn;
+  String? firstNameAr;
+  String? lastNameAr;
+  String? lastNameEn;
   String? image;
   String? fileId;
   String? mdtStatus;
@@ -14,8 +16,10 @@ class MdtPatientModel {
 
   MdtPatientModel(
       {this.id,
-        this.fullNameAr,
-        this.fullNameEn,
+        this.firstNameEn,
+        this.firstNameAr,
+        this.lastNameAr,
+        this.lastNameEn,
         this.image,
         this.fileId,
         this.mdtStatus,
@@ -26,8 +30,10 @@ class MdtPatientModel {
 
   MdtPatientModel.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
-    fullNameAr = json['full_name_ar'];
-    fullNameEn = json['full_name_en'];
+    firstNameEn = json['first_name_en'];
+    firstNameAr = json['first_name_ar'];
+    lastNameAr = json['last_name_ar'];
+    lastNameEn = json['last_name_en'];
     image = json['image'];
     fileId = json['file_id'];
     mdtStatus = json['mdt_status'];
@@ -44,8 +50,10 @@ class MdtPatientModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.id;
-    data['full_name_ar'] = this.fullNameAr;
-    data['full_name_en'] = this.fullNameEn;
+    data['first_name_ar'] = this.firstNameAr;
+    data['last_name_ar'] = this.lastNameAr;
+    data['first_name_en'] = this.firstNameEn;
+    data['last_name_en'] = this.lastNameEn;
     data['image'] = this.image;
     data['file_id'] = this.fileId;
     data['mdt_status'] = this.mdtStatus;
