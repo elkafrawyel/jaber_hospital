@@ -267,6 +267,7 @@ class AddPatientSecondPage extends StatelessWidget {
                                 title: list[index],
                                 size: 12,
                                 color: MyColors.black,
+                                fontWeight: FontWeight.bold,
                               ),
                               const SizedBox(width: 40),
                             ],

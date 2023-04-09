@@ -12,8 +12,10 @@ class SurAddPatientData {
 
   /// first page
   late GlobalKey<FormState> formKey1;
-  late TextEditingController patientNameAr;
-  late TextEditingController patientNameEn;
+  late TextEditingController patientFNameAr;
+  late TextEditingController patientLNameAr;
+  late TextEditingController patientFNameEn;
+  late TextEditingController patientLNameEn;
   late TextEditingController patientId;
   late GenericBloc<String> patientGenderCubit;
   late TextEditingController patientFileNumber;
@@ -145,8 +147,10 @@ class SurAddPatientData {
     pageCubit = GenericBloc(1);
     otherNotesDm = TextEditingController(text: patientDetailsModel?.patient?.otherNotes ?? '');
     patientGenderCubit = GenericBloc(patientDetailsModel?.patient?.gender == 'female' ? 'female' : 'male');
-    patientNameEn = TextEditingController(text: patientDetailsModel?.patient?.fullNameEn ?? '');
-    patientNameAr = TextEditingController(text: patientDetailsModel?.patient?.fullNameAr ?? '');
+    patientFNameEn = TextEditingController(text: patientDetailsModel?.patient?.fNameEn ?? '');
+    patientLNameEn = TextEditingController(text: patientDetailsModel?.patient?.lNameEn ?? '');
+    patientFNameAr = TextEditingController(text: patientDetailsModel?.patient?.fNameAr ?? '');
+    patientLNameAr = TextEditingController(text: patientDetailsModel?.patient?.lNameAr ?? '');
     patientId = TextEditingController(text: patientDetailsModel?.patient?.civilId ?? '');
     patientFileNumber = TextEditingController(text: patientDetailsModel?.patient?.publicId ?? '');
     patientMobile1 = TextEditingController(text: patientDetailsModel?.patient?.telephone1 ?? '');
@@ -339,11 +343,11 @@ class SurAddPatientData {
         height: height,
         weight: weight,
         bmi: bmi,
-        nameAr: patientNameAr.text,
-        nameEn: patientNameEn.text,
+        fNameAr: patientFNameAr.text,
+        fNameEn: patientFNameEn.text,
         age: age,
         email: patientEmail.text,
-        password: '${patientNameEn.text}@${patientMobile1.text}',
+        password: '${patientFNameEn.text}@${patientMobile1.text}',
         telephone1: patientMobile1.text,
         telephone2: patientMobile2.text,
         // civilId: patientId.text,

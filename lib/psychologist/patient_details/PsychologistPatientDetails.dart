@@ -120,7 +120,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                     children: [
                                       Expanded(
                                         child: MyText(
-                                          title: state.data?.patient?.fullNameEn ?? "",
+                                          title: state.data?.patient?.fNameEn ?? "",
                                           size: 14,
                                           fontWeight: FontWeight.bold,
                                         ),

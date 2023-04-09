@@ -47,7 +47,7 @@ class BuildPreOpItem extends StatelessWidget {
                           children: [
                             Expanded(
                               child: MyText(
-                                title: list[index].fullNameEn ?? 'Ahmed Ali',
+                                title: '${list[index].fNameEn ?? ""} ${list[index].lNameEn ?? ""}',
                                 size: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -90,7 +90,7 @@ class BuildPreOpItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].surgeonId?.fullNameEn ?? 'Samer Hany',
+                              title: list[index].surgeonId?.fullNameEn ?? '',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -105,7 +105,7 @@ class BuildPreOpItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].dietationId?.fullNameEn ?? 'Ahmed Jamil',
+                              title: list[index].dietationId?.fullNameEn ?? '',
                               size: 11,
                               color: MyColors.grey,
                             ),

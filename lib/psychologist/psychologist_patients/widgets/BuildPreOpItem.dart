@@ -23,7 +23,9 @@ class BuildPreOpItem extends StatelessWidget {
   Widget build(BuildContext context) {
     List<PatientModel> list = PsychologistPatientData().patientsCubit.state.data;
     return InkWell(
-      onTap: ()=>Nav.navigateTo(PsychologistPatientDetails(patientId: list[index].sId??'',patientModel: patientModel), navigatorType: NavigatorType.push) ,
+      onTap: () => Nav.navigateTo(
+          PsychologistPatientDetails(patientId: list[index].sId ?? '', patientModel: patientModel),
+          navigatorType: NavigatorType.push),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -51,38 +53,38 @@ class BuildPreOpItem extends StatelessWidget {
                           children: [
                             Expanded(
                               child: MyText(
-                                title: list[index].fullNameEn ?? 'Ahmed Ali',
+                                title: '${list[index].fNameEn ?? ""} ${list[index].lNameEn ?? ""}',
                                 size: 12,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            list[index].finalFeedback=="true"? Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 3),
-                              decoration: BoxDecoration(
-                                color: Color(0xffaff7c3),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: MyText(
-                                title: 'Ready',
-                                size: 9,
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ):Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 2, vertical: 3),
-                              decoration: BoxDecoration(
-                                color: Color(0xffFBD6BC),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: MyText(
-                                title: 'Not Ready',
-                                size: 9,
-                                color: Color(0xFFEB7826),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            list[index].finalFeedback == "true"
+                                ? Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffaff7c3),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: MyText(
+                                      title: 'Ready',
+                                      size: 9,
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                : Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffFBD6BC),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: MyText(
+                                      title: 'Not Ready',
+                                      size: 9,
+                                      color: Color(0xFFEB7826),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ],
                         ),
                         Row(
@@ -94,8 +96,7 @@ class BuildPreOpItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].surgeonId?.fullNameEn ??
-                                  'Samer Hany',
+                              title: list[index].surgeonId?.fullNameEn ?? '',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -110,8 +111,7 @@ class BuildPreOpItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].dietationId?.fullNameEn ??
-                                  'Ahmed Jamil',
+                              title: list[index].dietationId?.fullNameEn ?? '',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -183,16 +183,16 @@ class BuildPreOpItem extends StatelessWidget {
                             axis: TimelineAxis.horizontal,
                             alignment: TimelineAlign.center,
                             beforeLineStyle: LineStyle(
-                              color: list[index].dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                              color: list[index].dietationFeedbackDecision == "true" ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             afterLineStyle: LineStyle(
-                              color: list[index].dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                              color: list[index].dietationFeedbackDecision == "true" ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             indicatorStyle: IndicatorStyle(
                               height: 26,
-                              color: list[index].dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                              color: list[index].dietationFeedbackDecision == "true" ? MyColors.primary : Colors.red,
                               iconStyle: IconStyle(
                                 color: Colors.white,
                                 iconData: Icons.check,
@@ -201,7 +201,7 @@ class BuildPreOpItem extends StatelessWidget {
                             endChild: MyText(
                               title: "Dietitian",
                               size: 8,
-                              color: list[index].dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                              color: list[index].dietationFeedbackDecision == "true" ? MyColors.primary : Colors.red,
                             ),
                           ),
                         ),
@@ -210,16 +210,16 @@ class BuildPreOpItem extends StatelessWidget {
                             axis: TimelineAxis.horizontal,
                             alignment: TimelineAlign.center,
                             beforeLineStyle: LineStyle(
-                              color: list[index].feedback=="true"? MyColors.primary:Colors.red,
+                              color: list[index].feedback == "true" ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             afterLineStyle: LineStyle(
-                              color: list[index].feedback=="true"? MyColors.primary:Colors.red,
+                              color: list[index].feedback == "true" ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             indicatorStyle: IndicatorStyle(
                               height: 26,
-                              color: list[index].feedback=="true"? MyColors.primary:Colors.red,
+                              color: list[index].feedback == "true" ? MyColors.primary : Colors.red,
                               iconStyle: IconStyle(
                                 color: Colors.white,
                                 iconData: Icons.check,
@@ -228,7 +228,7 @@ class BuildPreOpItem extends StatelessWidget {
                             endChild: MyText(
                               title: "Physiotherapy",
                               size: 8,
-                              color: list[index].feedback=="true"? MyColors.primary:Colors.red,
+                              color: list[index].feedback == "true" ? MyColors.primary : Colors.red,
                             ),
                           ),
                         ),
@@ -237,16 +237,16 @@ class BuildPreOpItem extends StatelessWidget {
                             axis: TimelineAxis.horizontal,
                             alignment: TimelineAlign.center,
                             beforeLineStyle: LineStyle(
-                              color: list[index].watchedClip=="true"? MyColors.primary:Colors.red,
+                              color: list[index].watchedClip == "true" ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             afterLineStyle: LineStyle(
-                              color: list[index].watchedClip=="true"? MyColors.primary:Colors.red,
+                              color: list[index].watchedClip == "true" ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             indicatorStyle: IndicatorStyle(
                               height: 26,
-                              color: list[index].watchedClip=="true"? MyColors.primary:Colors.red,
+                              color: list[index].watchedClip == "true" ? MyColors.primary : Colors.red,
                               iconStyle: IconStyle(
                                 color: Colors.white,
                                 iconData: Icons.check,
@@ -255,7 +255,7 @@ class BuildPreOpItem extends StatelessWidget {
                             endChild: MyText(
                               title: "Education",
                               size: 8,
-                              color: list[index].watchedClip=="true"? MyColors.primary:Colors.red,
+                              color: list[index].watchedClip == "true" ? MyColors.primary : Colors.red,
                             ),
                           ),
                         ),
@@ -265,12 +265,12 @@ class BuildPreOpItem extends StatelessWidget {
                             alignment: TimelineAlign.center,
                             isLast: true,
                             beforeLineStyle: LineStyle(
-                              color: list[index].finalFeedback=="true"? MyColors.primary:Colors.red,
+                              color: list[index].finalFeedback == "true" ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             indicatorStyle: IndicatorStyle(
                               height: 26,
-                              color: list[index].finalFeedback=="true"? MyColors.primary:Colors.red,
+                              color: list[index].finalFeedback == "true" ? MyColors.primary : Colors.red,
                               iconStyle: IconStyle(
                                 color: Colors.white,
                                 iconData: Icons.check,
@@ -279,7 +279,7 @@ class BuildPreOpItem extends StatelessWidget {
                             endChild: MyText(
                               title: "Psychology",
                               size: 8,
-                              color: list[index].finalFeedback=="true"? MyColors.primary:Colors.red,
+                              color: list[index].finalFeedback == "true" ? MyColors.primary : Colors.red,
                             ),
                           ),
                         ),
@@ -292,11 +292,8 @@ class BuildPreOpItem extends StatelessWidget {
                   onTap: () => PsychologistPatientData().openOpdDetailsCard(context, list, index),
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8),
-                    child: Icon(
-                        list[index].isOpen == true
-                            ? Icons.keyboard_arrow_down
-                            : Icons.arrow_forward_ios,
-                        size:list[index].isOpen == true? 22:15),
+                    child: Icon(list[index].isOpen == true ? Icons.keyboard_arrow_down : Icons.arrow_forward_ios,
+                        size: list[index].isOpen == true ? 22 : 15),
                   ),
                 )
               ],
@@ -406,9 +403,7 @@ class BuildPreOpItem extends StatelessWidget {
             //     )
             //   ],
             // ),
-            Visibility(
-                visible: list[index].isOpen == true,
-                child: Divider(color: MyColors.grey)),
+            Visibility(visible: list[index].isOpen == true, child: Divider(color: MyColors.grey)),
             Visibility(
               visible: list[index].isOpen == true,
               child: Padding(
@@ -416,10 +411,7 @@ class BuildPreOpItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyText(
-                        title: "Surgery OPD Details;",
-                        size: 10,
-                        fontWeight: FontWeight.bold),
+                    MyText(title: "Surgery OPD Details;", size: 10, fontWeight: FontWeight.bold),
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -427,16 +419,10 @@ class BuildPreOpItem extends StatelessWidget {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: list[index].egd == true
-                                  ? MyColors.primary
-                                  : Colors.red,
+                              backgroundColor: list[index].egd == true ? MyColors.primary : Colors.red,
                               radius: 12.0,
-                              child: Icon(
-                                  list[index].egd == true
-                                      ? Icons.check
-                                      : Icons.close,
-                                  color: Colors.white,
-                                  size: 15),
+                              child: Icon(list[index].egd == true ? Icons.check : Icons.close,
+                                  color: Colors.white, size: 15),
                             ),
                             const SizedBox(width: 10),
                             MyText(title: "EGD", size: 9),
@@ -445,16 +431,10 @@ class BuildPreOpItem extends StatelessWidget {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: list[index].ultrasound == true
-                                  ? MyColors.primary
-                                  : Colors.red,
+                              backgroundColor: list[index].ultrasound == true ? MyColors.primary : Colors.red,
                               radius: 12.0,
-                              child: Icon(
-                                  list[index].ultrasound == true
-                                      ? Icons.check
-                                      : Icons.close,
-                                  color: Colors.white,
-                                  size: 15),
+                              child: Icon(list[index].ultrasound == true ? Icons.check : Icons.close,
+                                  color: Colors.white, size: 15),
                             ),
                             const SizedBox(width: 10),
                             MyText(title: "US", size: 9),
@@ -463,16 +443,10 @@ class BuildPreOpItem extends StatelessWidget {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: list[index].surgionVisit == true
-                                  ? MyColors.primary
-                                  : Colors.red,
+                              backgroundColor: list[index].surgionVisit == true ? MyColors.primary : Colors.red,
                               radius: 12.0,
-                              child: Icon(
-                                  list[index].surgionVisit == true
-                                      ? Icons.check
-                                      : Icons.close,
-                                  color: Colors.white,
-                                  size: 15),
+                              child: Icon(list[index].surgionVisit == true ? Icons.check : Icons.close,
+                                  color: Colors.white, size: 15),
                             ),
                             const SizedBox(width: 10),
                             MyText(title: "Surgery OPD", size: 9),

@@ -108,24 +108,45 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                     children: [
                                       Expanded(
                                         child: MyText(
-                                          title: state.data?.patient?.fullNameEn ?? "",
+                                          title:
+                                              '${state.data?.patient?.fNameEn ?? ""} ${state.data?.patient?.lNameEn ?? ""}',
                                           size: 14,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffaff7c3),
-                                          borderRadius: BorderRadius.circular(20),
-                                        ),
-                                        child: MyText(
-                                          title: 'Ready',
-                                          size: 9,
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                      state.data?.patient?.finalFeedback == "true"
+                                          ? Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffaff7c3),
+                                                borderRadius: BorderRadius.circular(20),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                child: MyText(
+                                                  title: 'Ready',
+                                                  size: 9,
+                                                  color: Colors.green,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            )
+                                          : Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffFBD6BC),
+                                                borderRadius: BorderRadius.circular(20),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                child: MyText(
+                                                  title: 'Not Ready',
+                                                  size: 9,
+                                                  color: Color(0xFFEB7826),
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
                                     ],
                                   ),
                                   MyText(
@@ -548,9 +569,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 Row(
                   children: [
                     MyText(title: "Operation Done On:", size: 12, fontWeight: FontWeight.bold),
+                    SizedBox(width: 10),
                     MyText(
                       //convert date to 12 aug 2021
-                      title: state.data?.patient?.operationDate ?? '',
+                      title: DateFormat('yyyy-MM-dd').format(DateTime.parse(state.data!.patient!.operationDate!)),
                       size: 12,
                       color: MyColors.primary,
                       fontWeight: FontWeight.bold,
@@ -582,7 +604,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                             ),
                             const SizedBox(height: 5),
                             MyText(
-                              title: '10,000',
+                              title: '0',
                               size: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -616,7 +638,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                             ),
                             const SizedBox(height: 5),
                             MyText(
-                              title: '750',
+                              title: '0',
                               size: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -650,7 +672,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                             ),
                             const SizedBox(height: 5),
                             MyText(
-                              title: '7,500',
+                              title: '0',
                               size: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -715,7 +737,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     MyText(
-                                      title: state.data?.patient?.fullNameEn ?? "",
+                                      title: state.data?.patient?.fNameEn ?? "",
                                       size: 14,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -793,7 +815,6 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         color: MyColors.black,
                         fontWeight: FontWeight.bold),
                   ),
-
                 Row(
                   children: [
                     Expanded(
@@ -801,22 +822,22 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                           title: "Add Appointment",
                           onTap: () {
                             showDialog(
-                                context: context, builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
+                                context: context,
+                                builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
                           },
                           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
                     ),
                     const SizedBox(width: 16.0),
-                    if(state.data!.appointments!.isNotEmpty&&state.data?.patient?.operationStatus=="Post-op")...[
+                    if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op") ...[
                       Expanded(
                         child: DefaultButton(
                             title: "Order Medications",
-                            onTap: ()=> Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
+                            onTap: () => Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
                             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
                       ),
                     ],
                   ],
                 ),
-
               ],
             );
           } else {

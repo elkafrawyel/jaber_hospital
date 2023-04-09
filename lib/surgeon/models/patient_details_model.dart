@@ -142,8 +142,10 @@ class Patient {
     this.id,
     this.email,
     this.verified,
-    this.fullNameAr,
-    this.fullNameEn,
+    this.fNameAr,
+    this.lNameAr,
+    this.fNameEn,
+    this.lNameEn,
     this.gender,
     this.civilId,
     this.image,
@@ -326,8 +328,10 @@ class Patient {
     id = json['_id'];
     email = json['email'];
     verified = json['verified'];
-    fullNameAr = json['full_name_ar'];
-    fullNameEn = json['full_name_en'];
+    fNameAr = json['first_name_ar'];
+    lNameAr = json['last_name_ar'];
+    fNameEn = json['first_name_en'];
+    lNameEn = json['last_name_en'];
     gender = json['gender'];
     civilId = json['civil_id'];
     image = json['image'];
@@ -509,8 +513,10 @@ class Patient {
   String? id;
   String? email;
   bool? verified;
-  String? fullNameAr;
-  String? fullNameEn;
+  String? fNameAr;
+  String? lNameAr;
+  String? fNameEn;
+  String? lNameEn;
   String? gender;
   String? civilId;
   String? image;
@@ -692,8 +698,10 @@ class Patient {
     String? id,
     String? email,
     bool? verified,
-    String? fullNameAr,
-    String? fullNameEn,
+    String? fNameAr,
+    String? lNameAr,
+    String? fNameEn,
+    String? lNameEn,
     String? gender,
     String? civilId,
     String? image,
@@ -875,8 +883,10 @@ class Patient {
         id: id ?? this.id,
         email: email ?? this.email,
         verified: verified ?? this.verified,
-        fullNameAr: fullNameAr ?? this.fullNameAr,
-        fullNameEn: fullNameEn ?? this.fullNameEn,
+        fNameAr: fNameAr ?? this.fNameAr,
+        lNameAr: lNameAr ?? this.lNameAr,
+        fNameEn: fNameEn ?? this.fNameEn,
+        lNameEn: lNameEn ?? this.lNameEn,
         gender: gender ?? this.gender,
         civilId: civilId ?? this.civilId,
         image: image ?? this.image,
@@ -1060,8 +1070,10 @@ class Patient {
     map['_id'] = id;
     map['email'] = email;
     map['verified'] = verified;
-    map['full_name_ar'] = fullNameAr;
-    map['full_name_en'] = fullNameEn;
+    map['first_name_ar'] = fNameAr;
+    map['last_name_ar'] = lNameAr;
+    map['first_name_en'] = fNameEn;
+    map['last_name_en'] = lNameEn;
     map['gender'] = gender;
     map['civil_id'] = civilId;
     map['image'] = image;
