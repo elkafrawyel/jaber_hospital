@@ -72,7 +72,7 @@ class _ReadyMDTState extends State<ReadyMDT> {
                                             children: [
                                               Expanded(
                                                 child: MyText(
-                                                  title: state.data?[index].fullNameEn ?? "",
+                                                  title: "${state.data?[index].firstNameEn} ${state.data?[index].lastNameEn}",
                                                   size: 12,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -106,7 +106,7 @@ class _ReadyMDTState extends State<ReadyMDT> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                               MyText(
-                                                title: state.data?[index].surgeonId?.fullNameEn??"",
+                                                title: "${state.data?[index].surgeonId?.firstNameEn} ${state.data?[index].surgeonId?.lastNameEn}",
                                                 size: 11,
                                                 color: MyColors.grey,
                                               ),
@@ -121,7 +121,7 @@ class _ReadyMDTState extends State<ReadyMDT> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                               MyText(
-                                                title: state.data?[index].dietationId?.fullNameEn??"",
+                                                title: "${state.data?[index].dietationId?.firstNameEn} ${state.data?[index].dietationId?.lastNameEn}",
                                                 size: 11,
                                                 color: MyColors.grey,
                                               ),

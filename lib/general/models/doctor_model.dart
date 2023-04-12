@@ -1,7 +1,9 @@
 class DoctorId {
   String? sId;
-  String? fullNameAr;
-  String? fullNameEn;
+  String? firstNameEn;
+  String? firstNameAr;
+  String? lastNameAr;
+  String? lastNameEn;
   String? gender;
   String? civilId;
   String? title;
@@ -9,8 +11,10 @@ class DoctorId {
 
   DoctorId(
       {this.sId,
-        this.fullNameAr,
-        this.fullNameEn,
+        this.firstNameEn,
+        this.firstNameAr,
+        this.lastNameAr,
+        this.lastNameEn,
         this.gender,
         this.civilId,
         this.image,
@@ -18,8 +22,10 @@ class DoctorId {
 
   DoctorId.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    fullNameAr = json['full_name_ar'];
-    fullNameEn = json['full_name_en'];
+    firstNameEn = json['first_name_en'];
+    firstNameAr = json['first_name_ar'];
+    lastNameAr = json['last_name_ar'];
+    lastNameEn = json['last_name_en'];
     gender = json['gender'];
     civilId = json['civil_id'];
     title = json['title'];
@@ -29,8 +35,10 @@ class DoctorId {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
-    data['full_name_ar'] = this.fullNameAr;
-    data['full_name_en'] = this.fullNameEn;
+    data['first_name_en'] = this.firstNameEn;
+    data['first_name_ar'] = this.firstNameAr;
+    data['last_name_ar'] = this.lastNameAr;
+    data['last_name_en'] = this.lastNameEn;
     data['gender'] = this.gender;
     data['civil_id'] = this.civilId;
     data['title'] = this.title;

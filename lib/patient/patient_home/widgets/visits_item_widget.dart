@@ -51,7 +51,7 @@ class VisitsItemWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MyText(title: appointmentModel.doctorId?.fullNameAr??"", size: 13, fontWeight: FontWeight.bold),
+                      MyText(title: "${appointmentModel.doctorId?.firstNameAr} ${appointmentModel.doctorId?.lastNameAr}", size: 13, fontWeight: FontWeight.bold),
                       MyText(title: appointmentModel.doctorId?.title??"", size: 12, color:Colors.grey),
                       const SizedBox(height: 4),
                       Row(
