@@ -461,7 +461,7 @@ class SurgeonHttpMethods {
 
   Future<AppointmentsResponse?> fetchSurAppointments(bool isUpcoming) async {
     AppointmentsResponse data = await GenericHttp<AppointmentsResponse>(context).callApi(
-      name: isUpcoming?ApiNames.surFutureAppointmentsPath:ApiNames.surPastAppointmentsPath,
+      name: isUpcoming ? ApiNames.surFutureAppointmentsPath : ApiNames.surPastAppointmentsPath,
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,
@@ -517,11 +517,26 @@ class SurgeonHttpMethods {
     }
   }
 
+  Future<bool> archivePatient(String patientId) async {
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.patientArchive + "/${patientId}",
+      returnType: ReturnType.Type,
+      methodType: MethodType.Put,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => PatientDetailsModel.fromJson(json),
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<bool> addPatientSeventh(AddPatientSeventhDto model) async {
     UserModel? users = context.read<UserCubit>().state.model;
     dynamic data = await GenericHttp<bool>(context).callApi(
       name: ApiNames.patientEgd + "?user_id=${users.userData?[0].sId}",
-      // name: ApiNames.patientEgd + "?user_id=63d841866514c4eaa12e0128",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,

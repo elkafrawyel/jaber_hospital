@@ -90,7 +90,8 @@ class BuildPreOpItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].surgeonId?.fullNameEn ?? '',
+                              title:
+                                  '${list[index].surgeonId?.firstNameEn ?? ""} ${list[index].surgeonId?.lastNameEn ?? ""}',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -105,7 +106,8 @@ class BuildPreOpItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].dietationId?.fullNameEn ?? '',
+                              title:
+                                  '${list[index].dietationId?.firstNameEn ?? ""} ${list[index].dietationId?.lastNameEn ?? ""}',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -268,12 +270,12 @@ class BuildPreOpItem extends StatelessWidget {
                           alignment: TimelineAlign.center,
                           isLast: true,
                           beforeLineStyle: LineStyle(
-                            color: (list[index].finalFeedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                            color: list[index].finalFeedback == "true" ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color: (list[index].finalFeedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                            color: list[index].finalFeedback == "true" ? MyColors.primary : Colors.red,
                             iconStyle: IconStyle(
                               color: Colors.white,
                               iconData: Icons.check,
@@ -282,7 +284,7 @@ class BuildPreOpItem extends StatelessWidget {
                           endChild: MyText(
                             title: "Psychology",
                             size: 8,
-                            color: (list[index].finalFeedback ?? '').isNotEmpty ? MyColors.primary : Colors.red,
+                            color: list[index].finalFeedback == "true" ? MyColors.primary : Colors.red,
                           ),
                         ),
                       ),
@@ -302,110 +304,6 @@ class BuildPreOpItem extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          // Row(
-          //   children: [
-          //     Expanded(
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //         children: [
-          //           Expanded(
-          //             child: Padding(
-          //               padding: const EdgeInsets.only(left: 2),
-          //               child: Column(
-          //                 children: [
-          //                   FittedBox(
-          //                     fit: BoxFit.scaleDown,
-          //                     child: MyText(
-          //                       alien: TextAlign.center,
-          //                       title: "Surgery OPD",
-          //                       size: 9,
-          //                       color: MyColors.primary,
-          //                     ),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //           Expanded(
-          //             child: Padding(
-          //               padding: const EdgeInsets.only(left: 2),
-          //               child: Column(
-          //                 children: [
-          //                   FittedBox(
-          //                     fit: BoxFit.scaleDown,
-          //                     child: MyText(
-          //                       alien: TextAlign.center,
-          //                       title: "Dietitian",
-          //                       size: 9,
-          //                       color: MyColors.primary,
-          //                     ),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //           Expanded(
-          //             child: Padding(
-          //               padding: const EdgeInsets.only(left: 2),
-          //               child: Column(
-          //                 children: [
-          //                   FittedBox(
-          //                     fit: BoxFit.scaleDown,
-          //                     child: MyText(
-          //                       alien: TextAlign.center,
-          //                       title: "Physiotherapy",
-          //                       size: 9,
-          //                       color: MyColors.primary,
-          //                     ),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //           Expanded(
-          //             child: Padding(
-          //               padding: const EdgeInsets.only(left: 2),
-          //               child: Column(
-          //                 children: [
-          //                   FittedBox(
-          //                     fit: BoxFit.scaleDown,
-          //                     child: MyText(
-          //                       alien: TextAlign.center,
-          //                       title: "Education",
-          //                       size: 9,
-          //                       color: MyColors.primary,
-          //                     ),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //           Expanded(
-          //             child: Padding(
-          //               padding: const EdgeInsets.only(left: 2),
-          //               child: Column(
-          //                 children: [
-          //                   FittedBox(
-          //                     fit: BoxFit.scaleDown,
-          //                     child: MyText(
-          //                       alien: TextAlign.center,
-          //                       title: "Psychology",
-          //                       size: 9,
-          //                       color: MyColors.primary,
-          //                     ),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //     const SizedBox(
-          //       width: 10,
-          //     )
-          //   ],
-          // ),
           Visibility(visible: list[index].isOpen == true, child: Divider(color: MyColors.grey)),
           Visibility(
             visible: list[index].isOpen == true,
@@ -448,8 +346,11 @@ class BuildPreOpItem extends StatelessWidget {
                           CircleAvatar(
                             backgroundColor: list[index].surgionVisit == true ? MyColors.primary : Colors.red,
                             radius: 12.0,
-                            child: Icon(list[index].surgionVisit == true ? Icons.check : Icons.close,
-                                color: Colors.white, size: 15),
+                            child: Icon(
+                              list[index].surgionVisit == true ? Icons.check : Icons.close,
+                              color: Colors.white,
+                              size: 15,
+                            ),
                           ),
                           const SizedBox(width: 10),
                           MyText(title: "Surgery OPD", size: 9),

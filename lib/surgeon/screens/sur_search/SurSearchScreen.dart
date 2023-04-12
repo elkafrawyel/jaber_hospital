@@ -1,5 +1,6 @@
 import 'package:base_flutter/surgeon/models/patient_details_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'debouncer.dart';
 
@@ -46,7 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FlutterLogo(),
+                SvgPicture.asset('assets/images/no_results.svg'),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -58,7 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 48),
+                  padding: const EdgeInsets.symmetric(horizontal: 48),
                   child: Text(
                     'There are no search results for this till now, please try again later',
                     style: TextStyle(),

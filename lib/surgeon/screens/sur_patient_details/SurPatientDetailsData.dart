@@ -85,5 +85,8 @@ class SurPatientDetailsData {
     bool? result = await SurgeonRepository(context).downloadPatientInfo(patientDetailsCubit.state.data!.patient!.id!);
   }
 
-// drhussein83@gmail.com
+  void archivePatient(BuildContext context) async{
+    bool? result = await SurgeonRepository(context).archivePatient(patientDetailsCubit.state.data!.patient!.id!);
+  }
+
 }

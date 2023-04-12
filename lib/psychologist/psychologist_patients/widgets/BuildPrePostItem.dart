@@ -50,7 +50,7 @@ class BuildPrePostItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].surgeonId?.fullNameEn ?? '',
+                              title: '${list[index].surgeonId?.firstNameEn ?? ""} ${list[index].surgeonId?.lastNameEn ?? ""}',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -65,7 +65,7 @@ class BuildPrePostItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].dietationId?.fullNameEn ?? '',
+                              title: '${list[index].dietationId?.firstNameEn ?? ""} ${list[index].dietationId?.lastNameEn ?? ""}',
                               size: 11,
                               color: MyColors.grey,
                             ),

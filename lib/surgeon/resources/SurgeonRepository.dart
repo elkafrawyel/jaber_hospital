@@ -86,6 +86,7 @@ class SurgeonRepository {
   Future<AppointmentsResponse?> fetchSurAppointments(bool isUpcoming) => _surgeonHttpMethods.fetchSurAppointments(isUpcoming);
 
   Future<bool> downloadPatientInfo(String patientId) => _surgeonHttpMethods.downloadPatientInfo(patientId);
+  Future<bool> archivePatient(String patientId) => _surgeonHttpMethods.archivePatient(patientId);
 
   Future<bool> addPatientSeventh(AddPatientSeventhDto model) => _surgeonHttpMethods.addPatientSeventh(model);
 

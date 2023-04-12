@@ -46,6 +46,7 @@ class BuildPrePostItem extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             MyText(
                               title: 'Surgeon : ',
@@ -53,10 +54,13 @@ class BuildPrePostItem extends StatelessWidget {
                               color: MyColors.black,
                               fontWeight: FontWeight.bold,
                             ),
-                            MyText(
-                              title: list[index].surgeonId?.fullNameEn ?? '',
-                              size: 11,
-                              color: MyColors.grey,
+                            Expanded(
+                              child: MyText(
+                                title:
+                                    '${list[index].surgeonId?.firstNameEn ?? ""} ${list[index].surgeonId?.lastNameEn ?? ""}',
+                                size: 11,
+                                color: MyColors.grey,
+                              ),
                             ),
                           ],
                         ),
@@ -69,7 +73,8 @@ class BuildPrePostItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].dietationId?.fullNameEn ?? '',
+                              title:
+                                  '${list[index].dietationId?.firstNameEn ?? ""} ${list[index].dietationId?.lastNameEn ?? ""}',
                               size: 11,
                               color: MyColors.grey,
                             ),

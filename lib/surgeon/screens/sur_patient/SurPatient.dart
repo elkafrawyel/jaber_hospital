@@ -2,6 +2,7 @@ part of 'SurPatientImports.dart';
 
 class SurPatient extends StatefulWidget {
   final int index;
+
   const SurPatient({Key? key, required this.index}) : super(key: key);
 
   @override
@@ -11,7 +12,7 @@ class SurPatient extends StatefulWidget {
 class _SurPatientState extends State<SurPatient> {
   @override
   void initState() {
-    SurPatientData().init(context,widget.index);
+    SurPatientData().init(context, widget.index);
     super.initState();
   }
 
@@ -23,15 +24,15 @@ class _SurPatientState extends State<SurPatient> {
           Row(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Nav.navigateTo(SearchScreen(), navigatorType: NavigatorType.push);
+                },
                 icon: Icon(Icons.search, color: MyColors.primary, size: 30),
               ),
               IconButton(
-                onPressed: () =>Nav.navigateTo(SurAddPatient(), navigatorType: NavigatorType.push),
+                onPressed: () => Nav.navigateTo(SurAddPatient(), navigatorType: NavigatorType.push),
                 icon: Container(
-                    decoration: BoxDecoration(
-                        color: MyColors.primary,
-                        borderRadius: BorderRadius.circular(100)),
+                    decoration: BoxDecoration(color: MyColors.primary, borderRadius: BorderRadius.circular(100)),
                     child: Icon(
                       Icons.add,
                       color: Colors.white,
@@ -49,9 +50,7 @@ class _SurPatientState extends State<SurPatient> {
             children: [
               BuildSurPatientTab(),
               Expanded(
-                child: TabBarView(
-                    physics:const NeverScrollableScrollPhysics(),
-                    children: [
+                child: TabBarView(physics: const NeverScrollableScrollPhysics(), children: [
                   MyPatient(),
                   AllPatients(),
                 ]),
@@ -61,4 +60,3 @@ class _SurPatientState extends State<SurPatient> {
         ));
   }
 }
-

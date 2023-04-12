@@ -33,7 +33,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
           children: [
             InkWell(
               onTap: () {
-                print('click');
+                SurPatientDetailsData().archivePatient(context);
               },
               child: SvgPicture.asset(
                 Res.imagesArchive,
@@ -396,14 +396,14 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       alignment: TimelineAlign.center,
                                       isLast: true,
                                       beforeLineStyle: LineStyle(
-                                        color: (state.data?.patient?.finalFeedback ?? '').isNotEmpty
+                                        color: state.data?.patient?.finalFeedback == "true"
                                             ? MyColors.primary
                                             : Colors.red,
                                         thickness: 6,
                                       ),
                                       indicatorStyle: IndicatorStyle(
                                         height: 26,
-                                        color: (state.data?.patient?.finalFeedback ?? '').isNotEmpty
+                                        color: state.data?.patient?.finalFeedback == "true"
                                             ? MyColors.primary
                                             : Colors.red,
                                         iconStyle: IconStyle(
@@ -414,7 +414,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       endChild: MyText(
                                         title: "Psychology",
                                         size: 8,
-                                        color: (state.data?.patient?.finalFeedback ?? '').isNotEmpty
+                                        color: state.data?.patient?.finalFeedback == "true"
                                             ? MyColors.primary
                                             : Colors.red,
                                       ),
