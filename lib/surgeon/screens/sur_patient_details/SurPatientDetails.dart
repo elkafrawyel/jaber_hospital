@@ -31,7 +31,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
       actions: [
         Row(
           children: [
-            Image.asset(Res.imagesHistory, scale: 2.5),
+            InkWell(
+              onTap: () {
+                print('click');
+              },
+              child: SvgPicture.asset(
+                Res.imagesArchive,
+                width: 30,
+                height: 30,
+              ),
+            ),
             const SizedBox(width: 10),
             InkWell(
               onTap: () {

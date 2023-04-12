@@ -178,6 +178,7 @@ class Res {
   static String imagesStepsIcon = 'assets/images/StepsIcon.png';
   static String imagesHeightIcon = 'assets/images/HeightIcon.png';
   static String imagesHistory = 'assets/images/History.png';
+  static String imagesArchive = 'assets/images/Archive.svg';
   static String imagesAddPatient = 'assets/images/AddPatient.png';
   static String imagesDownload = 'assets/images/download.png';
   static String imagesShape = 'assets/images/shape.png';
