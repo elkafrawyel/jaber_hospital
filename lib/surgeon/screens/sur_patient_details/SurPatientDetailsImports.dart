@@ -23,6 +23,7 @@ import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/utilities/utils_functions/AdaptivePicker.dart';
 import '../../models/patient_details_model.dart';
 import '../sur_order_medications/sur_order_medications_imports.dart';
+import 'app_dialog.dart';
 
 part   'SurPatientDetails.dart';
 part   'SurPatientDetailsData.dart';

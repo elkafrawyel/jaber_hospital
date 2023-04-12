@@ -33,7 +33,24 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
           children: [
             InkWell(
               onTap: () {
-                SurPatientDetailsData().archivePatient(context);
+                scaleAlertDialog(
+                  context: context,
+                  title: 'Archive',
+                  body: 'Are you sure you want to archive this patient?',
+                  cancelText: 'Cancel',
+                  confirmText: 'Submit',
+                  barrierDismissible: true,
+                  onCancelClick: () {
+                    Navigator.pop(context);
+                  },
+                  onConfirmClick: () async {
+                    Navigator.pop(context);
+                    bool result = await SurPatientDetailsData().archivePatient(context);
+                    if (result) {
+                      Navigator.pop(context);
+                    }
+                  },
+                );
               },
               child: SvgPicture.asset(
                 Res.imagesArchive,

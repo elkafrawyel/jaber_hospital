@@ -85,8 +85,8 @@ class SurPatientDetailsData {
     bool? result = await SurgeonRepository(context).downloadPatientInfo(patientDetailsCubit.state.data!.patient!.id!);
   }
 
-  void archivePatient(BuildContext context) async{
+  Future<bool> archivePatient(BuildContext context) async {
     bool? result = await SurgeonRepository(context).archivePatient(patientDetailsCubit.state.data!.patient!.id!);
+    return result;
   }
-
 }
