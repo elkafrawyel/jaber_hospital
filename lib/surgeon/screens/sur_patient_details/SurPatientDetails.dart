@@ -176,9 +176,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                     ],
                                   ),
                                   MyText(
-                                      title: "#${state.data?.patient?.civilId ?? ""}",
-                                      size: 12,
-                                      color: MyColors.blackOpacity),
+                                    title: "#${state.data?.patient?.civilId ?? ""}",
+                                    size: 12,
+                                    color: MyColors.blackOpacity,
+                                  ),
                                 ],
                               ),
                             ),
@@ -198,7 +199,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                   Image.asset(Res.imagesPhone, scale: 3),
                                   const SizedBox(width: 10),
                                   MyText(
-                                    title: state.data?.patient?.telephone1 ?? "",
+                                    title: state.data?.patient?.telephone1 ?? "-",
                                     size: 12,
                                   ),
                                 ],
@@ -212,7 +213,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: MyText(
-                                    title: state.data?.patient?.publicId ?? "Not set yet",
+                                    title: state.data?.patient?.publicId ?? "-",
                                     size: 12,
                                   ),
                                 ),
@@ -257,28 +258,6 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                           Expanded(
                             child: SizedBox(
                               height: 58,
-                              // child: Row(
-                              //   mainAxisAlignment: MainAxisAlignment.center,
-                              //   children: List.generate(
-                              //       5,
-                              //       (index) => Stack(
-                              //             alignment: Alignment.centerLeft,
-                              //             children: [
-                              //               if (index <= 3)
-                              //                 Container(
-                              //                   width: MediaQuery.of(context).size.width / 6,
-                              //                   height: 5,
-                              //                   color: MyColors.primary,
-                              //                 ),
-                              //               CircleAvatar(
-                              //                 backgroundColor: MyColors.primary,
-                              //                 radius: 12.0,
-                              //                 child: Icon(Icons.check,
-                              //                     color: Colors.white, size: 15),
-                              //               ),
-                              //             ],
-                              //           )),
-                              // ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
@@ -522,6 +501,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 Row(
                   children: [
                     MyText(title: "Surgeon:", size: 12, fontWeight: FontWeight.bold),
+                    SizedBox(width: 10),
                     MyText(
                       title: "You",
                       size: 12,
@@ -534,8 +514,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 Row(
                   children: [
                     MyText(title: "Dietitian:", size: 12, fontWeight: FontWeight.bold),
+                    SizedBox(width: 10),
                     MyText(
-                      title: state.data?.patient?.dietationId?.fullNameEn ?? '',
+                      title:
+                          '${state.data?.patient?.dietationId?.firstNameEn ?? ''} ${state.data?.patient?.dietationId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -545,8 +527,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 Row(
                   children: [
                     MyText(title: "Physiotherapist:", size: 12, fontWeight: FontWeight.bold),
+                    SizedBox(width: 10),
                     MyText(
-                      title: state.data?.patient?.physiotherapyId?.fullNameEn ?? '',
+                      title:
+                          '${state.data?.patient?.physiotherapyId?.firstNameEn ?? ''} ${state.data?.patient?.physiotherapyId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -556,8 +540,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 Row(
                   children: [
                     MyText(title: "Educator:", size: 12, fontWeight: FontWeight.bold),
+                    SizedBox(width: 10),
                     MyText(
-                      title: state.data?.patient?.surgeon2Id?.fullNameEn ?? '',
+                      title:
+                          '${state.data?.patient?.surgeon2Id?.firstNameEn ?? ''} ${state.data?.patient?.surgeon2Id?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -567,8 +553,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 Row(
                   children: [
                     MyText(title: "Psychologist:", size: 12, fontWeight: FontWeight.bold),
+                    SizedBox(width: 10),
                     MyText(
-                      title: state.data?.patient?.psychologistId?.fullNameEn ?? '',
+                      title:
+                          '${state.data?.patient?.psychologistId?.firstNameEn ?? ''} ${state.data?.patient?.psychologistId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -583,6 +571,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 Row(
                   children: [
                     MyText(title: "Operation Type: ", size: 12, fontWeight: FontWeight.bold),
+                    SizedBox(width: 10),
                     MyText(
                       title: state.data?.patient?.operationType ?? '',
                       size: 12,
@@ -605,12 +594,26 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    MyText(title: "Mdt Status:", size: 12, fontWeight: FontWeight.bold),
+                    SizedBox(width: 10),
+                    MyText(
+                      title: state.data?.patient?.mdtStatus ?? '-',
+                      size: 12,
+                      color: MyColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
                 const Divider(thickness: 1, height: 20),
                 MyText(
-                    title: "Patient’s Weekly Exercise Overview",
-                    size: 14,
-                    color: MyColors.primary,
-                    fontWeight: FontWeight.bold),
+                  title: "Patient’s Weekly Exercise Overview",
+                  size: 14,
+                  color: MyColors.primary,
+                  fontWeight: FontWeight.bold,
+                ),
                 const SizedBox(height: 10),
                 Row(
                   children: [
@@ -720,7 +723,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
                 const Divider(thickness: 1, height: 30),
                 MyText(
-                  title: "Upcoming Appointment With ${state.data?.patient?.surgeonId?.fullNameEn ?? ''}",
+                  title:
+                      "Upcoming Appointment With ${'${state.data?.patient?.surgeonId?.firstNameEn ?? ''} ${state.data?.patient?.surgeonId?.lastNameEn ?? ''}'}",
                   size: 14,
                   color: MyColors.primary,
                   fontWeight: FontWeight.w800,
@@ -763,7 +767,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     MyText(
-                                      title: state.data?.patient?.fNameEn ?? "",
+                                      title:
+                                          '${state.data?.patient?.fNameEn ?? ''} ${state.data?.patient?.lNameEn ?? ''}',
                                       size: 14,
                                       fontWeight: FontWeight.bold,
                                     ),

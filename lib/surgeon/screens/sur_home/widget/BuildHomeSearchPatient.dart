@@ -18,7 +18,7 @@ class BuildSurHomeSearchPatient extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       action: TextInputAction.search,
       type: TextInputType.text,
-      onTab: () => Nav.navigateTo(SearchScreen(), navigatorType: NavigatorType.push),
+      // onTab: () => Nav.navigateTo(SearchScreen(), navigatorType: NavigatorType.push),
       validate: (value) => value!.noValidate(),
     );
   }

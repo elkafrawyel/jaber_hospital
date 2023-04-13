@@ -1,3 +1,5 @@
+import 'package:base_flutter/general/models/doctor_model.dart';
+
 class PatientDetailsModel {
   PatientDetailsModel({
     this.patient,
@@ -454,7 +456,7 @@ class Patient {
     depressionResult = json['depression_result'];
     depressionScore = json['depression_score'];
     dietaryIntake = json['dietary_intake'];
-    dietationId = json['dietation_id'] != null ? DietationId.fromJson(json['dietation_id']) : null;
+    dietationId = json['dietation_id'] != null ? DoctorId.fromJson(json['dietation_id']) : null;
     dmTypel = json['dm_typel'];
     dmTypell = json['dm_typell'];
     dyslipidemia = json['dyslipidemia'];
@@ -497,14 +499,14 @@ class Patient {
     finalFeedback = json['final_feedback'];
     finalFeedbackDate = json['final_feedback_date'];
     followUpFeedback = json['follow_up_feedback'];
-    physiotherapyId = json['physiotherapy_id'] != null ? PhysiotherapyId.fromJson(json['physiotherapy_id']) : null;
-    psychologistId = json['psychologist_id'] != null ? PsychologistId.fromJson(json['psychologist_id']) : null;
+    physiotherapyId = json['physiotherapy_id'] != null ? DoctorId.fromJson(json['physiotherapy_id']) : null;
+    psychologistId = json['psychologist_id'] != null ? DoctorId.fromJson(json['psychologist_id']) : null;
     pythiscalLimitation = json['pythiscal_limitation'];
     questionnaireId = json['questionnaire_id'];
     respiratoryDis = json['respiratory_dis'];
     stepName = json['step_name'];
-    surgeon2Id = json['surgeon2_id'] != null ? Surgeon2Id.fromJson(json['surgeon2_id']) : null;
-    surgeonId = json['surgeon_id'] != null ? SurgeonId.fromJson(json['surgeon_id']) : null;
+    surgeon2Id = json['surgeon2_id'] != null ? DoctorId.fromJson(json['surgeon2_id']) : null;
+    surgeonId = json['surgeon_id'] != null ? DoctorId.fromJson(json['surgeon_id']) : null;
     vte = json['vte'];
   }
 
@@ -639,7 +641,7 @@ class Patient {
   String? depressionResult;
   num? depressionScore;
   String? dietaryIntake;
-  DietationId? dietationId;
+  DoctorId? dietationId;
   bool? dmTypel;
   bool? dmTypell;
   bool? dyslipidemia;
@@ -682,14 +684,14 @@ class Patient {
   String? finalFeedback;
   String? finalFeedbackDate;
   String? followUpFeedback;
-  PhysiotherapyId? physiotherapyId;
-  PsychologistId? psychologistId;
+  DoctorId? physiotherapyId;
+  DoctorId? psychologistId;
   String? pythiscalLimitation;
   String? questionnaireId;
   bool? respiratoryDis;
   String? stepName;
-  Surgeon2Id? surgeon2Id;
-  SurgeonId? surgeonId;
+  DoctorId? surgeon2Id;
+  DoctorId? surgeonId;
   bool? vte;
 
   Patient copyWith({
@@ -824,7 +826,7 @@ class Patient {
     String? depressionResult,
     num? depressionScore,
     String? dietaryIntake,
-    DietationId? dietationId,
+    DoctorId? dietationId,
     bool? dmTypel,
     bool? dmTypell,
     bool? dyslipidemia,
@@ -867,14 +869,14 @@ class Patient {
     String? finalFeedback,
     String? finalFeedbackDate,
     String? followUpFeedback,
-    PhysiotherapyId? physiotherapyId,
-    PsychologistId? psychologistId,
+    DoctorId? physiotherapyId,
+    DoctorId? psychologistId,
     String? pythiscalLimitation,
     String? questionnaireId,
     bool? respiratoryDis,
     String? stepName,
-    Surgeon2Id? surgeon2Id,
-    SurgeonId? surgeonId,
+    DoctorId? surgeon2Id,
+    DoctorId? surgeonId,
     bool? vte,
   }) =>
       Patient(
@@ -1258,161 +1260,6 @@ class Patient {
       map['surgeon_id'] = surgeonId?.toJson();
     }
     map['vte'] = vte;
-    return map;
-  }
-}
-
-class SurgeonId {
-  SurgeonId({
-    this.id,
-    this.fullNameEn,
-  });
-
-  SurgeonId.fromJson(dynamic json) {
-    id = json['_id'];
-    fullNameEn = json['full_name_en'];
-  }
-
-  String? id;
-  String? fullNameEn;
-
-  SurgeonId copyWith({
-    String? id,
-    String? fullNameEn,
-  }) =>
-      SurgeonId(
-        id: id ?? this.id,
-        fullNameEn: fullNameEn ?? this.fullNameEn,
-      );
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = id;
-    map['full_name_en'] = fullNameEn;
-    return map;
-  }
-}
-
-class Surgeon2Id {
-  Surgeon2Id({
-    this.id,
-    this.fullNameEn,
-  });
-
-  Surgeon2Id.fromJson(dynamic json) {
-    id = json['_id'];
-    fullNameEn = json['full_name_en'];
-  }
-
-  String? id;
-  String? fullNameEn;
-
-  Surgeon2Id copyWith({
-    String? id,
-    String? fullNameEn,
-  }) =>
-      Surgeon2Id(
-        id: id ?? this.id,
-        fullNameEn: fullNameEn ?? this.fullNameEn,
-      );
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = id;
-    map['full_name_en'] = fullNameEn;
-    return map;
-  }
-}
-
-class PsychologistId {
-  PsychologistId({
-    this.id,
-    this.fullNameEn,
-  });
-
-  PsychologistId.fromJson(dynamic json) {
-    id = json['_id'];
-    fullNameEn = json['full_name_en'];
-  }
-
-  String? id;
-  String? fullNameEn;
-
-  PsychologistId copyWith({
-    String? id,
-    String? fullNameEn,
-  }) =>
-      PsychologistId(
-        id: id ?? this.id,
-        fullNameEn: fullNameEn ?? this.fullNameEn,
-      );
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = id;
-    map['full_name_en'] = fullNameEn;
-    return map;
-  }
-}
-
-class PhysiotherapyId {
-  PhysiotherapyId({
-    this.id,
-    this.fullNameEn,
-  });
-
-  PhysiotherapyId.fromJson(dynamic json) {
-    id = json['_id'];
-    fullNameEn = json['full_name_en'];
-  }
-
-  String? id;
-  String? fullNameEn;
-
-  PhysiotherapyId copyWith({
-    String? id,
-    String? fullNameEn,
-  }) =>
-      PhysiotherapyId(
-        id: id ?? this.id,
-        fullNameEn: fullNameEn ?? this.fullNameEn,
-      );
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = id;
-    map['full_name_en'] = fullNameEn;
-    return map;
-  }
-}
-
-class DietationId {
-  DietationId({
-    this.id,
-    this.fullNameEn,
-  });
-
-  DietationId.fromJson(dynamic json) {
-    id = json['_id'];
-    fullNameEn = json['full_name_en'];
-  }
-
-  String? id;
-  String? fullNameEn;
-
-  DietationId copyWith({
-    String? id,
-    String? fullNameEn,
-  }) =>
-      DietationId(
-        id: id ?? this.id,
-        fullNameEn: fullNameEn ?? this.fullNameEn,
-      );
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = id;
-    map['full_name_en'] = fullNameEn;
     return map;
   }
 }

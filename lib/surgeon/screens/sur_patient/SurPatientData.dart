@@ -9,12 +9,13 @@ class SurPatientData {
 
   /// 0 => My Patient && 1 => All Patient
   late GenericBloc<int> selectedTabCubit;
+
   /// 0 => pre op && 1 => post op
   late GenericBloc<int> patientType;
   late GenericBloc<List<PatientModel>> patientsCubit;
   late GenericBloc<bool> isLoading;
 
-  void init(BuildContext context,int index) {
+  void init(BuildContext context, int index) {
     selectedTabCubit = GenericBloc(0);
     patientType = GenericBloc(0);
     isLoading = GenericBloc(false);
@@ -25,55 +26,50 @@ class SurPatientData {
 
   void getAllPatientsPre(BuildContext context) async {
     isLoading.onUpdateData(true);
-    List<PatientModel> result =
-        await SurgeonRepository(context).getAllPatientPreOp();
+    List<PatientModel> result = await SurgeonRepository(context).getAllPatientPreOp();
     patientsCubit.onUpdateData(result);
     isLoading.onUpdateData(false);
   }
 
   void getAllPatientsPost(BuildContext context) async {
     isLoading.onUpdateData(true);
-    List<PatientModel> result =
-        await SurgeonRepository(context).getAllPatientPostOp();
+    List<PatientModel> result = await SurgeonRepository(context).getAllPatientPostOp();
     patientsCubit.onUpdateData(result);
     isLoading.onUpdateData(false);
   }
 
   void getMyPatientsPre(BuildContext context) async {
     isLoading.onUpdateData(true);
-    List<PatientModel> result =
-        await SurgeonRepository(context).getMyPatientPreOp();
+    List<PatientModel> result = await SurgeonRepository(context).getMyPatientPreOp();
     patientsCubit.onUpdateData(result);
     isLoading.onUpdateData(false);
   }
 
   void getMyPatientsPost(BuildContext context) async {
     isLoading.onUpdateData(true);
-    List<PatientModel> result =
-        await SurgeonRepository(context).getMyPatientPostOp();
+    List<PatientModel> result = await SurgeonRepository(context).getMyPatientPostOp();
     patientsCubit.onUpdateData(result);
     isLoading.onUpdateData(false);
   }
 
-  void fetchPatient(BuildContext context){
-    if(selectedTabCubit.state.data==0){
-      if(patientType.state.data==0){
+  void fetchPatient(BuildContext context) {
+    if (selectedTabCubit.state.data == 0) {
+      if (patientType.state.data == 0) {
         getMyPatientsPre(context);
-      }else{
+      } else {
         getMyPatientsPost(context);
       }
-  }else{
-      if(patientType.state.data==0){
+    } else {
+      if (patientType.state.data == 0) {
         getAllPatientsPre(context);
-      }else{
+      } else {
         getAllPatientsPost(context);
-    }
+      }
     }
   }
 
-  void openOpdDetailsCard(BuildContext context,List<PatientModel> lst,int index) async {
+  void openOpdDetailsCard(BuildContext context, List<PatientModel> lst, int index) async {
     lst[index].isOpen = !lst[index].isOpen!;
     patientsCubit.onUpdateData(patientsCubit.state.data);
   }
-
 }

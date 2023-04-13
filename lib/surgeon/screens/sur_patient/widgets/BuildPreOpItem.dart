@@ -107,7 +107,7 @@ class BuildPreOpItem extends StatelessWidget {
                             ),
                             MyText(
                               title:
-                                  '${list[index].dietationId?.firstNameEn ?? ""} ${list[index].dietationId?.lastNameEn ?? ""}',
+                                  '${list[index].dietationId?.firstNameEn ?? "-"} ${list[index].dietationId?.lastNameEn ?? "-"}',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -126,28 +126,6 @@ class BuildPreOpItem extends StatelessWidget {
               Expanded(
                 child: SizedBox(
                   height: 58,
-                  // child: Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: List.generate(
-                  //       5,
-                  //       (index) => Stack(
-                  //             alignment: Alignment.centerLeft,
-                  //             children: [
-                  //               if (index <= 3)
-                  //                 Container(
-                  //                   width: MediaQuery.of(context).size.width / 6,
-                  //                   height: 5,
-                  //                   color: MyColors.primary,
-                  //                 ),
-                  //               CircleAvatar(
-                  //                 backgroundColor: MyColors.primary,
-                  //                 radius: 12.0,
-                  //                 child: Icon(Icons.check,
-                  //                     color: Colors.white, size: 15),
-                  //               ),
-                  //             ],
-                  //           )),
-                  // ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
