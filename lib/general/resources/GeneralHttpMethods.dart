@@ -194,8 +194,7 @@ class GeneralHttpMethods {
       EasyLoading.dismiss();
       Utils.clearSavedData();
       GlobalState.instance.set("token", "");
-      Nav.navigateTo(Login(),
-          navigatorType: NavigatorType.pushAndPopUntil);
+      Nav.navigateTo(Login(), navigatorType: NavigatorType.pushAndPopUntil);
       context.read<AuthCubit>().onUpdateAuth(false);
       CustomToast.showSimpleToast(
           msg: 'Sign Out Successfully', color: MyColors.primary);

@@ -112,7 +112,6 @@ class BuildMedicationItem extends StatelessWidget {
               // checkbox list tile
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero ,
-
                 value: state.data[index].isSelected ?? false,
                 onChanged: (value) {
                   SurOrderMedicationsData().medicationCubit.state.data[index]
@@ -122,10 +121,15 @@ class BuildMedicationItem extends StatelessWidget {
                 },
                 title: MyText(
                   title: state.data[index].medicationName??'',
-                  size: 14,
+                  size: 13,
                   color: MyColors.black,
                   fontWeight: FontWeight.bold,
-
+                ),
+                subtitle: MyText(
+                  title: state.data[index].description??'',
+                  size: 12,
+                  color: MyColors.grey,
+                  // fontWeight: FontWeight.bold,
                 ),
                 controlAffinity: ListTileControlAffinity.leading,
               ),

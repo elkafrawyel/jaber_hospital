@@ -2,6 +2,7 @@ part of 'sur_medication_request_details_imports.dart';
 
 class SurMedicationRequestDetails extends StatefulWidget {
   final int index;
+
   const SurMedicationRequestDetails({Key? key, required this.index})
       : super(key: key);
 
@@ -12,12 +13,12 @@ class SurMedicationRequestDetails extends StatefulWidget {
 
 class _SurMedicationRequestDetailsState
     extends State<SurMedicationRequestDetails> {
+  SurMedicationsOrderData surMedicationsOrderData = SurMedicationsOrderData();
+
   @override
   Widget build(BuildContext context) {
-    var model = SurMedicationsOrderData()
-        .medicationsOrdersCubit
-        .state
-        .data[widget.index];
+    var model =
+        surMedicationsOrderData.medicationsOrdersCubit.state.data[widget.index];
     return GeneralScaffold(
         CustomTitle: Row(
           children: [
@@ -149,13 +150,19 @@ class _SurMedicationRequestDetailsState
                                 leftButtonTitle: "No",
                                 onTapLeftButton: () {
                                   navigationKey.currentState!.pop();
-
                                 },
-                                onTapRightButton: () {
-                                  SurMedicationsOrderData().cancelOrder(
-                                    context,
-                                    orderId: model.sId.toString(),
-                                  );
+                                onTapRightButton: () async {
+                                  bool result = await surMedicationsOrderData.cancelOrder(context, orderId: model.sId.toString(),);
+                                  if (result) {
+                                    log("index=> ${widget.index}");
+                                    surMedicationsOrderData
+                                        .medicationsOrdersCubit.state.data
+                                        .removeAt(widget.index);
+                                    surMedicationsOrderData
+                                        .medicationsOrdersCubit
+                                        .onUpdateData(surMedicationsOrderData
+                                            .medicationsOrdersCubit.state.data);
+                                  }
                                 },
                               ));
                     },

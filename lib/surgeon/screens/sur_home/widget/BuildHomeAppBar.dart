@@ -8,7 +8,7 @@ class BuildSurHomeAppBar extends StatelessWidget implements PreferredSizeWidget 
       backgroundColor: MyColors.white,
       centerTitle: false,
       elevation: 0,
-      leadingWidth: 60,
+      // leadingWidth: 60,
       systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent),
       actions: [
         BuildNotificationIcon() ,
@@ -17,7 +17,7 @@ class BuildSurHomeAppBar extends StatelessWidget implements PreferredSizeWidget 
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MyText(
-            title: "Good evening ,${user.userData![0].fullNameEn??"Dr Samer"}",
+            title: "Good evening ,${user.userData![0].firstNameEn??"Dr Samer"} ${user.userData![0].lastNameEn??""}",
             size: 12,
             fontWeight: FontWeight.bold,
             color: MyColors.primary,

@@ -26,7 +26,6 @@ class PatientHomeDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     UserData? user = context.read<UserCubit>().state.model.userData?[0];
     log("${user?.role ?? ''}");
-    log("${user?.fullNameAr ?? ''}");
     log("${user?.email ?? ''}");
 
     return Directionality(
@@ -58,7 +57,7 @@ class PatientHomeDrawer extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   MyText(
-                                    title: user?.fullNameAr??"لؤي هاني",
+                                    title: "${user?.firstNameAr} ${user?.lastNameAr}",
                                     size: 13,
                                     color: MyColors.primary,
                                     overflow: TextOverflow.ellipsis,

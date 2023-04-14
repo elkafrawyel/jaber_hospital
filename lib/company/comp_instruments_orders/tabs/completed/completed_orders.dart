@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
-import '../../../../general/widgets/loading_widget.dart';
-import '../../../comp_home/widgets/hrizontal_order_widget.dart';
-import '../../../models/order_model.dart';
 import '../../../models/orders_response.dart';
 import '../../widgets/order_widget.dart';
 import 'completed_orders_data.dart';
@@ -66,7 +64,8 @@ class _CompletedOrdersState extends State<CompletedOrders> {
               ],
             );
           } else {
-            return LoadingWidget();
+            return Expanded(
+                child: Center(child: LoadingDialog.showLoadingView()));
           }
         },
       ),

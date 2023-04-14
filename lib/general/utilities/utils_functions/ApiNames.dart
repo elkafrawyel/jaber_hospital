@@ -77,5 +77,8 @@ class ApiNames{
   static const String surFutureAppointmentsPath = "future_appointment_patients";
   static const String surPastAppointmentsPath = "past_appointment_patients";
   // static const String confirmMdtBookingPath = "patient_mdt";
+  static const String instrumentsRoutedOrdersPath = "instrument_routed_orders";
+  static const String instrumentsProgressOrdersPath = "instrument_inprogress_orders";
+  static const String instrumentsCompletedOrdersPath = "instrument_completed_orders";
 
 }

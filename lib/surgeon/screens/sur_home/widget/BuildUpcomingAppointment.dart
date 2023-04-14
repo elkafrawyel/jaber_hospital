@@ -67,7 +67,6 @@ class BuildUpcomingAppointment extends StatelessWidget {
                 ),
               );
               }
-
             },
           ),
         ),

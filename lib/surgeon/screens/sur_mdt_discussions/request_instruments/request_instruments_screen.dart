@@ -1,23 +1,26 @@
 import 'dart:developer';
 
-import 'package:base_flutter/surgeon/models/medication_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:tf_validator/tf_validator.dart';
 
 import '../../../../general/constants/MyColors.dart';
+import '../../../../general/models/company_model.dart';
 import '../../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../../../general/widgets/GenScaffold.dart';
 import '../../../../general/widgets/app_drop_menu.dart';
 import '../../../../general/widgets/loading_widget.dart';
 import '../../../models/company_instruments_response.dart';
+import '../../../models/instrument_order_model.dart';
 import 'request_instruments_data.dart';
 
 class RequestInstrumentsScreen extends StatefulWidget {
-  const RequestInstrumentsScreen({Key? key,}) : super(key: key);
-  // final Patient patient;
+  const RequestInstrumentsScreen({Key? key}) : super(key: key);
+  // final InstrumentOrderModel ordersModel;
 
   @override
   State<RequestInstrumentsScreen> createState() => _RequestInstrumentsScreenState();
@@ -25,14 +28,18 @@ class RequestInstrumentsScreen extends StatefulWidget {
 
 class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
   RequestInstrumentsData requestInstrumentsData= RequestInstrumentsData();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
+  late TextEditingController nameController = TextEditingController();
+  late TextEditingController phoneController= TextEditingController();
+  late TextEditingController dateController= TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     requestInstrumentsData.init(context);
+    // nameController = TextEditingController(text: "${widget.ordersModel.patientId?.firstNameEn} "
+    //     "${widget.ordersModel.patientId?.lastNameEn}");
+    // phoneController = TextEditingController(text: widget.ordersModel.patientId?.mobile??"");
+    // dateController = TextEditingController(text: widget.ordersModel.orderStartDate??"");
     super.initState();
   }
 
@@ -128,25 +135,40 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                         },
                       );
                     } else {
-                      return LoadingWidget();
-                    }
-                  },
-                ),
-                BlocBuilder<GenericBloc<CompanyInstrumentsResponse?>,
-                    GenericState<CompanyInstrumentsResponse?>>(
-                  bloc: requestInstrumentsData.companyInstrumentsCubit,
-                  builder: (context, state) {
-                    if (state is GenericUpdateState) {
-                      return Column(
-                        children: [
-
-                        ],
+                      return SizedBox(
+                        height: 56,
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.white,
+                          highlightColor: MyColors.greyWhite,
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                            height: MediaQuery.of(context).size.height / 6,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: MyColors.white,
+                            ),
+                          ),
+                        ),
                       );
-                    } else {
-                      return LoadingWidget();
                     }
                   },
                 ),
+                // BlocBuilder<GenericBloc<CompanyInstrumentsResponse?>,
+                //     GenericState<CompanyInstrumentsResponse?>>(
+                //   bloc: requestInstrumentsData.companyInstrumentsCubit,
+                //   builder: (context, state) {
+                //     if (state is GenericUpdateState) {
+                //       return Column(
+                //         children: [
+                //
+                //         ],
+                //       );
+                //     } else {
+                //       return Center(child: LoadingDialog.showLoadingView());
+                //     }
+                //   },
+                // ),
               ],
             ),
           )),

@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../general/models/company_model.dart';
+import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../models/companies_response.dart';
 import '../../../models/company_instruments_response.dart';
-import '../../../models/medication_model.dart';
 import '../../../resources/SurgeonRepoImports.dart';
 
 

@@ -38,8 +38,9 @@ class BuildSurHomeDrawer extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                // Text()
                                 MyText(
-                                  title: user?.fullNameEn ?? "Samer Hany",
+                                  title: "${user?.firstNameEn??"Samer Hany"} ${user?.lastNameEn}",
                                   size: 13,
                                   color: MyColors.primary,
                                   overflow: TextOverflow.ellipsis,
@@ -124,72 +125,6 @@ class BuildSurHomeDrawer extends StatelessWidget {
                       //more child menu
                     ],
                   ),
-                  // BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                  //   bloc: SurHomeData().mdtDiscussionsSelect,
-                  //   builder: (context, state) {
-                  //     return Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         ListTile(
-                  //           leading:
-                  //               Image.asset(Res.imagesMdtopdrawer, scale: 2.8),
-                  //           onTap: () => SurHomeData()
-                  //               .mdtDiscussionsSelect
-                  //               .onUpdateData(!state.data),
-                  //           title: Row(
-                  //             children: [
-                  //               Expanded(
-                  //                 child: MyText(
-                  //                   title: "MDT Discussions",
-                  //                   size: 12,
-                  //                   color: MyColors.black,
-                  //                   fontWeight: FontWeight.bold,
-                  //                 ),
-                  //               ),
-                  //               Icon(
-                  //                   !state.data
-                  //                       ? Icons.keyboard_arrow_down
-                  //                       : Icons.keyboard_arrow_up,
-                  //                   color: MyColors.black,
-                  //                   size: 20)
-                  //             ],
-                  //           ),
-                  //         ),
-                  //         Visibility(
-                  //           visible: state.data,
-                  //           child: Padding(
-                  //             padding:
-                  //                 const EdgeInsets.symmetric(horizontal: 40),
-                  //             child: Column(
-                  //               crossAxisAlignment: CrossAxisAlignment.start,
-                  //               children: [
-                  //                 InkWell(
-                  //                   onTap: () => Nav.navigateTo(
-                  //                       SurMdtDiscussions(),
-                  //                       navigatorType: NavigatorType.push),
-                  //                   child: MyText(
-                  //                     title: "Discussions",
-                  //                     size: 12,
-                  //                     color: MyColors.black,
-                  //                   ),
-                  //                 ),
-                  //                 const SizedBox(height: 10),
-                  //                 InkWell(
-                  //                   onTap: () {},
-                  //                   child: MyText(
-                  //                     title: "Admin",
-                  //                     size: 12,
-                  //                     color: MyColors.black,
-                  //                   ),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //           ),
-                  //         )
-                  //       ],
-                  //     );
-                  //   },
-                  // ),
                   ListTile(
                     leading:
                         Image.asset(Res.imagesOperationsdrawer, scale: 2.8),
@@ -204,7 +139,6 @@ class BuildSurHomeDrawer extends StatelessWidget {
                   ),
                   ListTile(
                     leading: Image.asset(Res.imagesAppointmentsdrawer, scale: 2.8),
-                    // onTap: () => Nav.navigateTo(RequestInstrumentsScreen(), navigatorType: NavigatorType.push),
                     onTap: () => Nav.navigateTo(SurAppointments(), navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "Appointments",
@@ -234,7 +168,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                     children: [
                       ListTile(
                         title: Text("Instruments"),
-                        onTap: () => Nav.navigateTo(SurMedicationOrder(),
+                        onTap: () => Nav.navigateTo(SurInstrumentsOrdersScreen(),
                             navigatorType: NavigatorType.push),
                       ),
                       ListTile(

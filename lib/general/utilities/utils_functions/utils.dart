@@ -154,12 +154,13 @@ class Utils {
 
   static void clearSavedData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+    prefs.remove("user");
+    // prefs.clear();
   }
 
   static String getCurrentUserId({required BuildContext context}) {
     var user = context.watch<UserCubit>().state.model;
-    return user.userData?[0].fullNameAr.toString() ?? '';
+    return user.userData?[0].sId.toString() ?? '';
   }
 
   static void launchURL({required String url}) async {

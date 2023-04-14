@@ -1,24 +1,22 @@
-import 'package:base_flutter/surgeon/models/medication_model.dart';
+import 'instrument_order_model.dart';
 
-import '../../general/models/company_model.dart';
-
-class CompaniesResponse {
+class InstrumentOrdersResponse {
   int? code;
-  Message? message;
   bool? success;
-  List<CompanyId>? companies;
+  Message? message;
+  List<InstrumentOrderModel>? data;
 
-  CompaniesResponse({this.code, this.message, this.success, this.companies});
+  InstrumentOrdersResponse({this.code, this.success, this.message, this.data});
 
-  CompaniesResponse.fromJson(Map<String, dynamic> json) {
+  InstrumentOrdersResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
+    success = json['success'];
     message =
     json['message'] != null ? new Message.fromJson(json['message']) : null;
-    success = json['success'];
     if (json['data'] != null) {
-      companies = <CompanyId>[];
+      data = <InstrumentOrderModel>[];
       json['data'].forEach((v) {
-        companies!.add(CompanyId.fromJson(v));
+        data!.add(InstrumentOrderModel.fromJson(v));
       });
     }
   }
@@ -26,12 +24,12 @@ class CompaniesResponse {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['code'] = this.code;
+    data['success'] = this.success;
     if (this.message != null) {
       data['message'] = this.message!.toJson();
     }
-    data['success'] = this.success;
-    if (this.companies != null) {
-      data['data'] = this.companies!.map((v) => v.toJson()).toList();
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }

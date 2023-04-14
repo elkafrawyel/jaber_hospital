@@ -9,14 +9,29 @@ class BuildProfileBody extends StatelessWidget {
       key: SurProfileData().formKey,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         MyText(
-          title: 'Name',
+          title: 'FirstNameEn',
           size: 12,
           fontWeight: FontWeight.bold,
         ),
         GenericTextField(
           fieldTypes: FieldTypes.normal,
-          hint: "Name",
-          controller: SurProfileData().name,
+          hint: "FirstNameEn",
+          controller: SurProfileData().firstName,
+          fillColor: MyColors.textFields,
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          action: TextInputAction.next,
+          type: TextInputType.name,
+          validate: (value) => value!.validateEmpty(context),
+        ),
+        MyText(
+          title: 'LastNameEn',
+          size: 12,
+          fontWeight: FontWeight.bold,
+        ),
+        GenericTextField(
+          fieldTypes: FieldTypes.normal,
+          hint: "LastNameEn",
+          controller: SurProfileData().lastName,
           fillColor: MyColors.textFields,
           margin: const EdgeInsets.symmetric(vertical: 10),
           action: TextInputAction.next,

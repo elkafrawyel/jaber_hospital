@@ -93,7 +93,8 @@ class DioHelper {
 
     _dio.options.headers = DioUtils.header ?? await _getHeader();
     //create multipart request for POST or PATCH method
-    log("medicationOrderBody=> ${jsonEncode(body)}");
+    log("medicationOrderBody=> $body");
+    log("medicationOrderBodyEncoded=> ${jsonEncode(body)}");
     try {
       var response = await _dio.post("$url", data: haveFile ? formData : body, queryParameters: query);
       log("response ${response.statusCode}");

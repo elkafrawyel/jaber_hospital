@@ -26,7 +26,7 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
                     borderRadius: BorderRadius.circular(100)),
                 const SizedBox(height: 10),
                 MyText(
-                  title: model.userData?[0].fullNameEn??'',
+                  title: '${model.userData?[0].firstNameEn} ${model.userData?[0].lastNameEn}',
                   size: 12,
                   fontWeight: FontWeight.bold,
                 ),

@@ -26,6 +26,7 @@ import '../../../models/surgeon_home_model.dart';
 import '../../sur_account_settings/SurAccountSettingWImports.dart';
 import '../../sur_appointments/sur_appointments_imports.dart';
 import '../../sur_home_patient/SurHomePatientImports.dart';
+import '../../sur_instruments_order/instruments_orders_screen.dart';
 import '../../sur_mdt_discussions/SurMdtDiscussionsImports.dart';
 import '../../sur_mdt_discussions/mdt_admin/mdt_admin_screen.dart';
 import '../../sur_mdt_discussions/mdt_admin/tabs/today_patients/mdt_todays_patient.dart';

@@ -5,6 +5,7 @@ import '../../../../general/constants/MyColors.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/widgets/loading_widget.dart';
+import '../../../../../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../../comp_instruments_orders/widgets/order_widget.dart';
 import '../../../models/orders_response.dart';
 import 'received_orders_data.dart';
@@ -71,7 +72,8 @@ class _ReceivedOrdersState extends State<ReceivedMedicationOrders> {
               ],
             );
           } else {
-            return LoadingWidget();
+            return Expanded(
+                child: Center(child: LoadingDialog.showLoadingView()));
           }
         },
       ),

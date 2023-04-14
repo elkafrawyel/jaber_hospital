@@ -3,6 +3,7 @@ part of 'sur_order_medications_imports.dart';
 class SurOrderMedicationsData {
   //singleton
   static SurOrderMedicationsData _instance = new SurOrderMedicationsData._();
+
   factory SurOrderMedicationsData() => _instance;
 
   SurOrderMedicationsData._();
@@ -125,8 +126,8 @@ class SurOrderMedicationsData {
     List<PatientNameModel> result = [];
     if (search.text.isNotEmpty) {
       for (int i = 0; i < fullPatientList.length; i++) {
-        if (fullPatientList[i].firstNameEn.toString().contains(search.text)
-        || fullPatientList[i].lastNameEn.toString().contains(search.text)) {
+        if (fullPatientList[i].firstNameEn.toString().contains(search.text) ||
+            fullPatientList[i].lastNameEn.toString().contains(search.text)) {
           result.add(fullPatientList[i]);
         }
         patientNameBloc.onUpdateData(result);
@@ -142,8 +143,8 @@ class SurOrderMedicationsData {
           backgroundColor: Colors.red);
     } else {
       log("data=> ${patientNameBloc.state.data}");
-      selectedPatientModel = patientNameBloc.state.data
-          .firstWhere((element) => "${element.firstNameEn} ${element.lastNameEn}" == patientName.text);
+      selectedPatientModel = patientNameBloc.state.data.firstWhere((element) =>
+          "${element.firstNameEn} ${element.lastNameEn}" == patientName.text);
       navigationKey.currentState!.pop();
       log(selectedPatientModel?.firstNameEn.toString() ?? '');
     }
@@ -151,22 +152,20 @@ class SurOrderMedicationsData {
 
   void onAddMedication(BuildContext context) async {
     if (formKey.currentState!.validate()) {
-      List<Map<String, dynamic>> medication =[];
-      for (int i = 0; i < selectedMedicationCubit.state.data.length; i++) {
-        medication.addAll([{
-          "id": "${selectedMedicationCubit.state.data[i].sId ?? ""}",
-          "quantity" : selectedMedicationCubit.state.data[i].quantity ?? 0,
-        }]);
-      }
+      List<dynamic> medications = selectedMedicationCubit.state.data
+          .map((item) => {
+        "id": item.sId,
+        "quantity":item.quantity,
+      }).toList();
       Map<String, dynamic> body = {
         "doctor_id": "${context.read<UserCubit>().state.model.userData?[0].sId}",
         "company_id": "${selectedMedicationCubit.state.data[0].companyId?.sId}",
         "patient_id": "${selectedPatientModel?.sId}",
         "mobile_number": "${Utils.convertDigitsToLatin(PatientMobileNumber.text)}",
-        "medications": jsonEncode(medication),
-        "order_start_date" : "${dateBloc.state.data}",
-        "order_status":"routed to company",
+        "order_start_date": "${dateBloc.state.data}",
+        "order_status": "routed to company",
         "status": true,
+        "medications": jsonEncode(medications),
       };
       var result = await SurgeonRepository(context).requestMedicationOrder(body);
     }

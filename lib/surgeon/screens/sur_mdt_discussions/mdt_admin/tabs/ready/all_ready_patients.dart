@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../general/constants/MyColors.dart';
 import '../../../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
-import '../../../../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
 import '../../../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
-import '../../../../../../general/widgets/loading_widget.dart';
+import '../../../../../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../../../../models/mdt_patient_model.dart';
 import 'all_ready_patients_data.dart';
 import 'widgets/patient_ready_item.dart';
@@ -58,7 +57,8 @@ class _AllReadyPatientsState extends State<AllReadyPatients> {
               ),
             );
           } else {
-            return LoadingWidget();
+            return Expanded(
+                child: Center(child: LoadingDialog.showLoadingView()));
           }
         },
       ),

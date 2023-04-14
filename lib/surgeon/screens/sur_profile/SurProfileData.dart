@@ -7,7 +7,8 @@ class SurProfileData {
 
   SurProfileData._internal();
 
-  late TextEditingController name;
+  late TextEditingController firstName;
+  late TextEditingController lastName;
   late TextEditingController email;
   late TextEditingController age;
   late TextEditingController job;
@@ -17,7 +18,8 @@ class SurProfileData {
   late GenericBloc<int> genderBloc;
 
   void initScreen(BuildContext context) {
-    this.name = TextEditingController();
+    this.firstName = TextEditingController();
+    this.lastName = TextEditingController();
     this.email = TextEditingController();
     this.age = TextEditingController();
     this.job = TextEditingController();
@@ -31,7 +33,8 @@ class SurProfileData {
 
   void initProfile(BuildContext context) {
     UserModel user = context.read<UserCubit>().state.model;
-    name.text = user.userData?[0].fullNameEn ?? '';
+    firstName.text = user.userData?[0].firstNameEn??"";
+    lastName.text = user.userData?[0].lastNameEn??"";
     email.text =user.userData?[0].email ?? '';
     age.text = (user.userData?[0].age??0).toString();
     job.text = user.userData?[0].role ?? 'doctor';
@@ -51,8 +54,8 @@ class SurProfileData {
       btnKey.currentState!.animateForward();
       ProfileModel model = ProfileModel(
         email: email.text,
-        nameAr: name.text,
-        nameEn: name.text,
+        firstNameEn: firstName.text,
+        lastNameEn: lastName.text,
         title: "title",
         civilId: "civilId",
         age: age.text,
@@ -73,7 +76,8 @@ class SurProfileData {
 
   dispose() {
     email.dispose();
-    name.dispose();
+    firstName.dispose();
+    lastName.dispose();
     age.dispose();
   }
 }

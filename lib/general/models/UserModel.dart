@@ -32,8 +32,12 @@ class UserData {
   String? email;
   bool? mdtAdmin;
   bool? verified;
-  String? fullNameAr;
   String? fullNameEn;
+  String? fullNameAr;
+  String? firstNameAr;
+  String? firstNameEn;
+  String? lastNameAr;
+  String? lastNameEn;
   String? compNameAr;
   String? compNameEn;
   String? compAddress;
@@ -55,6 +59,10 @@ class UserData {
         this.verified,
         this.fullNameAr,
         this.fullNameEn,
+        this.firstNameAr,
+        this.firstNameEn,
+        this.lastNameAr,
+        this.lastNameEn,
         this.compNameAr,
         this.compNameEn,
         this.compAddress,
@@ -74,8 +82,12 @@ class UserData {
     email = json['email'];
     verified = json['verified'];
     mdtAdmin = json['mdt_admin'];
-    fullNameAr = json['full_name_ar'];
     fullNameEn = json['full_name_en'];
+    fullNameAr = json['full_name_ar'];
+    firstNameEn = json['first_name_en'];
+    firstNameAr = json['first_name_ar'];
+    lastNameAr = json['last_name_ar'];
+    lastNameEn = json['last_name_en'];
     compNameAr = json['company_name_ar'];
     compNameEn = json['company_name_en'];
     compAddress = json['company_address'];
@@ -101,6 +113,10 @@ class UserData {
     data['verified'] = this.verified;
     data['full_name_ar'] = this.fullNameAr;
     data['full_name_en'] = this.fullNameEn;
+    data['first_name_ar'] = this.firstNameAr;
+    data['first_name_en'] = this.firstNameEn;
+    data['last_name_ar'] = this.lastNameAr;
+    data['last_name_en'] = this.lastNameEn;
     data['company_name_ar'] = this.compNameAr;
     data['company_name_en'] = this.compNameEn;
     data['company_address'] = this.compAddress;

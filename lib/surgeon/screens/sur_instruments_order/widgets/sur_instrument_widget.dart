@@ -1,15 +1,22 @@
-part of 'SurMedicationOrderWImports.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../general/constants/MyColors.dart';
+import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../../general/utilities/utils_functions/Navigator.dart';
+import '../../../../res/res.dart';
+import '../../../models/instrument_order_model.dart';
+import '../instrument_order_details.dart';
 
-class BuildMedicationItem extends StatelessWidget {
+class SurInstrumentOrderWidget extends StatelessWidget {
+  const SurInstrumentOrderWidget({Key? key, required this.index, required this.ordersModel}) : super(key: key);
   final int  index ;
-  const BuildMedicationItem({Key? key, required this.index}) : super(key: key);
+  final InstrumentOrderModel ordersModel;
 
   @override
   Widget build(BuildContext context) {
-    var model = SurMedicationsOrderData().medicationsOrdersCubit.state.data[index];
+    // var model = SurMedicationsOrderData().medicationsOrdersCubit.state.data[index];
     return InkWell(
-      onTap: () =>Nav.navigateTo(SurMedicationRequestDetails(index: index), navigatorType: NavigatorType.push),
+      onTap: () =>Nav.navigateTo(SurInstrumentRequestDetails(index: index,instrumentOrderModel: ordersModel,), navigatorType: NavigatorType.push),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -41,24 +48,18 @@ class BuildMedicationItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyText(
-                        title: "Order #${model.orderNum}",
+                        title: "Order #${ordersModel.orderNum}",
                         size: 12,
                         color: MyColors.black,
                         fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 5),
                       MyText(
-                        title: model.notes  ?? "Not Available",
+                        title: ordersModel.notes  ?? "Not Available",
                         size: 12,
                         color: MyColors.blackOpacity,
                       ),
-                      const SizedBox(height: 4),
-                      MyText(
-                        title: model.notes  ?? "Not Available",
-                        size: 12,
-                        color: MyColors.blackOpacity,
-                      ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 5),
                       Row(
                         children: [
                           Expanded(
@@ -70,7 +71,7 @@ class BuildMedicationItem extends StatelessWidget {
                                 const SizedBox(width: 5),
                                 Expanded(
                                   child: MyText(
-                                    title: model.orderStartDate??'' ,
+                                    title: ordersModel.orderStartDate??'' ,
                                     size: 10,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
@@ -100,31 +101,6 @@ class BuildMedicationItem extends StatelessWidget {
                 )
               ],
             ),
-            BlocBuilder<GenericBloc<int>, GenericState<int>>(
-              bloc: SurMedicationsOrderData().tabSelect,
-              builder: (context, state) {
-                return Visibility(
-                  visible: SurMedicationsOrderData().tabSelect.state.data == 1 || SurMedicationsOrderData().tabSelect.state.data==2,
-                  child: Column(
-                    children: [
-                      const Divider(),
-                      Row(
-                        children: [
-                          Icon(Icons.circle, color: MyColors.primary, size: 10),
-                          const SizedBox(width: 5),
-                          MyText(
-                            title: "Changed to ${SurMedicationsOrderData().orderNumType.split("Orders").first} on ${model.orderCompletedDate} ",
-                            size: 10,
-                            color: MyColors.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
-            )
           ],
         ),
       ),

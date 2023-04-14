@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
-import '../../../../general/widgets/loading_widget.dart';
 import '../../../models/appointments_response.dart';
 import '../../widgets/appointment_item_widget.dart';
 import 'received_appointments_data.dart';
@@ -71,7 +71,8 @@ class _PatientReceivedAppointmentsState extends State<PatientReceivedAppointment
                 ],
               );
             } else {
-              return LoadingWidget();
+              return Expanded(
+                  child: Center(child: LoadingDialog.showLoadingView()));
             }
           },
         ),

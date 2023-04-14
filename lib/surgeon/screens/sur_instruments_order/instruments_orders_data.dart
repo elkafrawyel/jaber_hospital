@@ -1,11 +1,16 @@
-part of 'sur_medications_order_imports.dart';
+import 'package:flutter/material.dart';
 
-class SurMedicationsOrderData {
-  SurMedicationsOrderData._();
+import '../../../general/MyApp.dart';
+import '../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
+import '../../models/medications_orders_model.dart';
+import '../../resources/SurgeonRepoImports.dart';
 
-  static final SurMedicationsOrderData _instance = SurMedicationsOrderData._();
+class SurInstrumentsOrdersData {
+  SurInstrumentsOrdersData._();
 
-  factory SurMedicationsOrderData() => _instance;
+  static final SurInstrumentsOrdersData _instance = SurInstrumentsOrdersData._();
+
+  factory SurInstrumentsOrdersData() => _instance;
 
   late TabController tabController;
   late GenericBloc<int> tabSelect;
@@ -17,7 +22,7 @@ class SurMedicationsOrderData {
     tabSelect = GenericBloc<int>(0);
     loading = GenericBloc<bool>(false);
     medicationsOrdersCubit = GenericBloc<List<MedicationsOrdersModel>>([]);
-    getMedicationsOrders(context);
+    getInstrumentsOrders(context);
   }
 
   String get orderNumType => _setOrderNumType();
@@ -32,7 +37,7 @@ class SurMedicationsOrderData {
     }
   }
 
-  void getMedicationsOrders(BuildContext context) async {
+  void getInstrumentsOrders(BuildContext context) async {
     loading.onUpdateData(true);
     var response = await SurgeonRepository(context)
         .getMedicationOrders(tabSelect.state.data);
@@ -45,7 +50,7 @@ class SurMedicationsOrderData {
     var response = await SurgeonRepository(context)
         .cancelMedicationOrder(orderId: orderId);
     if (response) {
-      getMedicationsOrders(context);
+      getInstrumentsOrders(context);
       navigationKey.currentState!.pop();
       navigationKey.currentState!.pop();
       return response;

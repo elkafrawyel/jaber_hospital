@@ -25,7 +25,6 @@ class PsychologistHomeDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     UserData? user = context.read<UserCubit>().state.model.userData?[0];
     log("${user?.role ?? ''}");
-    log("${user?.fullNameAr ?? ''}");
     log("${user?.email ?? ''}");
 
     return Drawer(
@@ -55,7 +54,7 @@ class PsychologistHomeDrawer extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 MyText(
-                                  title: user?.fullNameEn??"Samer Hany",
+                                  title: "${user?.firstNameEn} ${user?.lastNameEn}",
                                   size: 13,
                                   color: MyColors.primary,
                                   overflow: TextOverflow.ellipsis,

@@ -210,8 +210,10 @@ class SurgeonHttpMethods {
     );
     if (data != null) {
       UserModel user = context.read<UserCubit>().state.model;
-      user.userData?[0].fullNameEn = data["full_name_en"];
-      user.userData?[0].fullNameAr = data["full_name_ar"];
+      user.userData?[0].firstNameEn = data["first_name_en"];
+      user.userData?[0].firstNameAr = data["first_name_ar"];
+      user.userData?[0].lastNameAr = data["last_name_ar"];
+      user.userData?[0].lastNameEn = data["last_name_en"];
       user.userData?[0].email = data["email"];
       user.userData?[0].age = data["age"];
       user.userData?[0].role = data["role"];
@@ -285,6 +287,39 @@ class SurgeonHttpMethods {
     }
   }
 
+  Future<InstrumentOrdersResponse> getInstrumentsRoutedOrders() async {
+    dynamic data = await GenericHttp<InstrumentOrdersResponse>(context).callApi(
+      name: ApiNames.instrumentsRoutedOrdersPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => InstrumentOrdersResponse.fromJson(json),
+    );
+      return data;
+  }
+
+  Future<InstrumentOrdersResponse> getInProgressInstrumentsOrders() async {
+    dynamic data = await GenericHttp<InstrumentOrdersResponse>(context).callApi(
+      name: ApiNames.instrumentsProgressOrdersPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => InstrumentOrdersResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<InstrumentOrdersResponse> getCompletedInstrumentsOrders() async {
+    dynamic data = await GenericHttp<InstrumentOrdersResponse>(context).callApi(
+      name: ApiNames.instrumentsCompletedOrdersPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => InstrumentOrdersResponse.fromJson(json),
+    );
+    return data;
+  }
+
   String _getMedicationApiNames(int index) {
     switch (index) {
       case 0:
@@ -300,10 +335,10 @@ class SurgeonHttpMethods {
 
   Future<bool> cancelMedicationOrder(String orderId) async {
     Map<String, dynamic> body = {
-      "status": false,
+      "status": "canceled",
     };
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.cancelMedicationOrder + "/?order_id=$orderId",
+      name: ApiNames.cancelMedicationOrder + "?order_id=$orderId",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,

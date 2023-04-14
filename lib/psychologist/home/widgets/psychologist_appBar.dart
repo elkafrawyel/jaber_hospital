@@ -28,7 +28,7 @@ class BuildPsychologistHomeAppBar extends StatelessWidget implements PreferredSi
         mainAxisSize: MainAxisSize.min,
         children: [
           MyText(
-            title: "Good evening, ${user.userData?[0].fullNameEn}",
+            title: "Good evening, ${user.userData?[0].firstNameEn} ${user.userData?[0].lastNameEn}",
             size: 12,
             fontWeight: FontWeight.bold,
             color: MyColors.primary,

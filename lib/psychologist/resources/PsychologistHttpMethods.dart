@@ -111,8 +111,10 @@ class PsychologistHttpMethods {
           .read<UserCubit>()
           .state
           .model;
-      user.userData?[0].fullNameEn = data["full_name_en"];
-      user.userData?[0].fullNameAr = data["full_name_ar"];
+      user.userData?[0].firstNameAr = data["first_name_ar"];
+      user.userData?[0].firstNameEn = data["first_name_en"];
+      user.userData?[0].lastNameEn = data["last_name_en"];
+      user.userData?[0].lastNameAr = data["last_name_ar"];
       user.userData?[0].email = data["email"];
       user.userData?[0].age = data["age"];
       user.userData?[0].role = data["role"];

@@ -21,6 +21,7 @@ import '../../../general/widgets/GenScaffold.dart';
 import '../../models/dto/pagination_dto.dart';
 import '../../models/medication_model.dart';
 import '../../models/patient_name_model.dart';
+import '../../models/selected_medication_model.dart';
 import '../../resources/SurgeonRepoImports.dart';
 
 part 'sur_order_medications.dart';

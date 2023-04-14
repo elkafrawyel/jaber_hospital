@@ -27,7 +27,7 @@ class BuildPatientHomeAppBar extends StatelessWidget implements PreferredSizeWid
         mainAxisSize: MainAxisSize.min,
         children: [
           MyText(
-            title: "مساء الخير، ${user.userData?[0].fullNameAr ??""}",
+            title: "مساء الخير، ${user.userData?[0].firstNameAr} ${user.userData?[0].lastNameAr}",
             size: 12,
             fontWeight: FontWeight.bold,
             color: MyColors.primary,

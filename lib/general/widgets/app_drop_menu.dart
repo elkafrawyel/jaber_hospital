@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:base_flutter/surgeon/models/medication_model.dart';
+import 'package:base_flutter/general/models/company_model.dart';
 import 'package:flutter/material.dart';
 
 import '../utilities/tf_custom_widgets/widgets/MyText.dart';

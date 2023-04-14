@@ -3,14 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../general/constants/MyColors.dart';
 import '../../../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
-import '../../../../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
-import '../../../../../../general/utilities/tf_custom_widgets/widgets/DefaultButton.dart';
 import '../../../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
-import '../../../../../../general/widgets/GenScaffold.dart';
-import '../../../../../../general/widgets/loading_widget.dart';
+import '../../../../../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../../../../models/mdt_patient_model.dart';
 import '../../../SurMdtDiscussionsImports.dart';
-import '../../../widgets/SurMdtDiscussionsWImports.dart';
 import 'mdt_todays_patients_data.dart';
 import 'widgets/admin_patient_widget.dart';
 
@@ -72,7 +68,8 @@ class _MDTAdminState extends State<MdtTodaysPatients>
                     ),
                   );
           } else {
-            return LoadingWidget();
+            return Expanded(
+                child: Center(child: LoadingDialog.showLoadingView()));
           }
         },
       ),
