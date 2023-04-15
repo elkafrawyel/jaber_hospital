@@ -120,7 +120,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                     children: [
                                       Expanded(
                                         child: MyText(
-                                          title: state.data?.patient?.fullNameEn ?? "",
+                                          title: state.data?.patient?.fNameEn ?? "",
                                           size: 14,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -600,7 +600,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                         fontWeight: FontWeight.bold),
                     const SizedBox(width: 4),
                     MyText(
-                      title: state.data?.patient?.surgeonId?.fullNameEn ?? '',
+                      title: '${state.data?.patient?.surgeonId?.firstNameEn ?? ''} ${state.data?.patient?.surgeonId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
 
@@ -616,7 +616,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                         fontWeight: FontWeight.bold),
                     const SizedBox(width: 4),
                     MyText(
-                      title: state.data?.patient?.dietationId?.fullNameEn ?? '',
+                      title: '${state.data?.patient?.dietationId?.firstNameEn ?? ''} ${state.data?.patient?.dietationId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -631,8 +631,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                         fontWeight: FontWeight.bold),
                     const SizedBox(width: 4),
                     MyText(
-                      title: state.data?.patient?.physiotherapyId?.fullNameEn ??
-                          '',
+                      title: '${state.data?.patient?.physiotherapyId?.firstNameEn ?? ''} ${state.data?.patient?.physiotherapyId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -646,7 +645,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                         size: 12,
                         fontWeight: FontWeight.bold),
                     MyText(
-                      title: state.data?.patient?.surgeon2Id?.fullNameEn ?? '',
+                      title: '${state.data?.patient?.surgeon2Id?.firstNameEn ?? ''} ${state.data?.patient?.surgeon2Id?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -867,7 +866,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                   if (bookedDate != null) {
                                     log("bookedDate==> ${psychologistPatientDetailsData.dateBloc.state.data}");
                                       Map<String, dynamic> body ={
-                                        "doctor_id": state.data?.patient?.surgeonId?.id ?? '',
+                                        "doctor_id": state.data?.patient?.surgeonId?.sId ?? '',
                                         "patient_id": state.data?.patient?.id??"",
                                         "appointment_date": bookedDate,
                                       };

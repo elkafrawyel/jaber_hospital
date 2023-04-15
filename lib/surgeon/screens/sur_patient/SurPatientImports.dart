@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import '../../resources/SurgeonRepoImports.dart';
 import '../sur_add_patient/SurAddPatientImports.dart';
+import '../sur_search/SurSearchScreen.dart';
 
 part 'SurPatient.dart';
 part 'SurPatientData.dart';

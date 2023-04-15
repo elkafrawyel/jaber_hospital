@@ -1,13 +1,17 @@
+import '../../general/models/doctor_model.dart';
+
 class PatientModel {
   String? sId;
-  String? fullNameAr;
-  String? fullNameEn;
+  String? fNameAr;
+  String? lNameAr;
+  String? fNameEn;
+  String? lNameEn;
   String? image;
   String? operationStatus;
   String? operationDate;
   String? operationType;
-  SurgeonId? surgeonId;
-  SurgeonId? dietationId;
+  DoctorId? surgeonId;
+  DoctorId? dietationId;
   bool? ultrasound;
   bool? egd;
   bool? surgionVisit;
@@ -19,8 +23,10 @@ class PatientModel {
 
   PatientModel({
     this.sId,
-    this.fullNameAr,
-    this.fullNameEn,
+    this.fNameAr,
+    this.lNameAr,
+    this.fNameEn,
+    this.lNameEn,
     this.image,
     this.operationStatus,
     this.operationDate,
@@ -39,14 +45,16 @@ class PatientModel {
 
   PatientModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    fullNameAr = json['full_name_ar'];
-    fullNameEn = json['full_name_en'];
+    fNameAr = json['first_name_ar'];
+    lNameAr = json['last_name_ar'];
+    fNameEn = json['first_name_en'];
+    lNameEn = json['last_name_en'];
     image = json['image'];
     operationStatus = json['operation_status'];
     operationDate = json['operation_date'];
     operationType = json['operation_type'];
-    surgeonId = json['surgeon_id'] != null ? new SurgeonId.fromJson(json['surgeon_id']) : null;
-    dietationId = json['dietation_id'] != null ? new SurgeonId.fromJson(json['dietation_id']) : null;
+    surgeonId = json['surgeon_id'] != null ? new DoctorId.fromJson(json['surgeon_id']) : null;
+    dietationId = json['dietation_id'] != null ? new DoctorId.fromJson(json['dietation_id']) : null;
     ultrasound = json['ultrasound'];
     egd = json['egd'];
     surgionVisit = json['surgion_visit'];
@@ -60,8 +68,10 @@ class PatientModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
-    data['full_name_ar'] = this.fullNameAr;
-    data['full_name_en'] = this.fullNameEn;
+    data['first_name_ar'] = fNameAr;
+    data['last_name_ar'] = lNameAr;
+    data['first_name_en'] = fNameEn;
+    data['last_name_en'] = lNameEn;
     data['image'] = this.image;
     data['operation_status'] = this.operationStatus;
     data['operation_date'] = this.operationDate;
@@ -79,31 +89,6 @@ class PatientModel {
     data['dietation_feedback_decision'] = this.dietationFeedbackDecision;
     data['final_feedback'] = this.finalFeedback;
     data['feedback'] = this.feedback;
-    return data;
-  }
-}
-
-class SurgeonId {
-  String? sId;
-  String? fullNameAr;
-  String? fullNameEn;
-  String? image;
-
-  SurgeonId({this.sId, this.fullNameAr, this.fullNameEn, this.image});
-
-  SurgeonId.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    fullNameAr = json['full_name_ar'];
-    fullNameEn = json['full_name_en'];
-    image = json['image'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['full_name_ar'] = this.fullNameAr;
-    data['full_name_en'] = this.fullNameEn;
-    data['image'] = this.image;
     return data;
   }
 }

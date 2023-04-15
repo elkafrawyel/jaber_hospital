@@ -1383,7 +1383,7 @@ class _AddPatientSeventhPageState extends State<AddPatientSeventhPage> {
             ),
             Expanded(
               child: DefaultButton(
-                title: SurAddPatientData().editing ? "Edit Patient" : "Add Patient",
+                title: SurAddPatientData().editing ? "Save Changes" : "Add Patient",
                 onTap: () {
                   SurAddPatientData().addPatientSeventh(context);
                 },

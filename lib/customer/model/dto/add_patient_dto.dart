@@ -1,9 +1,10 @@
-
 class AddPatientFirstDto {
   String? email;
   String? password;
-  String? nameAr;
-  String? nameEn;
+  String? fNameAr;
+  String? lNameAr;
+  String? fNameEn;
+  String? lNameEn;
   String? gender;
   String? civilId;
   String? image;
@@ -19,8 +20,10 @@ class AddPatientFirstDto {
   AddPatientFirstDto({
     this.email,
     this.password,
-    this.nameAr,
-    this.nameEn,
+    this.fNameAr,
+    this.lNameAr,
+    this.fNameEn,
+    this.lNameEn,
     this.gender,
     this.civilId,
     this.image,
@@ -37,8 +40,10 @@ class AddPatientFirstDto {
   Map<String, dynamic> toJson() => {
         "email": email,
         "password": password,
-        "full_name_ar": nameAr,
-        "full_name_en": nameEn,
+        "first_name_ar": fNameAr,
+        "last_name_ar": lNameAr,
+        "first_name_en": fNameEn,
+        "last_name_en": lNameEn,
         "gender": gender,
         "civil_id": civilId,
         "image": image,
@@ -52,4 +57,3 @@ class AddPatientFirstDto {
         "file_id": fileId,
       };
 }
-

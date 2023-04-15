@@ -36,6 +36,7 @@ class ApiNames{
   static const String uploadEgdResult = "upload_egd_result";
   static const String downloadPatientInfo = "get_report_url";
   static const String patientEgd = "patient_egd";
+  static const String patientArchive = "archive_patient";
 
   /// companies
   static const String companyHomeOrders = "company_orders_completed_inProgress";

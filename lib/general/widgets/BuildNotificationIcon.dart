@@ -12,7 +12,7 @@ class BuildNotificationIcon extends StatelessWidget {
     return InkWell(
       onTap: () => Nav.navigateTo(SurNotifications(), navigatorType: NavigatorType.push),
       child: Container(
-        child: Image.asset(Res.imagesNotifications,scale: 2.5),
+        child: Image.asset(Res.imagesNotifications, scale: 2.5),
       ),
     );
   }

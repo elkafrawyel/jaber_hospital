@@ -2,6 +2,7 @@ part of 'PsychologistPatientWImports.dart';
 
 class BuildPrePostItem extends StatelessWidget {
   final int index;
+
   const BuildPrePostItem({
     Key? key,
     required this.index,
@@ -16,8 +17,7 @@ class BuildPrePostItem extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-            color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
+        decoration: BoxDecoration(color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
         child: Column(
           children: [
             Padding(
@@ -37,7 +37,7 @@ class BuildPrePostItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MyText(
-                          title: list[index].fullNameEn ?? 'Ahmed Ali',
+                          title: '${list[index].fNameEn ?? ""} ${list[index].lNameEn ?? ""}',
                           size: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -50,8 +50,7 @@ class BuildPrePostItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].surgeonId?.fullNameEn ??
-                                  'Samer Hany',
+                              title: '${list[index].surgeonId?.firstNameEn ?? ""} ${list[index].surgeonId?.lastNameEn ?? ""}',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -66,8 +65,7 @@ class BuildPrePostItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                             MyText(
-                              title: list[index].dietationId?.fullNameEn ??
-                                  'Ahmed Jamil',
+                              title: '${list[index].dietationId?.firstNameEn ?? ""} ${list[index].dietationId?.lastNameEn ?? ""}',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -93,8 +91,7 @@ class BuildPrePostItem extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                       MyText(
-                        title:
-                            list[index].operationType ?? 'Laparoscopic RYGBP',
+                        title: list[index].operationType ?? '',
                         size: 11,
                         color: MyColors.primary,
                         fontWeight: FontWeight.bold,
@@ -110,8 +107,7 @@ class BuildPrePostItem extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                       MyText(
-                        title: list[index].operationDate?.split("T").first ??
-                            '16 August 2022',
+                        title: list[index].operationDate?.split("T").first ?? '',
                         size: 11,
                         color: MyColors.primary,
                         fontWeight: FontWeight.bold,
