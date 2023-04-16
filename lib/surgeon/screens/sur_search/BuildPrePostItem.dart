@@ -1,16 +1,26 @@
-part of 'SurPatientWImports.dart';
+import 'package:flutter/material.dart';
+
+import '../../../general/constants/MyColors.dart';
+import '../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
+import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
+import '../../models/patient_model.dart';
+import '../sur_patient_details/SurPatientDetailsImports.dart';
 
 class BuildPrePostItem extends StatelessWidget {
-  final int index;
+  final PatientModel patientModel;
+  final VoidCallback togglePathway;
+  final VoidCallback onPatientArchive;
 
   const BuildPrePostItem({
     Key? key,
-    required this.index,
+    required this.patientModel,
+    required this.togglePathway,
+    required this.onPatientArchive,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<PatientModel> list = SurPatientData().patientsCubit.state.data;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -21,12 +31,12 @@ class BuildPrePostItem extends StatelessWidget {
             onTap: () async {
               bool? result = await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => SurPatientDetails(patientId: list[index].sId ?? ''),
+                  builder: (context) => SurPatientDetails(patientId: patientModel.sId ?? ''),
                 ),
               );
+
               if (result ?? false) {
-                list.removeAt(index);
-                SurPatientData().patientsCubit.onUpdateData(list);
+                onPatientArchive();
               }
             },
             child: Padding(
@@ -34,7 +44,7 @@ class BuildPrePostItem extends StatelessWidget {
               child: Row(
                 children: [
                   CachedImage(
-                    url: list[index].image ?? 'https://picsum.photos/182',
+                    url: patientModel.image ?? 'https://picsum.photos/182',
                     height: 60,
                     width: 60,
                     borderRadius: BorderRadius.circular(10),
@@ -46,7 +56,7 @@ class BuildPrePostItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MyText(
-                          title: '${list[index].fNameEn ?? ""} ${list[index].lNameEn ?? ""}',
+                          title: '${patientModel.fNameEn ?? ""} ${patientModel.lNameEn ?? ""}',
                           size: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -62,7 +72,7 @@ class BuildPrePostItem extends StatelessWidget {
                             Expanded(
                               child: MyText(
                                 title:
-                                    '${list[index].surgeonId?.firstNameEn ?? ""} ${list[index].surgeonId?.lastNameEn ?? ""}',
+                                    '${patientModel.surgeonId?.firstNameEn ?? ""} ${patientModel.surgeonId?.lastNameEn ?? ""}',
                                 size: 11,
                                 color: MyColors.grey,
                               ),
@@ -79,7 +89,7 @@ class BuildPrePostItem extends StatelessWidget {
                             ),
                             MyText(
                               title:
-                                  '${list[index].dietationId?.firstNameEn ?? ""} ${list[index].dietationId?.lastNameEn ?? ""}',
+                                  '${patientModel.dietationId?.firstNameEn ?? ""} ${patientModel.dietationId?.lastNameEn ?? ""}',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -106,7 +116,7 @@ class BuildPrePostItem extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: list[index].operationType ?? '',
+                      title: patientModel.operationType ?? '',
                       size: 11,
                       color: MyColors.primary,
                       fontWeight: FontWeight.bold,
@@ -122,7 +132,7 @@ class BuildPrePostItem extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: list[index].operationDate?.split("T").first ?? '',
+                      title: patientModel.operationDate?.split("T").first ?? '',
                       size: 11,
                       color: MyColors.primary,
                       fontWeight: FontWeight.bold,

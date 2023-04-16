@@ -1,14 +1,20 @@
-part of'SurHomeWImports.dart';
+part of 'SurHomeWImports.dart';
 
 class BuildUpcomingAppointmentItem extends StatelessWidget {
-  final int index ;
+  final int index;
+
   const BuildUpcomingAppointmentItem({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<Appointments>? list = SurHomeData().homeCubit.state.data?.appointments ;
+    List<Appointments>? list = SurHomeData().homeCubit.state.data?.appointments;
     return InkWell(
-      onTap: ()=> Nav.navigateTo(SurPatientDetails(patientId: list?[index].patientId?.sId??""), navigatorType: NavigatorType.push),
+      onTap: () async {
+        await Nav.navigateTo(
+          SurPatientDetails(patientId: list?[index].patientId?.sId ?? ""),
+          navigatorType: NavigatorType.push,
+        );
+      },
       child: Container(
         // width: 251,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -28,7 +34,7 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
         child: Row(
           children: [
             CachedImage(
-                url:list?[index].patientId?.image?? 'https://picsum.photos/201',
+                url: list?[index].patientId?.image ?? 'https://picsum.photos/201',
                 height: 56,
                 width: 50,
                 borderRadius: BorderRadius.circular(5)),
@@ -36,10 +42,10 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                MyText(title: list?[index].patientId?.fullNameEn??'Loay Hany', size: 12, fontWeight: FontWeight.bold),
+                MyText(title: list?[index].patientId?.fullNameEn ?? 'Loay Hany', size: 12, fontWeight: FontWeight.bold),
                 const SizedBox(height: 2),
                 MyText(
-                    title:list?[index].patientId?.operationType?? 'Revisional Operation',
+                    title: list?[index].patientId?.operationType ?? 'Revisional Operation',
                     color: MyColors.grey,
                     size: 10,
                     fontWeight: FontWeight.bold),
@@ -55,7 +61,7 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         MyText(
-                          title: list?[index].appointmentDate??"14 AUG 2022",
+                          title: list?[index].appointmentDate ?? "14 AUG 2022",
                           overflow: TextOverflow.ellipsis,
                           size: 9,
                           color: MyColors.primary,
@@ -71,7 +77,7 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         MyText(
-                          title: list?[index].createdAt?.split("-").last.substring(3,8)??"14:30 PM",
+                          title: list?[index].createdAt?.split("-").last.substring(3, 8) ?? "14:30 PM",
                           size: 9,
                           overflow: TextOverflow.ellipsis,
                           color: MyColors.primary,
@@ -80,7 +86,6 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
                     ),
                   ],
                 ),
-
               ],
             )
           ],

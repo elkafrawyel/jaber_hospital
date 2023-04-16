@@ -20,7 +20,7 @@ class SurgeonHttpMethods {
 
   Future<List<PatientModel>> getAllPatientPreOp() async {
     dynamic data = await GenericHttp<PatientModel>(context).callApi(
-      name: ApiNames.allPatientsPreOp,
+      name: ApiNames.allPatientsPreOp + '?limit=9999',
       returnType: ReturnType.List,
       methodType: MethodType.Get,
       returnDataFun: (data) => data["data"],
@@ -35,7 +35,7 @@ class SurgeonHttpMethods {
 
   Future<List<PatientModel>> getAllPatientPostOp() async {
     dynamic data = await GenericHttp<PatientModel>(context).callApi(
-      name: ApiNames.allPatientsPostOp,
+      name: ApiNames.allPatientsPostOp + '?limit=9999',
       returnType: ReturnType.List,
       methodType: MethodType.Get,
       returnDataFun: (data) => data["data"],
@@ -50,7 +50,7 @@ class SurgeonHttpMethods {
 
   Future<List<PatientModel>> getMyPatientPostOp() async {
     dynamic data = await GenericHttp<PatientModel>(context).callApi(
-      name: ApiNames.myPatientsPostOp,
+      name: ApiNames.myPatientsPostOp + '?limit=9999',
       returnType: ReturnType.List,
       methodType: MethodType.Get,
       returnDataFun: (data) => data["data"],
@@ -65,7 +65,7 @@ class SurgeonHttpMethods {
 
   Future<List<PatientModel>> getMyPatientPreOp() async {
     dynamic data = await GenericHttp<PatientModel>(context).callApi(
-      name: ApiNames.myPatientsPreOp,
+      name: ApiNames.myPatientsPreOp + '?limit=9999',
       returnType: ReturnType.List,
       methodType: MethodType.Get,
       returnDataFun: (data) => data["data"],
@@ -295,7 +295,7 @@ class SurgeonHttpMethods {
       returnDataFun: (data) => data,
       toJsonFunc: (json) => InstrumentOrdersResponse.fromJson(json),
     );
-      return data;
+    return data;
   }
 
   Future<InstrumentOrdersResponse> getInProgressInstrumentsOrders() async {

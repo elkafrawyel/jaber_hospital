@@ -47,7 +47,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     Navigator.pop(context);
                     bool result = await SurPatientDetailsData().archivePatient(context);
                     if (result) {
-                      Navigator.pop(context);
+                      Navigator.pop(context, result);
                     }
                   },
                 );
@@ -210,12 +210,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                               children: [
                                 Image.asset(Res.imagesFileIcon, scale: 3),
                                 const SizedBox(width: 10),
-                                FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: MyText(
-                                    title: state.data?.patient?.publicId ?? "-",
-                                    size: 12,
-                                  ),
+                                MyText(
+                                  title: state.data?.patient?.publicId ?? "-",
+                                  size: 12,
                                 ),
                               ],
                             ),
@@ -587,14 +584,18 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     SizedBox(width: 10),
                     MyText(
                       //convert date to 12 aug 2021
-                      title: DateFormat('yyyy-MM-dd').format(DateTime.parse(state.data!.patient!.operationDate!)),
+                      title: DateTime.tryParse(state.data!.patient!.operationDate!) != null
+                          ? DateFormat('yyyy-MM-dd').format(DateTime.parse(state.data!.patient!.operationDate!))
+                          : '',
                       size: 12,
                       color: MyColors.primary,
                       fontWeight: FontWeight.bold,
                     ),
                   ],
                 ),
+                // if ((state.data?.patient?.mdtStatus ?? '').isNotEmpty)
                 const SizedBox(height: 10),
+                // if ((state.data?.patient?.mdtStatus ?? '').isNotEmpty)
                 Row(
                   children: [
                     MyText(title: "Mdt Status:", size: 12, fontWeight: FontWeight.bold),
