@@ -80,7 +80,7 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: loading
           ? Center(child: CircularProgressIndicator.adaptive())
-          : _results.isEmpty
+          : (_results.isEmpty && page > 0)
               ? SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
