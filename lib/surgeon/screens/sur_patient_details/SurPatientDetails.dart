@@ -593,21 +593,20 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     ),
                   ],
                 ),
-                // if ((state.data?.patient?.mdtStatus ?? '').isNotEmpty)
-                const SizedBox(height: 10),
-                // if ((state.data?.patient?.mdtStatus ?? '').isNotEmpty)
-                Row(
-                  children: [
-                    MyText(title: "Mdt Status:", size: 12, fontWeight: FontWeight.bold),
-                    SizedBox(width: 10),
-                    MyText(
-                      title: state.data?.patient?.mdtStatus ?? '-',
-                      size: 12,
-                      color: MyColors.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ],
-                ),
+                if ((state.data?.patient?.mdtStatus ?? '').isNotEmpty) const SizedBox(height: 10),
+                if ((state.data?.patient?.mdtStatus ?? '').isNotEmpty)
+                  Row(
+                    children: [
+                      MyText(title: "Mdt Status:", size: 12, fontWeight: FontWeight.bold),
+                      SizedBox(width: 10),
+                      MyText(
+                        title: state.data?.patient?.mdtStatus ?? '-',
+                        size: 12,
+                        color: MyColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
                 const Divider(thickness: 1, height: 20),
                 MyText(
                   title: "Patient’s Weekly Exercise Overview",

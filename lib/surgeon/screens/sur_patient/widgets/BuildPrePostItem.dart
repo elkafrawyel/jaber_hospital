@@ -77,11 +77,13 @@ class BuildPrePostItem extends StatelessWidget {
                               color: MyColors.black,
                               fontWeight: FontWeight.bold,
                             ),
-                            MyText(
-                              title:
-                                  '${list[index].dietationId?.firstNameEn ?? ""} ${list[index].dietationId?.lastNameEn ?? ""}',
-                              size: 11,
-                              color: MyColors.grey,
+                            Expanded(
+                              child: MyText(
+                                title:
+                                    '${list[index].dietationId?.firstNameEn ?? ""} ${list[index].dietationId?.lastNameEn ?? ""}',
+                                size: 11,
+                                color: MyColors.grey,
+                              ),
                             ),
                           ],
                         ),

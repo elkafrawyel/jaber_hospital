@@ -40,19 +40,24 @@ class _SearchScreenState extends State<SearchScreen> {
       loadingMore = true;
     }
     setState(() {});
-    response = await GenericHttp<PatientSearchResponse>(context).callApi(
-      name: ApiNames.patientSearch + "?search=${searchQuery ?? ''}&page=$page",
-      returnType: ReturnType.Model,
-      methodType: MethodType.Get,
-      returnDataFun: (data) => data,
-      showLoader: false,
-      toJsonFunc: (json) => PatientSearchResponse.fromJson(json),
-    );
-    setState(() {
-      loading = false;
-      loadingMore = false;
-      _results.addAll(response?.data ?? []);
-    });
+    try {
+      response = await GenericHttp<PatientSearchResponse>(context).callApi(
+        name: ApiNames.patientSearch + "?search=${searchQuery ?? ''}&page=$page",
+        returnType: ReturnType.Model,
+        methodType: MethodType.Get,
+        returnDataFun: (data) => data,
+        showLoader: false,
+        toJsonFunc: (json) => PatientSearchResponse.fromJson(json),
+      );
+    } catch (e) {
+
+    } finally {
+      setState(() {
+        loading = false;
+        loadingMore = false;
+        _results.addAll(response?.data ?? []);
+      });
+    }
   }
 
   @override
