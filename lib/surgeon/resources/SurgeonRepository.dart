@@ -13,9 +13,11 @@ class SurgeonRepository {
 
   Future<List<PatientModel>> getAllPatientPreOp() => _surgeonHttpMethods.getAllPatientPreOp();
 
-  Future<List<PatientModel>> getAllPatientPostOp() => _surgeonHttpMethods.getAllPatientPostOp();
+  Future<AllPatientPostOpResponse> getAllPatientPostOp({int? page}) =>
+      _surgeonHttpMethods.getAllPatientPostOp(page: page);
 
-  Future<List<PatientModel>> getMyPatientPostOp() => _surgeonHttpMethods.getMyPatientPostOp();
+  Future<AllPatientPostOpResponse> getMyPatientPostOp({int? page}) =>
+      _surgeonHttpMethods.getMyPatientPostOp(page: page);
 
   Future<List<PatientModel>> getMyPatientPreOp() => _surgeonHttpMethods.getMyPatientPreOp();
 
@@ -61,9 +63,14 @@ class SurgeonRepository {
       );
 
   Future<List<MedicationsOrdersModel>> getMedicationOrders(int index) => _surgeonHttpMethods.getMedicationOrders(index);
+
   Future<InstrumentOrdersResponse> getInstrumentsRoutedOrders() => _surgeonHttpMethods.getInstrumentsRoutedOrders();
-  Future<InstrumentOrdersResponse> getInstrumentsInProgressOrders() => _surgeonHttpMethods.getInProgressInstrumentsOrders();
-  Future<InstrumentOrdersResponse> getInstrumentsCompletedOrders() => _surgeonHttpMethods.getCompletedInstrumentsOrders();
+
+  Future<InstrumentOrdersResponse> getInstrumentsInProgressOrders() =>
+      _surgeonHttpMethods.getInProgressInstrumentsOrders();
+
+  Future<InstrumentOrdersResponse> getInstrumentsCompletedOrders() =>
+      _surgeonHttpMethods.getCompletedInstrumentsOrders();
 
   Future<bool> cancelMedicationOrder({required String orderId}) => _surgeonHttpMethods.cancelMedicationOrder(orderId);
 
@@ -76,19 +83,29 @@ class SurgeonRepository {
   Future<NotificationsResponse?> getSurgeonNotifications() => _surgeonHttpMethods.fetchSurgeonNotifications();
 
   /// Mdt
-  Future<MdtPatientsResponse?> requestMdtPatientsByStatus(String mdtStatus) => _surgeonHttpMethods.fetchMdtPatientsByStatus(mdtStatus);
+  Future<MdtPatientsResponse?> requestMdtPatientsByStatus(String mdtStatus) =>
+      _surgeonHttpMethods.fetchMdtPatientsByStatus(mdtStatus);
+
   Future<MdtPatientsResponse?> requestMdtAdminPatients() => _surgeonHttpMethods.fetchMdtAdminPatients();
+
   Future<MdtPatientsResponse?> requestMdtAllReadyPatients() => _surgeonHttpMethods.fetchMdtAllReadyPatients();
+
   Future<UpdateConsentResponse?> updateReadyMdtStatus(Map<String, dynamic> body) =>
       _surgeonHttpMethods.updateReadyMdtStatus(body);
-  Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body, String patientId) => _surgeonHttpMethods.confirmMdtBooking(body, patientId);
+
+  Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body, String patientId) =>
+      _surgeonHttpMethods.confirmMdtBooking(body, patientId);
+
   Future<UpdateConsentResponse?> mdtPatientResult(Map<String, dynamic> body) => _surgeonHttpMethods.sendMdtResult(body);
+
   Future<UpdateConsentResponse?> rescheduleMdtPatientStatus(String patientId) =>
       _surgeonHttpMethods.rescheduleMdtPatientStatus(patientId);
 
-  Future<AppointmentsResponse?> fetchSurAppointments(bool isUpcoming) => _surgeonHttpMethods.fetchSurAppointments(isUpcoming);
+  Future<AppointmentsResponse?> fetchSurAppointments(bool isUpcoming) =>
+      _surgeonHttpMethods.fetchSurAppointments(isUpcoming);
 
   Future<bool> downloadPatientInfo(String patientId) => _surgeonHttpMethods.downloadPatientInfo(patientId);
+
   Future<bool> archivePatient(String patientId) => _surgeonHttpMethods.archivePatient(patientId);
 
   Future<bool> addPatientSeventh(AddPatientSeventhDto model) => _surgeonHttpMethods.addPatientSeventh(model);
@@ -99,6 +116,7 @@ class SurgeonRepository {
 
   /// request instruments
   Future<CompaniesResponse?> fetchCompanies() => _surgeonHttpMethods.getCompanies();
-  Future<CompanyInstrumentsResponse?> fetchCompanyInstruments(String companyId) => _surgeonHttpMethods.fetchCompanyInstruments(companyId);
 
+  Future<CompanyInstrumentsResponse?> fetchCompanyInstruments(String companyId) =>
+      _surgeonHttpMethods.fetchCompanyInstruments(companyId);
 }

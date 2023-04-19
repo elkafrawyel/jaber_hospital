@@ -27,7 +27,12 @@ class _SearchScreenState extends State<SearchScreen> {
   PatientSearchResponse? response;
 
   Future<void> _getSearchResults() async {
-    if (!(response?.pageInfo?.hasNext ?? true) || loading || loadingMore) {
+    if (loading || loadingMore) {
+      if (!(response?.pageInfo?.hasNext ?? true)) {
+        setState(() {
+          loadingMoreEnd = true;
+        });
+      }
       return;
     }
     page++;
@@ -64,7 +69,12 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: Theme.of(context).iconTheme.copyWith(color: Theme.of(context).primaryColor),
+        iconTheme: Theme
+            .of(context)
+            .iconTheme
+            .copyWith(color: Theme
+            .of(context)
+            .primaryColor),
         titleSpacing: 0,
         title: TextField(
           decoration: InputDecoration(
@@ -86,73 +96,75 @@ class _SearchScreenState extends State<SearchScreen> {
       body: loading
           ? Center(child: CircularProgressIndicator.adaptive())
           : (_results.isEmpty && page > 0)
-              ? SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset('assets/images/no_results.svg'),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'No Results',
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 48),
-                        child: Text(
-                          'There are no search results for this till now, please try again later',
-                          style: TextStyle(),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              : PaginationView(
-                  loadMoreData: () {
-                    _getSearchResults();
-                  },
-                  showLoadMoreEndWidget: loadingMoreEnd,
-                  showLoadMoreWidget: loadingMore,
-                  child: ListView.builder(
-                    itemCount: _results.length,
-                    itemBuilder: (context, index) {
-                      final PatientModel result = _results[index];
-                      return result.operationStatus == 'Post-op'
-                          ? BuildPrePostItem(
-                              patientModel: result,
-                              togglePathway: () {
-                                setState(() {
-                                  result.isOpen = !(result.isOpen ?? false);
-                                });
-                              },
-                              onPatientArchive: () {
-                                setState(() {
-                                  _results.removeAt(index);
-                                });
-                              },
-                            )
-                          : BuildPreOpItem(
-                              patientModel: result,
-                              togglePathway: () {
-                                setState(() {
-                                  result.isOpen = !(result.isOpen ?? false);
-                                });
-                              },
-                              onPatientArchive: () {
-                                setState(() {
-                                  _results.removeAt(index);
-                                });
-                              },
-                            );
-                    },
-                  ),
+          ? SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset('assets/images/no_results.svg'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'No Results',
+                style: TextStyle(
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
+                  fontSize: 20,
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 48),
+              child: Text(
+                'There are no search results for this till now, please try again later',
+                style: TextStyle(),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+              ),
+            ),
+          ],
+        ),
+      )
+          : PaginationView(
+        loadMoreData: () {
+          _getSearchResults();
+        },
+        showLoadMoreEndWidget: loadingMoreEnd,
+        showLoadMoreWidget: loadingMore,
+        child: ListView.builder(
+          itemCount: _results.length,
+          itemBuilder: (context, index) {
+            final PatientModel result = _results[index];
+            return result.operationStatus == 'Post-op'
+                ? BuildPrePostItem(
+              patientModel: result,
+              togglePathway: () {
+                setState(() {
+                  result.isOpen = !(result.isOpen ?? false);
+                });
+              },
+              onPatientArchive: () {
+                setState(() {
+                  _results.removeAt(index);
+                });
+              },
+            )
+                : BuildPreOpItem(
+              patientModel: result,
+              togglePathway: () {
+                setState(() {
+                  result.isOpen = !(result.isOpen ?? false);
+                });
+              },
+              onPatientArchive: () {
+                setState(() {
+                  _results.removeAt(index);
+                });
+              },
+            );
+          },
+        ),
+      ),
     );
   }
 }

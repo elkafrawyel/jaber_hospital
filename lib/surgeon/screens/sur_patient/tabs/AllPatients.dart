@@ -14,14 +14,13 @@ class _AllPatientsState extends State<AllPatients> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BuildSurPatientType(),
-        BlocBuilder<GenericBloc<List<PatientModel>>,
-            GenericState<List<PatientModel>>>(
-          bloc: SurPatientData().patientsCubit,
+        BlocBuilder<GenericBloc<int>, GenericState<int>>(
+          bloc: SurPatientData().totalResultCount,
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: MyText(
-                title: '${state.data.length} Patients',
+                title: '${state.data} Patients',
                 size: 13,
                 fontWeight: FontWeight.bold,
               ),
@@ -29,14 +28,15 @@ class _AllPatientsState extends State<AllPatients> {
           },
         ),
         BlocBuilder<GenericBloc<int>, GenericState<int>>(
-            bloc: SurPatientData().patientType,
-            builder: (context, state) {
-              if (state.data == 0) {
-                return BuildPreOpView();
-              } else {
-                return BuildPrePostView();
-              }
-            }),
+          bloc: SurPatientData().patientType,
+          builder: (context, state) {
+            if (state.data == 0) {
+              return BuildPreOpView();
+            } else {
+              return BuildPrePostView();
+            }
+          },
+        ),
       ],
     );
   }

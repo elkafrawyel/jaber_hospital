@@ -1,6 +1,5 @@
 part of 'SurPatientWImports.dart';
 
-
 class BuildPrePostView extends StatelessWidget {
   const BuildPrePostView({
     Key? key,
@@ -10,37 +9,52 @@ class BuildPrePostView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
       bloc: SurPatientData().isLoading,
-      builder: (context, state) {
-        if(!state.data){
+      builder: (context, loadingState) {
+        if (!loadingState.data) {
           return BlocBuilder<GenericBloc<List<PatientModel>>, GenericState<List<PatientModel>>>(
             bloc: SurPatientData().patientsCubit,
-            builder: (context, state) {
-              if(state is GenericUpdateState){
-                if(state.data.isNotEmpty){
-                  return Expanded(
-                    child: ListView.builder(
-                      itemCount: state.data.length,
-                      itemBuilder: (context, index) => BuildPrePostItem(index: index),
+            builder: (context, patientState) {
+              if (patientState is GenericUpdateState) {
+                if (patientState.data.isNotEmpty) {
+                  return BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                    bloc: SurPatientData().isLoadingMore,
+                    builder: (context, loadMoreState) => BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
+                      bloc: SurPatientData().isLoadingMoreEnd,
+                      builder: (context, loadMoreStateEnd) => Expanded(
+                        child: PaginationView(
+                          loadMoreData: () {
+                            SurPatientData().getAllPatientsPost(context);
+                          },
+                          showLoadMoreEndWidget: loadMoreStateEnd.data,
+                          showLoadMoreWidget: loadMoreState.data,
+                          child: ListView.builder(
+                            itemCount: patientState.data.length,
+                            itemBuilder: (context, index) => BuildPrePostItem(index: index),
+                          ),
+                        ),
+                      ),
                     ),
                   );
-                }else{
-                  return Expanded(child: Center(child: MyText(title: "No Patients",size: 14,fontWeight: FontWeight.bold,)));
+                } else {
+                  return Expanded(
+                    child: Center(
+                      child: MyText(
+                        title: "No Patients",
+                        size: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  );
                 }
-
-              }else{
+              } else {
                 return Expanded(child: Center(child: LoadingDialog.showLoadingView()));
               }
             },
           );
-        }
-        else{
+        } else {
           return Expanded(child: Center(child: LoadingDialog.showLoadingView()));
         }
       },
     );
-
-
-
   }
 }
-
