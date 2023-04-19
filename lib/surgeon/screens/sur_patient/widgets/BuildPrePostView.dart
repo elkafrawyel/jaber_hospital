@@ -23,7 +23,7 @@ class BuildPrePostView extends StatelessWidget {
                       builder: (context, loadMoreStateEnd) => Expanded(
                         child: PaginationView(
                           loadMoreData: () {
-                            SurPatientData().getAllPatientsPost(context);
+                            SurPatientData().loaMoreData(context);
                           },
                           showLoadMoreEndWidget: false,
                           showLoadMoreWidget: loadMoreState.data,

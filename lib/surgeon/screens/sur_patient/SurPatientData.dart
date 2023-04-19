@@ -123,4 +123,12 @@ class SurPatientData {
     lst[index].isOpen = !lst[index].isOpen!;
     patientsCubit.onUpdateData(patientsCubit.state.data);
   }
+
+  void loaMoreData(BuildContext context) {
+    if (selectedTabCubit.state.data == 0) {
+      SurPatientData().getMyPatientsPost(context);
+    } else {
+      SurPatientData().getAllPatientsPost(context);
+    }
+  }
 }

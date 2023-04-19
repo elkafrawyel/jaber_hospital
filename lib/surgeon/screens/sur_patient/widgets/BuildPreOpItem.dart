@@ -28,6 +28,7 @@ class BuildPreOpItem extends StatelessWidget {
               if (result ?? false) {
                 list.removeAt(index);
                 SurPatientData().patientsCubit.onUpdateData(list);
+                SurPatientData().totalResultCount.onUpdateData(SurPatientData().totalResultCount.state.data - 1);
               }
             },
             child: Padding(
@@ -139,9 +140,9 @@ class BuildPreOpItem extends StatelessWidget {
                           isFirst: true,
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color: ((list[index].egd ?? false) &&
+                            color: (list[index].egd ?? false) &&
                                     (list[index].ultrasound ?? false) &&
-                                    (list[index].surgionVisit ?? false))
+                                    (list[index].surgionVisit ?? false)
                                 ? MyColors.primary
                                 : Colors.red,
                             iconStyle: IconStyle(

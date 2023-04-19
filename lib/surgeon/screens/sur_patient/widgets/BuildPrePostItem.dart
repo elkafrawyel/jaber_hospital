@@ -27,6 +27,7 @@ class BuildPrePostItem extends StatelessWidget {
               if (result ?? false) {
                 list.removeAt(index);
                 SurPatientData().patientsCubit.onUpdateData(list);
+                SurPatientData().totalResultCount.onUpdateData(SurPatientData().totalResultCount.state.data - 1);
               }
             },
             child: Padding(
