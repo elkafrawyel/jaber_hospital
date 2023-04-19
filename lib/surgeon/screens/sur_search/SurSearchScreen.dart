@@ -129,7 +129,7 @@ class _SearchScreenState extends State<SearchScreen> {
         loadMoreData: () {
           _getSearchResults();
         },
-        showLoadMoreEndWidget: loadingMoreEnd,
+        showLoadMoreEndWidget: false,
         showLoadMoreWidget: loadingMore,
         child: ListView.builder(
           itemCount: _results.length,

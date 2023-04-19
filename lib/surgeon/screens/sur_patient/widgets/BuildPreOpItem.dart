@@ -55,21 +55,8 @@ class BuildPreOpItem extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            list[index].finalFeedback == 'Not Clear'
+                            list[index].overallStatus ?? false
                                 ? Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
-                                    decoration: BoxDecoration(
-                                      color: Color(0xffFBD6BC),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: MyText(
-                                      title: 'Not Ready',
-                                      size: 9,
-                                      color: Color(0xFFEB7826),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )
-                                : Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                                     decoration: BoxDecoration(
                                       color: Color(0xffaff7c3),
@@ -79,6 +66,19 @@ class BuildPreOpItem extends StatelessWidget {
                                       title: 'Ready',
                                       size: 9,
                                       color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                : Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffFBD6BC),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: MyText(
+                                      title: 'Not Ready',
+                                      size: 9,
+                                      color: Color(0xFFEB7826),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),

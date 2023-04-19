@@ -25,7 +25,7 @@ class BuildPrePostView extends StatelessWidget {
                           loadMoreData: () {
                             SurPatientData().getAllPatientsPost(context);
                           },
-                          showLoadMoreEndWidget: loadMoreStateEnd.data,
+                          showLoadMoreEndWidget: false,
                           showLoadMoreWidget: loadMoreState.data,
                           child: ListView.builder(
                             itemCount: patientState.data.length,
