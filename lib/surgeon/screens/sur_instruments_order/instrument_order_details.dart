@@ -10,6 +10,7 @@ import '../../../general/widgets/GenScaffold.dart';
 import '../../../general/widgets/GeneralAlertDialog.dart';
 import '../../models/instrument_order_model.dart';
 import 'instruments_orders_data.dart';
+import 'tabs/routed_to_company/routed_to_company_data.dart';
 
 class SurInstrumentRequestDetails extends StatefulWidget {
   final int index;
@@ -163,12 +164,10 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                                   .cancelOrder(context, orderId: widget.instrumentOrderModel.sId.toString(),);
                               if (result) {
                                 log("index=> ${widget.index}");
-                                surInstrumentsOrdersData
-                                    .medicationsOrdersCubit.state.data
-                                    .removeAt(widget.index);
-                                surInstrumentsOrdersData
-                                    .medicationsOrdersCubit
-                                    .onUpdateData(surInstrumentsOrdersData.medicationsOrdersCubit.state.data);
+                                RoutedToCompanyData().routedCompanyInstruments?.removeAt(widget.index);
+                                RoutedToCompanyData()
+                                    .routedCompanyCubit
+                                    .onUpdateData(RoutedToCompanyData().routedCompanyInstruments);
                               }
                             },
                           ));
