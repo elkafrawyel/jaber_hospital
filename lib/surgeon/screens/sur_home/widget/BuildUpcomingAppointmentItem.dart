@@ -42,7 +42,7 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                MyText(title: list?[index].patientId?.fullNameEn ?? 'Loay Hany', size: 12, fontWeight: FontWeight.bold),
+                MyText(title: '${list?[index].patientId?.firstNameEn} ${list?[index].patientId?.lastNameEn}', size: 12, fontWeight: FontWeight.bold),
                 const SizedBox(height: 2),
                 MyText(
                     title: list?[index].patientId?.operationType ?? 'Revisional Operation',
