@@ -16,63 +16,47 @@ class BuildSurPatientType extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  SurPatientData().patientType.onUpdateData(0) ;
+                  SurPatientData().patientType.onUpdateData(0);
                   SurPatientData().fetchPatient(context);
                 },
                 child: Container(
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 5, vertical: 10),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 30, vertical: 7),
+                  margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
                   decoration: BoxDecoration(
-                    color: state.data == 0
-                        ? Color(0xffd3e0f6)
-                        : Colors.white,
+                    color: state.data == 0 ? Color(0xffd3e0f6) : Colors.white,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                      color: state.data == 0
-                          ? MyColors.primary
-                          : MyColors.grey,
+                      color: state.data == 0 ? MyColors.primary : MyColors.grey,
                       width: state.data == 0 ? 2 : 1,
                     ),
                   ),
                   child: MyText(
                     title: 'Pre-Op',
                     size: 12,
-                    color: state.data == 0
-                        ? MyColors.primary
-                        : MyColors.grey,
+                    color: state.data == 0 ? MyColors.primary : MyColors.grey,
                   ),
                 ),
               ),
               InkWell(
                 onTap: () {
-                  SurPatientData().patientType.onUpdateData(1) ;
+                  SurPatientData().patientType.onUpdateData(1);
                   SurPatientData().fetchPatient(context);
                 },
                 child: Container(
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 5, vertical: 10),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 30, vertical: 7),
+                  margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
                   decoration: BoxDecoration(
-                    color: state.data == 1
-                        ? Color(0xffd3e0f6)
-                        : Colors.white,
+                    color: state.data == 1 ? Color(0xffd3e0f6) : Colors.white,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                      color: state.data == 1
-                          ? MyColors.primary
-                          : MyColors.grey,
+                      color: state.data == 1 ? MyColors.primary : MyColors.grey,
                       width: state.data == 1 ? 2 : 1,
                     ),
                   ),
                   child: MyText(
                     title: 'Post-Op',
                     size: 12,
-                    color: state.data == 1
-                        ? MyColors.primary
-                        : MyColors.grey,
+                    color: state.data == 1 ? MyColors.primary : MyColors.grey,
                   ),
                 ),
               ),

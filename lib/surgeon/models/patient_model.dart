@@ -20,6 +20,7 @@ class PatientModel {
   String? finalFeedback;
   String? feedback;
   bool? isOpen;
+  bool? overallStatus;
 
   PatientModel({
     this.sId,
@@ -41,6 +42,7 @@ class PatientModel {
     this.finalFeedback,
     this.feedback,
     this.isOpen,
+    this.overallStatus,
   });
 
   PatientModel.fromJson(Map<String, dynamic> json) {
@@ -62,6 +64,7 @@ class PatientModel {
     dietationFeedbackDecision = json['dietation_feedback_decision'];
     finalFeedback = json['final_feedback'];
     feedback = json['feedback'];
+    overallStatus = json['overall_status'];
     isOpen = false;
   }
 
@@ -76,6 +79,7 @@ class PatientModel {
     data['operation_status'] = this.operationStatus;
     data['operation_date'] = this.operationDate;
     data['operation_type'] = this.operationType;
+    data['overall_status'] = this.overallStatus;
     if (this.surgeonId != null) {
       data['surgeon_id'] = this.surgeonId!.toJson();
     }

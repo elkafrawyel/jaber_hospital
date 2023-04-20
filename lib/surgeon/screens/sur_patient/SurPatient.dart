@@ -19,44 +19,55 @@ class _SurPatientState extends State<SurPatient> {
   @override
   Widget build(BuildContext context) {
     return GeneralScaffold(
-        back: true,
-        actions: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  // Nav.navigateTo(SearchScreen(), navigatorType: NavigatorType.push);
-                },
-                icon: Icon(Icons.search, color: MyColors.primary, size: 30),
+      back: true,
+      actions: [
+        Row(
+          children: [
+            IconButton(
+              onPressed: () {
+                Nav.navigateTo(SearchScreen(), navigatorType: NavigatorType.push);
+              },
+              icon: Icon(Icons.search, color: MyColors.primary, size: 30),
+            ),
+            IconButton(
+              onPressed: () => Nav.navigateTo(
+                SurAddPatient(),
+                navigatorType: NavigatorType.push,
               ),
-              IconButton(
-                onPressed: () => Nav.navigateTo(SurAddPatient(), navigatorType: NavigatorType.push),
-                icon: Container(
-                    decoration: BoxDecoration(color: MyColors.primary, borderRadius: BorderRadius.circular(100)),
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    )),
+              icon: Container(
+                decoration: BoxDecoration(
+                  color: MyColors.primary,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
               ),
-            ],
-          )
-        ],
-        title: "Patients",
-        body: DefaultTabController(
-          initialIndex: widget.index,
-          length: 2,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BuildSurPatientTab(),
-              Expanded(
-                child: TabBarView(physics: const NeverScrollableScrollPhysics(), children: [
+            ),
+          ],
+        )
+      ],
+      title: "Patients",
+      body: DefaultTabController(
+        initialIndex: widget.index,
+        length: 2,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BuildSurPatientTab(),
+            Expanded(
+              child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
                   MyPatient(),
                   AllPatients(),
-                ]),
+                ],
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -345,6 +345,8 @@ class SurAddPatientData {
         bmi: bmi,
         fNameAr: patientFNameAr.text,
         fNameEn: patientFNameEn.text,
+        lNameAr: patientLNameAr.text,
+        lNameEn: patientLNameEn.text,
         age: age,
         email: patientEmail.text,
         password: '${patientFNameEn.text}@${patientMobile1.text}',
