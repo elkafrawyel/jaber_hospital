@@ -22,7 +22,7 @@ class _RadioCheckItemState extends State<RadioCheckItem> {
                 children: [
                   Radio(
                       activeColor: MyColors.primary,
-                      value: widget.title,
+                      value: RequestInstrumentsData().selectedHandle,
                       groupValue: "handles",
                       onChanged: (index) {
                         RequestInstrumentsData().selectedHandle = widget.title;
@@ -30,7 +30,7 @@ class _RadioCheckItemState extends State<RadioCheckItem> {
                   }),
                   Expanded(
                     child: MyText(
-                      title: 'Company Instruments:',
+                      title: widget.title,
                       size: 10,
                       fontWeight: FontWeight.bold,
                     ),

@@ -37,7 +37,8 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
   List<HandlesModel> handles = [
     HandlesModel(headerTitle: "Handles", handles: ["Short", "Long", "Signia Powered Handle"]),
   ];
-  List<String> items2 = ["test1", "test2", "test3"];
+  List<String> items2 = ["Reloads", "Trocars",];
+  String? selectedHandle;
 
   @override
   void initState() {
@@ -187,9 +188,96 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                           )),
                       body: Column(
                         children: [
-                          RadioCheckItem(title: "Short",),
-                          RadioCheckItem(title: "Long",),
-                          RadioCheckItem(title: "Signia Powered Handle",),
+                          ListTile(
+                            horizontalTitleGap: 1.0,
+                            contentPadding: EdgeInsets.zero,
+                            onTap: (){
+                              setState(() {
+                                selectedHandle = "Short";
+                              });
+                            },
+                            title: Row(
+                              children: [
+                                Radio(
+                                    activeColor: MyColors.primary,
+                                    value: "Short",
+                                    groupValue: selectedHandle,
+                                    onChanged: (index) {
+                                      setState(() {
+                                        selectedHandle = "Short";
+                                      });
+                                      log("selectedHandle==> $selectedHandle");
+                                    }),
+                                Expanded(
+                                  child: MyText(
+                                    title: "Short",
+                                    size: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          ListTile(
+                            horizontalTitleGap: 1.0,
+                            contentPadding: EdgeInsets.zero,
+                            onTap: (){
+                              setState(() {
+                                selectedHandle = "Long";
+                              });
+                            },
+                            title: Row(
+                              children: [
+                                Radio(
+                                    activeColor: MyColors.primary,
+                                    value: "Long",
+                                    groupValue: selectedHandle,
+                                    onChanged: (index) {
+                                      setState(() {
+                                        selectedHandle = "Long";
+                                      });
+                                      log("selectedHandle==> $selectedHandle");
+                                    }),
+                                Expanded(
+                                  child: MyText(
+                                    title: "Long",
+                                    size: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          ListTile(
+                            horizontalTitleGap: 1.0,
+                            contentPadding: EdgeInsets.zero,
+                            onTap: (){
+                              setState(() {
+                                selectedHandle = "Signia Powered Handle";
+                              });
+                            },
+                            title: Row(
+                              children: [
+                                Radio(
+                                    activeColor: MyColors.primary,
+                                    value: "Signia Powered Handle",
+                                    groupValue: selectedHandle,
+                                    onChanged: (index) {
+                                      setState(() {
+                                        selectedHandle = "Signia Powered Handle";
+                                      });
+                                      log("selectedHandle==> $selectedHandle");
+                                    }),
+                                Expanded(
+                                  child: MyText(
+                                    title: "Signia Powered Handle",
+                                    size: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                       isExpanded: handles[0].isExpanded,
@@ -212,7 +300,7 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                       // backgroundColor: item.isExpanded == true ? AppTheme.hoverColor.withOpacity(0.2) : Colors.white,
                       headerBuilder: (_, isExpanded) => Container(
                           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
-                          child: Text("Question",
+                          child: Text(item,
                             style: const TextStyle(fontSize: 16),
                           )),
                       body: Container(
