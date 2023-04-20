@@ -861,22 +861,14 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                             },
                       ),),
                       const SizedBox(width: 8.0),
-                      Expanded(
-                        child: DefaultButton(
-                            title: "Order Instruments",
-                            onTap: () => Nav.navigateTo(RequestInstrumentsScreen(patientModel: state.data!), navigatorType: NavigatorType.push),
-                      ),),
-                      // if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op") ...[
-                      //   Expanded(
-                      //     child: DefaultButton(
-                      //         title: "Order Instruments",
-                      //         onTap: () => Nav.navigateTo(RequestInstrumentsScreen(), navigatorType: NavigatorType.push),
-                      //         // onTap: () => Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
-                      //         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
-                      //   ),
-                      // ],
-                    ],
-                  ),
+                      if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op") ...[
+                        Expanded(
+                          child: DefaultButton(
+                              title: "Order Instruments",
+                              onTap: () => Nav.navigateTo(RequestInstrumentsScreen(patientModel: state.data!), navigatorType: NavigatorType.push),
+                              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
+                        ),
+                    ],])
                 ),
                 const SizedBox(height: 16.0),
               ],
