@@ -335,10 +335,29 @@ class SurgeonHttpMethods {
 
   Future<bool> cancelMedicationOrder(String orderId) async {
     Map<String, dynamic> body = {
-      "status": "canceled",
+      "order_status": "canceled",
     };
     dynamic data = await GenericHttp<bool>(context).callApi(
       name: ApiNames.cancelMedicationOrder + "?order_id=$orderId",
+      returnType: ReturnType.Type,
+      methodType: MethodType.Put,
+      returnDataFun: (data) => data,
+      jsonBody: body,
+      showLoader: true,
+    );
+    if (data != null) {
+      CustomToast.showSnackBar(context, data["message"]["message_en"]);
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> cancelInstrumentOrder(String orderId) async {
+    Map<String, dynamic> body = {
+      "order_status": "canceled",
+    };
+    dynamic data = await GenericHttp<bool>(context).callApi(
+      name: ApiNames.cancelInstrumentOrder + "?order_id=$orderId",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -659,13 +678,13 @@ class SurgeonHttpMethods {
     Map<String, dynamic> query = {
       "company_id": companyId,
     };
-    dynamic data = await GenericHttp<CompaniesResponse>(context).callApi(
+    dynamic data = await GenericHttp<CompanyInstrumentsResponse>(context).callApi(
       name: ApiNames.companyInstrumentsPath,
       returnType: ReturnType.Model,
       query: query,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,
-      toJsonFunc: (json) => CompaniesResponse.fromJson(json),
+      toJsonFunc: (json) => CompanyInstrumentsResponse.fromJson(json),
     );
     return data;
   }

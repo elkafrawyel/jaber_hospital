@@ -6,11 +6,12 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     List<Appointments>? list = SurHomeData().homeCubit.state.data?.appointments ;
     return InkWell(
       onTap: ()=> Nav.navigateTo(SurPatientDetails(patientId: list?[index].patientId?.sId??""), navigatorType: NavigatorType.push),
       child: Container(
-        // width: 251,
+        width: size.width * 0.76,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         margin: const EdgeInsets.only(right: 10),
         decoration: BoxDecoration(
@@ -33,55 +34,62 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
                 width: 50,
                 borderRadius: BorderRadius.circular(5)),
             const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MyText(title: list?[index].patientId?.fullNameEn??'Loay Hany', size: 12, fontWeight: FontWeight.bold),
-                const SizedBox(height: 2),
-                MyText(
-                    title:list?[index].patientId?.operationType?? 'Revisional Operation',
-                    color: MyColors.grey,
-                    size: 10,
-                    fontWeight: FontWeight.bold),
-                const SizedBox(height: 2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          Res.imagesVector,
-                          scale: 3,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: MyText(title: "${list?[index].patientId?.firstNameEn} ${list?[index].patientId?.lastNameEn}",
+                      size: 12, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 2),
+                  MyText(
+                      title:list?[index].patientId?.operationType?? '',
+                      color: MyColors.grey,
+                      size: 10,
+                      fontWeight: FontWeight.bold),
+                  const SizedBox(height: 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              Res.imagesVector,
+                              scale: 3,
+                            ),
+                            const SizedBox(width: 5),
+                            Expanded(
+                              child: MyText(
+                                title: list?[index].appointmentDate??"14 AUG 2022",
+                                overflow: TextOverflow.ellipsis,
+                                size: 9,
+                                color: MyColors.primary,
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 5),
-                        MyText(
-                          title: list?[index].appointmentDate??"14 AUG 2022",
-                          overflow: TextOverflow.ellipsis,
-                          size: 9,
-                          color: MyColors.primary,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 30),
-                    Row(
-                      children: [
-                        Image.asset(
-                          Res.imagesClockIcon,
-                          scale: 3,
-                        ),
-                        const SizedBox(width: 5),
-                        MyText(
-                          title: list?[index].createdAt?.split("-").last.substring(3,8)??"14:30 PM",
-                          size: 9,
-                          overflow: TextOverflow.ellipsis,
-                          color: MyColors.primary,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      const SizedBox(width: 30),
+                      Row(
+                        children: [
+                          Image.asset(
+                            Res.imagesClockIcon,
+                            scale: 3,
+                          ),
+                          const SizedBox(width: 5),
+                          MyText(
+                            title: list?[index].createdAt?.split("-").last.substring(3,8)??"14:30 PM",
+                            size: 9,
+                            overflow: TextOverflow.ellipsis,
+                            color: MyColors.primary,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
 
-              ],
+                ],
+              ),
             )
           ],
         ),

@@ -65,7 +65,7 @@ class _SurMedicationRequestDetailsState
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: model.patientId?.fullNameEn ?? "Not Available",
+                      title: "${model.patientId?.firstNameEn} ${model.patientId?.lastNameEn}",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -81,7 +81,7 @@ class _SurMedicationRequestDetailsState
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: model.patientId?.civilId ?? "Not Available",
+                      title: model.patientId?.mobile ?? "",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),

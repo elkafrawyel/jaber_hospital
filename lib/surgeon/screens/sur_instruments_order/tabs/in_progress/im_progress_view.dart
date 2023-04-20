@@ -75,8 +75,7 @@ class _InProgressViewState extends State<InProgressView> {
             ],
           );
         } else {
-          return Expanded(
-              child: Center(child: LoadingDialog.showLoadingView()));
+          return Center(child: LoadingDialog.showLoadingView());
         }
       },
     );

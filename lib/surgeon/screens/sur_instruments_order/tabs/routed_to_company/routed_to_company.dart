@@ -75,7 +75,7 @@ class _RoutedToCompanyViewState extends State<RoutedToCompanyView> {
             ],
           );
         } else {
-          return Expanded(child: Center(child: LoadingDialog.showLoadingView()));
+          return Center(child: LoadingDialog.showLoadingView());
         }
       },
     );

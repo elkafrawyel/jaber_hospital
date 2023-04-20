@@ -152,6 +152,7 @@ class SurOrderMedicationsData {
 
   void onAddMedication(BuildContext context) async {
     if (formKey.currentState!.validate()) {
+      DioUtils.showLoadingDialog();
       List<dynamic> medications = selectedMedicationCubit.state.data
           .map((item) => {
         "id": item.sId,
@@ -165,9 +166,19 @@ class SurOrderMedicationsData {
         "order_start_date": "${dateBloc.state.data}",
         "order_status": "routed to company",
         "status": true,
-        "medications": jsonEncode(medications),
+        "medications": medications,
       };
-      var result = await SurgeonRepository(context).requestMedicationOrder(body);
+      // var result = await SurgeonRepository(context).requestMedicationOrder(body);
+      log("medicationOrderBody=> $body");
+      final response = await ApiService.post(ApiNames.requestMedicationOrder, body: body,);
+      log("responseData==> ${response.data}");
+      DioUtils.dismissDialog();
+      if(response.statusCode==200){
+        navigationKey.currentState!.pop();
+        CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
+      } else{
+        CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
+      }
     }
   }
 

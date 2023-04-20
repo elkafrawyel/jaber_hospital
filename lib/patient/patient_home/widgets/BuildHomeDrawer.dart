@@ -16,6 +16,8 @@ import '../../../res/res.dart';
 import '../../../surgeon/screens/sur_notifications/SurNotificationsImports.dart';
 import '../../patient_appointments/appointments_screen.dart';
 import '../../patient_notificattions/patient_notifications_screen.dart';
+import '../../patient_profile/edit_profile_screen.dart';
+import '../../patient_profile/patient_profile.dart';
 
 class PatientHomeDrawer extends StatelessWidget {
   const PatientHomeDrawer({
@@ -40,7 +42,7 @@ class PatientHomeDrawer extends StatelessWidget {
                   children: [
                     DrawerHeader(
                       child: InkWell(
-                        // onTap: () => Nav.navigateTo(CompProfileScreen(), navigatorType: NavigatorType.push),
+                        onTap: () => Nav.navigateTo(PatientAccountSetting(), navigatorType: NavigatorType.push),
                         child: Row(
                           children: [
                             CachedImage(

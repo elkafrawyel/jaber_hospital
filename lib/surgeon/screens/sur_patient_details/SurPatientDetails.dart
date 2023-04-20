@@ -587,7 +587,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     SizedBox(width: 10),
                     MyText(
                       //convert date to 12 aug 2021
-                      title: DateFormat('yyyy-MM-dd').format(DateTime.parse(state.data!.patient!.operationDate!)),
+                      title: state.data?.patient?.operationDate??"",
+                      // title: DateFormat('yyyy-MM-dd').format(DateTime.parse(state.data!.patient!.operationDate!)),
                       size: 12,
                       color: MyColors.primary,
                       fontWeight: FontWeight.bold,
@@ -846,29 +847,38 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         color: MyColors.black,
                         fontWeight: FontWeight.bold),
                   ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: DefaultButton(
-                          title: "Add Appointment",
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
-                          },
-                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
-                    ),
-                    const SizedBox(width: 16.0),
-                    if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op") ...[
+                Padding(
+                  padding: const EdgeInsets.only(top:16.0),
+                  child: Row(
+                    children: [
                       Expanded(
                         child: DefaultButton(
-                            title: "Order Medications",
-                            onTap: () => Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
-                            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
-                      ),
+                            title: "Add Appointment",
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
+                            },
+                      ),),
+                      const SizedBox(width: 8.0),
+                      Expanded(
+                        child: DefaultButton(
+                            title: "Order Instruments",
+                            onTap: () => Nav.navigateTo(RequestInstrumentsScreen(patientModel: state.data!), navigatorType: NavigatorType.push),
+                      ),),
+                      // if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op") ...[
+                      //   Expanded(
+                      //     child: DefaultButton(
+                      //         title: "Order Instruments",
+                      //         onTap: () => Nav.navigateTo(RequestInstrumentsScreen(), navigatorType: NavigatorType.push),
+                      //         // onTap: () => Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
+                      //         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
+                      //   ),
+                      // ],
                     ],
-                  ],
+                  ),
                 ),
+                const SizedBox(height: 16.0),
               ],
             );
           } else {

@@ -820,7 +820,6 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                           height: 38,
                                           title: "Update",
                                           onTap: () async{
-                                            log('fetchHomeCompOrders called...');
                                             Map<String, dynamic> body ={
                                               "final_feedback": feedbackStatus,
                                             };

@@ -75,8 +75,7 @@ class _CompletedViewState extends State<CompletedView> {
             ],
           );
         } else {
-          return Expanded(
-              child: Center(child: LoadingDialog.showLoadingView()));
+          return Center(child: LoadingDialog.showLoadingView());
         }
       },
     );

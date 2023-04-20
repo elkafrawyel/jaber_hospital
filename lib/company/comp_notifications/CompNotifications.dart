@@ -50,8 +50,7 @@ class _SurNotificationsState extends State<CompNotifications> {
                 ),
               );
             } else {
-              return Expanded(
-                  child: Center(child: LoadingDialog.showLoadingView()));
+              return Center(child: LoadingDialog.showLoadingView());
             }
           },
         ),);

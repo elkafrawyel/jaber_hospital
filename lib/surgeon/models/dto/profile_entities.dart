@@ -9,7 +9,7 @@ class ProfileModel {
   String? nameAr;
   String? nameEn;
   String? email;
-  String? civilId;
+  String? fileId;
   String? gender;
   String? title;
   String? age;
@@ -23,7 +23,7 @@ class ProfileModel {
     this.nameAr,
     this.nameEn,
     this.email,
-    this.civilId,
+    this.fileId,
     this.gender,
     this.title,
     this.age,
@@ -38,7 +38,7 @@ class ProfileModel {
         "full_name_ar": nameAr,
         "full_name_en": nameEn,
         "email": email,
-        "civil_id": civilId,
+        "file_no": fileId,
         "gender": gender,
         "title": title,
         "age": age,

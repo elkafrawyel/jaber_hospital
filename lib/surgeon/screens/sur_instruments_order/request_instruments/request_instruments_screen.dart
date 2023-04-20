@@ -16,11 +16,14 @@ import '../../../../general/widgets/app_drop_menu.dart';
 import '../../../../general/widgets/loading_widget.dart';
 import '../../../models/company_instruments_response.dart';
 import '../../../models/instrument_order_model.dart';
+import '../../../models/patient_details_model.dart';
+import '../models/handles_instrument_model.dart';
 import 'request_instruments_data.dart';
+import 'widgets/radio_check_item.dart';
 
 class RequestInstrumentsScreen extends StatefulWidget {
-  const RequestInstrumentsScreen({Key? key}) : super(key: key);
-  // final InstrumentOrderModel ordersModel;
+  const RequestInstrumentsScreen({Key? key, required this.patientModel}) : super(key: key);
+  final PatientDetailsModel patientModel;
 
   @override
   State<RequestInstrumentsScreen> createState() => _RequestInstrumentsScreenState();
@@ -31,15 +34,19 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
   late TextEditingController nameController = TextEditingController();
   late TextEditingController phoneController= TextEditingController();
   late TextEditingController dateController= TextEditingController();
+  List<HandlesModel> handles = [
+    HandlesModel(headerTitle: "Handles", handles: ["Short", "Long", "Signia Powered Handle"]),
+  ];
+  List<String> items2 = ["test1", "test2", "test3"];
 
   @override
   void initState() {
     // TODO: implement initState
     requestInstrumentsData.init(context);
-    // nameController = TextEditingController(text: "${widget.ordersModel.patientId?.firstNameEn} "
-    //     "${widget.ordersModel.patientId?.lastNameEn}");
-    // phoneController = TextEditingController(text: widget.ordersModel.patientId?.mobile??"");
-    // dateController = TextEditingController(text: widget.ordersModel.orderStartDate??"");
+    nameController = TextEditingController(text: "${widget.patientModel.patient?.fNameEn} "
+        "${widget.patientModel.patient?.lNameEn}");
+    phoneController = TextEditingController(text: widget.patientModel.patient?.telephone1??"");
+    dateController = TextEditingController(text: widget.patientModel.patient?.mdtDateTime??"");
     super.initState();
   }
 
@@ -154,18 +161,84 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                     }
                   },
                 ),
+                const SizedBox(height: 8.0),
+                MyText(
+                  title: 'Company Instruments:',
+                  size: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+
+                ExpansionPanelList(
+                  elevation: 3,
+                  // Controlling the expansion behavior
+                  expansionCallback: (index, isExpanded) {
+                    handles[0].isExpanded= !isExpanded;
+                    setState(() {});
+                  },
+                  animationDuration: const Duration(milliseconds: 500),
+                  children: handles.map((item) => ExpansionPanel(
+                      canTapOnHeader: true,
+                      backgroundColor: Colors.grey.shade200,
+                      // backgroundColor: item.isExpanded == true ? AppTheme.hoverColor.withOpacity(0.2) : Colors.white,
+                      headerBuilder: (_, isExpanded) => Container(
+                          padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                          child: Text(handles[0].headerTitle??"",
+                            style: const TextStyle(fontSize: 16),
+                          )),
+                      body: Column(
+                        children: [
+                          RadioCheckItem(title: "Short",),
+                          RadioCheckItem(title: "Long",),
+                          RadioCheckItem(title: "Signia Powered Handle",),
+                        ],
+                      ),
+                      isExpanded: handles[0].isExpanded,
+                    ),
+                  ).toList(),
+                ),
+                const SizedBox(height: 16.0,),
+                ExpansionPanelList(
+                  elevation: 3,
+                  // Controlling the expansion behavior
+                  expansionCallback: (index, isExpanded) {
+                    // controller.faqsList[index].isExpanded= !isExpanded;
+                    // controller.update();
+                  },
+                  animationDuration: const Duration(milliseconds: 500),
+                  children: items2.map(
+                        (item) => ExpansionPanel(
+                      canTapOnHeader: true,
+                      backgroundColor: Colors.grey.shade200,
+                      // backgroundColor: item.isExpanded == true ? AppTheme.hoverColor.withOpacity(0.2) : Colors.white,
+                      headerBuilder: (_, isExpanded) => Container(
+                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+                          child: Text("Question",
+                            style: const TextStyle(fontSize: 16),
+                          )),
+                      body: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+                        child: Text("answer"),
+                      ),
+                      isExpanded: false,
+                    ),
+                  ).toList(),
+                ),
                 // BlocBuilder<GenericBloc<CompanyInstrumentsResponse?>,
                 //     GenericState<CompanyInstrumentsResponse?>>(
                 //   bloc: requestInstrumentsData.companyInstrumentsCubit,
                 //   builder: (context, state) {
                 //     if (state is GenericUpdateState) {
+                //       log("stateData=> ${state.data?.data?.length}");
                 //       return Column(
+                //         mainAxisSize: MainAxisSize.min,
                 //         children: [
                 //
                 //         ],
                 //       );
                 //     } else {
-                //       return Center(child: LoadingDialog.showLoadingView());
+                //       return SizedBox(
+                //           height: 56,
+                //           child: Center(child: LoadingDialog.showLoadingView()));
                 //     }
                 //   },
                 // ),

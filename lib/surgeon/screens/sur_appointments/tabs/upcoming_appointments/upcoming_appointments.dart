@@ -46,7 +46,10 @@ class _UpcomingAppointmentsState extends State<UpcomingAppointments> {
                   ),
                 ),
                 Expanded(child: ListView.builder(
+                  padding: const EdgeInsets.all(6.0),
                   itemCount: state.data?.length,
+                  scrollDirection: Axis.vertical,
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) => BuildSurFollowUpItem(appointmentModel: state.data![index],),),),
               ],
             ): Center(
@@ -57,8 +60,7 @@ class _UpcomingAppointmentsState extends State<UpcomingAppointments> {
               ),
             );
           } else {
-            return Expanded(
-                child: Center(child: LoadingDialog.showLoadingView()));
+            return Center(child: LoadingDialog.showLoadingView());
           }
         },
       ),

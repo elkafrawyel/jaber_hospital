@@ -71,8 +71,7 @@ class _PatientCompletedAppointmentsState extends State<PatientCompletedAppointme
                 ],
               );
             } else {
-              return Expanded(
-                  child: Center(child: LoadingDialog.showLoadingView()));
+              return Center(child: LoadingDialog.showLoadingView());
             }
           },
         ),

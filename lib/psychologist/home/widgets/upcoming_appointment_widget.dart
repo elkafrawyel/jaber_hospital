@@ -44,30 +44,32 @@ class UpComingAppointmentWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MyText(
-                      title: appointment.patientId?.fullNameEn??"Loay Hany",
-                      size: 13,
-                      fontWeight: FontWeight.bold),
-                  MyText(title: appointment.patientId?.operationType?? 'Revisional Operation', size: 12, color: Colors.grey),
+                  Expanded(child: MyText(title: "${appointment.patientId?.firstNameEn} ${appointment.patientId?.lastNameEn}",
+                      size: 13, fontWeight: FontWeight.bold)),
+                  MyText(title: appointment.patientId?.operationType??'', size: 12, color: Colors.grey),
                   const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset(
-                            Res.imagesVector,
-                            scale: 3,
-                          ),
-                          const SizedBox(width: 5),
-                          MyText(
-                            title: appointment.appointmentDate??"14 AUG 2022",
-                            overflow: TextOverflow.ellipsis,
-                            size: 9,
-                            color: MyColors.primary,
-                          ),
-                        ],
+                      Expanded(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image.asset(
+                              Res.imagesVector,
+                              scale: 3,
+                            ),
+                            const SizedBox(width: 5),
+                            Expanded(
+                              child: MyText(
+                                title: appointment.appointmentDate??"14 AUG 2022",
+                                overflow: TextOverflow.ellipsis,
+                                size: 9,
+                                color: MyColors.primary,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,

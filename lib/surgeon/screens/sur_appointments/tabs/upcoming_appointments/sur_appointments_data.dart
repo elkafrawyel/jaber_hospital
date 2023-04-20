@@ -10,7 +10,7 @@ class AppointmentsData{
   List<AppointmentModel>? upcomingAppointments = [];
 
   void init(BuildContext context) {
-    this.upcomingCubit = GenericBloc<List<AppointmentModel>?>(null);
+    this.upcomingCubit = GenericBloc<List<AppointmentModel>?>([]);
     fetchUpcomingAppointments(context);
   }
 

@@ -48,7 +48,7 @@ class SurInstrumentsOrdersData {
   Future<bool> cancelOrder(BuildContext context,
       {required String orderId}) async {
     var response = await SurgeonRepository(context)
-        .cancelMedicationOrder(orderId: orderId);
+        .cancelInstrumentOrder(orderId: orderId);
     if (response) {
       getInstrumentsOrders(context);
       navigationKey.currentState!.pop();

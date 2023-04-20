@@ -9,7 +9,7 @@ import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../general/widgets/GenScaffold.dart';
 import '../../models/medications_orders_model.dart';
 import '../../resources/SurgeonRepoImports.dart';
-import '../sur_mdt_discussions/request_instruments/request_instruments_screen.dart';
+import 'request_instruments/request_instruments_screen.dart';
 import 'tabs/completed/completed_view.dart';
 import 'tabs/in_progress/im_progress_view.dart';
 import 'tabs/routed_to_company/routed_to_company.dart';
@@ -66,11 +66,6 @@ class _SurInstrumentsOrdersScreenState extends State<SurInstrumentsOrdersScreen>
                   InProgressView(),
                   CompletedView(),
                 ]),
-          ),
-          DefaultButton(
-            title: "Order Instruments",
-            onTap: () =>Nav.navigateTo(RequestInstrumentsScreen(), navigatorType: NavigatorType.push),
-            margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
           ),
         ],
       ),

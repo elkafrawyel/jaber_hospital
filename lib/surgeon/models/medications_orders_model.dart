@@ -1,4 +1,6 @@
+import '../../general/models/company_model.dart';
 import '../../general/models/doctor_model.dart';
+import '../../general/models/patient_model.dart';
 
 class MedicationsOrdersModel {
   String? sId;
@@ -111,88 +113,6 @@ class MedicationsOrdersModel {
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
     data['admin_updated_id'] = this.adminUpdatedId;
-    return data;
-  }
-}
-
-class CompanyId {
-  String? sId;
-  String? companyNameAr;
-  String? companyNameEn;
-  String? companyContactPerson;
-  String? companyAddress;
-  String? companyContactMobile;
-
-  CompanyId(
-      {this.sId,
-        this.companyNameAr,
-        this.companyNameEn,
-        this.companyContactPerson,
-        this.companyAddress,
-        this.companyContactMobile});
-
-  CompanyId.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    companyNameAr = json['company_name_ar'];
-    companyNameEn = json['company_name_en'];
-    companyContactPerson = json['company_contact_person'];
-    companyAddress = json['company_address'];
-    companyContactMobile = json['company_contact_mobile'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['company_name_ar'] = this.companyNameAr;
-    data['company_name_en'] = this.companyNameEn;
-    data['company_contact_person'] = this.companyContactPerson;
-    data['company_address'] = this.companyAddress;
-    data['company_contact_mobile'] = this.companyContactMobile;
-    return data;
-  }
-}
-
-class PatientId {
-  String? sId;
-  String? fullNameAr;
-  String? fullNameEn;
-  String? gender;
-  String? civilId;
-  int? age;
-  int? weight;
-  int? height;
-
-  PatientId(
-      {this.sId,
-        this.fullNameAr,
-        this.fullNameEn,
-        this.gender,
-        this.civilId,
-        this.age,
-        this.weight,
-        this.height});
-
-  PatientId.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    fullNameAr = json['full_name_ar'];
-    fullNameEn = json['full_name_en'];
-    gender = json['gender'];
-    civilId = json['civil_id'];
-    age = json['age'];
-    weight = json['weight'];
-    height = json['height'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['full_name_ar'] = this.fullNameAr;
-    data['full_name_en'] = this.fullNameEn;
-    data['gender'] = this.gender;
-    data['civil_id'] = this.civilId;
-    data['age'] = this.age;
-    data['weight'] = this.weight;
-    data['height'] = this.height;
     return data;
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../../general/MyApp.dart';
@@ -7,6 +9,7 @@ import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/widgets/GenScaffold.dart';
 import '../../../general/widgets/GeneralAlertDialog.dart';
 import '../../models/instrument_order_model.dart';
+import 'instruments_orders_data.dart';
 
 class SurInstrumentRequestDetails extends StatefulWidget {
   final int index;
@@ -18,10 +21,10 @@ class SurInstrumentRequestDetails extends StatefulWidget {
 }
 
 class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetails> {
+  SurInstrumentsOrdersData surInstrumentsOrdersData = SurInstrumentsOrdersData();
 
   @override
   Widget build(BuildContext context) {
-    // var model = surMedicationsOrderData.medicationsOrdersCubit.state.data[widget.index];
     return GeneralScaffold(
         CustomTitle: Row(
           children: [
@@ -156,17 +159,17 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                               navigationKey.currentState!.pop();
                             },
                             onTapRightButton: () async {
-                              // bool result = await surMedicationsOrderData.cancelOrder(context, orderId: model.sId.toString(),);
-                              // if (result) {
-                              //   log("index=> ${widget.index}");
-                              //   surMedicationsOrderData
-                              //       .medicationsOrdersCubit.state.data
-                              //       .removeAt(widget.index);
-                              //   surMedicationsOrderData
-                              //       .medicationsOrdersCubit
-                              //       .onUpdateData(surMedicationsOrderData
-                              //       .medicationsOrdersCubit.state.data);
-                              // }
+                              bool result = await SurInstrumentsOrdersData()
+                                  .cancelOrder(context, orderId: widget.instrumentOrderModel.sId.toString(),);
+                              if (result) {
+                                log("index=> ${widget.index}");
+                                surInstrumentsOrdersData
+                                    .medicationsOrdersCubit.state.data
+                                    .removeAt(widget.index);
+                                surInstrumentsOrdersData
+                                    .medicationsOrdersCubit
+                                    .onUpdateData(surInstrumentsOrdersData.medicationsOrdersCubit.state.data);
+                              }
                             },
                           ));
                     },

@@ -57,7 +57,7 @@ class SurProfileData {
         firstNameEn: firstName.text,
         lastNameEn: lastName.text,
         title: "title",
-        civilId: "civilId",
+        fileId: "civilId",
         age: age.text,
         file: profileImageCubit.state.data,
         gender: genderBloc.state.data == 0 ?"male":"female",

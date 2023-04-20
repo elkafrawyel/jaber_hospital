@@ -45,59 +45,65 @@ class HorizontalOrderWidget extends StatelessWidget {
               child: Image.asset(Res.imagesOrder, width: 30, height: 30),
             ),
             const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MyText(title: 'Order# ${orderModel?.orderNum}', size: 13, fontWeight: FontWeight.bold),
-                const SizedBox(height: 4),
-                Wrap(
-                  children: [
-                    ...List.generate(orderModel?.instruments?.length??0, (index) => MyText(
-                        title: "${orderModel?.instruments?[index].code}, ",
-                        color: MyColors.grey,
-                        size: 10,
-                        fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          Res.imagesVector,
-                          scale: 3,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MyText(title: 'Order# ${orderModel?.orderNum}', size: 13, fontWeight: FontWeight.bold),
+                  const SizedBox(height: 4),
+                  Wrap(
+                    children: [
+                      ...List.generate(orderModel?.instruments?.length??0, (index) => MyText(
+                          title: "${orderModel?.instruments?[index].code}, ",
+                          color: MyColors.grey,
+                          size: 10,
+                          fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              Res.imagesVector,
+                              scale: 3,
+                            ),
+                            const SizedBox(width: 5),
+                            Expanded(
+                              child: MyText(
+                                title: orderModel?.orderStartDate??"",
+                                // title: Utils.getDate(orderModel?.orderStartDate??""),
+                                overflow: TextOverflow.ellipsis,
+                                size: 9,
+                                color: MyColors.primary,
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 5),
-                        MyText(
-                          title: Utils.getDate(orderModel?.orderStartDate??""),
-                          overflow: TextOverflow.ellipsis,
-                          size: 9,
-                          color: MyColors.primary,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 30),
-                    Row(
-                      children: [
-                        Image.asset(
-                          Res.imagesClockIcon,
-                          scale: 3,
-                        ),
-                        const SizedBox(width: 5),
-                        MyText(
-                          title: Utils.getTimeFromStringTimeStamp(orderModel?.orderStartDate??""),
-                          size: 9,
-                          overflow: TextOverflow.ellipsis,
-                          color: MyColors.primary,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-
-              ],
+                      ),
+                      const SizedBox(width: 30),
+                      Row(
+                        children: [
+                          Image.asset(
+                            Res.imagesClockIcon,
+                            scale: 3,
+                          ),
+                          const SizedBox(width: 5),
+                          MyText(
+                            title: "14:20",
+                            size: 9,
+                            overflow: TextOverflow.ellipsis,
+                            color: MyColors.primary,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             )
           ],
         ),

@@ -57,8 +57,7 @@ class _AllReadyPatientsState extends State<AllReadyPatients> {
               ),
             );
           } else {
-            return Expanded(
-                child: Center(child: LoadingDialog.showLoadingView()));
+            return Center(child: LoadingDialog.showLoadingView());
           }
         },
       ),

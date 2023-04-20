@@ -15,7 +15,7 @@ class PastAppointmentsData{
   List<AppointmentModel>? pastAppointments = [];
 
   void init(BuildContext context) {
-    this.pastCubit = GenericBloc<List<AppointmentModel>?>(null);
+    this.pastCubit = GenericBloc<List<AppointmentModel>?>([]);
     fetchUpcomingAppointments(context);
   }
 

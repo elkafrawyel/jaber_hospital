@@ -6,6 +6,7 @@ class PatientId {
   String? firstNameAr;
   String? lastNameAr;
   String? lastNameEn;
+  String? operationType;
   String? mobile;
   String? gender;
   int? age;
@@ -22,6 +23,7 @@ class PatientId {
         this.firstNameAr,
         this.lastNameAr,
         this.lastNameEn,
+        this.operationType,
         this.age,
         this.weight,
         this.height});
@@ -34,6 +36,7 @@ class PatientId {
     firstNameAr = json['first_name_ar'];
     lastNameAr = json['last_name_ar'];
     lastNameEn = json['last_name_en'];
+    operationType = json['operation_type'];
     gender = json['gender'];
     mobile = json['mobile'];
     age = json['age'];
@@ -50,6 +53,7 @@ class PatientId {
     data['first_name_ar'] = this.firstNameAr;
     data['last_name_ar'] = this.lastNameAr;
     data['last_name_en'] = this.lastNameEn;
+    data['operation_type'] = this.operationType;
     data['gender'] = this.gender;
     data['mobile'] = this.mobile;
     data['age'] = this.age;

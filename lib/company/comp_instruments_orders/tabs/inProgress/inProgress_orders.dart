@@ -71,8 +71,7 @@ class _InProgressOrdersState extends State<InProgressOrders> {
               ],
             );
           } else {
-            return Expanded(
-                child: Center(child: LoadingDialog.showLoadingView()));
+            return Center(child: LoadingDialog.showLoadingView());
           }
         },
       ),

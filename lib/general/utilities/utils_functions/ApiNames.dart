@@ -62,7 +62,8 @@ class ApiNames{
   static const String doctorRoutedOrders = "doctor_routed_orders";
   static const String doctorInProgressOrders = "doctor_inprogress_orders";
   static const String doctorCompleatedOrders = "doctor_completed_orders";
-  static const String cancelMedicationOrder = "medication_order_status";
+  static const String cancelMedicationOrder = "update_medication_order_status";
+  static const String cancelInstrumentOrder = "update_instrument_order_status";
   static const String patientNames = "patient_names";
   static const String listMedication = "medication";
   static const String requestMedicationOrder = "medication_order";

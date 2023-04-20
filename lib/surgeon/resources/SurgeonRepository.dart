@@ -66,6 +66,7 @@ class SurgeonRepository {
   Future<InstrumentOrdersResponse> getInstrumentsCompletedOrders() => _surgeonHttpMethods.getCompletedInstrumentsOrders();
 
   Future<bool> cancelMedicationOrder({required String orderId}) => _surgeonHttpMethods.cancelMedicationOrder(orderId);
+  Future<bool> cancelInstrumentOrder({required String orderId}) => _surgeonHttpMethods.cancelInstrumentOrder(orderId);
 
   Future<List<PatientNameModel>> getPatientNames() => _surgeonHttpMethods.getPatientNames();
 

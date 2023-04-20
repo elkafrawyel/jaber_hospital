@@ -28,13 +28,13 @@ class BuildPrePostView extends StatelessWidget {
                 }
 
               }else{
-                return Expanded(child: Center(child: LoadingDialog.showLoadingView()));
+                return Center(child: LoadingDialog.showLoadingView());
               }
             },
           );
         }
         else{
-          return Expanded(child: Center(child: LoadingDialog.showLoadingView()));
+          return Center(child: LoadingDialog.showLoadingView());
         }
       },
     );

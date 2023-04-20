@@ -68,8 +68,7 @@ class _MDTAdminState extends State<MdtTodaysPatients>
                     ),
                   );
           } else {
-            return Expanded(
-                child: Center(child: LoadingDialog.showLoadingView()));
+            return Center(child: LoadingDialog.showLoadingView());
           }
         },
       ),

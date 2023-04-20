@@ -1,3 +1,5 @@
+import '../../general/models/patient_model.dart';
+
 class SurgeonHomeModel {
   List<Appointments>? appointments;
   int? doctorTotalNotification;
@@ -65,43 +67,6 @@ class Appointments {
     data['actions_required'] = this.actionsRequired;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
-    return data;
-  }
-}
-
-class PatientId {
-  String? sId;
-  String? fullNameAr;
-  String? fullNameEn;
-  String? image;
-  String? operationData;
-  String? operationType;
-
-  PatientId(
-      {this.sId,
-        this.fullNameAr,
-        this.fullNameEn,
-        this.image,
-        this.operationData,
-        this.operationType});
-
-  PatientId.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    fullNameAr = json['full_name_ar'];
-    fullNameEn = json['full_name_en'];
-    image = json['image'];
-    operationData = json['operation_data'];
-    operationType = json['operation_type'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['full_name_ar'] = this.fullNameAr;
-    data['full_name_en'] = this.fullNameEn;
-    data['image'] = this.image;
-    data['operation_data'] = this.operationData;
-    data['operation_type'] = this.operationType;
     return data;
   }
 }
