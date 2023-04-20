@@ -20,7 +20,7 @@ class SurgeonHttpMethods {
 
   Future<List<PatientModel>> getAllPatientPreOp() async {
     dynamic data = await GenericHttp<PatientModel>(context).callApi(
-      name: ApiNames.allPatientsPreOp,
+      name: ApiNames.allPatientsPreOp + '?limit=9999',
       returnType: ReturnType.List,
       methodType: MethodType.Get,
       returnDataFun: (data) => data["data"],
@@ -33,39 +33,31 @@ class SurgeonHttpMethods {
     }
   }
 
-  Future<List<PatientModel>> getAllPatientPostOp() async {
-    dynamic data = await GenericHttp<PatientModel>(context).callApi(
-      name: ApiNames.allPatientsPostOp,
-      returnType: ReturnType.List,
+  Future<AllPatientPostOpResponse> getAllPatientPostOp({int? page}) async {
+    dynamic data = await GenericHttp<AllPatientPostOpResponse>(context).callApi(
+      name: ApiNames.allPatientsPostOp+'?page=$page',
+      returnType: ReturnType.Model,
       methodType: MethodType.Get,
-      returnDataFun: (data) => data["data"],
-      toJsonFunc: (json) => PatientModel.fromJson(json),
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => AllPatientPostOpResponse.fromJson(json),
     );
-    if (data != null) {
-      return data;
-    } else {
-      return [];
-    }
+    return data;
   }
 
-  Future<List<PatientModel>> getMyPatientPostOp() async {
-    dynamic data = await GenericHttp<PatientModel>(context).callApi(
-      name: ApiNames.myPatientsPostOp,
-      returnType: ReturnType.List,
+  Future<AllPatientPostOpResponse> getMyPatientPostOp({int? page}) async {
+    dynamic data = await GenericHttp<AllPatientPostOpResponse>(context).callApi(
+      name: ApiNames.myPatientsPostOp + '?page=$page',
+      returnType: ReturnType.Model,
       methodType: MethodType.Get,
-      returnDataFun: (data) => data["data"],
-      toJsonFunc: (json) => PatientModel.fromJson(json),
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => AllPatientPostOpResponse.fromJson(json),
     );
-    if (data != null) {
-      return data;
-    } else {
-      return [];
-    }
+    return data;
   }
 
   Future<List<PatientModel>> getMyPatientPreOp() async {
     dynamic data = await GenericHttp<PatientModel>(context).callApi(
-      name: ApiNames.myPatientsPreOp,
+      name: ApiNames.myPatientsPreOp + '?limit=9999',
       returnType: ReturnType.List,
       methodType: MethodType.Get,
       returnDataFun: (data) => data["data"],
@@ -295,7 +287,7 @@ class SurgeonHttpMethods {
       returnDataFun: (data) => data,
       toJsonFunc: (json) => InstrumentOrdersResponse.fromJson(json),
     );
-      return data;
+    return data;
   }
 
   Future<InstrumentOrdersResponse> getInProgressInstrumentsOrders() async {

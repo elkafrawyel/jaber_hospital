@@ -31,6 +31,7 @@ import '../../sur_notifications/SurNotificationsImports.dart';
 import '../../sur_oprations/SurOperationsImports.dart';
 import '../../sur_patient/SurPatientImports.dart';
 import '../../sur_patient_details/SurPatientDetailsImports.dart';
+import '../../sur_search/SurSearchScreen.dart';
 import '../SurHomeImports.dart';
 
 part 'BuildHomeAppBar.dart';

@@ -160,7 +160,7 @@ void scaleAlertDialog({
                     ),
                   if (onCancelClick != null)
                     TextButton(
-                      onPressed: () => onCancelClick,
+                      onPressed: onCancelClick,
                       child: Text(
                         cancelText ?? "Cancel",
                         style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700),
@@ -199,7 +199,7 @@ void scaleAlertDialog({
                     ),
                   if (onCancelClick != null)
                     TextButton(
-                      onPressed: () => onCancelClick,
+                      onPressed: onCancelClick,
                       child: Text(
                         cancelText ?? "Cancel",
                         style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w700),

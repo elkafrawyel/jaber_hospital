@@ -37,6 +37,7 @@ class MyText extends StatelessWidget {
       "$title",
       textAlign: alien ?? TextAlign.start,
       textScaleFactor: 1.2,
+      maxLines: 5,
       style: TextStyle(
           color:color?? Theme.of(context).textTheme.subtitle1?.color,
           fontSize: size??16,

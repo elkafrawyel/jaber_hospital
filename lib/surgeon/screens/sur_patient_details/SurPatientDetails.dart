@@ -47,7 +47,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     Navigator.pop(context);
                     bool result = await SurPatientDetailsData().archivePatient(context);
                     if (result) {
-                      Navigator.pop(context);
+                      Navigator.pop(context, result);
                     }
                   },
                 );
@@ -140,7 +140,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      state.data?.patient?.finalFeedback == "true"
+                                      state.data?.patient?.overallStatus ?? false
                                           ? Container(
                                               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                                               decoration: BoxDecoration(
@@ -210,12 +210,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                               children: [
                                 Image.asset(Res.imagesFileIcon, scale: 3),
                                 const SizedBox(width: 10),
-                                FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: MyText(
-                                    title: state.data?.patient?.publicId ?? "-",
-                                    size: 12,
-                                  ),
+                                MyText(
+                                  title: state.data?.patient?.publicId ?? "-",
+                                  size: 12,
                                 ),
                               ],
                             ),
@@ -268,20 +265,32 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       isFirst: true,
                                       indicatorStyle: IndicatorStyle(
                                         height: 26,
-                                        color: MyColors.primary,
+                                        color: (state.data?.patient?.egd ?? false) &&
+                                                (state.data?.patient?.ultrasound ?? false) &&
+                                                (state.data?.patient?.surgionVisit ?? false)
+                                            ? MyColors.primary
+                                            : Colors.red,
                                         iconStyle: IconStyle(
                                           color: Colors.white,
                                           iconData: Icons.check,
                                         ),
                                       ),
                                       beforeLineStyle: LineStyle(
-                                        color: MyColors.primary,
+                                        color: (state.data?.patient?.egd ?? false) &&
+                                                (state.data?.patient?.ultrasound ?? false) &&
+                                                (state.data?.patient?.surgionVisit ?? false)
+                                            ? MyColors.primary
+                                            : Colors.red,
                                         thickness: 6,
                                       ),
                                       endChild: MyText(
                                         title: "Surgery OPD",
                                         size: 8,
-                                        color: MyColors.primary,
+                                        color: (state.data?.patient?.egd ?? false) &&
+                                                (state.data?.patient?.ultrasound ?? false) &&
+                                                (state.data?.patient?.surgionVisit ?? false)
+                                            ? MyColors.primary
+                                            : Colors.red,
                                       ),
                                     ),
                                   ),
@@ -290,22 +299,22 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       axis: TimelineAxis.horizontal,
                                       alignment: TimelineAlign.center,
                                       beforeLineStyle: LineStyle(
-                                        color: (state.data?.patient?.dietationFeedbackDecision ?? '').isNotEmpty
-                                            ? MyColors.primary
-                                            : Colors.red,
+                                        color: state.data?.patient?.dietationFeedbackDecision == 'Need Visit'
+                                            ? Colors.red
+                                            : MyColors.primary,
                                         thickness: 6,
                                       ),
                                       afterLineStyle: LineStyle(
-                                        color: (state.data?.patient?.dietationFeedbackDecision ?? '').isNotEmpty
-                                            ? MyColors.primary
-                                            : Colors.red,
+                                        color: state.data?.patient?.dietationFeedbackDecision == 'Need Visit'
+                                            ? Colors.red
+                                            : MyColors.primary,
                                         thickness: 6,
                                       ),
                                       indicatorStyle: IndicatorStyle(
                                         height: 26,
-                                        color: (state.data?.patient?.dietationFeedbackDecision ?? '').isNotEmpty
-                                            ? MyColors.primary
-                                            : Colors.red,
+                                        color: state.data?.patient?.dietationFeedbackDecision == 'Need Visit'
+                                            ? Colors.red
+                                            : MyColors.primary,
                                         iconStyle: IconStyle(
                                           color: Colors.white,
                                           iconData: Icons.check,
@@ -314,9 +323,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       endChild: MyText(
                                         title: "Dietitian",
                                         size: 8,
-                                        color: (state.data?.patient?.dietationFeedbackDecision ?? '').isNotEmpty
-                                            ? MyColors.primary
-                                            : Colors.red,
+                                        color: state.data?.patient?.dietationFeedbackDecision == 'Need Visit'
+                                            ? Colors.red
+                                            : MyColors.primary,
                                       ),
                                     ),
                                   ),
@@ -325,22 +334,22 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       axis: TimelineAxis.horizontal,
                                       alignment: TimelineAlign.center,
                                       beforeLineStyle: LineStyle(
-                                        color: (state.data?.patient?.feedback ?? '').isNotEmpty
-                                            ? MyColors.primary
-                                            : Colors.red,
+                                        color: state.data?.patient?.feedback == 'Not Clear'
+                                            ? Colors.red
+                                            : MyColors.primary,
                                         thickness: 6,
                                       ),
                                       afterLineStyle: LineStyle(
-                                        color: (state.data?.patient?.feedback ?? '').isNotEmpty
-                                            ? MyColors.primary
-                                            : Colors.red,
+                                        color: state.data?.patient?.feedback == 'Not Clear'
+                                            ? Colors.red
+                                            : MyColors.primary,
                                         thickness: 6,
                                       ),
                                       indicatorStyle: IndicatorStyle(
                                         height: 26,
-                                        color: (state.data?.patient?.feedback ?? '').isNotEmpty
-                                            ? MyColors.primary
-                                            : Colors.red,
+                                        color: state.data?.patient?.feedback == 'Not Clear'
+                                            ? Colors.red
+                                            : MyColors.primary,
                                         iconStyle: IconStyle(
                                           color: Colors.white,
                                           iconData: Icons.check,
@@ -349,9 +358,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       endChild: MyText(
                                         title: "Physiotherapy",
                                         size: 8,
-                                        color: (state.data?.patient?.feedback ?? '').isNotEmpty
-                                            ? MyColors.primary
-                                            : Colors.red,
+                                        color: state.data?.patient?.feedback == 'Not Clear'
+                                            ? Colors.red
+                                            : MyColors.primary,
                                       ),
                                     ),
                                   ),
@@ -392,16 +401,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       alignment: TimelineAlign.center,
                                       isLast: true,
                                       beforeLineStyle: LineStyle(
-                                        color: state.data?.patient?.finalFeedback == "true"
-                                            ? MyColors.primary
-                                            : Colors.red,
+                                        color: state.data?.patient?.finalFeedback == 'Not Clear'
+                                            ? Colors.red
+                                            : MyColors.primary,
                                         thickness: 6,
                                       ),
                                       indicatorStyle: IndicatorStyle(
                                         height: 26,
-                                        color: state.data?.patient?.finalFeedback == "true"
-                                            ? MyColors.primary
-                                            : Colors.red,
+                                        color: state.data?.patient?.finalFeedback == 'Not Clear'
+                                            ? Colors.red
+                                            : MyColors.primary,
                                         iconStyle: IconStyle(
                                           color: Colors.white,
                                           iconData: Icons.check,
@@ -410,9 +419,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       endChild: MyText(
                                         title: "Psychology",
                                         size: 8,
-                                        color: state.data?.patient?.finalFeedback == "true"
-                                            ? MyColors.primary
-                                            : Colors.red,
+                                        color: state.data?.patient?.finalFeedback == 'Not Clear'
+                                            ? Colors.red
+                                            : MyColors.primary,
                                       ),
                                     ),
                                   ),
@@ -451,8 +460,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                         backgroundColor:
                                             state.data?.patient?.egd == true ? MyColors.primary : Colors.red,
                                         radius: 12.0,
-                                        child: Icon(state.data?.patient?.egd == true ? Icons.check : Icons.close,
-                                            color: Colors.white, size: 15),
+                                        child: Icon(
+                                          state.data?.patient?.egd == true ? Icons.check : Icons.close,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
                                       ),
                                       const SizedBox(width: 10),
                                       MyText(title: "EGD", size: 9),
@@ -587,27 +599,29 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     SizedBox(width: 10),
                     MyText(
                       //convert date to 12 aug 2021
-                      title: state.data?.patient?.operationDate??"",
-                      // title: DateFormat('yyyy-MM-dd').format(DateTime.parse(state.data!.patient!.operationDate!)),
+                      title: DateTime.tryParse(state.data!.patient!.operationDate!) != null
+                          ? DateFormat('yyyy-MM-dd').format(DateTime.parse(state.data!.patient!.operationDate!))
+                          : '',
                       size: 12,
                       color: MyColors.primary,
                       fontWeight: FontWeight.bold,
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(title: "Mdt Status:", size: 12, fontWeight: FontWeight.bold),
-                    SizedBox(width: 10),
-                    MyText(
-                      title: state.data?.patient?.mdtStatus ?? '-',
-                      size: 12,
-                      color: MyColors.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ],
-                ),
+                if ((state.data?.patient?.mdtStatus ?? '').isNotEmpty) const SizedBox(height: 10),
+                if ((state.data?.patient?.mdtStatus ?? '').isNotEmpty)
+                  Row(
+                    children: [
+                      MyText(title: "Mdt Status:", size: 12, fontWeight: FontWeight.bold),
+                      SizedBox(width: 10),
+                      MyText(
+                        title: state.data?.patient?.mdtStatus ?? '-',
+                        size: 12,
+                        color: MyColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
                 const Divider(thickness: 1, height: 20),
                 MyText(
                   title: "Patient’s Weekly Exercise Overview",
@@ -870,7 +884,6 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         ),
                     ],])
                 ),
-                const SizedBox(height: 16.0),
               ],
             );
           } else {

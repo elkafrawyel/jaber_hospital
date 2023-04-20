@@ -1,16 +1,27 @@
-part of 'SurPatientWImports.dart';
+import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
+import 'package:base_flutter/surgeon/screens/sur_patient_details/SurPatientDetailsImports.dart';
+import 'package:flutter/material.dart';
+import 'package:timeline_tile/timeline_tile.dart';
+
+import '../../../general/constants/MyColors.dart';
+import '../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
+import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../models/patient_model.dart';
 
 class BuildPreOpItem extends StatelessWidget {
-  final int index;
+  final PatientModel patientModel;
+  final VoidCallback togglePathway;
+  final VoidCallback onPatientArchive;
 
   const BuildPreOpItem({
     Key? key,
-    required this.index,
+    required this.patientModel,
+    required this.togglePathway,
+    required this.onPatientArchive,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<PatientModel> list = SurPatientData().patientsCubit.state.data;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -22,13 +33,12 @@ class BuildPreOpItem extends StatelessWidget {
             onTap: () async {
               bool? result = await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => SurPatientDetails(patientId: list[index].sId ?? ''),
+                  builder: (context) => SurPatientDetails(patientId: patientModel.sId ?? ''),
                 ),
               );
+
               if (result ?? false) {
-                list.removeAt(index);
-                SurPatientData().patientsCubit.onUpdateData(list);
-                SurPatientData().totalResultCount.onUpdateData(SurPatientData().totalResultCount.state.data - 1);
+                onPatientArchive();
               }
             },
             child: Padding(
@@ -36,7 +46,7 @@ class BuildPreOpItem extends StatelessWidget {
               child: Row(
                 children: [
                   CachedImage(
-                    url: list[index].image ?? 'https://picsum.photos/180',
+                    url: patientModel.image ?? 'https://picsum.photos/180',
                     height: 60,
                     width: 60,
                     borderRadius: BorderRadius.circular(10),
@@ -51,12 +61,12 @@ class BuildPreOpItem extends StatelessWidget {
                           children: [
                             Expanded(
                               child: MyText(
-                                title: '${list[index].fNameEn ?? ""} ${list[index].lNameEn ?? ""}',
+                                title: '${patientModel.fNameEn ?? ""} ${patientModel.lNameEn ?? ""}',
                                 size: 12,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            list[index].overallStatus ?? false
+                            patientModel.overallStatus ?? false
                                 ? Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                                     decoration: BoxDecoration(
@@ -95,7 +105,7 @@ class BuildPreOpItem extends StatelessWidget {
                             ),
                             MyText(
                               title:
-                                  '${list[index].surgeonId?.firstNameEn ?? ""} ${list[index].surgeonId?.lastNameEn ?? ""}',
+                                  '${patientModel.surgeonId?.firstNameEn ?? ""} ${patientModel.surgeonId?.lastNameEn ?? ""}',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -111,7 +121,7 @@ class BuildPreOpItem extends StatelessWidget {
                             ),
                             MyText(
                               title:
-                                  '${list[index].dietationId?.firstNameEn ?? "-"} ${list[index].dietationId?.lastNameEn ?? "-"}',
+                                  '${patientModel.dietationId?.firstNameEn ?? "-"} ${patientModel.dietationId?.lastNameEn ?? "-"}',
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -140,9 +150,9 @@ class BuildPreOpItem extends StatelessWidget {
                           isFirst: true,
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color: (list[index].egd ?? false) &&
-                                    (list[index].ultrasound ?? false) &&
-                                    (list[index].surgionVisit ?? false)
+                            color: (patientModel.egd ?? false) &&
+                                    (patientModel.ultrasound ?? false) &&
+                                    (patientModel.surgionVisit ?? false)
                                 ? MyColors.primary
                                 : Colors.red,
                             iconStyle: IconStyle(
@@ -151,9 +161,9 @@ class BuildPreOpItem extends StatelessWidget {
                             ),
                           ),
                           beforeLineStyle: LineStyle(
-                            color: (list[index].egd ?? false) &&
-                                    (list[index].ultrasound ?? false) &&
-                                    (list[index].surgionVisit ?? false)
+                            color: (patientModel.egd ?? false) &&
+                                    (patientModel.ultrasound ?? false) &&
+                                    (patientModel.surgionVisit ?? false)
                                 ? MyColors.primary
                                 : Colors.red,
                             thickness: 6,
@@ -161,9 +171,9 @@ class BuildPreOpItem extends StatelessWidget {
                           endChild: MyText(
                             title: "Surgery OPD",
                             size: 8,
-                            color: (list[index].egd ?? false) &&
-                                    (list[index].ultrasound ?? false) &&
-                                    (list[index].surgionVisit ?? false)
+                            color: (patientModel.egd ?? false) &&
+                                    (patientModel.ultrasound ?? false) &&
+                                    (patientModel.surgionVisit ?? false)
                                 ? MyColors.primary
                                 : Colors.red,
                           ),
@@ -175,18 +185,18 @@ class BuildPreOpItem extends StatelessWidget {
                           alignment: TimelineAlign.center,
                           beforeLineStyle: LineStyle(
                             color:
-                                list[index].dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
                             thickness: 6,
                           ),
                           afterLineStyle: LineStyle(
                             color:
-                                list[index].dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
                             thickness: 6,
                           ),
                           indicatorStyle: IndicatorStyle(
                             height: 26,
                             color:
-                                list[index].dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
                             iconStyle: IconStyle(
                               color: Colors.white,
                               iconData: Icons.check,
@@ -196,7 +206,7 @@ class BuildPreOpItem extends StatelessWidget {
                             title: "Dietitian",
                             size: 8,
                             color:
-                                list[index].dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
                           ),
                         ),
                       ),
@@ -205,16 +215,16 @@ class BuildPreOpItem extends StatelessWidget {
                           axis: TimelineAxis.horizontal,
                           alignment: TimelineAlign.center,
                           beforeLineStyle: LineStyle(
-                            color: list[index].feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
                             thickness: 6,
                           ),
                           afterLineStyle: LineStyle(
-                            color: list[index].feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
                             thickness: 6,
                           ),
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color: list[index].feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
                             iconStyle: IconStyle(
                               color: Colors.white,
                               iconData: Icons.check,
@@ -223,7 +233,7 @@ class BuildPreOpItem extends StatelessWidget {
                           endChild: MyText(
                             title: "Physiotherapy",
                             size: 8,
-                            color: list[index].feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
                           ),
                         ),
                       ),
@@ -232,16 +242,16 @@ class BuildPreOpItem extends StatelessWidget {
                           axis: TimelineAxis.horizontal,
                           alignment: TimelineAlign.center,
                           beforeLineStyle: LineStyle(
-                            color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
+                            color: (patientModel.watchedClip ?? false) ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           afterLineStyle: LineStyle(
-                            color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
+                            color: (patientModel.watchedClip ?? false) ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
+                            color: (patientModel.watchedClip ?? false) ? MyColors.primary : Colors.red,
                             iconStyle: IconStyle(
                               color: Colors.white,
                               iconData: Icons.check,
@@ -250,7 +260,7 @@ class BuildPreOpItem extends StatelessWidget {
                           endChild: MyText(
                             title: "Education",
                             size: 8,
-                            color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
+                            color: (patientModel.watchedClip ?? false) ? MyColors.primary : Colors.red,
                           ),
                         ),
                       ),
@@ -260,12 +270,12 @@ class BuildPreOpItem extends StatelessWidget {
                           alignment: TimelineAlign.center,
                           isLast: true,
                           beforeLineStyle: LineStyle(
-                            color: list[index].finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
                             thickness: 6,
                           ),
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color: list[index].finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
                             iconStyle: IconStyle(
                               color: Colors.white,
                               iconData: Icons.check,
@@ -274,7 +284,7 @@ class BuildPreOpItem extends StatelessWidget {
                           endChild: MyText(
                             title: "Psychology",
                             size: 8,
-                            color: list[index].finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
                           ),
                         ),
                       ),
@@ -284,19 +294,21 @@ class BuildPreOpItem extends StatelessWidget {
               ),
               InkWell(
                 //open
-                onTap: () => SurPatientData().openOpdDetailsCard(context, list, index),
+                onTap: togglePathway,
                 child: Padding(
                   padding: const EdgeInsets.only(right: 8),
-                  child: Icon(list[index].isOpen == true ? Icons.keyboard_arrow_down : Icons.arrow_forward_ios,
-                      size: list[index].isOpen == true ? 22 : 15),
+                  child: Icon(
+                    patientModel.isOpen == true ? Icons.keyboard_arrow_down : Icons.arrow_forward_ios,
+                    size: patientModel.isOpen == true ? 22 : 15,
+                  ),
                 ),
               )
             ],
           ),
           const SizedBox(height: 10),
-          Visibility(visible: list[index].isOpen == true, child: Divider(color: MyColors.grey)),
+          Visibility(visible: patientModel.isOpen == true, child: Divider(color: MyColors.grey)),
           Visibility(
-            visible: list[index].isOpen == true,
+            visible: patientModel.isOpen == true,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -310,9 +322,9 @@ class BuildPreOpItem extends StatelessWidget {
                       Row(
                         children: [
                           CircleAvatar(
-                            backgroundColor: list[index].egd == true ? MyColors.primary : Colors.red,
+                            backgroundColor: patientModel.egd == true ? MyColors.primary : Colors.red,
                             radius: 12.0,
-                            child: Icon(list[index].egd == true ? Icons.check : Icons.close,
+                            child: Icon(patientModel.egd == true ? Icons.check : Icons.close,
                                 color: Colors.white, size: 15),
                           ),
                           const SizedBox(width: 10),
@@ -322,10 +334,13 @@ class BuildPreOpItem extends StatelessWidget {
                       Row(
                         children: [
                           CircleAvatar(
-                            backgroundColor: list[index].ultrasound == true ? MyColors.primary : Colors.red,
+                            backgroundColor: patientModel.ultrasound == true ? MyColors.primary : Colors.red,
                             radius: 12.0,
-                            child: Icon(list[index].ultrasound == true ? Icons.check : Icons.close,
-                                color: Colors.white, size: 15),
+                            child: Icon(
+                              patientModel.ultrasound == true ? Icons.check : Icons.close,
+                              color: Colors.white,
+                              size: 15,
+                            ),
                           ),
                           const SizedBox(width: 10),
                           MyText(title: "US", size: 9),
@@ -334,10 +349,10 @@ class BuildPreOpItem extends StatelessWidget {
                       Row(
                         children: [
                           CircleAvatar(
-                            backgroundColor: list[index].surgionVisit == true ? MyColors.primary : Colors.red,
+                            backgroundColor: patientModel.surgionVisit == true ? MyColors.primary : Colors.red,
                             radius: 12.0,
                             child: Icon(
-                              list[index].surgionVisit == true ? Icons.check : Icons.close,
+                              patientModel.surgionVisit == true ? Icons.check : Icons.close,
                               color: Colors.white,
                               size: 15,
                             ),

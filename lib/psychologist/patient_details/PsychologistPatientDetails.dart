@@ -28,8 +28,8 @@ import 'PsychologistPatientDetailsData.dart';
 class PsychologistPatientDetails extends StatefulWidget {
   final String patientId;
   final PatientModel patientModel;
-  const PsychologistPatientDetails({Key? key, required this.patientId, required this.patientModel})
-      : super(key: key);
+
+  const PsychologistPatientDetails({Key? key, required this.patientId, required this.patientModel}) : super(key: key);
 
   @override
   State<PsychologistPatientDetails> createState() => _SurPatientDetailsState();
@@ -63,8 +63,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
           ],
         )
       ],
-      body: BlocBuilder<GenericBloc<PatientDetailsModel?>,
-          GenericState<PatientDetailsModel?>>(
+      body: BlocBuilder<GenericBloc<PatientDetailsModel?>, GenericState<PatientDetailsModel?>>(
         bloc: psychologistPatientDetailsData.patientDetailsCubit,
         builder: (context, state) {
           if (state is GenericUpdateState<PatientDetailsModel?>) {
@@ -73,9 +72,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(
-                      color: Color(0xfff2f2f2),
-                      borderRadius: BorderRadius.circular(15)),
+                  decoration: BoxDecoration(color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -125,38 +122,37 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      widget.patientModel.finalFeedback=="true"? Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 6, vertical: 3),
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffaff7c3),
-                                          borderRadius: BorderRadius.circular(20),
-                                        ),
-                                        child: MyText(
-                                          title: 'Ready',
-                                          size: 9,
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ):Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 2, vertical: 3),
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffFBD6BC),
-                                          borderRadius: BorderRadius.circular(20),
-                                        ),
-                                        child: MyText(
-                                          title: 'Not Ready',
-                                          size: 9,
-                                          color: Color(0xFFEB7826),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                      widget.patientModel.finalFeedback == "true"
+                                          ? Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffaff7c3),
+                                                borderRadius: BorderRadius.circular(20),
+                                              ),
+                                              child: MyText(
+                                                title: 'Ready',
+                                                size: 9,
+                                                color: Colors.green,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
+                                          : Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffFBD6BC),
+                                                borderRadius: BorderRadius.circular(20),
+                                              ),
+                                              child: MyText(
+                                                title: 'Not Ready',
+                                                size: 9,
+                                                color: Color(0xFFEB7826),
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                     ],
                                   ),
                                   MyText(
-                                      title:
-                                          "#${state.data?.patient?.civilId ?? ""}",
+                                      title: "#${state.data?.patient?.civilId ?? ""}",
                                       size: 12,
                                       color: MyColors.blackOpacity),
                                 ],
@@ -172,14 +168,13 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width/2.3,
+                              width: MediaQuery.of(context).size.width / 2.3,
                               child: Row(
                                 children: [
                                   Image.asset(Res.imagesPhone, scale: 3),
                                   const SizedBox(width: 10),
                                   MyText(
-                                    title:
-                                        state.data?.patient?.telephone1 ?? "",
+                                    title: state.data?.patient?.telephone1 ?? "",
                                     size: 12,
                                   ),
                                 ],
@@ -193,8 +188,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: MyText(
-                                    title: state.data?.patient?.publicId ??
-                                        "Not set yet",
+                                    title: state.data?.patient?.publicId ?? "Not set yet",
                                     size: 12,
                                   ),
                                 ),
@@ -204,15 +198,13 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width/2.3,
+                              width: MediaQuery.of(context).size.width / 2.3,
                               child: Row(
-
                                 children: [
                                   Image.asset(Res.imagesWeightIcon, scale: 3),
                                   const SizedBox(width: 10),
@@ -271,16 +263,22 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 axis: TimelineAxis.horizontal,
                                 alignment: TimelineAlign.center,
                                 beforeLineStyle: LineStyle(
-                                  color: widget.patientModel.dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.dietationFeedbackDecision == "true"
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   thickness: 6,
                                 ),
                                 afterLineStyle: LineStyle(
-                                  color: widget.patientModel.dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.dietationFeedbackDecision == "true"
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: widget.patientModel.dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.dietationFeedbackDecision == "true"
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   iconStyle: IconStyle(
                                     color: Colors.white,
                                     iconData: Icons.check,
@@ -289,7 +287,9 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 endChild: MyText(
                                   title: "Dietitian",
                                   size: 9,
-                                  color: widget.patientModel.dietationFeedbackDecision=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.dietationFeedbackDecision == "true"
+                                      ? MyColors.primary
+                                      : Colors.red,
                                 ),
                               ),
                             ),
@@ -298,16 +298,16 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 axis: TimelineAxis.horizontal,
                                 alignment: TimelineAlign.center,
                                 beforeLineStyle: LineStyle(
-                                  color: widget.patientModel.feedback=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.feedback == "true" ? MyColors.primary : Colors.red,
                                   thickness: 6,
                                 ),
                                 afterLineStyle: LineStyle(
-                                  color: widget.patientModel.feedback=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.feedback == "true" ? MyColors.primary : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: widget.patientModel.feedback=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.feedback == "true" ? MyColors.primary : Colors.red,
                                   iconStyle: IconStyle(
                                     color: Colors.white,
                                     iconData: Icons.check,
@@ -316,7 +316,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 endChild: MyText(
                                   title: "Physiotherapy",
                                   size: 9,
-                                  color: widget.patientModel.feedback=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.feedback == "true" ? MyColors.primary : Colors.red,
                                 ),
                               ),
                             ),
@@ -325,16 +325,16 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 axis: TimelineAxis.horizontal,
                                 alignment: TimelineAlign.center,
                                 beforeLineStyle: LineStyle(
-                                  color: widget.patientModel.watchedClip=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.watchedClip == "true" ? MyColors.primary : Colors.red,
                                   thickness: 6,
                                 ),
                                 afterLineStyle: LineStyle(
-                                  color: widget.patientModel.watchedClip=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.watchedClip == "true" ? MyColors.primary : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: widget.patientModel.watchedClip=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.watchedClip == "true" ? MyColors.primary : Colors.red,
                                   iconStyle: IconStyle(
                                     color: Colors.white,
                                     iconData: Icons.check,
@@ -343,7 +343,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 endChild: MyText(
                                   title: "Education",
                                   size: 9,
-                                  color: widget.patientModel.watchedClip=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.watchedClip == "true" ? MyColors.primary : Colors.red,
                                 ),
                               ),
                             ),
@@ -353,12 +353,12 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 alignment: TimelineAlign.center,
                                 isLast: true,
                                 beforeLineStyle: LineStyle(
-                                  color: widget.patientModel.finalFeedback=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.finalFeedback == "true" ? MyColors.primary : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: widget.patientModel.finalFeedback=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.finalFeedback == "true" ? MyColors.primary : Colors.red,
                                   iconStyle: IconStyle(
                                     color: Colors.white,
                                     iconData: Icons.check,
@@ -367,7 +367,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 endChild: MyText(
                                   title: "Psychology",
                                   size: 9,
-                                  color: widget.patientModel.finalFeedback=="true"? MyColors.primary:Colors.red,
+                                  color: widget.patientModel.finalFeedback == "true" ? MyColors.primary : Colors.red,
                                 ),
                               ),
                             ),
@@ -516,10 +516,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            MyText(
-                                title: "Surgery OPD Details;",
-                                size: 10,
-                                fontWeight: FontWeight.bold),
+                            MyText(title: "Surgery OPD Details;", size: 10, fontWeight: FontWeight.bold),
                             const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -527,15 +524,10 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 Row(
                                   children: [
                                     CircleAvatar(
-                                      backgroundColor: widget.patientModel.egd == true
-                                          ? MyColors.primary
-                                          : Colors.red,
+                                      backgroundColor: widget.patientModel.egd == true ? MyColors.primary : Colors.red,
                                       radius: 12.0,
-                                      child: Icon(widget.patientModel.egd == true
-                                              ? Icons.check
-                                              : Icons.close,
-                                          color: Colors.white,
-                                          size: 15),
+                                      child: Icon(widget.patientModel.egd == true ? Icons.check : Icons.close,
+                                          color: Colors.white, size: 15),
                                     ),
                                     const SizedBox(width: 10),
                                     MyText(title: "EGD", size: 9),
@@ -544,16 +536,11 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 Row(
                                   children: [
                                     CircleAvatar(
-                                      backgroundColor: widget.patientModel.ultrasound == true
-                                          ? MyColors.primary
-                                          : Colors.red,
+                                      backgroundColor:
+                                          widget.patientModel.ultrasound == true ? MyColors.primary : Colors.red,
                                       radius: 12.0,
-                                      child: Icon(
-                                          widget.patientModel.ultrasound == true
-                                              ? Icons.check
-                                              : Icons.close,
-                                          color: Colors.white,
-                                          size: 15),
+                                      child: Icon(widget.patientModel.ultrasound == true ? Icons.check : Icons.close,
+                                          color: Colors.white, size: 15),
                                     ),
                                     const SizedBox(width: 10),
                                     MyText(title: "US", size: 9),
@@ -562,16 +549,11 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 Row(
                                   children: [
                                     CircleAvatar(
-                                      backgroundColor: widget.patientModel.surgionVisit == true
-                                          ? MyColors.primary
-                                          : Colors.red,
+                                      backgroundColor:
+                                          widget.patientModel.surgionVisit == true ? MyColors.primary : Colors.red,
                                       radius: 12.0,
-                                      child: Icon(
-                                          widget.patientModel.surgionVisit == true
-                                              ? Icons.check
-                                              : Icons.close,
-                                          color: Colors.white,
-                                          size: 15),
+                                      child: Icon(widget.patientModel.surgionVisit == true ? Icons.check : Icons.close,
+                                          color: Colors.white, size: 15),
                                     ),
                                     const SizedBox(width: 10),
                                     MyText(title: "Surgery OPD", size: 9),
@@ -586,37 +568,15 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                MyText(
-                    title: "Doctors Info",
-                    size: 14,
-                    fontWeight: FontWeight.bold,
-                    color: MyColors.primary),
+                MyText(title: "Doctors Info", size: 14, fontWeight: FontWeight.bold, color: MyColors.primary),
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    MyText(
-                        title: "Surgeon:",
-                        size: 12,
-                        fontWeight: FontWeight.bold),
+                    MyText(title: "Surgeon:", size: 12, fontWeight: FontWeight.bold),
                     const SizedBox(width: 4),
                     MyText(
-                      title: '${state.data?.patient?.surgeonId?.firstNameEn ?? ''} ${state.data?.patient?.surgeonId?.lastNameEn ?? ''}',
-                      size: 12,
-                      color: MyColors.blackOpacity,
-
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(
-                        title: "Dietitian:",
-                        size: 12,
-                        fontWeight: FontWeight.bold),
-                    const SizedBox(width: 4),
-                    MyText(
-                      title: '${state.data?.patient?.dietationId?.firstNameEn ?? ''} ${state.data?.patient?.dietationId?.lastNameEn ?? ''}',
+                      title:
+                          '${state.data?.patient?.surgeonId?.firstNameEn ?? ''} ${state.data?.patient?.surgeonId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -625,13 +585,11 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    MyText(
-                        title: "Physiotherapist:",
-                        size: 12,
-                        fontWeight: FontWeight.bold),
+                    MyText(title: "Dietitian:", size: 12, fontWeight: FontWeight.bold),
                     const SizedBox(width: 4),
                     MyText(
-                      title: '${state.data?.patient?.physiotherapyId?.firstNameEn ?? ''} ${state.data?.patient?.physiotherapyId?.lastNameEn ?? ''}',
+                      title:
+                          '${state.data?.patient?.dietationId?.firstNameEn ?? ''} ${state.data?.patient?.dietationId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -640,12 +598,11 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                 const SizedBox(height: 10),
                 Row(
                   children: [
+                    MyText(title: "Physiotherapist:", size: 12, fontWeight: FontWeight.bold),
+                    const SizedBox(width: 4),
                     MyText(
-                        title: "Educator:",
-                        size: 12,
-                        fontWeight: FontWeight.bold),
-                    MyText(
-                      title: '${state.data?.patient?.surgeon2Id?.firstNameEn ?? ''} ${state.data?.patient?.surgeon2Id?.lastNameEn ?? ''}',
+                      title:
+                          '${state.data?.patient?.physiotherapyId?.firstNameEn ?? ''} ${state.data?.patient?.physiotherapyId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -654,13 +611,22 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                 const SizedBox(height: 10),
                 Row(
                   children: [
+                    MyText(title: "Educator:", size: 12, fontWeight: FontWeight.bold),
                     MyText(
-                        title: "Psychologist:",
-                        size: 12,
-                        fontWeight: FontWeight.bold),
+                      title:
+                          '${state.data?.patient?.surgeon2Id?.firstNameEn ?? ''} ${state.data?.patient?.surgeon2Id?.lastNameEn ?? ''}',
+                      size: 12,
+                      color: MyColors.blackOpacity,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    MyText(title: "Psychologist:", size: 12, fontWeight: FontWeight.bold),
                     const SizedBox(width: 4),
                     MyText(
-                      title:' You',
+                      title: ' You',
                       size: 12,
                       color: MyColors.primary,
                       fontWeight: FontWeight.bold,
@@ -671,18 +637,11 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                   thickness: 1,
                   height: 20,
                 ),
-                MyText(
-                    title: "Assessment Score:",
-                    size: 14,
-                    color: MyColors.primary,
-                    fontWeight: FontWeight.bold),
+                MyText(title: "Assessment Score:", size: 14, color: MyColors.primary, fontWeight: FontWeight.bold),
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    MyText(
-                        title: "Depression Assessment Score: ",
-                        size: 11,
-                        fontWeight: FontWeight.bold),
+                    MyText(title: "Depression Assessment Score: ", size: 11, fontWeight: FontWeight.bold),
                     Expanded(
                       child: MyText(
                         title: state.data?.patient?.operationType ?? '',
@@ -696,10 +655,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    MyText(
-                        title: "Depression Assessment Result:",
-                        size: 11,
-                        fontWeight: FontWeight.bold),
+                    MyText(title: "Depression Assessment Result:", size: 11, fontWeight: FontWeight.bold),
                     Expanded(
                       child: MyText(
                         //convert date to 12 aug 2021
@@ -714,10 +670,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    MyText(
-                        title: "Anxiety Assessment Score:",
-                        size: 11,
-                        fontWeight: FontWeight.bold),
+                    MyText(title: "Anxiety Assessment Score:", size: 11, fontWeight: FontWeight.bold),
                     Expanded(
                       child: MyText(
                         //convert date to 12 aug 2021
@@ -732,10 +685,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    MyText(
-                        title: "Anxiety Assessment Result:",
-                        size: 11,
-                        fontWeight: FontWeight.bold),
+                    MyText(title: "Anxiety Assessment Result:", size: 11, fontWeight: FontWeight.bold),
                     Expanded(
                       child: MyText(
                         //convert date to 12 aug 2021
@@ -750,10 +700,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    MyText(
-                        title: "Feedback:",
-                        size: 11,
-                        fontWeight: FontWeight.bold),
+                    MyText(title: "Feedback:", size: 11, fontWeight: FontWeight.bold),
                     Expanded(
                       child: MyText(
                         //convert date to 12 aug 2021
@@ -771,124 +718,128 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                     Expanded(
                       child: DefaultButton(
                         color: Color(0xFF00116E),
-                          title: "Edit Feedback",
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              isDismissible: false,
-                              builder: (BuildContext context) {
-                                return ModelBottomSheet(
-                                  child: StatefulBuilder(
-                                    builder: (BuildContext context, StateSetter setState) =>Column(
-                                      children: [
-                                        Center(
-                                          child: MyText(
-                                            title: "Your Feedback",
-                                            size: 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.primary,
-                                          ),
+                        title: "Edit Feedback",
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            isDismissible: false,
+                            builder: (BuildContext context) {
+                              return ModelBottomSheet(
+                                child: StatefulBuilder(
+                                  builder: (BuildContext context, StateSetter setState) => Column(
+                                    children: [
+                                      Center(
+                                        child: MyText(
+                                          title: "Your Feedback",
+                                          size: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: MyColors.primary,
                                         ),
-                                        const SizedBox(height: 16.0),
-                                        RadioListTile(
-                                          title: Text("Clear"),
-                                          value: "Clear",
-                                          groupValue: feedbackStatus,
-                                          onChanged: (value) {
-                                            log("value=> $value");
-                                            setState(() {
-                                              feedbackStatus = value.toString();
-                                            });
-                                          },
-                                        ),
-                                        const SizedBox(height: 10.0),
-                                        RadioListTile(
-                                          title: Text("Not Clear"),
-                                          value: "Not Clear",
-                                          groupValue: feedbackStatus,
-                                          onChanged: (value) {
-                                            log("value=> $value");
-                                            setState(() {
-                                              feedbackStatus = value.toString();
-                                            });
-                                          },
-                                        ),
-                                        const SizedBox(height: 10.0),
-                                        DefaultButton(
-                                          height: 38,
-                                          title: "Update",
-                                          onTap: () async{
-                                            Map<String, dynamic> body ={
-                                              "final_feedback": feedbackStatus,
-                                            };
-                                            UpdateOrderStatusResponse? result = await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
-                                              name: "${ApiNames.feedbackStatus}?user_id=${ state.data?.patient?.id}",
-                                              returnType: ReturnType.Model,
-                                              methodType: MethodType.Put,
-                                              returnDataFun: (data) => data,
-                                              jsonBody: body,
-                                              toJsonFunc: (json) => UpdateOrderStatusResponse.fromJson(json),
-                                            );
-                                            log("data=> ${result?.toJson()}");
-                                            if(result?.success??false){
-                                              Navigator.of(context).pop();
-                                              CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
-                                            } else{
-                                              CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
-                                            }
-                                          },
-                                          margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
-                                        ),
-                                        const SizedBox(height: 16.0),
-                                      ],
-                                    ),
+                                      ),
+                                      const SizedBox(height: 16.0),
+                                      RadioListTile(
+                                        title: Text("Clear"),
+                                        value: "Clear",
+                                        groupValue: feedbackStatus,
+                                        onChanged: (value) {
+                                          log("value=> $value");
+                                          setState(() {
+                                            feedbackStatus = value.toString();
+                                          });
+                                        },
+                                      ),
+                                      const SizedBox(height: 10.0),
+                                      RadioListTile(
+                                        title: Text("Not Clear"),
+                                        value: "Not Clear",
+                                        groupValue: feedbackStatus,
+                                        onChanged: (value) {
+                                          log("value=> $value");
+                                          setState(() {
+                                            feedbackStatus = value.toString();
+                                          });
+                                        },
+                                      ),
+                                      const SizedBox(height: 10.0),
+                                      DefaultButton(
+                                        height: 38,
+                                        title: "Update",
+                                        onTap: () async {
+                                          log('fetchHomeCompOrders called...');
+                                          Map<String, dynamic> body = {
+                                            "final_feedback": feedbackStatus,
+                                          };
+                                          UpdateOrderStatusResponse? result =
+                                              await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
+                                            name: "${ApiNames.feedbackStatus}?user_id=${state.data?.patient?.id}",
+                                            returnType: ReturnType.Model,
+                                            methodType: MethodType.Put,
+                                            returnDataFun: (data) => data,
+                                            jsonBody: body,
+                                            toJsonFunc: (json) => UpdateOrderStatusResponse.fromJson(json),
+                                          );
+                                          log("data=> ${result?.toJson()}");
+                                          if (result?.success ?? false) {
+                                            Navigator.of(context).pop();
+                                            CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
+                                          } else {
+                                            CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
+                                          }
+                                        },
+                                        margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+                                      ),
+                                      const SizedBox(height: 16.0),
+                                    ],
                                   ),
-                                  sheetHeight: size.height * 0.45,
-                                );
-                              },
-                            );
-                          },
-                         ),
-                    ),
-                    const SizedBox(width: 10.0,),
-                    Expanded(
-                        child: DefaultButton(
-                            title: "Book Appointment",
-                            onTap: () async{
-                              FocusScope.of(context).requestFocus(FocusNode());
-                              await AdaptivePicker.datePicker(
-                                context: context,
-                                title: tr(context, "selectStartDate"),
-                                onConfirm: (bookedDate) async{
-                                  if (bookedDate != null) {
-                                    log("bookedDate==> ${psychologistPatientDetailsData.dateBloc.state.data}");
-                                      Map<String, dynamic> body ={
-                                        "doctor_id": state.data?.patient?.surgeonId?.sId ?? '',
-                                        "patient_id": state.data?.patient?.id??"",
-                                        "appointment_date": bookedDate,
-                                      };
-                                      UpdateOrderStatusResponse? result = await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
-                                        name: ApiNames.bookAppointmentDate,
-                                        returnType: ReturnType.Model,
-                                        methodType: MethodType.Post,
-                                        returnDataFun: (data) => data,
-                                        jsonBody: body,
-                                        toJsonFunc: (json) => UpdateOrderStatusResponse.fromJson(json),
-                                      );
-                                      log("data=> ${result?.toJson()}");
-                                      if(result?.success??false){
-                                        Navigator.of(context).pop();
-                                        CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
-                                      } else{
-                                        CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
-                                      }
-                                    }
-                                  }
+                                ),
+                                sheetHeight: size.height * 0.45,
                               );
                             },
-                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10.0,
+                    ),
+                    Expanded(
+                      child: DefaultButton(
+                        title: "Book Appointment",
+                        onTap: () async {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          await AdaptivePicker.datePicker(
+                              context: context,
+                              title: tr(context, "selectStartDate"),
+                              onConfirm: (bookedDate) async {
+                                if (bookedDate != null) {
+                                  log("bookedDate==> ${psychologistPatientDetailsData.dateBloc.state.data}");
+                                  Map<String, dynamic> body = {
+                                    "doctor_id": state.data?.patient?.surgeonId?.sId ?? '',
+                                    "patient_id": state.data?.patient?.id ?? "",
+                                    "appointment_date": bookedDate,
+                                  };
+                                  UpdateOrderStatusResponse? result =
+                                      await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
+                                    name: ApiNames.bookAppointmentDate,
+                                    returnType: ReturnType.Model,
+                                    methodType: MethodType.Post,
+                                    returnDataFun: (data) => data,
+                                    jsonBody: body,
+                                    toJsonFunc: (json) => UpdateOrderStatusResponse.fromJson(json),
+                                  );
+                                  log("data=> ${result?.toJson()}");
+                                  if (result?.success ?? false) {
+                                    Navigator.of(context).pop();
+                                    CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
+                                  } else {
+                                    CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
+                                  }
+                                }
+                              });
+                        },
+                      ),
                     )
                   ],
                 ),
@@ -905,9 +856,11 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
 }
 
 class buildAddAppointmentSheet extends StatelessWidget {
-  final String patientId ;
+  final String patientId;
+
   const buildAddAppointmentSheet({
-    Key? key, required this.patientId,
+    Key? key,
+    required this.patientId,
   }) : super(key: key);
 
   @override
@@ -929,27 +882,22 @@ class buildAddAppointmentSheet extends StatelessWidget {
                 color: MyColors.primary,
                 fontWeight: FontWeight.bold),
             const SizedBox(height: 10),
-            MyText(
-                title: "Appointment Date", size: 12, fontWeight: FontWeight.bold),
+            MyText(title: "Appointment Date", size: 12, fontWeight: FontWeight.bold),
             BlocConsumer<GenericBloc<String?>, GenericState<String?>>(
               bloc: PsychologistPatientDetailsData().dateBloc,
               listener: (context, state) {
-                PsychologistPatientDetailsData().appointmentDate.text  = state.data??'';
+                PsychologistPatientDetailsData().appointmentDate.text = state.data ?? '';
               },
               builder: (context, state) {
                 return GenericTextField(
-                  hintColor: Theme.of(context)
-                      .textTheme
-                      .subtitle1
-                      ?.color
-                      ?.withOpacity(.8),
+                  hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                   fieldTypes: FieldTypes.clickable,
                   fillColor: MyColors.textFields,
                   hint: "Appointment Date",
                   controller: PsychologistPatientDetailsData().appointmentDate,
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   action: TextInputAction.next,
-                  onTab: ()=>PsychologistPatientDetailsData().chooseFromDate(context),
+                  onTab: () => PsychologistPatientDetailsData().chooseFromDate(context),
                   suffixIcon: Image.asset(
                     Res.imagesCalendar,
                     scale: 3,
@@ -962,8 +910,7 @@ class buildAddAppointmentSheet extends StatelessWidget {
             ),
             MyText(title: "Clinic Name", size: 12, fontWeight: FontWeight.bold),
             GenericTextField(
-              hintColor:
-                  Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
               fieldTypes: FieldTypes.normal,
               fillColor: MyColors.textFields,
               hint: "Clinic Name",
@@ -975,8 +922,7 @@ class buildAddAppointmentSheet extends StatelessWidget {
             ),
             MyText(title: "Notes", size: 12, fontWeight: FontWeight.bold),
             GenericTextField(
-              hintColor:
-                  Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
               fieldTypes: FieldTypes.normal,
               fillColor: MyColors.textFields,
               hint: "Notes",
