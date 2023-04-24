@@ -89,6 +89,7 @@ class _BookedMDTState extends State<BookedMDT> {
                                       ),
                                     ],
                                   ),
+
                                   Row(
                                     children: [
                                       MyText(
