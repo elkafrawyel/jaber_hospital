@@ -1,6 +1,9 @@
+import '../../../../general/models/instrument_model.dart';
+
 class HandlesModel {
   String? headerTitle;
   List<String>? handles;
+  List<InstrumentModel>? instruments;
   bool isExpanded;
 
   HandlesModel({this.headerTitle, this.handles, this.isExpanded=false});
@@ -13,11 +16,5 @@ class HandlesModel {
   //       handles!.add(InstrumentModel.fromJson(v));
   //     });
   //   }
-  // }
-  //
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = new Map<String, dynamic>();
-  //   data['_id'] = this.sId;
-  //   return data;
   // }
 }

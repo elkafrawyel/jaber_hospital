@@ -20,6 +20,7 @@ import '../../../models/patient_details_model.dart';
 import '../models/handles_instrument_model.dart';
 import 'request_instruments_data.dart';
 import 'widgets/radio_check_item.dart';
+import 'widgets/reloads_item_widget.dart';
 
 class RequestInstrumentsScreen extends StatefulWidget {
   const RequestInstrumentsScreen({Key? key, required this.patientModel}) : super(key: key);
@@ -131,7 +132,7 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                         hint: "Company",
                         items: requestInstrumentsData.companies,
                         expanded: true,
-                        selectedItem: requestInstrumentsData.selectedCompany,
+                        selectedItem: requestInstrumentsData.selectedCompany??null,
                         onChanged: (value) {
                           CompanyId company = value as CompanyId;
                           log("val=> ${company.sId}");
@@ -168,7 +169,6 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                   size: 10,
                   fontWeight: FontWeight.bold,
                 ),
-
                 ExpansionPanelList(
                   elevation: 3,
                   // Controlling the expansion behavior
@@ -289,26 +289,27 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                   elevation: 3,
                   // Controlling the expansion behavior
                   expansionCallback: (index, isExpanded) {
-                    // controller.faqsList[index].isExpanded= !isExpanded;
-                    // controller.update();
+                    handles[0].isExpanded= !isExpanded;
+                    setState(() {});
                   },
                   animationDuration: const Duration(milliseconds: 500),
-                  children: items2.map(
-                        (item) => ExpansionPanel(
-                      canTapOnHeader: true,
-                      backgroundColor: Colors.grey.shade200,
-                      // backgroundColor: item.isExpanded == true ? AppTheme.hoverColor.withOpacity(0.2) : Colors.white,
-                      headerBuilder: (_, isExpanded) => Container(
-                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
-                          child: Text(item,
-                            style: const TextStyle(fontSize: 16),
-                          )),
-                      body: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
-                        child: Text("answer"),
-                      ),
-                      isExpanded: false,
+                  children: handles.map((item) => ExpansionPanel(
+                    canTapOnHeader: true,
+                    backgroundColor: Colors.grey.shade200,
+                    // backgroundColor: item.isExpanded == true ? AppTheme.hoverColor.withOpacity(0.2) : Colors.white,
+                    headerBuilder: (_, isExpanded) => Container(
+                        padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                        child: Text(handles[0].headerTitle??"",
+                          style: const TextStyle(fontSize: 16),
+                        )),
+                    body: Column(
+                      children: [
+                        ReloadsItemWidget(),
+                        ReloadsItemWidget(),
+                      ],
                     ),
+                    isExpanded: handles[0].isExpanded,
+                  ),
                   ).toList(),
                 ),
                 // BlocBuilder<GenericBloc<CompanyInstrumentsResponse?>,

@@ -37,10 +37,10 @@ class RequestInstrumentsData {
   }
 
   Future<void> fetchCompanies(BuildContext context) async {
-    companies = [];
+    selectedCompany = null;
     CompaniesResponse? result = await SurgeonRepository(context).fetchCompanies();
-    log("companies=> ${companies.length}");
     companies = result?.companies ?? [];
+    log("companies=> ${companies.length}");
     companiesCubit.onUpdateData(companies);
   }
 
@@ -48,23 +48,25 @@ class RequestInstrumentsData {
     this.companyInstrumentsCubit = GenericBloc<CompanyInstrumentsResponse?>(null);
     CompanyInstrumentsResponse? result = await SurgeonRepository(context)
         .fetchCompanyInstruments(companyId);
-    log("Instruments=> ${result?.data}");
-    log("Instruments=> ${result?.data?.length}");
-    result?.data?.map((item) {
-      switch (item.code) {
-        case "Handles":
-          handles.add(item);
-          break;
-        case "Reloads":
-          reloads.add(item);
-          break;
-        case "Trocars":
-          trocars.add(item);
-          break;
-        case "TRS Reinforced":
-          trsReinForced.add(item);
-          break;
-      }
+    List<InstrumentModel> compInstruments = result?.data??[];
+    log("compInstruments=> ${compInstruments.length}");
+    compInstruments.forEach((element) {
+      log("Code=> ${element.code}");
+        switch (element.code?.trim()) {
+          case "Handles":
+            log("Handles item...");
+            handles.add(element);
+            break;
+          case "Reloads":
+            reloads.add(element);
+            break;
+          case "Trocars":
+            trocars.add(element);
+            break;
+          case "TRS Reinforced":
+            trsReinForced.add(element);
+            break;
+        }
     });
     log("Handles=> ${handles.length}");
     log("Reloads=> ${reloads.length}");
