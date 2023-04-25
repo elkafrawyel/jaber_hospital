@@ -65,7 +65,7 @@ class SurPatientDetailsData {
         height: 250,
         child: CupertinoDatePicker(
           mode: CupertinoDatePickerMode.dateAndTime,
-          minimumDate: DateTime(2000),
+          minimumDate: DateTime.now(),
           maximumDate: DateTime(2050),
           initialDateTime: DateTime.now(),
           onDateTimeChanged: (date) => onConfirmFromDate(date),

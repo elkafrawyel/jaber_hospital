@@ -21,7 +21,6 @@ class _UpcomingAppointmentsState extends State<UpcomingAppointments> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _upcomingAppointmentsData.init(context);
     super.initState();
   }
@@ -29,36 +28,45 @@ class _UpcomingAppointmentsState extends State<UpcomingAppointments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<GenericBloc<List<AppointmentModel>?>,
-          GenericState<List<AppointmentModel>?>>(
+      body: BlocBuilder<GenericBloc<List<AppointmentModel>?>, GenericState<List<AppointmentModel>?>>(
         bloc: _upcomingAppointmentsData.upcomingCubit,
         builder: (context, state) {
           if (state is GenericUpdateState) {
-            return state.data!.isNotEmpty?Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                  child: MyText(
-                    title: '${state.data?.length} Appointments',
-                    size: 13,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Expanded(child: ListView.builder(
-                  itemCount: state.data?.length,
-                  itemBuilder: (context, index) => BuildSurFollowUpItem(appointmentModel: state.data![index],),),),
-              ],
-            ): Center(
-              child: MyText(
-                title: 'No patients founded',
-                size: 12,
-                color: MyColors.grey,
-              ),
-            );
+            return state.data!.isNotEmpty
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: MyText(
+                          title: '${state.data?.length} Appointments',
+                          size: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: state.data?.length,
+                          itemBuilder: (context, index) => BuildSurFollowUpItem(
+                            appointmentModel: state.data![index],
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : Center(
+                    child: MyText(
+                      title: 'No patients founded',
+                      size: 12,
+                      color: MyColors.grey,
+                    ),
+                  );
           } else {
             return Expanded(
-                child: Center(child: LoadingDialog.showLoadingView()));
+              child: Center(
+                child: LoadingDialog.showLoadingView(),
+              ),
+            );
           }
         },
       ),
