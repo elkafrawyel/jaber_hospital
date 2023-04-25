@@ -50,7 +50,7 @@ class SurPatientDetailsData {
   onConfirmFromDate(date) {
     if (date != null) {
       startDate = date;
-      String dateStr = DateFormat("dd-MM-yyyy").format(date);
+      String dateStr = DateFormat("dd-MM-yyyy hh:mm a").format(date);
       dateBloc.onUpdateData(dateStr);
       print(dateBloc.state.data);
     }
@@ -58,10 +58,19 @@ class SurPatientDetailsData {
 
   chooseFromDate(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
-    AdaptivePicker.datePicker(
+    showCupertinoModalPopup(
       context: context,
-      title: tr(context, "selectStartDate"), //الرجاء تحديد تاريخ بداية اللعبة
-      onConfirm: (date) => onConfirmFromDate(date),
+      builder: (_) => Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        height: 250,
+        child: CupertinoDatePicker(
+          mode: CupertinoDatePickerMode.dateAndTime,
+          minimumDate: DateTime(2000),
+          maximumDate: DateTime(2050),
+          initialDateTime: DateTime.now(),
+          onDateTimeChanged: (date) => onConfirmFromDate(date),
+        ),
+      ),
     );
   }
 
@@ -69,7 +78,7 @@ class SurPatientDetailsData {
     if (formKey.currentState!.validate()) {
       bool res = await SurgeonRepository(context).addAppointment(
         patientId,
-        dateBloc.state.data ?? '',
+        startDate.toIso8601String(),
         notes.text,
         // clinicName.text,
       );

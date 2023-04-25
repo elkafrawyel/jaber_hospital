@@ -35,7 +35,7 @@ class UpComingAppointmentWidget extends StatelessWidget {
         child: Row(
           children: [
             CachedImage(
-                url: appointment.patientId?.image?? 'https://picsum.photos/201',
+                url: appointment.patientId?.image ?? 'https://picsum.photos/201',
                 height: 68,
                 width: 68,
                 borderRadius: BorderRadius.circular(5)),
@@ -45,10 +45,14 @@ class UpComingAppointmentWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MyText(
-                      title: appointment.patientId?.fullNameEn??"Loay Hany",
-                      size: 13,
-                      fontWeight: FontWeight.bold),
-                  MyText(title: appointment.patientId?.operationType?? 'Revisional Operation', size: 12, color: Colors.grey),
+                    title: '${appointment.patientId?.fNameEn ?? ""} ${appointment.patientId?.fNameEn ?? ""}',
+                    size: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  MyText(
+                      title: appointment.patientId?.operationType ?? '',
+                      size: 12,
+                      color: Colors.grey),
                   const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +66,7 @@ class UpComingAppointmentWidget extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           MyText(
-                            title: appointment.appointmentDate??"14 AUG 2022",
+                            title: appointment.appointmentDate ?? "",
                             overflow: TextOverflow.ellipsis,
                             size: 9,
                             color: MyColors.primary,
@@ -78,7 +82,7 @@ class UpComingAppointmentWidget extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           MyText(
-                            title: appointment.createdAt?.split("-").last.substring(3,8)??"14:30 PM",
+                            title: appointment.createdAt?.split("-").last.substring(3, 8) ?? "",
                             size: 9,
                             overflow: TextOverflow.ellipsis,
                             color: MyColors.primary,

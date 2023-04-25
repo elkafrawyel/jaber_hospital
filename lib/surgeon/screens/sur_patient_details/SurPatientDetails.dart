@@ -574,42 +574,39 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     ),
                   ],
                 ),
-                const Divider(
-                  thickness: 1,
-                  height: 20,
-                ),
-                MyText(title: "Operation Details", size: 14, color: MyColors.primary, fontWeight: FontWeight.bold),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(title: "Operation Type: ", size: 12, fontWeight: FontWeight.bold),
-                    SizedBox(width: 10),
-                    MyText(
-                      title: state.data?.patient?.operationType ?? '',
-                      size: 12,
-                      color: MyColors.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(title: "Operation Done On:", size: 12, fontWeight: FontWeight.bold),
-                    SizedBox(width: 10),
-                    MyText(
-                      //convert date to 12 aug 2021
-                      title: DateTime.tryParse(state.data!.patient!.operationDate!) != null
-                          ? DateFormat('yyyy-MM-dd').format(DateTime.parse(state.data!.patient!.operationDate!))
-                          : '',
-                      size: 12,
-                      color: MyColors.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ],
-                ),
-                if ((state.data?.patient?.mdtStatus ?? '').isNotEmpty) const SizedBox(height: 10),
-                if ((state.data?.patient?.mdtStatus ?? '').isNotEmpty)
+                if ((state.data?.patient?.operationDate ?? '').isNotEmpty) const Divider(thickness: 1, height: 20),
+                if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
+                  MyText(title: "Operation Details", size: 14, color: MyColors.primary, fontWeight: FontWeight.bold),
+                if ((state.data?.patient?.operationDate ?? '').isNotEmpty) const SizedBox(height: 10),
+                if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
+                  Row(
+                    children: [
+                      MyText(title: "Operation Type: ", size: 12, fontWeight: FontWeight.bold),
+                      SizedBox(width: 10),
+                      MyText(
+                        title: state.data?.patient?.operationType ?? '',
+                        size: 12,
+                        color: MyColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
+                if ((state.data?.patient?.operationDate ?? '').isNotEmpty) const SizedBox(height: 10),
+                if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
+                  Row(
+                    children: [
+                      MyText(title: "Operation Done On:", size: 12, fontWeight: FontWeight.bold),
+                      SizedBox(width: 10),
+                      MyText(
+                        title: DateFormat('yyyy-MM-dd').format(DateTime.parse(state.data!.patient!.operationDate!)),
+                        size: 12,
+                        color: MyColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
+                if ((state.data?.patient?.operationDate ?? '').isNotEmpty) const SizedBox(height: 10),
+                if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
                   Row(
                     children: [
                       MyText(title: "Mdt Status:", size: 12, fontWeight: FontWeight.bold),
@@ -808,11 +805,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                               ),
                                               const SizedBox(width: 5),
                                               MyText(
-                                                // title: state.data!.appointments![index].appointmentDate.toString(),
-                                                title: state.data!.appointments![index].appointmentDate!.contains("-")
-                                                    ? SurPatientDetailsData()
-                                                        .date(state.data?.appointments?[index].appointmentDate ?? "")
-                                                    : state.data?.appointments![index].appointmentDate ?? '',
+                                                title: DateFormat("dd-MM-yyyy").format(
+                                                  DateTime.parse(state.data!.appointments![index].appointmentDate!),
+                                                ),
                                                 overflow: TextOverflow.ellipsis,
                                                 size: 10,
                                                 color: MyColors.primary,
@@ -829,9 +824,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                               ),
                                               const SizedBox(width: 5),
                                               MyText(
-                                                title: DateFormat("hh:mm a").format(DateTime.tryParse(
-                                                        state.data?.appointments?[index].appointmentDate ?? '') ??
-                                                    DateTime.now()),
+                                                title: DateFormat("hh:mm a").format(
+                                                  DateTime.parse(state.data!.appointments![index].appointmentDate!),
+                                                ),
                                                 size: 10,
                                                 overflow: TextOverflow.ellipsis,
                                                 color: MyColors.primary,
@@ -868,8 +863,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                           title: "Add Appointment",
                           onTap: () {
                             showDialog(
-                                context: context,
-                                builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
+                              context: context,
+                              builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId),
+                            );
                           },
                           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
                     ),
@@ -916,11 +912,12 @@ class buildAddAppointmentSheet extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             MyText(
-                title: "Add Appointment",
-                size: 14,
-                alien: TextAlign.center,
-                color: MyColors.primary,
-                fontWeight: FontWeight.bold),
+              title: "Add Appointment",
+              size: 14,
+              alien: TextAlign.center,
+              color: MyColors.primary,
+              fontWeight: FontWeight.bold,
+            ),
             const SizedBox(height: 10),
             MyText(title: "Appointment Date", size: 12, fontWeight: FontWeight.bold),
             BlocConsumer<GenericBloc<String?>, GenericState<String?>>(
@@ -973,11 +970,12 @@ class buildAddAppointmentSheet extends StatelessWidget {
               validate: (value) => null,
             ),
             DefaultButton(
-                title: "Confirm Date",
-                onTap: () {
-                  SurPatientDetailsData().addAppointment(context, patientId);
-                },
-                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 50)),
+              title: "Confirm Date",
+              onTap: () {
+                SurPatientDetailsData().addAppointment(context, patientId);
+              },
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+            ),
           ],
         ),
       ),

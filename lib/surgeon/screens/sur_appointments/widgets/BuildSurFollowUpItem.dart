@@ -1,10 +1,7 @@
 part of 'SurFollowUpsTabBarWImports.dart';
 
 class BuildSurFollowUpItem extends StatelessWidget {
-  const BuildSurFollowUpItem({
-    Key? key,
-    required this.appointmentModel
-  }) : super(key: key);
+  const BuildSurFollowUpItem({Key? key, required this.appointmentModel}) : super(key: key);
   final AppointmentModel appointmentModel;
 
   @override
@@ -13,8 +10,9 @@ class BuildSurFollowUpItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-          color: Color(0xfff2f2f2),
-          borderRadius: BorderRadius.circular(15)),
+        color: Color(0xfff2f2f2),
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: Column(
         children: [
           Padding(
@@ -22,7 +20,7 @@ class BuildSurFollowUpItem extends StatelessWidget {
             child: Row(
               children: [
                 CachedImage(
-                  url: appointmentModel.patientId?.image??'https://picsum.photos/130',
+                  url: appointmentModel.patientId?.image ?? 'https://picsum.photos/130',
                   height: 65,
                   width: 55,
                   borderRadius: BorderRadius.circular(10),
@@ -38,12 +36,13 @@ class BuildSurFollowUpItem extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           MyText(
-                            title: appointmentModel.patientId?.firstNameEn??"",
+                            title: appointmentModel.patientId?.firstNameEn ?? "",
                             size: 12,
                             fontWeight: FontWeight.bold,
                           ),
+                          SizedBox(width: 5),
                           MyText(
-                            title: appointmentModel.patientId?.lastNameEn??"",
+                            title: appointmentModel.patientId?.lastNameEn ?? "",
                             size: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -51,19 +50,18 @@ class BuildSurFollowUpItem extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       MyText(
-                        title: appointmentModel.clinicNameEn??"",
+                        title: appointmentModel.clinicNameEn ?? "",
                         size: 11,
                         color: MyColors.primary,
                       ),
                       MyText(
-                        title: appointmentModel.comments??"",
+                        title: appointmentModel.comments ?? "",
                         size: 11,
                         color: MyColors.grey,
                       ),
                       const SizedBox(height: 5),
                       Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
@@ -73,7 +71,8 @@ class BuildSurFollowUpItem extends StatelessWidget {
                               ),
                               const SizedBox(width: 5),
                               MyText(
-                                title: appointmentModel.appointmentDate??"",
+                                title:
+                                    DateFormat("dd-MM-yyyy").format(DateTime.parse(appointmentModel.appointmentDate!)),
                                 size: 9,
                                 color: MyColors.primary,
                                 fontWeight: FontWeight.bold,
@@ -88,7 +87,7 @@ class BuildSurFollowUpItem extends StatelessWidget {
                               ),
                               const SizedBox(width: 5),
                               MyText(
-                                title: '14:30 PM',
+                                title: DateFormat("hh:mm a").format(DateTime.parse(appointmentModel.appointmentDate!)),
                                 size: 9,
                                 color: MyColors.primary,
                                 fontWeight: FontWeight.bold,

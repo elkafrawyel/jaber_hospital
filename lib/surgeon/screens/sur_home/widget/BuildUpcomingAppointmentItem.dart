@@ -7,11 +7,11 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Appointments>? list = SurHomeData().homeCubit.state.data?.appointments;
+    Appointments appointment = (SurHomeData().homeCubit.state.data?.appointments ?? [])[index];
     return InkWell(
       onTap: () async {
         await Nav.navigateTo(
-          SurPatientDetails(patientId: list?[index].patientId?.sId ?? ""),
+          SurPatientDetails(patientId: appointment.patientId?.sId ?? ""),
           navigatorType: NavigatorType.push,
         );
       },
@@ -34,7 +34,7 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
         child: Row(
           children: [
             CachedImage(
-                url: list?[index].patientId?.image ?? 'https://picsum.photos/201',
+                url: appointment.patientId?.image ?? 'https://picsum.photos/201',
                 height: 56,
                 width: 50,
                 borderRadius: BorderRadius.circular(5)),
@@ -42,10 +42,13 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                MyText(title: list?[index].patientId?.fullNameEn ?? 'Loay Hany', size: 12, fontWeight: FontWeight.bold),
+                MyText(
+                    title: '${appointment.patientId?.fNameEn ?? ''} ${appointment.patientId?.lNameEn ?? ''}',
+                    size: 12,
+                    fontWeight: FontWeight.bold),
                 const SizedBox(height: 2),
                 MyText(
-                    title: list?[index].patientId?.operationType ?? 'Revisional Operation',
+                    title: appointment.patientId?.operationType ?? '',
                     color: MyColors.grey,
                     size: 10,
                     fontWeight: FontWeight.bold),
@@ -61,7 +64,7 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         MyText(
-                          title: list?[index].appointmentDate ?? "14 AUG 2022",
+                          title: DateFormat("dd-MM-yyyy").format(DateTime.parse(appointment.appointmentDate!)),
                           overflow: TextOverflow.ellipsis,
                           size: 9,
                           color: MyColors.primary,
@@ -77,7 +80,7 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         MyText(
-                          title: list?[index].createdAt?.split("-").last.substring(3, 8) ?? "14:30 PM",
+                          title: DateFormat("hh:mm a").format(DateTime.parse(appointment.appointmentDate!)),
                           size: 9,
                           overflow: TextOverflow.ellipsis,
                           color: MyColors.primary,
