@@ -89,7 +89,7 @@ class SurgeonHttpMethods {
 
   Future<bool> editPatientFirst(String userId, AddPatientFirstDto model) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.patientBasicInfo + "?user_id=$userId",
+      name: ApiNames.patientBasicInfo + "?patient_id=$userId",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -137,7 +137,7 @@ class SurgeonHttpMethods {
 
   Future<bool> addPatientFourth({required String patientId, required AddPatientFourthDto model}) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.patientSurgicalHistory + "?user_id=$patientId",
+      name: ApiNames.patientSurgicalHistory + "?patient_id=$patientId",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,

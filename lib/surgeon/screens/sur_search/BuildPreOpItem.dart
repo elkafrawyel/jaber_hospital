@@ -184,19 +184,16 @@ class BuildPreOpItem extends StatelessWidget {
                           axis: TimelineAxis.horizontal,
                           alignment: TimelineAlign.center,
                           beforeLineStyle: LineStyle(
-                            color:
-                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                            color: patientModel.dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           afterLineStyle: LineStyle(
-                            color:
-                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                            color: patientModel.dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color:
-                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                            color: patientModel.dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                             iconStyle: IconStyle(
                               color: Colors.white,
                               iconData: Icons.check,
@@ -205,8 +202,7 @@ class BuildPreOpItem extends StatelessWidget {
                           endChild: MyText(
                             title: "Dietitian",
                             size: 8,
-                            color:
-                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                            color: patientModel.dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                           ),
                         ),
                       ),
@@ -215,16 +211,16 @@ class BuildPreOpItem extends StatelessWidget {
                           axis: TimelineAxis.horizontal,
                           alignment: TimelineAlign.center,
                           beforeLineStyle: LineStyle(
-                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Clear' ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           afterLineStyle: LineStyle(
-                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Clear' ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Clear' ? MyColors.primary : Colors.red,
                             iconStyle: IconStyle(
                               color: Colors.white,
                               iconData: Icons.check,
@@ -233,7 +229,7 @@ class BuildPreOpItem extends StatelessWidget {
                           endChild: MyText(
                             title: "Physiotherapy",
                             size: 8,
-                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Clear' ? MyColors.primary : Colors.red,
                           ),
                         ),
                       ),
@@ -270,12 +266,12 @@ class BuildPreOpItem extends StatelessWidget {
                           alignment: TimelineAlign.center,
                           isLast: true,
                           beforeLineStyle: LineStyle(
-                            color: patientModel.finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color: patientModel.finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                             iconStyle: IconStyle(
                               color: Colors.white,
                               iconData: Icons.check,
@@ -284,7 +280,7 @@ class BuildPreOpItem extends StatelessWidget {
                           endChild: MyText(
                             title: "Psychology",
                             size: 8,
-                            color: patientModel.finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                           ),
                         ),
                       ),

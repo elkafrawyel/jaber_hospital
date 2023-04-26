@@ -299,22 +299,22 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       axis: TimelineAxis.horizontal,
                                       alignment: TimelineAlign.center,
                                       beforeLineStyle: LineStyle(
-                                        color: state.data?.patient?.dietationFeedbackDecision == 'Need Visit'
-                                            ? Colors.red
-                                            : MyColors.primary,
+                                        color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
+                                            ? MyColors.primary
+                                            : Colors.red,
                                         thickness: 6,
                                       ),
                                       afterLineStyle: LineStyle(
-                                        color: state.data?.patient?.dietationFeedbackDecision == 'Need Visit'
-                                            ? Colors.red
-                                            : MyColors.primary,
+                                        color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
+                                            ? MyColors.primary
+                                            : Colors.red,
                                         thickness: 6,
                                       ),
                                       indicatorStyle: IndicatorStyle(
                                         height: 26,
-                                        color: state.data?.patient?.dietationFeedbackDecision == 'Need Visit'
-                                            ? Colors.red
-                                            : MyColors.primary,
+                                        color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
+                                            ? MyColors.primary
+                                            : Colors.red,
                                         iconStyle: IconStyle(
                                           color: Colors.white,
                                           iconData: Icons.check,
@@ -323,9 +323,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       endChild: MyText(
                                         title: "Dietitian",
                                         size: 8,
-                                        color: state.data?.patient?.dietationFeedbackDecision == 'Need Visit'
-                                            ? Colors.red
-                                            : MyColors.primary,
+                                        color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
+                                            ? MyColors.primary
+                                            : Colors.red,
                                       ),
                                     ),
                                   ),
@@ -334,22 +334,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       axis: TimelineAxis.horizontal,
                                       alignment: TimelineAlign.center,
                                       beforeLineStyle: LineStyle(
-                                        color: state.data?.patient?.feedback == 'Not Clear'
-                                            ? Colors.red
-                                            : MyColors.primary,
+                                        color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                         thickness: 6,
                                       ),
                                       afterLineStyle: LineStyle(
-                                        color: state.data?.patient?.feedback == 'Not Clear'
-                                            ? Colors.red
-                                            : MyColors.primary,
+                                        color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                         thickness: 6,
                                       ),
                                       indicatorStyle: IndicatorStyle(
                                         height: 26,
-                                        color: state.data?.patient?.feedback == 'Not Clear'
-                                            ? Colors.red
-                                            : MyColors.primary,
+                                        color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                         iconStyle: IconStyle(
                                           color: Colors.white,
                                           iconData: Icons.check,
@@ -358,9 +352,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       endChild: MyText(
                                         title: "Physiotherapy",
                                         size: 8,
-                                        color: state.data?.patient?.feedback == 'Not Clear'
-                                            ? Colors.red
-                                            : MyColors.primary,
+                                        color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                       ),
                                     ),
                                   ),
@@ -401,16 +393,12 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       alignment: TimelineAlign.center,
                                       isLast: true,
                                       beforeLineStyle: LineStyle(
-                                        color: state.data?.patient?.finalFeedback == 'Not Clear'
-                                            ? Colors.red
-                                            : MyColors.primary,
+                                        color: state.data?.patient?.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                                         thickness: 6,
                                       ),
                                       indicatorStyle: IndicatorStyle(
                                         height: 26,
-                                        color: state.data?.patient?.finalFeedback == 'Not Clear'
-                                            ? Colors.red
-                                            : MyColors.primary,
+                                        color: state.data?.patient?.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                                         iconStyle: IconStyle(
                                           color: Colors.white,
                                           iconData: Icons.check,
@@ -419,9 +407,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       endChild: MyText(
                                         title: "Psychology",
                                         size: 8,
-                                        color: state.data?.patient?.finalFeedback == 'Not Clear'
-                                            ? Colors.red
-                                            : MyColors.primary,
+                                        color: state.data?.patient?.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                                       ),
                                     ),
                                   ),
@@ -609,7 +595,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
                   Row(
                     children: [
-                      MyText(title: "Mdt Status:", size: 12, fontWeight: FontWeight.bold),
+                      MyText(title: "MDT Status:", size: 12, fontWeight: FontWeight.bold),
                       SizedBox(width: 10),
                       MyText(
                         title: state.data?.patient?.mdtStatus ?? '-',
