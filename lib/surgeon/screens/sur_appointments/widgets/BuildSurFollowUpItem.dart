@@ -48,15 +48,17 @@ class BuildSurFollowUpItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 5),
-                      MyText(
-                        title: appointmentModel.clinicNameEn ?? "",
-                        size: 11,
-                        color: MyColors.primary,
-                      ),
+                      if ((appointmentModel.clinicNameEn ?? "").isNotEmpty) const SizedBox(height: 5),
+                      if ((appointmentModel.clinicNameEn ?? "").isNotEmpty)
+                        MyText(
+                          title: appointmentModel.clinicNameEn ?? "",
+                          size: 11,
+                          color: MyColors.primary,
+                        ),
                       MyText(
                         title: appointmentModel.comments ?? "",
-                        size: 11,
+                        size: 13,
+                        fontWeight: FontWeight.w700,
                         color: MyColors.grey,
                       ),
                       const SizedBox(height: 5),
@@ -65,15 +67,12 @@ class BuildSurFollowUpItem extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Image.asset(
-                                Res.imagesVector,
-                                scale: 3,
-                              ),
+                              Image.asset(Res.imagesVector, scale: 3),
                               const SizedBox(width: 5),
                               MyText(
                                 title:
-                                    DateFormat("dd-MM-yyyy").format(DateTime.parse(appointmentModel.appointmentDate!)),
-                                size: 9,
+                                    DateFormat("E ,d MMM y").format(DateTime.parse(appointmentModel.appointmentDate!)),
+                                size: 11,
                                 color: MyColors.primary,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -81,14 +80,11 @@ class BuildSurFollowUpItem extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Image.asset(
-                                Res.imagesClockIcon,
-                                scale: 3,
-                              ),
+                              Image.asset(Res.imagesClockIcon, scale: 3),
                               const SizedBox(width: 5),
                               MyText(
                                 title: DateFormat("hh:mm a").format(DateTime.parse(appointmentModel.appointmentDate!)),
-                                size: 9,
+                                size: 11,
                                 color: MyColors.primary,
                                 fontWeight: FontWeight.bold,
                               ),

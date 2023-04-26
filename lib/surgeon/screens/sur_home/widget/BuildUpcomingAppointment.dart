@@ -26,7 +26,7 @@ class BuildUpcomingAppointment extends StatelessWidget {
           ],
         ),
         Container(
-          height: 100,
+          height: 110,
           child: BlocBuilder<GenericBloc<SurgeonHomeModel?>, GenericState<SurgeonHomeModel?>>(
             bloc: SurHomeData().homeCubit,
             builder: (context, state) {

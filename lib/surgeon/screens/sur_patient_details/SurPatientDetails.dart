@@ -791,11 +791,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                               ),
                                               const SizedBox(width: 5),
                                               MyText(
-                                                title: DateFormat("dd-MM-yyyy").format(
+                                                title: DateFormat("E ,d MMM y").format(
                                                   DateTime.parse(state.data!.appointments![index].appointmentDate!),
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
-                                                size: 10,
+                                                size: 12,
                                                 color: MyColors.primary,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -913,7 +913,7 @@ class buildAddAppointmentSheet extends StatelessWidget {
               },
               builder: (context, state) {
                 return GenericTextField(
-                  hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                  hintColor: Theme.of(context).textTheme.displaySmall?.color?.withOpacity(.8),
                   fieldTypes: FieldTypes.clickable,
                   fillColor: MyColors.textFields,
                   hint: "Appointment Date",

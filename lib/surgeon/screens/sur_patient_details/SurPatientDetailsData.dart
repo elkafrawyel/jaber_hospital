@@ -31,26 +31,10 @@ class SurPatientDetailsData {
     patientDetailsCubit.onUpdateData(data);
   }
 
-  String date(String date) {
-    print('==========================>$date');
-    DateTime? dateTime = DateTime.tryParse(date);
-    if (dateTime == null) {
-      return '';
-    }
-    String returnDate = "${dateTime.day}/${dateTime.month}/${dateTime.year}";
-    return returnDate;
-  }
-
-  String time(String date) {
-    DateTime dateTime = DateTime.parse(date);
-    String returnDate = "${dateTime.hour}:${dateTime.minute} ${dateTime.hour > 12 ? "PM" : "AM"}";
-    return returnDate;
-  }
-
   onConfirmFromDate(date) {
     if (date != null) {
       startDate = date;
-      String dateStr = DateFormat("dd-MM-yyyy hh:mm a").format(date);
+      String dateStr = DateFormat("E ,d MMM y, hh:mm a").format(date);
       dateBloc.onUpdateData(dateStr);
       print(dateBloc.state.data);
     }
