@@ -83,6 +83,13 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
       body: BlocBuilder<GenericBloc<PatientDetailsModel?>, GenericState<PatientDetailsModel?>>(
         bloc: SurPatientDetailsData().patientDetailsCubit,
         builder: (context, state) {
+          bool isReady = (state.data?.patient?.egd ?? false) &&
+              (state.data?.patient?.ultrasound ?? false) &&
+              (state.data?.patient?.surgionVisit ?? false) &&
+              (state.data?.patient?.dietationFeedbackDecision == 'Clear') &&
+              (state.data?.patient?.feedback == 'Clear') &&
+              (state.data?.patient?.watchedClip ?? false) &&
+              (state.data?.patient?.finalFeedback == 'Clear');
           if (state is GenericUpdateState<PatientDetailsModel?>) {
             return ListView(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
@@ -140,7 +147,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      state.data?.patient?.overallStatus ?? false
+                                      isReady
                                           ? Container(
                                               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                                               decoration: BoxDecoration(
@@ -393,12 +400,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       alignment: TimelineAlign.center,
                                       isLast: true,
                                       beforeLineStyle: LineStyle(
-                                        color: state.data?.patient?.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
+                                        color: state.data?.patient?.finalFeedback == 'Clear'
+                                            ? MyColors.primary
+                                            : Colors.red,
                                         thickness: 6,
                                       ),
                                       indicatorStyle: IndicatorStyle(
                                         height: 26,
-                                        color: state.data?.patient?.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
+                                        color: state.data?.patient?.finalFeedback == 'Clear'
+                                            ? MyColors.primary
+                                            : Colors.red,
                                         iconStyle: IconStyle(
                                           color: Colors.white,
                                           iconData: Icons.check,
@@ -407,7 +418,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       endChild: MyText(
                                         title: "Psychology",
                                         size: 8,
-                                        color: state.data?.patient?.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
+                                        color: state.data?.patient?.finalFeedback == 'Clear'
+                                            ? MyColors.primary
+                                            : Colors.red,
                                       ),
                                     ),
                                   ),
@@ -772,7 +785,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                     ),
                                     const SizedBox(height: 4),
                                     MyText(
-                                      title: 'Follow up session',
+                                      title: (state.data?.appointments?[index].comments ?? '').isNotEmpty
+                                          ? state.data!.appointments![index].comments!
+                                          : 'Scheduled Appointment',
                                       color: MyColors.grey,
                                       size: 12,
                                       fontWeight: FontWeight.bold,

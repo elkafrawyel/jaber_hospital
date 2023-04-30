@@ -11,6 +11,14 @@ class BuildPreOpItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<PatientModel> list = SurPatientData().patientsCubit.state.data;
+    PatientModel patientModel = list[index];
+    bool isReady = (patientModel.egd ?? false) &&
+        (patientModel.ultrasound ?? false) &&
+        (patientModel.surgionVisit ?? false) &&
+        (patientModel.dietationFeedbackDecision == 'Clear') &&
+        (patientModel.feedback == 'Clear') &&
+        (patientModel.watchedClip ?? false) &&
+        (patientModel.finalFeedback == 'Clear');
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -56,7 +64,7 @@ class BuildPreOpItem extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            list[index].overallStatus ?? false
+                            isReady
                                 ? Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                                     decoration: BoxDecoration(

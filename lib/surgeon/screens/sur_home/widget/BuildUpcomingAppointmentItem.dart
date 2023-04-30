@@ -48,7 +48,7 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                   const SizedBox(height: 2),
                   MyText(
-                    title: appointment.patientId?.operationType ?? '',
+                    title: (appointment.comments ?? '').isNotEmpty ? appointment.comments! : 'Scheduled Appointment',
                     color: MyColors.grey,
                     size: 10,
                     fontWeight: FontWeight.bold,

@@ -48,15 +48,10 @@ class BuildSurFollowUpItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      if ((appointmentModel.clinicNameEn ?? "").isNotEmpty) const SizedBox(height: 5),
-                      if ((appointmentModel.clinicNameEn ?? "").isNotEmpty)
-                        MyText(
-                          title: appointmentModel.clinicNameEn ?? "",
-                          size: 11,
-                          color: MyColors.primary,
-                        ),
                       MyText(
-                        title: appointmentModel.comments ?? "",
+                        title: (appointmentModel.comments ?? '').isNotEmpty
+                            ? appointmentModel.comments!
+                            : 'Scheduled Appointment',
                         size: 13,
                         fontWeight: FontWeight.w700,
                         color: MyColors.grey,

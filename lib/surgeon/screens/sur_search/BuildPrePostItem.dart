@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
-import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../models/patient_model.dart';
 import '../sur_patient_details/SurPatientDetailsImports.dart';
 
@@ -35,9 +33,9 @@ class BuildPrePostItem extends StatelessWidget {
                 ),
               );
 
-              if (result ?? false) {
-                onPatientArchive();
-              }
+              // if (result ?? false) {
+              //   onPatientArchive();
+              // }
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -55,10 +53,26 @@ class BuildPrePostItem extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        MyText(
-                          title: '${patientModel.fNameEn ?? ""} ${patientModel.lNameEn ?? ""}',
-                          size: 12,
-                          fontWeight: FontWeight.bold,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MyText(
+                              title: '${patientModel.fNameEn ?? ""} ${patientModel.lNameEn ?? ""}',
+                              size: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            if (patientModel.isArchived ?? false)
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+
+                                child: MyText(
+                                  title: 'Archived',
+                                  size: 9,
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                          ],
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,

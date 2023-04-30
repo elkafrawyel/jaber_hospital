@@ -1,4 +1,3 @@
-import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
 import 'package:base_flutter/surgeon/screens/sur_patient_details/SurPatientDetailsImports.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -22,6 +21,13 @@ class BuildPreOpItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isReady = (patientModel.egd ?? false) &&
+        (patientModel.ultrasound ?? false) &&
+        (patientModel.surgionVisit ?? false) &&
+        (patientModel.dietationFeedbackDecision == 'Clear') &&
+        (patientModel.feedback == 'Clear') &&
+        (patientModel.watchedClip ?? false) &&
+        (patientModel.finalFeedback == 'Clear');
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -31,15 +37,11 @@ class BuildPreOpItem extends StatelessWidget {
         children: [
           InkWell(
             onTap: () async {
-              bool? result = await Navigator.of(context).push(
+              await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => SurPatientDetails(patientId: patientModel.sId ?? ''),
                 ),
               );
-
-              if (result ?? false) {
-                onPatientArchive();
-              }
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -66,7 +68,7 @@ class BuildPreOpItem extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            patientModel.overallStatus ?? false
+                            isReady
                                 ? Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                                     decoration: BoxDecoration(
@@ -93,6 +95,16 @@ class BuildPreOpItem extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
+                            if (patientModel.isArchived ?? false)
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                                child: MyText(
+                                  title: 'Archived',
+                                  size: 9,
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
                           ],
                         ),
                         Row(

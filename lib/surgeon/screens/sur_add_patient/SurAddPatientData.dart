@@ -636,4 +636,15 @@ class SurAddPatientData {
       insertionDate.text = dateStr;
     }
   }
+
+  void onDiscard(BuildContext context) {
+    if (pageCubit.state.data == 0 || currentPatientId.isEmpty) {
+      Navigator.of(context).pop();
+    } else {
+      Nav.navigateTo(
+        SurPatientDetails(patientId: currentPatientId),
+        navigatorType: NavigatorType.push,
+      );
+    }
+  }
 }

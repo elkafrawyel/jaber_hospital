@@ -18,6 +18,7 @@ import '../../../general/blocks/user_cubit/user_cubit.dart';
 import '../../../general/constants/MyColors.dart';
 import '../../../general/models/UserModel.dart';
 import '../../../general/utilities/http/dio/modals/LoadingDialog.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../models/add_patient_models.dart';
 import '../../models/dto/add_patient_fourth_dto.dart';
@@ -26,6 +27,7 @@ import '../../models/dto/add_patient_third_dto.dart';
 import '../../models/labs_response.dart';
 import '../../models/patient_details_model.dart';
 import '../../models/significant_labs_model.dart';
+import '../sur_patient_details/SurPatientDetailsImports.dart';
 
 part 'SurAddPatient.dart';
 part 'SurAddPatientData.dart';
