@@ -575,14 +575,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     ),
                   ],
                 ),
-                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian')
+                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
+                    (state.data?.patient?.dietation_feedback_decision ?? '').isEmpty)
                   MyText(
                     title: 'Your Feedback',
                     size: 12,
                     color: MyColors.primary,
                     fontWeight: FontWeight.bold,
                   ),
-                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian')
+                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
+                    (state.data?.patient?.dietation_feedback_decision ?? '').isEmpty)
                   Row(
                     children: [
                       MyText(
@@ -907,7 +909,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     ],
                   ],
                 ),
-                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian')
+                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
+                        (state.data?.patient?.dietation_feedback_decision ?? '').isEmpty)
                   DefaultButton(
                     title: "Add Diet Plan Date",
                     onTap: () async {
