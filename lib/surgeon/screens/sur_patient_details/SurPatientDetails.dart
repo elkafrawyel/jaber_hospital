@@ -16,6 +16,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
     super.initState();
   }
 
+  String? feedbackStatus;
+
   bool isOpened = false;
 
   toggleTimeLine() {
@@ -573,6 +575,29 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     ),
                   ],
                 ),
+                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian')
+                  MyText(
+                    title: 'Your Feedback',
+                    size: 12,
+                    color: MyColors.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian')
+                  Row(
+                    children: [
+                      MyText(
+                        title: 'Doctor Feedback:',
+                        size: 12,
+                      ),
+                      SizedBox(width: 10),
+                      MyText(
+                        title: 'Clear',
+                        size: 12,
+                        color: MyColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
                 if ((state.data?.patient?.operationDate ?? '').isNotEmpty) const Divider(thickness: 1, height: 20),
                 if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
                   MyText(title: "Operation Details", size: 14, color: MyColors.primary, fontWeight: FontWeight.bold),
@@ -882,14 +907,104 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     ],
                   ],
                 ),
-                DefaultButton(
-                  title: "Add Diet Plan Date",
-                  onTap: () => Nav.navigateTo(
-                    DietitionAddPatientDietData(patient: state.data!.patient!),
-                    navigatorType: NavigatorType.push,
+                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian')
+                  DefaultButton(
+                    title: "Add Diet Plan Date",
+                    onTap: () async {
+                      bool? result = await Nav.navigateTo(
+                        DietitionAddPatientDietData(patient: state.data!.patient!),
+                        navigatorType: NavigatorType.push,
+                      );
+                      // if (result ?? false) {
+                      //   await Future.delayed(Duration(seconds: 1));
+                      await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        isDismissible: true,
+                        builder: (BuildContext context) {
+                          return ModelBottomSheet(
+                            child: StatefulBuilder(
+                              builder: (BuildContext context, StateSetter setState) => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: MyText(
+                                      title: "Your Feedback",
+                                      size: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.primary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16.0),
+                                  RadioListTile(
+                                    title: Text("Clear"),
+                                    value: "Clear",
+                                    groupValue: feedbackStatus,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        feedbackStatus = value.toString();
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(height: 10.0),
+                                  RadioListTile(
+                                    title: Text("Need Visit"),
+                                    value: "Need Visit",
+                                    groupValue: feedbackStatus,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        feedbackStatus = value.toString();
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(height: 10.0),
+                                  RadioListTile(
+                                    title: Text("Need Second Visit"),
+                                    value: "Need Second Visit",
+                                    groupValue: feedbackStatus,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        feedbackStatus = value.toString();
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(height: 10.0),
+                                  DefaultButton(
+                                    height: 38,
+                                    title: "Update",
+                                    onTap: () async {
+                                      final Map<String, dynamic> body = {
+                                        'dietation_feedback_decision': feedbackStatus,
+                                      };
+                                      dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
+                                        name: ApiNames.patientDietation + '?user_id=${state.data!.patient!.id}',
+                                        returnType: ReturnType.Type,
+                                        methodType: MethodType.Put,
+                                        returnDataFun: (data) => data,
+                                        jsonBody: body,
+                                        showLoader: true,
+                                      );
+                                      if (data != null) {
+                                        Navigator.pop(context);
+                                        CustomToast.showSnackBar(context, data["message"]["message_en"]);
+                                      }
+                                    },
+                                    margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+                                  ),
+                                  const SizedBox(height: 16.0),
+                                ],
+                              ),
+                            ),
+                            sheetHeight: MediaQuery.of(context).size.height * 0.45,
+                          );
+                        },
+                      );
+                      setState(() {});
+                      // }
+                    },
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80),
                   ),
-                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80),
-                ),
               ],
             );
           } else {
