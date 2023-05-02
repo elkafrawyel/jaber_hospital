@@ -874,12 +874,21 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op") ...[
                       Expanded(
                         child: DefaultButton(
-                            title: "Order Medications",
-                            onTap: () => Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
-                            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
+                          title: "Order Medications",
+                          onTap: () => Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
+                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80),
+                        ),
                       ),
                     ],
                   ],
+                ),
+                DefaultButton(
+                  title: "Add Diet Plan Date",
+                  onTap: () => Nav.navigateTo(
+                    DietitionAddPatientDietData(patient: state.data!.patient!),
+                    navigatorType: NavigatorType.push,
+                  ),
+                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80),
                 ),
               ],
             );

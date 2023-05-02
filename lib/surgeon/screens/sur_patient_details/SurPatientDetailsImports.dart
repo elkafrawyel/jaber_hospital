@@ -19,6 +19,7 @@ import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
 import '../../models/patient_details_model.dart';
 import '../sur_order_medications/sur_order_medications_imports.dart';
+import '../dietition_add_patient_diet_data/Dietition_add_patient_diet_data.dart';
 import 'app_dialog.dart';
 
 part   'SurPatientDetails.dart';
