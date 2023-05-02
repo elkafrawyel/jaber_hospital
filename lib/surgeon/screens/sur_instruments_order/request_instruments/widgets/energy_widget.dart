@@ -14,6 +14,7 @@ class EnergyWidget extends StatelessWidget {
         title: MyText(title: 'Energy', size: 10, color: Color(0XFF136CFB)),
         backgroundColor: Color(0xFFD3E0F6),
         iconColor: MyColors.primary,
-        children: List.generate(4, (index) => ReloadsItemWidget()));
+        children: List.generate(4, (index) => Container()));
+        // children: List.generate(4, (index) => ReloadsItemWidget()));
   }
 }

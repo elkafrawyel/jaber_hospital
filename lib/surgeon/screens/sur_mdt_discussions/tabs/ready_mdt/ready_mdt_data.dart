@@ -33,7 +33,7 @@ class ReadyMdtData{
     readyCubit.onUpdateData(readyPatients);
   }
 
-  Future<void> updateReadyMdtStatus(BuildContext context, String mdtStatus, int index, String patientId) async {
+  Future<void> updateReadyMdtStatus(BuildContext context, String mdtStatus,String patientId) async {
     Map<String, dynamic> body = {
       "mdt_status":"booked",
       "patient_id": patientId,
@@ -41,7 +41,7 @@ class ReadyMdtData{
     log("updateReadyBody=> $body");
     UpdateConsentResponse? result = await SurgeonRepository(context).updateReadyMdtStatus(body);
     if(result?.success??false){
-      readyPatients?.removeAt(index);
+      // readyPatients?.removeAt(index);
       readyCubit.onUpdateData(readyPatients);
     }else{
       CustomToast.showToastNotification(result?.message?.messageEn??"");

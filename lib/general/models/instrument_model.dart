@@ -9,6 +9,8 @@ class InstrumentModel {
   String? publicId;
   String? adminCreatedId;
   bool? status;
+  int? quantity;
+  bool? checked;
 
   InstrumentModel(
       {this.sId,
@@ -18,6 +20,8 @@ class InstrumentModel {
         this.companyId,
         this.publicId,
         this.adminCreatedId,
+        this.quantity = 1,
+        this.checked = false,
         this.status});
 
   InstrumentModel.fromJson(Map<String, dynamic> json) {

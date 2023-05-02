@@ -41,10 +41,10 @@ class SurMdtDiscussionsData {
     log("mdtDuration==> $val");
     SurMdtDiscussionsData().mdtDurationCubit.onUpdateData(val!);
     navigationKey.currentState?.pop();
-    showDialog(
-        context: context,
-        builder: (context) => BuildBookTimesDialog(),
-    );
+    // showDialog(
+    //     context: context,
+    //     builder: (context) => BuildBookTimesDialog(),
+    // );
   }
 
   void onSelectResult(int?val , BuildContext context, String patientId, int index){

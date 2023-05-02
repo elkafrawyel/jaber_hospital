@@ -82,7 +82,20 @@ class _BuildResultDecisionState extends State<BuildResultDecision>
                                         ),
                                       ],
                                     ),
+                                    // IntrinsicHeight(
+                                    //   child: Row(
+                                    //     children: [
+                                    //       Expanded(child: ),
+                                    //       Padding(
+                                    //         padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                                    //         child: const VerticalDivider(),
+                                    //       ),
+                                    //
+                                    //     ],
+                                    //   ),
+                                    // ),
                                     Row(
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
                                         MyText(
                                           title: 'Dietitian : ',
@@ -97,25 +110,20 @@ class _BuildResultDecisionState extends State<BuildResultDecision>
                                           size: 11,
                                           color: MyColors.grey,
                                         ),
-                                        const Divider(),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: Row(
-                                            children: [
-                                              MyText(
-                                                title: 'MDT Result : ',
-                                                size: 11,
-                                                color: MyColors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              MyText(
-                                                title: 'Accept',
-                                                size: 11,
-                                                color: Colors.green,
-                                              ),
-                                            ],
-                                          ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        MyText(
+                                          title: 'MDT Result : ',
+                                          size: 10,
+                                          color: MyColors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        MyText(
+                                          title: 'Accept',
+                                          size: 10,
+                                          color: Colors.green,
                                         ),
                                       ],
                                     ),

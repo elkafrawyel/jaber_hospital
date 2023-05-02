@@ -16,7 +16,8 @@ class AccessWidget extends StatelessWidget {
         backgroundColor: Color(0xFFD3E0F6),
         iconColor: MyColors.primary,
         children:  data.map((data) {
-          return ReloadsItemWidget();
+          return Container();
+          // return ReloadsItemWidget();
         }).toList());
   }
 }

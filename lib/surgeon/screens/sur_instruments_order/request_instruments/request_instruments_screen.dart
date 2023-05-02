@@ -9,8 +9,10 @@ import '../../../../general/constants/MyColors.dart';
 import '../../../../general/models/company_model.dart';
 import '../../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
+import '../../../../general/utilities/tf_custom_widgets/widgets/DefaultButton.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/utilities/utils_functions/LoadingDialog.dart';
+import '../../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../../general/widgets/GenScaffold.dart';
 import '../../../../general/widgets/app_drop_menu.dart';
 import '../../../../general/widgets/loading_widget.dart';
@@ -169,15 +171,16 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                   size: 10,
                   fontWeight: FontWeight.bold,
                 ),
-                ExpansionPanelList(
-                  elevation: 3,
-                  // Controlling the expansion behavior
-                  expansionCallback: (index, isExpanded) {
-                    handles[0].isExpanded= !isExpanded;
-                    setState(() {});
-                  },
-                  animationDuration: const Duration(milliseconds: 500),
-                  children: handles.map((item) => ExpansionPanel(
+                if(requestInstrumentsData.selectedCompany!=null)...[
+                  ExpansionPanelList(
+                    elevation: 3,
+                    // Controlling the expansion behavior
+                    expansionCallback: (index, isExpanded) {
+                      handles[0].isExpanded= !isExpanded;
+                      setState(() {});
+                    },
+                    animationDuration: const Duration(milliseconds: 500),
+                    children: handles.map((item) => ExpansionPanel(
                       canTapOnHeader: true,
                       backgroundColor: Colors.grey.shade200,
                       // backgroundColor: item.isExpanded == true ? AppTheme.hoverColor.withOpacity(0.2) : Colors.white,
@@ -282,55 +285,62 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                       ),
                       isExpanded: handles[0].isExpanded,
                     ),
-                  ).toList(),
-                ),
-                const SizedBox(height: 16.0,),
-                ExpansionPanelList(
-                  elevation: 3,
-                  // Controlling the expansion behavior
-                  expansionCallback: (index, isExpanded) {
-                    handles[0].isExpanded= !isExpanded;
-                    setState(() {});
-                  },
-                  animationDuration: const Duration(milliseconds: 500),
-                  children: handles.map((item) => ExpansionPanel(
-                    canTapOnHeader: true,
-                    backgroundColor: Colors.grey.shade200,
-                    // backgroundColor: item.isExpanded == true ? AppTheme.hoverColor.withOpacity(0.2) : Colors.white,
-                    headerBuilder: (_, isExpanded) => Container(
-                        padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                        child: Text(handles[0].headerTitle??"",
-                          style: const TextStyle(fontSize: 16),
-                        )),
-                    body: Column(
-                      children: [
-                        ReloadsItemWidget(),
-                        ReloadsItemWidget(),
-                      ],
-                    ),
-                    isExpanded: handles[0].isExpanded,
+                    ).toList(),
                   ),
-                  ).toList(),
-                ),
-                // BlocBuilder<GenericBloc<CompanyInstrumentsResponse?>,
-                //     GenericState<CompanyInstrumentsResponse?>>(
-                //   bloc: requestInstrumentsData.companyInstrumentsCubit,
-                //   builder: (context, state) {
-                //     if (state is GenericUpdateState) {
-                //       log("stateData=> ${state.data?.data?.length}");
-                //       return Column(
-                //         mainAxisSize: MainAxisSize.min,
-                //         children: [
-                //
-                //         ],
-                //       );
-                //     } else {
-                //       return SizedBox(
-                //           height: 56,
-                //           child: Center(child: LoadingDialog.showLoadingView()));
-                //     }
-                //   },
-                // ),
+                  const SizedBox(height: 16.0,),
+                  ExpansionPanelList(
+                    elevation: 3,
+                    // Controlling the expansion behavior
+                    expansionCallback: (index, isExpanded) {
+                      handles[0].isExpanded= !isExpanded;
+                      setState(() {});
+                    },
+                    animationDuration: const Duration(milliseconds: 500),
+                    children: handles.map((item) => ExpansionPanel(
+                      canTapOnHeader: true,
+                      backgroundColor: Colors.grey.shade200,
+                      // backgroundColor: item.isExpanded == true ? AppTheme.hoverColor.withOpacity(0.2) : Colors.white,
+                      headerBuilder: (_, isExpanded) => Container(
+                          padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                          child: Text(handles[0].headerTitle??"",
+                            style: const TextStyle(fontSize: 16),
+                          )),
+                      body: Column(
+                        children: [
+                          // ReloadsItemWidget(),
+                          // ReloadsItemWidget(),
+                        ],
+                      ),
+                      isExpanded: handles[0].isExpanded,
+                    ),
+                    ).toList(),
+                  ),
+                  // BlocBuilder<GenericBloc<CompanyInstrumentsResponse?>,
+                  //     GenericState<CompanyInstrumentsResponse?>>(
+                  //   bloc: requestInstrumentsData.companyInstrumentsCubit,
+                  //   builder: (context, state) {
+                  //     if (state is GenericUpdateState) {
+                  //       log("stateData=> ${state.data?.data?.length}");
+                  //       return Column(
+                  //         mainAxisSize: MainAxisSize.min,
+                  //         children: [
+                  //
+                  //         ],
+                  //       );
+                  //     } else {
+                  //       return SizedBox(
+                  //           height: 56,
+                  //           child: Center(child: LoadingDialog.showLoadingView()));
+                  //     }
+                  //   },
+                  // ),
+                  DefaultButton(
+                    title: "Confirm Request",
+                    onTap: () {
+                      // Nav.navigateTo(QuestionnaireCompletedScreen(), navigatorType: NavigatorType.push);
+                    },
+                  ),
+                ],
               ],
             ),
           )),

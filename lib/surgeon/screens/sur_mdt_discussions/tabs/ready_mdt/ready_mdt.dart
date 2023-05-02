@@ -145,7 +145,7 @@ class _ReadyMDTState extends State<ReadyMDT> {
                                       backgroundColor: Colors.transparent,
                                       context: context,
                                       builder: (context) =>
-                                          BuildPatientMDTDurationSheet(patientId: state.data?[index].id??"", index: index));
+                                          BuildPatientMDTDurationSheet(patient: state.data![index], index: index));
                                 },
                               ),
                             ],

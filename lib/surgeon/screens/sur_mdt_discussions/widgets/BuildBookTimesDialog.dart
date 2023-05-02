@@ -1,8 +1,10 @@
 part of 'SurMdtDiscussionsWImports.dart';
 
 class BuildBookTimesDialog extends StatefulWidget {
-  const BuildBookTimesDialog({Key? key, this.patientId = ""}) : super(key: key);
-  final String patientId;
+  const BuildBookTimesDialog({Key? key,required this.patient, this.isReady = false}) : super(key: key);
+  final MdtPatientModel patient;
+  // final String patientId;
+  final bool isReady;
 
   @override
   State<BuildBookTimesDialog> createState() => _BuildBookTimesDialogState();
@@ -15,6 +17,7 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
   String selectedTime = "";
   var monday = 1;
   final DateFormat dateFormat = new DateFormat('dd-MMMM-yyyy');
+  SurMdtDiscussionsData _surMdtDiscussionsData =  SurMdtDiscussionsData();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                       size: 20, color: MyColors.primary),
                   MyText(
                     alien: TextAlign.center,
-                    title: "Book MDT For PatientName",
+                    title: "Book MDT For ${widget.patient.firstNameEn} ${widget.patient.lastNameEn}",
                     size: 11,
                     fontWeight: FontWeight.bold,
                     color: MyColors.primary,
@@ -56,7 +59,7 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                 height: 16.0,
               ),
               BlocBuilder<GenericBloc<String>, GenericState<String>>(
-                  bloc: SurMdtDiscussionsData().selectBookDateCubit,
+                  bloc: _surMdtDiscussionsData.selectBookDateCubit,
                   builder: (context, state) {
                     return Center(
                       child: Row(
@@ -64,7 +67,7 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                           InkWell(
                             onTap: () {
                               log("previous");
-                              SurMdtDiscussionsData().getPreviousMonday();
+                              _surMdtDiscussionsData.getPreviousMonday();
                             },
                             child: RotatedBox(
                                 quarterTurns: 2,
@@ -107,7 +110,7 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                           InkWell(
                               onTap: () {
                                 log("isLast icon");
-                                SurMdtDiscussionsData().getNextMonday();
+                                _surMdtDiscussionsData.getNextMonday();
                               },
                               child: Icon(
                                 Icons.forward,
@@ -122,7 +125,7 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                 height: 16,
               ),
               BlocBuilder<GenericBloc<int>, GenericState<int>>(
-                bloc: SurMdtDiscussionsData().selectBookTimeCubit,
+                bloc: _surMdtDiscussionsData.selectBookTimeCubit,
                 builder: (context, state) {
                   return Wrap(
                       direction: Axis.horizontal,
@@ -134,9 +137,7 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                           (index) => InkWell(
                                 onTap: () {
                                   selectedTime = times[index];
-                                  SurMdtDiscussionsData()
-                                      .selectBookTimeCubit
-                                      .onUpdateData(index);
+                                  _surMdtDiscussionsData.selectBookTimeCubit.onUpdateData(index);
                                 },
                                 child: Container(
                                   height: 30,
@@ -164,15 +165,23 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
               DefaultButton(
                 title: "Confirm Booking",
                 onTap: () async{
-                  log("duration=> ${times[SurMdtDiscussionsData().selectBookTimeCubit.state.data]==1?5:10}");
+                  log("duration=> ${times[_surMdtDiscussionsData.selectBookTimeCubit.state.data]==1?5:10}");
                   Map<String, dynamic> body = {
-                    "mdt_date_time": SurMdtDiscussionsData().selectBookDateCubit.state.data,
-                    "mdt_session_duration": times[SurMdtDiscussionsData().selectBookTimeCubit.state.data]==1?5:10,
+                    "mdt_date_time": _surMdtDiscussionsData.selectBookDateCubit.state.data,
+                    "mdt_session_duration": times[_surMdtDiscussionsData.selectBookTimeCubit.state.data]==1?5:10,
                   };
                   log("bookingBody=> $body");
-                  await SurgeonRepository(context).confirmMdtBooking(body, widget.patientId);
-                  navigationKey.currentState?.pop();
-                  SurMdtDiscussionsData().tabController.animateTo(1);
+                  if(widget.isReady){
+                    await ReadyMdtData().updateReadyMdtStatus(context, "booked", widget.patient.id??"");
+                    await SurgeonRepository(context).confirmMdtBooking(body, widget.patient.id??"");
+                    navigationKey.currentState?.pop();
+                    SurMdtDiscussionsData().tabController.animateTo(1);
+                  } else{
+                    /// for change date
+                    await SurgeonRepository(context).confirmMdtBooking(body, widget.patient.id??"");
+                    navigationKey.currentState?.pop();
+                    await BookedMdtData().fetchBookedPatients(context, "booked");
+                  }
                 },
                 margin:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -183,8 +192,7 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
   }
 }
 
-//list of strings starts with 11:00 AM and encresedby 5 minutes to 11:55 AM
-
+//list of strings starts with 11:00 AM and encreased by 5 minutes to 11:55 AM
 List<String> times = [
   "11:00 AM",
   "11:05 AM",

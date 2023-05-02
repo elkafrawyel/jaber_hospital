@@ -149,7 +149,7 @@ class _BookedMDTState extends State<BookedMDT> {
                                 showDialog(
                                   context: context,
                                   builder: (context) =>
-                                      BuildBookTimesDialog(patientId: state.data?[index].id??""),
+                                      BuildBookTimesDialog(patient: state.data![index]),
                                 );
                               },
                               child: MyText(

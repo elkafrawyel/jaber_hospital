@@ -7,6 +7,7 @@ import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../education_screen.dart';
 import '../../models/general_progress_response.dart';
+import '../../questionnaire/questionaire_completed_screen.dart';
 import 'coming_appointments.dart';
 
 class VerticalGeneralProgress extends StatelessWidget {
@@ -287,8 +288,18 @@ class VerticalGeneralProgress extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          MyText(title: "الطب النفسية", size: 12, color: MyColors.primary, fontWeight: FontWeight.bold,),
-                          MyText(title: "سيتاح قريباً", size: 9, color: MyColors.black,),
+                          MyText(title: "الطب النفسي", size: 12, color: MyColors.primary, fontWeight: FontWeight.bold,),
+                          MyText(title: "قيد التنفيذً", size: 9, color: Colors.red,),
+                          SizedBox(
+                            width: 160,
+                            child: DefaultButton(
+                              color: Color(0xFF00116E),
+                              title: "إكمال الاستبيان",
+                              onTap: () {
+                                Nav.navigateTo(QuestionnaireCompletedScreen(), navigatorType: NavigatorType.push);
+                              },
+                            ),
+                          ),
                         ],),
                     ),
                   ),

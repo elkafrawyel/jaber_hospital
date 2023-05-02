@@ -3,10 +3,10 @@ part of 'SurMdtDiscussionsWImports.dart';
 
 class BuildPatientMDTDurationSheet extends StatelessWidget {
   const BuildPatientMDTDurationSheet({
-    Key? key, required this.patientId,
+    Key? key, required this.patient,
     required this.index
   }) : super(key: key);
-  final String patientId;
+  final MdtPatientModel patient;
   final int index;
 
   @override
@@ -41,7 +41,11 @@ class BuildPatientMDTDurationSheet extends StatelessWidget {
                 onChanged: (val){
                   log("pickedVal=> $val");
                   navigationKey.currentState!.pop();
-                  ReadyMdtData().updateReadyMdtStatus(context, "booked", index, patientId);
+                  showDialog(
+                    context: context,
+                    builder: (context) =>
+                        BuildBookTimesDialog(patient: patient, isReady: true),
+                  );
                 },
                 // onChanged: (val) => SurMdtDiscussionsData().navigateToTimeDialog(val, context),
               ),
@@ -53,7 +57,11 @@ class BuildPatientMDTDurationSheet extends StatelessWidget {
                 onChanged: (val){
                   log("pickedVal=> $val");
                   navigationKey.currentState!.pop();
-                  ReadyMdtData().updateReadyMdtStatus(context, "booked", index, patientId);
+                  showDialog(
+                    context: context,
+                    builder: (context) =>
+                        BuildBookTimesDialog(patient: patient, isReady: true),
+                  );
                 },
                 // onChanged: (val) => SurMdtDiscussionsData().navigateToTimeDialog(val, context),
               ),
