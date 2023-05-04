@@ -576,15 +576,21 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                   ],
                 ),
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
-                    (state.data?.patient?.dietation_feedback_decision ?? '').isEmpty)
-                  MyText(
-                    title: 'Your Feedback',
-                    size: 12,
-                    color: MyColors.primary,
-                    fontWeight: FontWeight.bold,
+                    (state.data?.patient?.dietation_feedback_decision ?? '').isNotEmpty)
+                  const Divider(thickness: 1, height: 20),
+                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
+                    (state.data?.patient?.dietation_feedback_decision ?? '').isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: MyText(
+                      title: 'Your Feedback',
+                      size: 12,
+                      color: MyColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
-                    (state.data?.patient?.dietation_feedback_decision ?? '').isEmpty)
+                    (state.data?.patient?.dietation_feedback_decision ?? '').isNotEmpty)
                   Row(
                     children: [
                       MyText(
@@ -593,7 +599,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       ),
                       SizedBox(width: 10),
                       MyText(
-                        title: 'Clear',
+                        title: state.data?.patient?.dietation_feedback_decision ?? '',
                         size: 12,
                         color: MyColors.primary,
                         fontWeight: FontWeight.bold,
@@ -910,7 +916,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                   ],
                 ),
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
-                        (state.data?.patient?.dietation_feedback_decision ?? '').isEmpty)
+                    (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear')
                   DefaultButton(
                     title: "Add Diet Plan Date",
                     onTap: () async {
@@ -928,75 +934,75 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         builder: (BuildContext context) {
                           return ModelBottomSheet(
                             child: StatefulBuilder(
-                              builder: (BuildContext context, StateSetter setState) => Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Center(
-                                    child: MyText(
-                                      title: "Your Feedback",
-                                      size: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.primary,
+                              builder: (BuildContext context, StateSetter setState) => SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      child: MyText(
+                                        title: "Your Feedback",
+                                        size: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: MyColors.primary,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 16.0),
-                                  RadioListTile(
-                                    title: Text("Clear"),
-                                    value: "Clear",
-                                    groupValue: feedbackStatus,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        feedbackStatus = value.toString();
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(height: 10.0),
-                                  RadioListTile(
-                                    title: Text("Need Visit"),
-                                    value: "Need Visit",
-                                    groupValue: feedbackStatus,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        feedbackStatus = value.toString();
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(height: 10.0),
-                                  RadioListTile(
-                                    title: Text("Need Second Visit"),
-                                    value: "Need Second Visit",
-                                    groupValue: feedbackStatus,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        feedbackStatus = value.toString();
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(height: 10.0),
-                                  DefaultButton(
-                                    height: 38,
-                                    title: "Update",
-                                    onTap: () async {
-                                      final Map<String, dynamic> body = {
-                                        'dietation_feedback_decision': feedbackStatus,
-                                      };
-                                      dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
-                                        name: ApiNames.patientDietation + '?user_id=${state.data!.patient!.id}',
-                                        returnType: ReturnType.Type,
-                                        methodType: MethodType.Put,
-                                        returnDataFun: (data) => data,
-                                        jsonBody: body,
-                                        showLoader: true,
-                                      );
-                                      if (data != null) {
-                                        Navigator.pop(context);
-                                        CustomToast.showSnackBar(context, data["message"]["message_en"]);
-                                      }
-                                    },
-                                    margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
-                                  ),
-                                  const SizedBox(height: 16.0),
-                                ],
+                                    RadioListTile(
+                                      title: Text("Clear"),
+                                      value: "Clear",
+                                      groupValue: feedbackStatus,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          feedbackStatus = value.toString();
+                                        });
+                                      },
+                                    ),
+                                    RadioListTile(
+                                      title: Text("Need Visit"),
+                                      value: "Need Visit",
+                                      groupValue: feedbackStatus,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          feedbackStatus = value.toString();
+                                        });
+                                      },
+                                    ),
+                                    RadioListTile(
+                                      title: Text("Need Second Visit"),
+                                      value: "Need Second Visit",
+                                      groupValue: feedbackStatus,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          feedbackStatus = value.toString();
+                                        });
+                                      },
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    DefaultButton(
+                                      height: 38,
+                                      title: "Update",
+                                      onTap: () async {
+                                        final Map<String, dynamic> body = {
+                                          'dietation_feedback_decision': feedbackStatus,
+                                        };
+                                        dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
+                                          name: ApiNames.patientDietation + '?user_id=${state.data!.patient!.id}',
+                                          returnType: ReturnType.Type,
+                                          methodType: MethodType.Put,
+                                          returnDataFun: (data) => data,
+                                          jsonBody: body,
+                                          showLoader: true,
+                                        );
+                                        if (data != null) {
+                                          Navigator.pop(context);
+                                          CustomToast.showSnackBar(context, data["message"]["message_en"]);
+                                          SurPatientDetailsData().getPatientDetails(context, widget.patientId);
+                                        }
+                                      },
+                                      margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+                                    ),
+                                    const SizedBox(height: 16.0),
+                                  ],
+                                ),
                               ),
                             ),
                             sheetHeight: MediaQuery.of(context).size.height * 0.45,
