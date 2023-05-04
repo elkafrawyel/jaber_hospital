@@ -24,9 +24,7 @@ class _LoginState extends State<Login> {
             parent: AlwaysScrollableScrollPhysics(),
           ),
           children: [
-            Hero(
-                tag: Res.imagesLogo,
-            child: HeaderLogo(back: false,title: 'Sign In',)),
+            Hero(tag: Res.imagesLogo, child: HeaderLogo(back: false,title: 'Sign In',)),
             BuildSelectAuthType(loginData: LoginData()),
             BuildFormInputs(loginData: LoginData()),
             BuildForgetText(),

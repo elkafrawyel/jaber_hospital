@@ -2,9 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
+import '../../../../general/MyApp.dart';
 import '../../../../general/models/company_model.dart';
 import '../../../../general/models/instrument_model.dart';
+import '../../../../general/network/api_service.dart';
+import '../../../../general/utilities/http/dio/modals/LoadingDialog.dart';
+import '../../../../general/utilities/http/dio/utils/DioUtils.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
+import '../../../../general/utilities/utils_functions/ApiNames.dart';
 import '../../../models/comp_instruments_model.dart';
 import '../../../models/companies_response.dart';
 import '../../../models/company_instruments_response.dart';
@@ -19,9 +24,10 @@ class RequestInstrumentsData {
   factory RequestInstrumentsData() => _instance;
 
   late GenericBloc<List<CompanyId>?> companiesCubit;
-  late GenericBloc<CompanyInstrumentsResponse?> companyInstrumentsCubit;
+  late GenericBloc<List<CompInstrumentsModel>?> companyInstrumentsCubit;
+  // late GenericBloc<CompanyInstrumentsResponse?> companyInstrumentsCubit;
   List<CompanyId> companies = [];
-  List<CompInstrumentsModel> compHandles = [];
+  List<CompInstrumentsModel> compAllInstruments = [];
   List<InstrumentModel> handles = [];
   List<InstrumentModel> reloads = [];
   List<InstrumentModel> endoStitch = [];
@@ -34,7 +40,7 @@ class RequestInstrumentsData {
   String? selectedDate;
   String? selectedHandle;
   CompanyId? selectedCompany;
-  late GenericBloc<List<InstrumentModel>> selectedInstrumentsCubit;
+  List<InstrumentModel> selectedInstrumentsList = [];
 
   void init(BuildContext context) {
     this.companiesCubit = GenericBloc<List<CompanyId>?>([]);
@@ -50,7 +56,7 @@ class RequestInstrumentsData {
   }
 
   Future<void> fetchCompanyInstruments(BuildContext context, String companyId) async {
-    this.companyInstrumentsCubit = GenericBloc<CompanyInstrumentsResponse?>(null);
+    this.companyInstrumentsCubit = GenericBloc<List<CompInstrumentsModel>?>(null);
     CompanyInstrumentsResponse? result = await SurgeonRepository(context)
         .fetchCompanyInstruments(companyId);
     List<InstrumentModel> compInstruments = result?.data??[];
@@ -80,24 +86,51 @@ class RequestInstrumentsData {
         }
     });
     log("Handles=> ${handles.length}");
-    compHandles.add(CompInstrumentsModel(headerTitle: "Handles", instruments: handles));
-    compHandles.add(CompInstrumentsModel(headerTitle: "Reloads", instruments: reloads));
-    compHandles.add(CompInstrumentsModel(headerTitle: "Trocars", instruments: trocars));
-    compHandles.add(CompInstrumentsModel(headerTitle: "Reinforcement", instruments: reinforcement));
-    compHandles.add(CompInstrumentsModel(headerTitle: "Vessel Sealing", instruments: vesselSealing));
     log("Reloads=> ${reloads.length}");
     log("Trocars=> ${trocars.length}");
     log("trsReinForced=> ${trsReinForced.length}");
     log("vesselSealing=> ${vesselSealing.length}");
     log("reinforcement=> ${reinforcement.length}");
-    companyInstrumentsCubit.onUpdateData(result);
+    compAllInstruments.add(CompInstrumentsModel(headerTitle: "Handles", instruments: handles));
+    compAllInstruments.add(CompInstrumentsModel(headerTitle: "Reloads", instruments: reloads));
+    compAllInstruments.add(CompInstrumentsModel(headerTitle: "Trocars", instruments: trocars));
+    compAllInstruments.add(CompInstrumentsModel(headerTitle: "Reinforcement", instruments: reinforcement));
+    compAllInstruments.add(CompInstrumentsModel(headerTitle: "Vessel Sealing", instruments: vesselSealing));
+    log("compAllInstruments==> ${compAllInstruments.length}");
+    companyInstrumentsCubit.onUpdateData(compAllInstruments);
   }
 
-  void updateSelectedValues(bool checked, InstrumentModel instrument){
+  void updateSelectedValues(bool checked, InstrumentModel instrumentModel){
     if(checked){
-      instrument.checked = true;
+      selectedInstrumentsList.add(instrumentModel);
     } else{
-      instrument.checked = false;
+      selectedInstrumentsList.remove(instrumentModel);
     }
+    log("selectedInstrumentsList==> ${selectedInstrumentsList.length}");
   }
+
+  void onChangeCounter({required bool isAdd, required InstrumentModel instrumentModel}) {
+    if (isAdd) {
+      instrumentModel.quantity = instrumentModel.quantity! + 1;
+    } else {
+      if (instrumentModel.quantity! > 1) {
+        instrumentModel.quantity = instrumentModel.quantity! - 1;
+      }
+    }
+    companyInstrumentsCubit.onUpdateData(compAllInstruments);
+  }
+
+  Future<void> requestInstrumentsOrder(BuildContext context, Map<String, dynamic> body) async {
+      DioUtils.showLoadingDialog();
+      log("instrumentsOrderBody=> $body");
+      final response = await ApiService.post(ApiNames.requestInstrumentsOrder, body: body,);
+      log("responseData==> ${response.data}");
+      DioUtils.dismissDialog();
+      if(response.statusCode==200){
+        navigationKey.currentState!.pop();
+        CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
+      } else{
+        CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
+      }
+    }
 }

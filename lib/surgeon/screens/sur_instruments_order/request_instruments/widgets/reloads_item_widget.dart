@@ -1,24 +1,44 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../../../../general/constants/MyColors.dart';
 import '../../../../../general/models/instrument_model.dart';
 import '../../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../request_instruments_data.dart';
 
-class ReloadsItemWidget extends StatelessWidget {
-  const ReloadsItemWidget({Key? key, required this.instrumentModel, this.isChecked= false}) : super(key: key);
+class ReloadsItemWidget extends StatefulWidget {
+  const ReloadsItemWidget({Key? key, required this.instrumentModel})
+      : super(key: key);
   final InstrumentModel instrumentModel;
-  final bool isChecked;
+
+  @override
+  State<ReloadsItemWidget> createState() => _ReloadsItemWidgetState();
+}
+
+class _ReloadsItemWidgetState extends State<ReloadsItemWidget> {
+  RequestInstrumentsData requestInstrumentsData = RequestInstrumentsData();
 
   @override
   Widget build(BuildContext context) {
+    log("checked==> ${widget.instrumentModel.checked}");
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Checkbox(
-            value: isChecked,
+            value: widget.instrumentModel.checked,
             onChanged: (value) {
-
+              setState(() {
+                widget.instrumentModel.checked = value;
+              });
+              if (value ?? false)
+                requestInstrumentsData.selectedInstrumentsList
+                    .add(widget.instrumentModel);
+              else
+                requestInstrumentsData.selectedInstrumentsList
+                    .remove(widget.instrumentModel);
             },
           ),
           const SizedBox(
@@ -26,17 +46,18 @@ class ReloadsItemWidget extends StatelessWidget {
           ),
           Expanded(
               child: MyText(
-            title: 'Blue Echelon Reload 60 MM',
-            size: 9,
+            title: widget.instrumentModel.description ?? "",
+            size: 10,
           )),
           Visibility(
-            visible: isChecked ?? false,
+            visible: widget.instrumentModel.checked ?? false,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child:Row(
+              child: Row(
                 children: [
                   InkWell(
-                    // onTap: ()=> SurOrderMedicationsData().onChangeCounter(index: index, isAdd: false),
+                    onTap: () => requestInstrumentsData.onChangeCounter(
+                        isAdd: false, instrumentModel: widget.instrumentModel),
                     child: Container(
                       width: 30,
                       height: 30,
@@ -55,20 +76,18 @@ class ReloadsItemWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: MyText(
-                      title: "11",
+                      title: widget.instrumentModel.quantity.toString(),
                       // title: state.data[index].quantity.toString(),
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
                   ),
                   InkWell(
-                    onTap: () {
-                      // SurOrderMedicationsData().onChangeCounter(index: index, isAdd: true);
-                    },
+                    onTap: () => requestInstrumentsData.onChangeCounter(
+                        isAdd: true, instrumentModel: widget.instrumentModel),
                     child: Container(
                       width: 30,
                       height: 30,

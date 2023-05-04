@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:tf_validator/tf_validator.dart';
 
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/models/company_model.dart';
+import '../../../../general/utilities/http/dio/modals/LoadingDialog.dart';
 import '../../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/DefaultButton.dart';
@@ -16,6 +18,7 @@ import '../../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../../general/widgets/GenScaffold.dart';
 import '../../../../general/widgets/app_drop_menu.dart';
 import '../../../../general/widgets/loading_widget.dart';
+import '../../../models/comp_instruments_model.dart';
 import '../../../models/company_instruments_response.dart';
 import '../../../models/instrument_order_model.dart';
 import '../../../models/patient_details_model.dart';
@@ -107,17 +110,13 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                 GenericTextField(
                   hintColor:
                   Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
-                  fieldTypes: FieldTypes.clickable,
+                  fieldTypes: FieldTypes.disable,
                   fillColor: MyColors.textFields,
                   hint: "Date",
                   controller: dateController,
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   action: TextInputAction.next,
                   type: TextInputType.text,
-                  onTab: (){
-                    log("pick date...");
-
-                  },
                   validate: (value) => value!.validateEmpty(context),
                 ),
                 MyText(
@@ -166,177 +165,92 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                   },
                 ),
                 const SizedBox(height: 8.0),
-                MyText(
-                  title: 'Company Instruments:',
-                  size: 10,
-                  fontWeight: FontWeight.bold,
-                ),
                 if(requestInstrumentsData.selectedCompany!=null)...[
-                  ExpansionPanelList(
-                    elevation: 3,
-                    // Controlling the expansion behavior
-                    expansionCallback: (index, isExpanded) {
-                      handles[0].isExpanded= !isExpanded;
-                      setState(() {});
-                    },
-                    animationDuration: const Duration(milliseconds: 500),
-                    children: handles.map((item) => ExpansionPanel(
-                      canTapOnHeader: true,
-                      backgroundColor: Colors.grey.shade200,
-                      // backgroundColor: item.isExpanded == true ? AppTheme.hoverColor.withOpacity(0.2) : Colors.white,
-                      headerBuilder: (_, isExpanded) => Container(
-                          padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                          child: Text(handles[0].headerTitle??"",
-                            style: const TextStyle(fontSize: 16),
-                          )),
-                      body: Column(
-                        children: [
-                          ListTile(
-                            horizontalTitleGap: 1.0,
-                            contentPadding: EdgeInsets.zero,
-                            onTap: (){
-                              setState(() {
-                                selectedHandle = "Short";
-                              });
-                            },
-                            title: Row(
-                              children: [
-                                Radio(
-                                    activeColor: MyColors.primary,
-                                    value: "Short",
-                                    groupValue: selectedHandle,
-                                    onChanged: (index) {
-                                      setState(() {
-                                        selectedHandle = "Short";
-                                      });
-                                      log("selectedHandle==> $selectedHandle");
-                                    }),
-                                Expanded(
-                                  child: MyText(
-                                    title: "Short",
-                                    size: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          ListTile(
-                            horizontalTitleGap: 1.0,
-                            contentPadding: EdgeInsets.zero,
-                            onTap: (){
-                              setState(() {
-                                selectedHandle = "Long";
-                              });
-                            },
-                            title: Row(
-                              children: [
-                                Radio(
-                                    activeColor: MyColors.primary,
-                                    value: "Long",
-                                    groupValue: selectedHandle,
-                                    onChanged: (index) {
-                                      setState(() {
-                                        selectedHandle = "Long";
-                                      });
-                                      log("selectedHandle==> $selectedHandle");
-                                    }),
-                                Expanded(
-                                  child: MyText(
-                                    title: "Long",
-                                    size: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          ListTile(
-                            horizontalTitleGap: 1.0,
-                            contentPadding: EdgeInsets.zero,
-                            onTap: (){
-                              setState(() {
-                                selectedHandle = "Signia Powered Handle";
-                              });
-                            },
-                            title: Row(
-                              children: [
-                                Radio(
-                                    activeColor: MyColors.primary,
-                                    value: "Signia Powered Handle",
-                                    groupValue: selectedHandle,
-                                    onChanged: (index) {
-                                      setState(() {
-                                        selectedHandle = "Signia Powered Handle";
-                                      });
-                                      log("selectedHandle==> $selectedHandle");
-                                    }),
-                                Expanded(
-                                  child: MyText(
-                                    title: "Signia Powered Handle",
-                                    size: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      isExpanded: handles[0].isExpanded,
-                    ),
-                    ).toList(),
+                  MyText(
+                    title: 'Company Instruments:',
+                    size: 10,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 16.0,),
-                  ExpansionPanelList(
-                    elevation: 3,
-                    // Controlling the expansion behavior
-                    expansionCallback: (index, isExpanded) {
-                      handles[0].isExpanded= !isExpanded;
-                      setState(() {});
+                  BlocBuilder<GenericBloc<List<CompInstrumentsModel>?>,
+                      GenericState<List<CompInstrumentsModel>?>>(
+                    bloc: requestInstrumentsData.companyInstrumentsCubit,
+                    builder: (context, state) {
+                      if (state is GenericUpdateState) {
+                        log("stateData=> ${requestInstrumentsData.compAllInstruments.length}");
+                        return SingleChildScrollView(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          physics: const BouncingScrollPhysics(),
+                          child: ExpansionPanelList(
+                            elevation: 3,
+                            // Controlling the expansion behavior
+                            expansionCallback: (index, isExpanded) {
+                              state.data?[index].isExpanded= !isExpanded;
+                              requestInstrumentsData.companyInstrumentsCubit.onUpdateData(state.data);
+                            },
+                            animationDuration: const Duration(milliseconds: 500),
+                            children: state.data!.map(
+                                  (item) => ExpansionPanel(
+                                canTapOnHeader: true,
+                                backgroundColor:
+                                item.isExpanded == true ? Colors.grey.shade50 : Colors.white,
+                                headerBuilder: (_, isExpanded) => Container(
+                                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+                                    child: Text(
+                                      item.headerTitle??"",
+                                      style: const TextStyle(fontSize: 16),
+                                    )),
+                                body: Column(
+                                  children: item.instruments!.map((element) => ReloadsItemWidget(instrumentModel: element,)).toList(),
+                                ),
+                                isExpanded: item.isExpanded,
+                              ),
+                            ).toList(),
+                          ),
+                        );
+                      } else {
+                        return SizedBox(
+                          height: 56,
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.white,
+                            highlightColor: MyColors.greyWhite,
+                            child: Container(
+                              margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                              height: MediaQuery.of(context).size.height / 6,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: MyColors.white,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
                     },
-                    animationDuration: const Duration(milliseconds: 500),
-                    children: handles.map((item) => ExpansionPanel(
-                      canTapOnHeader: true,
-                      backgroundColor: Colors.grey.shade200,
-                      // backgroundColor: item.isExpanded == true ? AppTheme.hoverColor.withOpacity(0.2) : Colors.white,
-                      headerBuilder: (_, isExpanded) => Container(
-                          padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                          child: Text(handles[0].headerTitle??"",
-                            style: const TextStyle(fontSize: 16),
-                          )),
-                      body: Column(
-                        children: [
-                          // ReloadsItemWidget(),
-                          // ReloadsItemWidget(),
-                        ],
-                      ),
-                      isExpanded: handles[0].isExpanded,
-                    ),
-                    ).toList(),
                   ),
-                  // BlocBuilder<GenericBloc<CompanyInstrumentsResponse?>,
-                  //     GenericState<CompanyInstrumentsResponse?>>(
-                  //   bloc: requestInstrumentsData.companyInstrumentsCubit,
-                  //   builder: (context, state) {
-                  //     if (state is GenericUpdateState) {
-                  //       log("stateData=> ${state.data?.data?.length}");
-                  //       return Column(
-                  //         mainAxisSize: MainAxisSize.min,
-                  //         children: [
-                  //
-                  //         ],
-                  //       );
-                  //     } else {
-                  //       return SizedBox(
-                  //           height: 56,
-                  //           child: Center(child: LoadingDialog.showLoadingView()));
-                  //     }
-                  //   },
-                  // ),
                   DefaultButton(
                     title: "Confirm Request",
-                    onTap: () {
+                    onTap: () async{
+                      if(requestInstrumentsData.selectedInstrumentsList.isEmpty){
+                        CustomToast.showSnackBar(context, "Please select instruments first!", backgroundColor: Colors.redAccent);
+                        return;
+                      }
+                      List<dynamic> instruments = requestInstrumentsData.selectedInstrumentsList
+                          .map((item) => {
+                        "id": item.sId,
+                        "quantity":item.quantity,
+                      }).toList();
+                      Map<String, dynamic> body = {
+                        "doctor_id": widget.patientModel.patient?.surgeonId?.sId??"",
+                        "company_id": widget.patientModel.patient?.surgeonId?.sId??"",
+                        "patient_id": widget.patientModel.patient?.id??"",
+                        "mobile_number": widget.patientModel.patient?.telephone1??"",
+                        "order_start_date": "",
+                        "order_status": "routed to company",
+                        "status": true,
+                        "instruments": instruments,
+                      };
+                      log("instruments=> ${jsonEncode(instruments)}");
+                      await requestInstrumentsData.requestInstrumentsOrder(context, body);
                       // Nav.navigateTo(QuestionnaireCompletedScreen(), navigatorType: NavigatorType.push);
                     },
                   ),

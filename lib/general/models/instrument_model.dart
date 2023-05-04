@@ -35,6 +35,8 @@ class InstrumentModel {
     publicId = json['public_id'];
     adminCreatedId = json['admin_created_id'];
     status = json['status'];
+    checked = false;
+    quantity = 1;
   }
 
   Map<String, dynamic> toJson() {
