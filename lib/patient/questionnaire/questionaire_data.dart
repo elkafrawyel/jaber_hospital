@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
+import '../models/answered_question_model.dart';
 import 'pages/ques_page_five.dart';
 import 'pages/ques_page_four.dart';
 import 'pages/ques_page_one.dart';
@@ -17,6 +20,7 @@ class QuestionnaireData{
 
   late PageController pageController;
   late GenericBloc<int> curPageCubit;
+  List<AnsweredQuestionModel> answeredQuestions = [];
 
   void initScreen(BuildContext context) async {
     pageController = PageController();
@@ -47,5 +51,15 @@ class QuestionnaireData{
       int nextPage = pageController.page!.round();
       curPageCubit.onUpdateData(nextPage + 1);
     });
+  }
+
+  void updateQuesAnswered(AnsweredQuestionModel answeredModel){
+    if(answeredQuestions.contains(answeredModel.quesId)){
+      AnsweredQuestionModel ansModel = answeredQuestions.firstWhere((element) => element.quesId == answeredModel.quesId);
+      ansModel.quesScore = answeredModel.quesScore;
+    } else{
+      answeredQuestions.add(answeredModel);
+    }
+    log("answeredQuestions=> ${answeredQuestions.length}");
   }
 }
