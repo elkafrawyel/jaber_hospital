@@ -55,6 +55,8 @@ class ApiNames{
   static const String patientWatchedClipPath = "patient_watched_clip";
   static const String patientPathwayPath = "patient_pathway";
   static const String patientNotificationPath = "patient_notification";
+  static const String patientQuestionnairePath = "questionnaire";
+  static const String questionnaireAnsPath = "questionnaire_answer";
 
   /// Psychologist
   static const String bookAppointmentDate = "appointment";

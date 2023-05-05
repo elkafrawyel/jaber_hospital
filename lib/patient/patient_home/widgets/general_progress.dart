@@ -47,21 +47,22 @@ class _GeneralProgressState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return isLoading? Shimmer.fromColors(
-      baseColor: Colors.white,
-      highlightColor: MyColors.greyWhite,
-      child: Container(
-        margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-        height: MediaQuery.of(context).size.height / 6,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: MyColors.white,
-        ),
-      ),
-    ):generalProgress.data?.finalFeedback != "true"
-        ? _horizontalProgressView(size)
-        : VerticalGeneralProgress(generalProgress: generalProgress,);
+    return VerticalGeneralProgress(generalProgress: generalProgress,);
+    // return isLoading? Shimmer.fromColors(
+    //   baseColor: Colors.white,
+    //   highlightColor: MyColors.greyWhite,
+    //   child: Container(
+    //     margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+    //     height: MediaQuery.of(context).size.height / 6,
+    //     width: double.infinity,
+    //     decoration: BoxDecoration(
+    //       borderRadius: BorderRadius.circular(15),
+    //       color: MyColors.white,
+    //     ),
+    //   ),
+    // ):generalProgress.data?.finalFeedback != "true"
+    //     ? _horizontalProgressView(size)
+    //     : VerticalGeneralProgress(generalProgress: generalProgress,);
   }
 
   Widget _horizontalProgressView(Size size) {

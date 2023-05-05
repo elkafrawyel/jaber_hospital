@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:base_flutter/patient/patient_home/widgets/vertical_general_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,11 +13,7 @@ import '../models/update_consent_response.dart';
 import 'home_data.dart';
 import 'widgets/BuildHomeDrawer.dart';
 import 'widgets/build_appBar.dart';
-import 'widgets/coming_appointments.dart';
 import 'widgets/general_progress.dart';
-import 'widgets/operations.dart';
-import 'widgets/visits_history.dart';
-import 'widgets/week_progress.dart';
 
 class PatientHomeScreen extends StatefulWidget {
   const PatientHomeScreen({Key? key}) : super(key: key);

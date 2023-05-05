@@ -1,6 +1,8 @@
 class AnsweredQuestionModel{
-  String? quesId;
-  int? quesScore;
+  int? quesId;
+  String? ques;
+  String? quesAnswer;
+  String? answerScore;
 
-  AnsweredQuestionModel({this.quesId, this.quesScore});
+  AnsweredQuestionModel({this.quesId, this.ques, this.quesAnswer, this.answerScore});
 }

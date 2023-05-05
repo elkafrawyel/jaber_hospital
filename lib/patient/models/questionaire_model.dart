@@ -1,16 +1,16 @@
 import '../../general/models/doctor_model.dart';
 import 'question_objects.dart';
 
-class QuestionnaireModel {
+class QuestionnaireResponse {
   int? code;
   Message? message;
   bool? success;
   List<Data>? data;
   PageInfo? pageInfo;
 
-  QuestionnaireModel({this.code, this.message, this.success, this.data, this.pageInfo});
+  QuestionnaireResponse({this.code, this.message, this.success, this.data, this.pageInfo});
 
-  QuestionnaireModel.fromJson(Map<String, dynamic> json) {
+  QuestionnaireResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message =
     json['message'] != null ? new Message.fromJson(json['message']) : null;

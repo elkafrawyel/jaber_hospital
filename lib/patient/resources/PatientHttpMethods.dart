@@ -12,6 +12,7 @@ import '../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
 import '../models/appointments_response.dart';
 import '../models/notifications_response.dart';
+import '../models/questionaire_model.dart';
 import '../models/update_consent_response.dart';
 
 
@@ -99,6 +100,17 @@ class PatientHttpMethods {
       methodType: MethodType.Get,
       returnDataFun: (data) => data,
       toJsonFunc: (json) => NotificationsResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<QuestionnaireResponse?> fetchPatientQuestionnaire(int page) async {
+    final data = await GenericHttp<QuestionnaireResponse>(context).callApi(
+      name: ApiNames.patientQuestionnairePath+"?page=$page",
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => QuestionnaireResponse.fromJson(json),
     );
     return data;
   }
