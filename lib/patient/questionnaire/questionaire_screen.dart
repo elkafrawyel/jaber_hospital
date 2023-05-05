@@ -18,12 +18,10 @@ class QuestionnaireCompletedScreen extends StatefulWidget {
   const QuestionnaireCompletedScreen({Key? key}) : super(key: key);
 
   @override
-  State<QuestionnaireCompletedScreen> createState() =>
-      _QuestionnaireCompletedScreenState();
+  State<QuestionnaireCompletedScreen> createState() => _QuestionnaireCompletedScreenState();
 }
 
-class _QuestionnaireCompletedScreenState
-    extends State<QuestionnaireCompletedScreen> {
+class _QuestionnaireCompletedScreenState extends State<QuestionnaireCompletedScreen> {
   QuestionnaireData questionnaireData = QuestionnaireData();
 
   @override
