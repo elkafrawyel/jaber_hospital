@@ -52,6 +52,7 @@ class _QuestionnaireCompletedScreenState extends State<QuestionnaireCompletedScr
                         Expanded(
                             child: state.data!.isNotEmpty
                                 ? SingleChildScrollView(
+                              padding: const EdgeInsets.all(16.0),
                               child: Column(
                                 children: List.generate(state.data!.length, (index) =>QuestionItemWidget(
                            questionsObjects: state.data![index],

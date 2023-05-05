@@ -140,7 +140,8 @@ class _QuestionItemWidgetState extends State<QuestionItemWidget> {
                 ),
               ),
             ],
-          )
+          ),
+          const Divider(color: Colors.grey),
         ],
       ),
     );

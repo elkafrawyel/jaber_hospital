@@ -23,8 +23,7 @@ class SurgeonRepository {
 
   Future<bool> updateSurgeonProfile(ProfileModel model) => _surgeonHttpMethods.updateSurgeonProfile(model);
 
-  Future<String?> addPatientFirst({required String userId, required AddPatientFirstDto model}) =>
-      _surgeonHttpMethods.addPatientFirst(userId, model);
+  Future<String?> addPatientFirst({required AddPatientFirstDto model}) => _surgeonHttpMethods.addPatientFirst(model);
 
   Future<bool> editPatientFirst({
     required String userId,
@@ -35,15 +34,50 @@ class SurgeonRepository {
         model,
       );
 
-  Future<bool> addPatientSecond(AddPatientSecondDto model) => _surgeonHttpMethods.addPatientSecond(model);
+  Future<bool> addPatientSecond({
+    required String patientId,
+    required AddPatientSecondDto model,
+  }) =>
+      _surgeonHttpMethods.addPatientSecond(
+        patientId: patientId,
+        model: model,
+      );
 
-  Future<bool> addPatientThird(AddPatientThirdDto model) => _surgeonHttpMethods.addPatientThird(model);
+  Future<bool> addPatientThird({
+    required String patientId,
+    required AddPatientThirdDto model,
+  }) =>
+      _surgeonHttpMethods.addPatientThird(
+        model: model,
+        patientId: patientId,
+      );
 
-  Future<bool> addPatientFourth(AddPatientFourthDto model) => _surgeonHttpMethods.addPatientFourth(model);
+  Future<bool> addPatientFourth({
+    required String patientId,
+    required AddPatientFourthDto model,
+  }) =>
+      _surgeonHttpMethods.addPatientFourth(
+        model: model,
+        patientId: patientId,
+      );
 
-  Future<bool> addPatientFifth(AddPatientFifthDto model) => _surgeonHttpMethods.addPatientFifth(model);
+  Future<bool> addPatientFifth({
+    required String patientId,
+    required AddPatientFifthDto model,
+  }) =>
+      _surgeonHttpMethods.addPatientFifth(
+        model: model,
+        patientId: patientId,
+      );
 
-  Future<bool> addPatientSixth(AddPatientSixthDto model) => _surgeonHttpMethods.addPatientSixth(model);
+  Future<bool> addPatientSixth({
+    required String patientId,
+    required AddPatientSixthDto model,
+  }) =>
+      _surgeonHttpMethods.addPatientSixth(
+        model: model,
+        patientId: patientId,
+      );
 
   Future<List<LabModel>?> getAllLabs() => _surgeonHttpMethods.getAllLabs();
 
@@ -109,11 +143,29 @@ class SurgeonRepository {
 
   Future<bool> archivePatient(String patientId) => _surgeonHttpMethods.archivePatient(patientId);
 
-  Future<bool> addPatientSeventh(AddPatientSeventhDto model) => _surgeonHttpMethods.addPatientSeventh(model);
+  Future<bool> addPatientSeventh({
+    required String patientId,
+    required AddPatientSeventhDto model,
+  }) =>
+      _surgeonHttpMethods.addPatientSeventh(
+        model: model,
+        patientId: patientId,
+      );
 
-  Future<bool> uploadFluoroscopyResult(File file) => _surgeonHttpMethods.uploadFluoroscopyResult(file);
+  Future<bool> uploadFluoroscopyResult({
+    required String patientId,
+    required File file,
+  }) =>
+      _surgeonHttpMethods.uploadFluoroscopyResult(
+        file: file,
+        patientId: patientId,
+      );
 
-  Future<bool> uploadEgd(File file) => _surgeonHttpMethods.uploadEgd(file);
+  Future<bool> uploadEgd({
+    required String patientId,
+    required File file,
+  }) =>
+      _surgeonHttpMethods.uploadEgd(file: file, patientId: patientId);
 
   /// request instruments
   Future<CompaniesResponse?> fetchCompanies() => _surgeonHttpMethods.getCompanies();

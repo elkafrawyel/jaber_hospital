@@ -293,10 +293,7 @@ class PsychologistAddPatientData {
         fileId: "234873456",
         image: "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
       );
-      String? result = await SurgeonRepository(context).addPatientFirst(
-        userId: users.userData?[0].doctorRoleId?.sId ?? "",
-        model: model,
-      );
+      String? result = await SurgeonRepository(context).addPatientFirst(model: model);
       if (result != null) {
         FocusScope.of(context).requestFocus(FocusNode());
         nextPage();

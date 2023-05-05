@@ -136,12 +136,13 @@ class SurAddPatientData {
 
   bool editing = false;
   PatientDetailsModel? patientDetailsModel;
-  String? addedPatientId;
+  late String currentPatientId;
 
   /// #############################  init screen  #############################
   void initScreen(BuildContext context, {PatientDetailsModel? patientDetailsModel}) async {
     editing = patientDetailsModel != null;
     this.patientDetailsModel = patientDetailsModel;
+    currentPatientId = patientDetailsModel?.patient?.id ?? '';
     pageController = PageController();
     formKey1 = GlobalKey<FormState>();
     pageCubit = GenericBloc(1);
@@ -316,7 +317,6 @@ class SurAddPatientData {
 
   /// #############################  first page  #############################
   void addPatientFirst(BuildContext context) async {
-    UserModel? users = context.read<UserCubit>().state.model;
     if (formKey1.currentState!.validate()) {
       int? age = int.tryParse(patientAge.text);
       if (age == null) {
@@ -358,9 +358,9 @@ class SurAddPatientData {
         fileId: patientFileNumber.text,
         image: "https://res.cloudinary.com/djamk74m7/image/upload/v1654887002/avatar_chef4p.png",
       );
-      if (editing || addedPatientId != null) {
+      if (editing || currentPatientId.isNotEmpty) {
         bool result = await SurgeonRepository(context).editPatientFirst(
-          userId: addedPatientId ?? patientDetailsModel?.patient?.id ?? '',
+          userId: currentPatientId,
           model: model,
         );
 
@@ -369,14 +369,11 @@ class SurAddPatientData {
           nextPage();
         }
       } else {
-        String? patientId = await SurgeonRepository(context).addPatientFirst(
-          userId: users.userData?[0].doctorRoleId?.sId ?? "",
-          model: model,
-        );
+        String? patientId = await SurgeonRepository(context).addPatientFirst(model: model);
 
         if (patientId != null) {
           FocusScope.of(context).requestFocus(FocusNode());
-          addedPatientId = patientId;
+          currentPatientId = patientId;
           nextPage();
         }
       }
@@ -403,7 +400,10 @@ class SurAddPatientData {
       coMorbiditiesOtherNotes: otherNotesDm.text,
       alcohol: false,
     );
-    bool result = await SurgeonRepository(context).addPatientSecond(model);
+    bool result = await SurgeonRepository(context).addPatientSecond(
+      patientId: currentPatientId,
+      model: model,
+    );
     if (result) {
       FocusScope.of(context).requestFocus(FocusNode());
       nextPage();
@@ -425,7 +425,10 @@ class SurAddPatientData {
       refluxMedOcc: medicationsCubit.state.data == "Occasional" || dmSelectCubit.state.data,
       refluxMedNone: medicationsCubit.state.data == "None" || dmSelectCubit.state.data,
     );
-    bool result = await SurgeonRepository(context).addPatientThird(model);
+    bool result = await SurgeonRepository(context).addPatientThird(
+      model: model,
+      patientId: currentPatientId,
+    );
     if (result) {
       FocusScope.of(context).requestFocus(FocusNode());
       nextPage();
@@ -450,7 +453,10 @@ class SurAddPatientData {
       medicationTypeWegovo: medicationTypeCubit.state.data.contains("Wegovy"),
       medicationTypeMounjaro: medicationTypeCubit.state.data.contains("Mounjaro"),
     );
-    bool result = await SurgeonRepository(context).addPatientFourth(model);
+    bool result = await SurgeonRepository(context).addPatientFourth(
+      model: model,
+      patientId: currentPatientId,
+    );
     if (result) {
       FocusScope.of(context).requestFocus(FocusNode());
       nextPage();
@@ -472,7 +478,10 @@ class SurAddPatientData {
       surgeryTypeSadiS: surgeryTypeCubit.state.data.contains('SADI-S'),
       surgeryTypeSasi: surgeryTypeCubit.state.data.contains('SASI'),
     );
-    bool result = await SurgeonRepository(context).addPatientFifth(model);
+    bool result = await SurgeonRepository(context).addPatientFifth(
+      model: model,
+      patientId: currentPatientId,
+    );
     if (result) {
       FocusScope.of(context).requestFocus(FocusNode());
       nextPage();
@@ -491,7 +500,10 @@ class SurAddPatientData {
 
   void addPatientSixth(BuildContext context) async {
     if (FluoroscopyImageCubit.state.data != null) {
-      bool result = await SurgeonRepository(context).uploadFluoroscopyResult(FluoroscopyImageCubit.state.data!);
+      bool result = await SurgeonRepository(context).uploadFluoroscopyResult(
+        file: FluoroscopyImageCubit.state.data!,
+        patientId: currentPatientId,
+      );
       if (result) {
         print('File uploaded Successfully');
       }
@@ -517,7 +529,10 @@ class SurAddPatientData {
           .toList(),
     );
 
-    bool result = await SurgeonRepository(context).addPatientSixth(model);
+    bool result = await SurgeonRepository(context).addPatientSixth(
+      model: model,
+      patientId: currentPatientId,
+    );
     if (result) {
       FocusScope.of(context).requestFocus(FocusNode());
       nextPage();
@@ -535,7 +550,10 @@ class SurAddPatientData {
 
   void addPatientSeventh(BuildContext context) async {
     if (EGDResultImageCubit.state.data != null) {
-      bool result = await SurgeonRepository(context).uploadEgd(EGDResultImageCubit.state.data!);
+      bool result = await SurgeonRepository(context).uploadEgd(
+        file: EGDResultImageCubit.state.data!,
+        patientId: currentPatientId,
+      );
       if (result) {
         print('File uploaded Successfully');
       }
@@ -543,7 +561,6 @@ class SurAddPatientData {
 
     AddPatientSeventhDto model = AddPatientSeventhDto(
       egd: EGDCubit.state.data,
-      // egdResults: EGDResultController.text,
       egdOesophagusNormal: NormalOesophagusCubit.state.data,
       egdOesophagusOesophagitis: oesophagusCubit.state.data,
       egdOesophagusGrade: oesophagusGradeCubit.state.data,
@@ -582,7 +599,10 @@ class SurAddPatientData {
       egdPanDilatation: PreviousLSGStatusCubit.state.data.contains('Pan-dilatation'),
     );
 
-    bool result = await SurgeonRepository(context).addPatientSeventh(model);
+    bool result = await SurgeonRepository(context).addPatientSeventh(
+      model: model,
+      patientId: currentPatientId,
+    );
     if (result) {
       FocusScope.of(context).requestFocus(FocusNode());
       if (editing) {
@@ -614,6 +634,17 @@ class SurAddPatientData {
     if (date != null) {
       String dateStr = DateFormat("dd-MM-yyyy").format(date);
       insertionDate.text = dateStr;
+    }
+  }
+
+  void onDiscard(BuildContext context) {
+    if (pageCubit.state.data == 0 || currentPatientId.isEmpty) {
+      Navigator.of(context).pop();
+    } else {
+      Nav.navigateTo(
+        SurPatientDetails(patientId: currentPatientId),
+        navigatorType: NavigatorType.push,
+      );
     }
   }
 }

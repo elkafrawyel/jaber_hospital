@@ -28,6 +28,7 @@ class ApiNames{
   static const String addAppointment = "appointment";
   static const String patientCoMorbidities = "patient_coMorbidities";
   static const String patientReflux = "patient_reflux";
+  static const String patientSurgicalHistory = "patient_surgicalHistory";
   static const String patientProcedures = "patient_procedures";
   static const String patientPreOperative = "patient_preOperative";
   static const String surgeonNotifications = "doctor_notification";
@@ -38,6 +39,7 @@ class ApiNames{
   static const String patientEgd = "patient_egd";
   static const String patientArchive = "archive_patient";
   static const String patientSearch = "patient";
+  static const String patientDietation = "patient_dietation";
 
   /// companies
   static const String companyHomeOrders = "company_orders_completed_inProgress";

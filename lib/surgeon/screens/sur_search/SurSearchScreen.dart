@@ -1,4 +1,3 @@
-import 'package:base_flutter/surgeon/models/patient_details_model.dart';
 import 'package:base_flutter/surgeon/screens/sur_search/BuildPrePostItem.dart';
 import 'package:base_flutter/surgeon/screens/sur_search/pagination_view.dart';
 import 'package:base_flutter/surgeon/screens/sur_search/patient_search_response.dart';
@@ -17,7 +16,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final _debouncer = Debouncer(milliseconds: 500);
+  final _debouncer = Debouncer(milliseconds: 1000);
   List<PatientModel> _results = [];
   int page = 0;
   bool loading = false;

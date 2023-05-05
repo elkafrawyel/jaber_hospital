@@ -56,7 +56,7 @@ class AddPatientFirstPage extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 action: TextInputAction.next,
                 type: TextInputType.text,
-                validate: (value) => null,
+                validate: (value) => value!.validateEmpty(context),
               ),
               MyText(
                 title: "Patient last name (Arabic)",
@@ -104,7 +104,7 @@ class AddPatientFirstPage extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 action: TextInputAction.next,
                 type: TextInputType.text,
-                validate: (value) => value!.validateEmpty(context),
+                validate: (value) => null,
               ),
               // MyText(
               //   title: "Civil ID",

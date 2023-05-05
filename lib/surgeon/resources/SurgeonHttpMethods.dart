@@ -35,7 +35,7 @@ class SurgeonHttpMethods {
 
   Future<AllPatientPostOpResponse> getAllPatientPostOp({int? page}) async {
     dynamic data = await GenericHttp<AllPatientPostOpResponse>(context).callApi(
-      name: ApiNames.allPatientsPostOp+'?page=$page',
+      name: ApiNames.allPatientsPostOp + '?page=$page',
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,
@@ -70,9 +70,9 @@ class SurgeonHttpMethods {
     }
   }
 
-  Future<String?> addPatientFirst(String userId, AddPatientFirstDto model) async {
+  Future<String?> addPatientFirst(AddPatientFirstDto model) async {
     dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
-      name: ApiNames.patientBasicInfo + "?user_id=$userId",
+      name: ApiNames.patientBasicInfo,
       returnType: ReturnType.Type,
       methodType: MethodType.Post,
       returnDataFun: (data) => data,
@@ -89,7 +89,7 @@ class SurgeonHttpMethods {
 
   Future<bool> editPatientFirst(String userId, AddPatientFirstDto model) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.patientBasicInfo + "?user_id=$userId",
+      name: ApiNames.patientBasicInfo + "?patient_id=$userId",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -103,10 +103,9 @@ class SurgeonHttpMethods {
     return false;
   }
 
-  Future<bool> addPatientSecond(AddPatientSecondDto model) async {
-    UserModel? users = context.read<UserCubit>().state.model;
+  Future<bool> addPatientSecond({required String patientId, required AddPatientSecondDto model}) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.patientCoMorbidities + "?user_id=${users.userData?[0].sId}",
+      name: ApiNames.patientCoMorbidities + "?patient_id=$patientId",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -120,10 +119,9 @@ class SurgeonHttpMethods {
     return false;
   }
 
-  Future<bool> addPatientThird(AddPatientThirdDto model) async {
-    UserModel? users = context.read<UserCubit>().state.model;
+  Future<bool> addPatientThird({required String patientId, required AddPatientThirdDto model}) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.patientReflux + "?user_id=${users.userData?[0].sId}",
+      name: ApiNames.patientReflux + "?patient_id=$patientId",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -137,10 +135,9 @@ class SurgeonHttpMethods {
     return false;
   }
 
-  Future<bool> addPatientFourth(AddPatientFourthDto model) async {
-    UserModel? users = context.read<UserCubit>().state.model;
+  Future<bool> addPatientFourth({required String patientId, required AddPatientFourthDto model}) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.patientReflux + "?user_id=${users.userData?[0].sId}",
+      name: ApiNames.patientSurgicalHistory + "?patient_id=$patientId",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -154,10 +151,9 @@ class SurgeonHttpMethods {
     return false;
   }
 
-  Future<bool> addPatientFifth(AddPatientFifthDto model) async {
-    UserModel? users = context.read<UserCubit>().state.model;
+  Future<bool> addPatientFifth({required String patientId, required AddPatientFifthDto model}) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.patientProcedures + "?user_id=${users.userData?[0].sId}",
+      name: ApiNames.patientProcedures + "?patient_id=$patientId",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -171,10 +167,9 @@ class SurgeonHttpMethods {
     return false;
   }
 
-  Future<bool> addPatientSixth(AddPatientSixthDto model) async {
-    UserModel? users = context.read<UserCubit>().state.model;
+  Future<bool> addPatientSixth({required String patientId, required AddPatientSixthDto model}) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.patientPreOperative + "?patient_id=${users.userData?[0].sId}",
+      name: ApiNames.patientPreOperative + "?patient_id=$patientId",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -579,10 +574,9 @@ class SurgeonHttpMethods {
     }
   }
 
-  Future<bool> addPatientSeventh(AddPatientSeventhDto model) async {
-    UserModel? users = context.read<UserCubit>().state.model;
+  Future<bool> addPatientSeventh({required String patientId, required AddPatientSeventhDto model}) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
-      name: ApiNames.patientEgd + "?user_id=${users.userData?[0].sId}",
+      name: ApiNames.patientEgd + "?patient_id=$patientId",
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       returnDataFun: (data) => data,
@@ -596,13 +590,8 @@ class SurgeonHttpMethods {
     return false;
   }
 
-  Future<bool> uploadFluoroscopyResult(File file) async {
-    UserModel? users = context.read<UserCubit>().state.model;
-    Map<String, dynamic> body = {
-      'patient_id': users.userData![0].sId,
-      // 'patient_id': '63d841866514c4eaa12e0128',
-      'file': file,
-    };
+  Future<bool> uploadFluoroscopyResult({required String patientId, required File file}) async {
+    Map<String, dynamic> body = {'patient_id': patientId, 'file': file};
     body.removeWhere((key, value) => value == null);
     dynamic data = await GenericHttp<bool>(context).callApi(
       name: ApiNames.uploadFluoroscopyResult,
@@ -613,22 +602,19 @@ class SurgeonHttpMethods {
       showLoader: true,
     );
     if (data != null) {
-      // CustomToast.showSnackBar(context, data["message"]["message_en"]);
       return true;
     }
     return false;
   }
 
-  Future<bool> uploadEgd(File file) async {
-    UserModel? users = context.read<UserCubit>().state.model;
+  Future<bool> uploadEgd({required String patientId, required File file}) async {
     dynamic data = await GenericHttp<bool>(context).callApi(
       name: ApiNames.uploadEgdResult,
       returnType: ReturnType.Type,
       methodType: MethodType.Put,
       showLoader: true,
       jsonBody: {
-        'patient_id': users.userData![0].sId,
-        // 'patient_id': '63d841866514c4eaa12e0128',
+        'patient_id': patientId,
         'fileToUpload': file,
       },
     );
