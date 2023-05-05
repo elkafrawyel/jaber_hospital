@@ -35,7 +35,7 @@ class UpComingAppointmentWidget extends StatelessWidget {
         child: Row(
           children: [
             CachedImage(
-                url: appointment.patientId?.image?? 'https://picsum.photos/201',
+                url: appointment.patientId?.image ?? 'https://picsum.photos/201',
                 height: 68,
                 width: 68,
                 borderRadius: BorderRadius.circular(5)),
@@ -82,7 +82,7 @@ class UpComingAppointmentWidget extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           MyText(
-                            title: appointment.createdAt?.split("-").last.substring(3,8)??"14:30 PM",
+                            title: appointment.createdAt?.split("-").last.substring(3, 8) ?? "",
                             size: 9,
                             overflow: TextOverflow.ellipsis,
                             color: MyColors.primary,

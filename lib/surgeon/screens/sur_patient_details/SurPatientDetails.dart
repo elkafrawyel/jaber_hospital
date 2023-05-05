@@ -909,8 +909,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       child: DefaultButton(
                         title: "Order Instruments",
                         onTap: () => Nav.navigateTo(RequestInstrumentsScreen(patientModel: state.data!), navigatorType: NavigatorType.push),
-                      ),
-                    ),
+                      ),),
                     ],
                   ],
                 ),
