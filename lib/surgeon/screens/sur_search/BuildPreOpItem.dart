@@ -1,4 +1,3 @@
-import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
 import 'package:base_flutter/surgeon/screens/sur_patient_details/SurPatientDetailsImports.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -22,6 +21,13 @@ class BuildPreOpItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isReady = (patientModel.egd ?? false) &&
+        (patientModel.ultrasound ?? false) &&
+        (patientModel.surgionVisit ?? false) &&
+        (patientModel.dietationFeedbackDecision == 'Clear') &&
+        (patientModel.feedback == 'Clear') &&
+        (patientModel.watchedClip ?? false) &&
+        (patientModel.finalFeedback == 'Clear');
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -31,15 +37,11 @@ class BuildPreOpItem extends StatelessWidget {
         children: [
           InkWell(
             onTap: () async {
-              bool? result = await Navigator.of(context).push(
+              await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => SurPatientDetails(patientId: patientModel.sId ?? ''),
                 ),
               );
-
-              if (result ?? false) {
-                onPatientArchive();
-              }
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -66,7 +68,7 @@ class BuildPreOpItem extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            patientModel.overallStatus ?? false
+                            isReady
                                 ? Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                                     decoration: BoxDecoration(
@@ -93,6 +95,16 @@ class BuildPreOpItem extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
+                            if (patientModel.isArchived ?? false)
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                                child: MyText(
+                                  title: 'Archived',
+                                  size: 9,
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
                           ],
                         ),
                         Row(
@@ -184,19 +196,16 @@ class BuildPreOpItem extends StatelessWidget {
                           axis: TimelineAxis.horizontal,
                           alignment: TimelineAlign.center,
                           beforeLineStyle: LineStyle(
-                            color:
-                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                            color: patientModel.dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           afterLineStyle: LineStyle(
-                            color:
-                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                            color: patientModel.dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color:
-                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                            color: patientModel.dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                             iconStyle: IconStyle(
                               color: Colors.white,
                               iconData: Icons.check,
@@ -205,8 +214,7 @@ class BuildPreOpItem extends StatelessWidget {
                           endChild: MyText(
                             title: "Dietitian",
                             size: 8,
-                            color:
-                                patientModel.dietationFeedbackDecision == 'Need Visit' ? Colors.red : MyColors.primary,
+                            color: patientModel.dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                           ),
                         ),
                       ),
@@ -215,16 +223,16 @@ class BuildPreOpItem extends StatelessWidget {
                           axis: TimelineAxis.horizontal,
                           alignment: TimelineAlign.center,
                           beforeLineStyle: LineStyle(
-                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Clear' ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           afterLineStyle: LineStyle(
-                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Clear' ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Clear' ? MyColors.primary : Colors.red,
                             iconStyle: IconStyle(
                               color: Colors.white,
                               iconData: Icons.check,
@@ -233,7 +241,7 @@ class BuildPreOpItem extends StatelessWidget {
                           endChild: MyText(
                             title: "Physiotherapy",
                             size: 8,
-                            color: patientModel.feedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.feedback == 'Clear' ? MyColors.primary : Colors.red,
                           ),
                         ),
                       ),
@@ -270,12 +278,12 @@ class BuildPreOpItem extends StatelessWidget {
                           alignment: TimelineAlign.center,
                           isLast: true,
                           beforeLineStyle: LineStyle(
-                            color: patientModel.finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                             thickness: 6,
                           ),
                           indicatorStyle: IndicatorStyle(
                             height: 26,
-                            color: patientModel.finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                             iconStyle: IconStyle(
                               color: Colors.white,
                               iconData: Icons.check,
@@ -284,7 +292,7 @@ class BuildPreOpItem extends StatelessWidget {
                           endChild: MyText(
                             title: "Psychology",
                             size: 8,
-                            color: patientModel.finalFeedback == 'Not Clear' ? Colors.red : MyColors.primary,
+                            color: patientModel.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                           ),
                         ),
                       ),

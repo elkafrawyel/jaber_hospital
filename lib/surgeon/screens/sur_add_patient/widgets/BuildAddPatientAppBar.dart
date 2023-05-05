@@ -46,7 +46,9 @@ class BuildAddPatientAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
       actions: [
         InkWell(
-          onTap: () => navigationKey.currentState?.pop(),
+          onTap: () {
+            SurAddPatientData().onDiscard(context);
+          },
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: MyText(

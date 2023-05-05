@@ -7,7 +7,7 @@ class SurAppointments extends StatefulWidget {
   State<SurAppointments> createState() => _SurFollowUpsState();
 }
 
-class _SurFollowUpsState extends State<SurAppointments> with SingleTickerProviderStateMixin{
+class _SurFollowUpsState extends State<SurAppointments> with SingleTickerProviderStateMixin {
   late TabController tabController;
 
   @override
@@ -26,39 +26,32 @@ class _SurFollowUpsState extends State<SurAppointments> with SingleTickerProvide
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TabBar(
-          controller: tabController,
-          onTap: (index) {},
-          indicatorColor: MyColors.primary,
-          labelColor: MyColors.primary,
-          indicatorWeight: 3,
-          indicatorSize: TabBarIndicatorSize.tab,
-          unselectedLabelStyle: WidgetUtils.textStyle
-              .copyWith(color: MyColors.grey, fontSize: 14),
-          labelStyle: WidgetUtils.textStyle.copyWith(
-              color: MyColors.primary,
-              fontSize: 14,
-              fontWeight: FontWeight.bold),
-          unselectedLabelColor: MyColors.grey,
-          tabs: [
-            Tab(
-              child: Text("Upcoming"),
-            ),
-            Tab(
-              child: Text("Past"),
-            ),
-          ]),
+              controller: tabController,
+              onTap: (index) {},
+              indicatorColor: MyColors.primary,
+              labelColor: MyColors.primary,
+              indicatorWeight: 3,
+              indicatorSize: TabBarIndicatorSize.tab,
+              unselectedLabelStyle: WidgetUtils.textStyle.copyWith(color: MyColors.grey, fontSize: 14),
+              labelStyle:
+                  WidgetUtils.textStyle.copyWith(color: MyColors.primary, fontSize: 14, fontWeight: FontWeight.bold),
+              unselectedLabelColor: MyColors.grey,
+              tabs: [
+                Tab(
+                  child: Text("Upcoming"),
+                ),
+                Tab(
+                  child: Text("Past"),
+                ),
+              ]),
           Expanded(
-            child: TabBarView(
-                controller: tabController,
-                children: [
-                  UpcomingAppointments(),
-                  PastAppointments(),
-                ]),
+            child: TabBarView(controller: tabController, children: [
+              UpcomingAppointments(),
+              PastAppointments(),
+            ]),
           )
         ],
       ),
     );
   }
 }
-
-

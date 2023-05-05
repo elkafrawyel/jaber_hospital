@@ -1,4 +1,4 @@
-import '../../general/models/patient_model.dart';
+import 'package:base_flutter/surgeon/models/patient_model.dart';
 
 class SurgeonHomeModel {
   List<Appointments>? appointments;
@@ -28,7 +28,7 @@ class SurgeonHomeModel {
 
 class Appointments {
   String? sId;
-  PatientId? patientId;
+  PatientModel? patientId;
   String? appointmentDate;
   String? comments;
   String? actionsRequired;
@@ -37,18 +37,16 @@ class Appointments {
 
   Appointments(
       {this.sId,
-        this.patientId,
-        this.appointmentDate,
-        this.comments,
-        this.actionsRequired,
-        this.createdAt,
-        this.updatedAt});
+      this.patientId,
+      this.appointmentDate,
+      this.comments,
+      this.actionsRequired,
+      this.createdAt,
+      this.updatedAt});
 
   Appointments.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    patientId = json['patient_id'] != null
-        ? new PatientId.fromJson(json['patient_id'])
-        : null;
+    patientId = json['patient_id'] != null ? new PatientModel.fromJson(json['patient_id']) : null;
     appointmentDate = json['appointment_date'];
     comments = json['comments'];
     actionsRequired = json['actions_required'];

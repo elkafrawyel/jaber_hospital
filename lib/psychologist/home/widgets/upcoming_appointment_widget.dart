@@ -35,7 +35,7 @@ class UpComingAppointmentWidget extends StatelessWidget {
         child: Row(
           children: [
             CachedImage(
-                url: appointment.patientId?.image?? 'https://picsum.photos/201',
+                url: appointment.patientId?.image ?? 'https://picsum.photos/201',
                 height: 68,
                 width: 68,
                 borderRadius: BorderRadius.circular(5)),
@@ -44,32 +44,34 @@ class UpComingAppointmentWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(child: MyText(title: "${appointment.patientId?.firstNameEn} ${appointment.patientId?.lastNameEn}",
-                      size: 13, fontWeight: FontWeight.bold)),
-                  MyText(title: appointment.patientId?.operationType??'', size: 12, color: Colors.grey),
+                  MyText(
+                    title: '${appointment.patientId?.fNameEn ?? ""} ${appointment.patientId?.fNameEn ?? ""}',
+                    size: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  MyText(
+                      title: appointment.patientId?.operationType ?? '',
+                      size: 12,
+                      color: Colors.grey),
                   const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Image.asset(
-                              Res.imagesVector,
-                              scale: 3,
-                            ),
-                            const SizedBox(width: 5),
-                            Expanded(
-                              child: MyText(
-                                title: appointment.appointmentDate??"14 AUG 2022",
-                                overflow: TextOverflow.ellipsis,
-                                size: 9,
-                                color: MyColors.primary,
-                              ),
-                            ),
-                          ],
-                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(
+                            Res.imagesVector,
+                            scale: 3,
+                          ),
+                          const SizedBox(width: 5),
+                          MyText(
+                            title: appointment.appointmentDate ?? "",
+                            overflow: TextOverflow.ellipsis,
+                            size: 9,
+                            color: MyColors.primary,
+                          ),
+                        ],
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
@@ -80,7 +82,7 @@ class UpComingAppointmentWidget extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           MyText(
-                            title: appointment.createdAt?.split("-").last.substring(3,8)??"14:30 PM",
+                            title: appointment.createdAt?.split("-").last.substring(3, 8) ?? "",
                             size: 9,
                             overflow: TextOverflow.ellipsis,
                             color: MyColors.primary,
