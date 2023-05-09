@@ -40,6 +40,7 @@ class ApiNames{
   static const String patientArchive = "archive_patient";
   static const String patientSearch = "patient";
   static const String patientDietation = "patient_dietation";
+  static const String patientPhysiotherapy = "patient_physiotherapy";
 
   /// companies
   static const String companyHomeOrders = "company_orders_completed_inProgress";
