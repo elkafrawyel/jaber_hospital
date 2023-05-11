@@ -34,44 +34,46 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
       actions: [
         Row(
           children: [
-            InkWell(
-              onTap: () {
-                scaleAlertDialog(
-                  context: context,
-                  title: 'Archive',
-                  body: 'Are you sure you want to archive this patient?',
-                  cancelText: 'Cancel',
-                  confirmText: 'Submit',
-                  barrierDismissible: true,
-                  onCancelClick: () {
-                    Navigator.pop(context);
-                  },
-                  onConfirmClick: () async {
-                    Navigator.pop(context);
-                    bool result = await SurPatientDetailsData().archivePatient(context);
-                    if (result) {
-                      Navigator.pop(context, result);
-                    }
-                  },
-                );
-              },
-              child: SvgPicture.asset(
-                Res.imagesArchive,
-                width: 30,
-                height: 30,
+            if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+              InkWell(
+                onTap: () {
+                  scaleAlertDialog(
+                    context: context,
+                    title: 'Archive',
+                    body: 'Are you sure you want to archive this patient?',
+                    cancelText: 'Cancel',
+                    confirmText: 'Submit',
+                    barrierDismissible: true,
+                    onCancelClick: () {
+                      Navigator.pop(context);
+                    },
+                    onConfirmClick: () async {
+                      Navigator.pop(context);
+                      bool result = await SurPatientDetailsData().archivePatient(context);
+                      if (result) {
+                        Navigator.pop(context, result);
+                      }
+                    },
+                  );
+                },
+                child: SvgPicture.asset(
+                  Res.imagesArchive,
+                  width: 30,
+                  height: 30,
+                ),
               ),
-            ),
             const SizedBox(width: 10),
-            InkWell(
-              onTap: () {
-                Nav.navigateTo(
-                    SurAddPatient(
-                      patientDetailsModel: SurPatientDetailsData().patientDetailsCubit.state.data,
-                    ),
-                    navigatorType: NavigatorType.push);
-              },
-              child: Image.asset(Res.imagesAddPatient, scale: 2.5),
-            ),
+            if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+              InkWell(
+                onTap: () {
+                  Nav.navigateTo(
+                      SurAddPatient(
+                        patientDetailsModel: SurPatientDetailsData().patientDetailsCubit.state.data,
+                      ),
+                      navigatorType: NavigatorType.push);
+                },
+                child: Image.asset(Res.imagesAddPatient, scale: 2.5),
+              ),
             const SizedBox(width: 10),
             InkWell(
               onTap: () {
@@ -1094,8 +1096,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                                   'feedback': physiotherapyFeedbackStatus,
                                                 };
                                                 dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
-                                                  name:
-                                                      ApiNames.patientPhysiotherapy + '?user_id=${state.data!.patient!.id}',
+                                                  name: ApiNames.patientPhysiotherapy +
+                                                      '?user_id=${state.data!.patient!.id}',
                                                   returnType: ReturnType.Type,
                                                   methodType: MethodType.Put,
                                                   returnDataFun: (data) => data,
