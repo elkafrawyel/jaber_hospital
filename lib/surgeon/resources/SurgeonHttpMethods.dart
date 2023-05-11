@@ -3,8 +3,6 @@ part of 'SurgeonRepoImports.dart';
 class SurgeonHttpMethods {
   final BuildContext context;
 
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-
   SurgeonHttpMethods(this.context);
 
   Future<SurgeonHomeModel?> getHome(String doctorId) async {

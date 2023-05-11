@@ -3,8 +3,6 @@ part of 'PsychologistRepoImports.dart';
 class PsychologistHttpMethods {
   final BuildContext context;
 
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-
   PsychologistHttpMethods(this.context);
 
   Future<SurgeonHomeModel?> getHome(String doctorId) async {

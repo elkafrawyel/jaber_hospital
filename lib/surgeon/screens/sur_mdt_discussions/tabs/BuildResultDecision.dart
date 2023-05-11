@@ -156,7 +156,7 @@ class _BuildResultDecisionState extends State<BuildResultDecision>
                   ),
                 );
         } else {
-          return LoadingWidget();
+          return Center(child: LoadingDialog.showLoadingView());
         }
       },
     );

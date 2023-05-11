@@ -890,6 +890,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         color: MyColors.black,
                         fontWeight: FontWeight.bold),
                   ),
+                const SizedBox(height: 16.0),
                 Row(
                   children: [
                     Expanded(
@@ -901,16 +902,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                               builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId),
                             );
                           },
-                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
+                          ),
                     ),
                     const SizedBox(width: 16.0),
-                    if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op") ...[
+                    // if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op") ...[
                     Expanded(
                       child: DefaultButton(
                         title: "Order Instruments",
                         onTap: () => Nav.navigateTo(RequestInstrumentsScreen(patientModel: state.data!), navigatorType: NavigatorType.push),
                       ),),
-                    ],
+                    // ],
                   ],
                 ),
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&

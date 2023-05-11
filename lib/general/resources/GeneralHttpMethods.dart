@@ -3,12 +3,9 @@ part of 'GeneralRepoImports.dart';
 class GeneralHttpMethods {
   final BuildContext context;
 
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-
   GeneralHttpMethods(this.context);
 
   Future<bool> userLogin(String email, String pass,String role) async {
-    String? _deviceId = await messaging.getToken();
     Map<String, dynamic> body = {
       "email": "$email",
       "role": "$role",
@@ -28,7 +25,6 @@ class GeneralHttpMethods {
   }
 
   Future<bool> patientLogin(String civilId, String pass,String role) async {
-    String? _deviceId = await messaging.getToken();
     Map<String, dynamic> body = {
       "file_id": "$civilId",
       "role": "$role",

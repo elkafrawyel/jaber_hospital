@@ -18,7 +18,7 @@ class _SplashState extends State<Splash> {
 
   _checkingData() async {
     if (!kIsWeb) {
-      setupNotifications();
+      // setupNotifications();
       // GlobalNotification.instance.setupNotification(context);
       Utils.initCustomWidgets(language: "en");
       Future.delayed(Duration(milliseconds: 2000), () {

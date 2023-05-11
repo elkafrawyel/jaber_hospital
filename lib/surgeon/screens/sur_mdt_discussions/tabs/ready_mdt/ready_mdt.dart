@@ -167,7 +167,7 @@ class _ReadyMDTState extends State<ReadyMDT> {
             ],
           );
         } else {
-          return LoadingWidget();
+          return Center(child: LoadingDialog.showLoadingView());
         }
       },
     );

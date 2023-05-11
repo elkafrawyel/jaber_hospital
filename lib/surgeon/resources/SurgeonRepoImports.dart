@@ -1,18 +1,12 @@
-import 'dart:collection';
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:base_flutter/general/utilities/http/dio/dio_helper.dart';
 import 'package:base_flutter/general/utilities/http/dio/http/GenericHttp.dart';
 import 'package:base_flutter/general/utilities/utils_functions/ApiNames.dart';
-import 'package:base_flutter/psychologist/psychologist_add_patient/pages/PagesWImports.dart';
 import 'package:base_flutter/surgeon/models/dto/add_patient_fifth_dto.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../customer/model/dto/add_patient_dto.dart';
 import '../../general/blocks/user_cubit/user_cubit.dart';
@@ -29,7 +23,6 @@ import '../models/dto/add_patient_second_dto.dart';
 import '../models/dto/add_patient_seventh_dto.dart';
 import '../models/dto/add_patient_sixth_dto.dart';
 import '../models/dto/add_patient_third_dto.dart';
-import '../models/dto/medication_dto.dart';
 import '../models/dto/profile_entities.dart';
 import '../models/instrument_orders_response.dart';
 import '../models/labs_response.dart';

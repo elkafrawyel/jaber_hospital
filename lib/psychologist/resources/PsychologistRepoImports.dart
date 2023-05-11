@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:base_flutter/general/utilities/http/dio/dio_helper.dart';
 import 'package:base_flutter/general/utilities/http/dio/http/GenericHttp.dart';
 import 'package:base_flutter/general/utilities/utils_functions/ApiNames.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

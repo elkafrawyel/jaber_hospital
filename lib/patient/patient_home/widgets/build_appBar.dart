@@ -7,7 +7,10 @@ import '../../../general/blocks/user_cubit/user_cubit.dart';
 import '../../../general/constants/MyColors.dart';
 import '../../../general/models/UserModel.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../general/widgets/BuildNotificationIcon.dart';
+import '../../../res/res.dart';
+import '../../patient_notificattions/patient_notifications_screen.dart';
 
 class BuildPatientHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -20,7 +23,12 @@ class BuildPatientHomeAppBar extends StatelessWidget implements PreferredSizeWid
       leadingWidth: 60,
       systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent),
       actions: [
-        BuildNotificationIcon() ,
+        InkWell(
+          onTap: () => Nav.navigateTo(PatientNotificationsScreen(), navigatorType: NavigatorType.push),
+          child: Container(
+            child: Image.asset(Res.imagesNotifications, scale: 2.5),
+          ),
+        ),
       ],
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

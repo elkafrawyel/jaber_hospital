@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import "dart:developer";
 
-import "package:firebase_core/firebase_core.dart";
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import "package:firebase_core/firebase_core.dart";
+// import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 
 /// --------------- old notification --------------
@@ -116,7 +116,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 // }
 
 /// --------------- new notification --------------
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+/*final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FlutterLocalNotificationsPlugin();
 
 Future<void> backgroundHandler(RemoteMessage message) async {
@@ -252,7 +252,7 @@ void setupNotifications() async{
     handleNotificationsTap(json.encode(event.data));
   });
   log("Notifications init complete");
-}
+}*/
 
 
 

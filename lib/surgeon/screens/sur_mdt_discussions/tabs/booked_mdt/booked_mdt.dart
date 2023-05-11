@@ -169,7 +169,7 @@ class _BookedMDTState extends State<BookedMDT> {
             ],
           );
         } else {
-          return LoadingWidget();
+          return Center(child: LoadingDialog.showLoadingView());
         }
       },
     );

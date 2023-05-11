@@ -27,21 +27,23 @@ class HomeView extends StatefulWidget {
 }
 
 class _GeneralProgressState extends State<HomeView> {
-  List<String> generalProgressList = [
-    "الجراحة",
-    "التغذية",
-    "العلاج الطبيعي",
-    "التعليم",
-    "النفسية"
-  ];
   late GeneralProgressResponse generalProgress;
   bool isLoading = true;
+  String? feedbackStatus;
+  bool isOpened = false;
+  late bool isReady;
 
   @override
   void initState() {
     // TODO: implement initState
     fetchProgressData();
     super.initState();
+    log("feedbackStatus==> $feedbackStatus");
+  }
+
+  toggleTimeLine() {
+    isOpened = !isOpened;
+    setState(() {});
   }
 
   @override
@@ -102,8 +104,6 @@ class _GeneralProgressState extends State<HomeView> {
                           child: Directionality(
                             textDirection: TextDirection.rtl,
                             child: Row(
-                              // scrollDirection: Axis.horizontal,
-                              // shrinkWrap: false,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
@@ -113,20 +113,32 @@ class _GeneralProgressState extends State<HomeView> {
                                     isLast: true,
                                     indicatorStyle: IndicatorStyle(
                                       height: 26,
-                                      color: MyColors.primary,
+                                      color: (generalProgress.data?.egd ?? false) &&
+                                          (generalProgress.data?.ultrasound ?? false) &&
+                                          (generalProgress.data?.surgionVisit ?? false)
+                                          ? MyColors.primary
+                                          : Colors.red,
                                       iconStyle: IconStyle(
                                         color: Colors.white,
                                         iconData: Icons.check,
                                       ),
                                     ),
                                     beforeLineStyle: LineStyle(
-                                      color: MyColors.primary,
+                                      color:  (generalProgress.data?.egd ?? false) &&
+                                          (generalProgress.data?.ultrasound ?? false) &&
+                                          (generalProgress.data?.surgionVisit ?? false)
+                                          ? MyColors.primary
+                                          : Colors.red,
                                       thickness: 6,
                                     ),
                                     endChild: MyText(
                                       title: "الجراحة",
                                       size: 9,
-                                      color: MyColors.primary,
+                                      color:  (generalProgress.data?.egd ?? false) &&
+                                          (generalProgress.data?.ultrasound ?? false) &&
+                                          (generalProgress.data?.surgionVisit ?? false)
+                                          ? MyColors.primary
+                                          : Colors.red,
                                     ),
                                   ),
                                 ),
@@ -135,16 +147,22 @@ class _GeneralProgressState extends State<HomeView> {
                                     axis: TimelineAxis.horizontal,
                                     alignment: TimelineAlign.center,
                                     beforeLineStyle: LineStyle(
-                                      color: MyColors.primary,
+                                      color: generalProgress.data?.dietationFeedbackDecision == 'Clear'
+                                          ? MyColors.primary
+                                          : Colors.red,
                                       thickness: 6,
                                     ),
                                     afterLineStyle: LineStyle(
-                                      color: MyColors.primary,
+                                      color: generalProgress.data?.dietationFeedbackDecision == 'Clear'
+                                          ? MyColors.primary
+                                          : Colors.red,
                                       thickness: 6,
                                     ),
                                     indicatorStyle: IndicatorStyle(
                                       height: 26,
-                                      color: MyColors.primary,
+                                      color: generalProgress.data?.dietationFeedbackDecision == 'Clear'
+                                          ? MyColors.primary
+                                          : Colors.red,
                                       iconStyle: IconStyle(
                                         color: Colors.white,
                                         iconData: Icons.check,
@@ -153,7 +171,9 @@ class _GeneralProgressState extends State<HomeView> {
                                     endChild: MyText(
                                       title: "التغذية",
                                       size: 9,
-                                      color: MyColors.primary,
+                                      color: generalProgress.data?.dietationFeedbackDecision == 'Clear'
+                                          ? MyColors.primary
+                                          : Colors.red,
                                     ),
                                   ),
                                 ),
@@ -162,16 +182,16 @@ class _GeneralProgressState extends State<HomeView> {
                                     axis: TimelineAxis.horizontal,
                                     alignment: TimelineAlign.center,
                                     beforeLineStyle: LineStyle(
-                                      color: MyColors.primary,
+                                      color: generalProgress.data?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                       thickness: 6,
                                     ),
                                     afterLineStyle: LineStyle(
-                                      color: MyColors.primary,
+                                      color: generalProgress.data?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                       thickness: 6,
                                     ),
                                     indicatorStyle: IndicatorStyle(
                                       height: 26,
-                                      color: MyColors.primary,
+                                      color: generalProgress.data?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                       iconStyle: IconStyle(
                                         color: Colors.white,
                                         iconData: Icons.check,
@@ -180,7 +200,7 @@ class _GeneralProgressState extends State<HomeView> {
                                     endChild: MyText(
                                       title: "العلاج الطبيعي",
                                       size: 9,
-                                      color: MyColors.primary,
+                                      color: generalProgress.data?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                     ),
                                   ),
                                 ),
@@ -189,16 +209,16 @@ class _GeneralProgressState extends State<HomeView> {
                                     axis: TimelineAxis.horizontal,
                                     alignment: TimelineAlign.center,
                                     beforeLineStyle: LineStyle(
-                                      color: MyColors.primary,
+                                      color: (generalProgress.data?.watchedClip ?? false)? MyColors.primary : Colors.red,
                                       thickness: 6,
                                     ),
                                     afterLineStyle: LineStyle(
-                                      color: MyColors.primary,
+                                      color: (generalProgress.data?.watchedClip ?? false)? MyColors.primary : Colors.red,
                                       thickness: 6,
                                     ),
                                     indicatorStyle: IndicatorStyle(
                                       height: 26,
-                                      color: MyColors.primary,
+                                      color: (generalProgress.data?.watchedClip ?? false)? MyColors.primary : Colors.red,
                                       iconStyle: IconStyle(
                                         color: Colors.white,
                                         iconData: Icons.check,
@@ -207,7 +227,7 @@ class _GeneralProgressState extends State<HomeView> {
                                     endChild: MyText(
                                       title: "التعليم",
                                       size: 9,
-                                      color: MyColors.primary,
+                                      color: (generalProgress.data?.watchedClip ?? false)? MyColors.primary : Colors.red,
                                     ),
                                   ),
                                 ),
@@ -217,12 +237,16 @@ class _GeneralProgressState extends State<HomeView> {
                                     alignment: TimelineAlign.center,
                                     isFirst: true,
                                     afterLineStyle: LineStyle(
-                                      color: MyColors.primary,
+                                      color:generalProgress.data?.finalFeedback == 'Clear'
+                                          ? MyColors.primary
+                                          : Colors.red,
                                       thickness: 6,
                                     ),
                                     indicatorStyle: IndicatorStyle(
                                       height: 26,
-                                      color: MyColors.primary,
+                                      color: generalProgress.data?.finalFeedback == 'Clear'
+                                          ? MyColors.primary
+                                          : Colors.red,
                                       iconStyle: IconStyle(
                                         color: Colors.white,
                                         iconData: Icons.check,
@@ -231,7 +255,9 @@ class _GeneralProgressState extends State<HomeView> {
                                     endChild: MyText(
                                       title: "النفسية",
                                       size: 9,
-                                      color: MyColors.primary,
+                                      color: generalProgress.data?.finalFeedback == 'Clear'
+                                          ? MyColors.primary
+                                          : Colors.red,
                                     ),
                                   ),
                                 ),
@@ -239,75 +265,6 @@ class _GeneralProgressState extends State<HomeView> {
                             ),
                           ),
                         ),
-                        // const SizedBox(height: 10),
-                        // Row(
-                        //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //         children: [
-                        //           Expanded(
-                        //             child: Padding(
-                        //               padding: const EdgeInsets.only(left: 2),
-                        //               child: Container(),
-                        //             ),
-                        //           ),
-                        //           Expanded(
-                        //             child: Padding(
-                        //               padding: const EdgeInsets.only(left: 2),
-                        //               child:  FittedBox(
-                        //                 fit: BoxFit.scaleDown,
-                        //                 child: MyText(
-                        //                   alien: TextAlign.center,
-                        //                   title: "التغذية",
-                        //                   size: 9,
-                        //                   color: MyColors.primary,
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //           Expanded(
-                        //             child: Padding(
-                        //               padding: const EdgeInsets.only(left: 2),
-                        //               child:  FittedBox(
-                        //                 fit: BoxFit.scaleDown,
-                        //                 child: MyText(
-                        //                   alien: TextAlign.center,
-                        //                   title: "العلاج الطبيعي",
-                        //                   size: 9,
-                        //                   color: MyColors.primary,
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //           Expanded(
-                        //             child: Padding(
-                        //               padding: const EdgeInsets.only(left: 2),
-                        //               child: FittedBox(
-                        //                 fit: BoxFit.scaleDown,
-                        //                 child: MyText(
-                        //                   alien: TextAlign.center,
-                        //                   title: "التعليم",
-                        //                   size: 9,
-                        //                   color: MyColors.primary,
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //           Expanded(
-                        //             child: Padding(
-                        //               padding: const EdgeInsets.only(left: 2),
-                        //               child:  FittedBox(
-                        //                 fit: BoxFit.scaleDown,
-                        //                 child: MyText(
-                        //                   alien: TextAlign.center,
-                        //                   title: "النفسية",
-                        //                   size: 9,
-                        //                   color: MyColors.primary,
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ],
-                        //       ),
-
                         Divider(color: Colors.grey),
                         const SizedBox(
                           height: 8,
@@ -328,10 +285,12 @@ class _GeneralProgressState extends State<HomeView> {
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        backgroundColor: MyColors.primary,
+                                        backgroundColor: generalProgress.data?.surgionVisit == true? MyColors.primary:Colors.red,
                                         radius: 12.0,
-                                        child: Icon(Icons.check,
-                                            color: Colors.white, size: 15),
+                                        child:  Icon(
+                                            generalProgress.data?.surgionVisit == true ? Icons.check : Icons.close,
+                                            color: Colors.white,
+                                            size: 15),
                                       ),
                                       const SizedBox(width: 4),
                                       MyText(title: "الجراحة", size: 9),
@@ -340,9 +299,9 @@ class _GeneralProgressState extends State<HomeView> {
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        backgroundColor: MyColors.primary,
+                                        backgroundColor: generalProgress.data?.ultrasound == true ? MyColors.primary : Colors.red,
                                         radius: 12.0,
-                                        child: Icon(Icons.check,
+                                        child: Icon(generalProgress.data?.ultrasound == true ? Icons.check : Icons.close,
                                             color: Colors.white, size: 15),
                                       ),
                                       const SizedBox(width: 4),
@@ -352,10 +311,12 @@ class _GeneralProgressState extends State<HomeView> {
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        backgroundColor: MyColors.primary,
+                                        backgroundColor: generalProgress.data?.egd == true ? MyColors.primary : Colors.red,
                                         radius: 12.0,
-                                        child: Icon(Icons.check,
-                                            color: Colors.white, size: 15),
+                                        child: Icon(generalProgress.data?.egd == true ? Icons.check : Icons.close,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
                                       ),
                                       const SizedBox(width: 4),
                                       MyText(title: "الموجات فوق الصوتية", size: 9),
@@ -390,20 +351,20 @@ class _GeneralProgressState extends State<HomeView> {
       isLoading = true;
     });
     UserModel user = context.read<UserCubit>().state.model;
-    generalProgress =
-        await GenericHttp<GeneralProgressResponse>(context).callApi(
-      name:
-          "${ApiNames.patientPathwayPath}?patient_id=${user.userData?[0].sId}",
+    generalProgress = await GenericHttp<GeneralProgressResponse>(context).callApi(
+      name: "${ApiNames.patientPathwayPath}?patient_id=${user.userData?[0].sId}",
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,
       toJsonFunc: (json) => GeneralProgressResponse.fromJson(json),
     );
-    log("surgionVisit=> ${generalProgress.data?.surgionVisit}");
-    log("dietationFeedbackDecision=> ${generalProgress.data?.dietationFeedbackDecision}");
-    log("feedback=> ${generalProgress.data?.feedback}");
-    log("watchedClip=> ${generalProgress.data?.watchedClip}");
-    log("finalFeedback=> ${generalProgress.data?.finalFeedback}");
+    isReady = (generalProgress.data?.egd ?? false) &&
+        (generalProgress.data?.ultrasound ?? false) &&
+        (generalProgress.data?.surgionVisit ?? false) &&
+        (generalProgress.data?.dietationFeedbackDecision == 'Clear') &&
+        (generalProgress.data?.feedback == 'Clear') &&
+        (generalProgress.data?.watchedClip ?? false) &&
+        (generalProgress.data?.finalFeedback == 'Clear');
     setState(() {
       isLoading = false;
     });

@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../general/blocks/user_cubit/user_cubit.dart';
@@ -18,8 +17,6 @@ import '../models/update_consent_response.dart';
 
 class PatientHttpMethods {
   final BuildContext context;
-
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   PatientHttpMethods(this.context);
 

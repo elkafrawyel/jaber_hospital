@@ -9,7 +9,7 @@ import Firebase
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    GMSServices.provideAPIKey("AIzaSyDIBH6mfPQ13UnF9aZtmaUQtuu-mQcxxb0")
+  /*   GMSServices.provideAPIKey("AIzaSyDIBH6mfPQ13UnF9aZtmaUQtuu-mQcxxb0")
     FirebaseApp.configure()
     GeneratedPluginRegistrant.register(with: self)
     if #available(iOS 10.0, *) {
@@ -25,7 +25,8 @@ import Firebase
       UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
       application.registerUserNotificationSettings(settings)
     }
-    application.registerForRemoteNotifications()
+    application.registerForRemoteNotifications() */
+    GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

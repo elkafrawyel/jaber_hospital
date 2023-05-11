@@ -40,10 +40,7 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
   late TextEditingController nameController = TextEditingController();
   late TextEditingController phoneController= TextEditingController();
   late TextEditingController dateController= TextEditingController();
-  List<HandlesModel> handles = [
-    HandlesModel(headerTitle: "Handles", handles: ["Short", "Long", "Signia Powered Handle"]),
-  ];
-  List<String> items2 = ["Reloads", "Trocars",];
+
   String? selectedHandle;
 
   @override
