@@ -827,36 +827,40 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                     ),
                                     const SizedBox(height: 4),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                      padding: const EdgeInsets.symmetric(horizontal: 3.0),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                Res.imagesVector,
-                                                scale: 3,
-                                              ),
-                                              const SizedBox(width: 5),
-                                              MyText(
-                                                title: DateFormat("E ,d MMM y").format(
-                                                  DateTime.parse(state.data!.appointments![index].appointmentDate!),
+                                          Expanded(
+                                            child: Row(
+                                              children: [
+                                                Image.asset(
+                                                  Res.imagesVector,
+                                                  scale: 3,
                                                 ),
-                                                overflow: TextOverflow.ellipsis,
-                                                size: 12,
-                                                color: MyColors.primary,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ],
+                                                const SizedBox(width: 2),
+                                                Expanded(
+                                                  child: MyText(
+                                                    title: DateFormat("E ,d MMM y").format(
+                                                      DateTime.parse(state.data!.appointments![index].appointmentDate!),
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    size: 11,
+                                                    color: MyColors.primary,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          Spacer(),
+                                          const SizedBox(width: 4),
                                           Row(
                                             children: [
                                               Image.asset(
                                                 Res.imagesClockIcon,
                                                 scale: 3,
                                               ),
-                                              const SizedBox(width: 5),
+                                              const SizedBox(width: 2),
                                               MyText(
                                                 title: DateFormat("hh:mm a").format(
                                                   DateTime.parse(state.data!.appointments![index].appointmentDate!),

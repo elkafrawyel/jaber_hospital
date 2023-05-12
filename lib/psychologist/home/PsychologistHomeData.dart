@@ -34,8 +34,8 @@ class PsychologistHomeData {
   //fetch home
    getHome(BuildContext context) async {
       loadingHome.onUpdateData(true);
-    UserModel user = context.read<UserCubit>().state.model;
-     SurgeonHomeModel? result = await  PsychologistRepository(context).getHome(doctorId:user.userData?[0].sId??'' );
+      UserModel user = context.read<UserCubit>().state.model;
+      SurgeonHomeModel? result = await  PsychologistRepository(context).getHome(doctorId:user.userData?[0].sId??'' );
       homeCubit.onUpdateData(result);
       loadingHome.onUpdateData(false);
   }

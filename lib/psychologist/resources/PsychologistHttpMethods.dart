@@ -141,6 +141,21 @@ class PsychologistHttpMethods {
     }
   }
 
+  Future<QuesAnswerResponse?> getPatAssessmentScore(String patientId) async {
+    dynamic data = await GenericHttp<QuesAnswerResponse>(context).callApi(
+      name: ApiNames.patientQuesAnswer + "/$patientId",
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => QuesAnswerResponse.fromJson(json),
+    );
+    if (data != null) {
+      return data;
+    } else {
+      return null;
+    }
+  }
+
   Future<bool> addAppointment(String patientId, String date, String comments,
       String clinicName) async {
     var user = context

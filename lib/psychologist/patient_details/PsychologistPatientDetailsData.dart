@@ -5,6 +5,7 @@ import 'package:tf_validator/localization/LocalizationMethods.dart';
 import '../../general/MyApp.dart';
 import '../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../general/utilities/utils_functions/AdaptivePicker.dart';
+import '../../patient/models/ques_answer_response.dart';
 import '../../surgeon/models/patient_details_model.dart';
 import '../resources/PsychologistRepoImports.dart';
 import 'PsychologistPatientDetails.dart';
@@ -21,6 +22,7 @@ class PsychologistPatientDetailsData {
   late GenericBloc<String?> dateBloc;
   DateTime startDate = DateTime.now();
   late GenericBloc<PatientDetailsModel?> patientDetailsCubit;
+  late GenericBloc<QuesAnswerResponse?> patScoreCubit;
   late GlobalKey<FormState> formKey;
 
   void init(BuildContext context, {required String patientId}) {
@@ -28,15 +30,22 @@ class PsychologistPatientDetailsData {
     clinicName = TextEditingController();
     notes = TextEditingController();
     patientDetailsCubit = GenericBloc<PatientDetailsModel?>(null);
+    patScoreCubit = GenericBloc<QuesAnswerResponse?>(null);
     formKey = GlobalKey<FormState>();
     dateBloc = GenericBloc(null);
     getPatientDetails(context, patientId);
+    getPatAssessmentScore(context, patientId);
   }
 
   void getPatientDetails(BuildContext context, String patientId) async {
     PatientDetailsModel? data =
         await PsychologistRepository(context).getPatientDetails(patientId);
     patientDetailsCubit.onUpdateData(data);
+  }
+
+  void getPatAssessmentScore(BuildContext context, String patientId) async {
+    QuesAnswerResponse? data = await PsychologistRepository(context).getPatScore(patientId);
+    patScoreCubit.onUpdateData(data);
   }
 
   String date(String date) {

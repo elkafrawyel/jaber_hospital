@@ -53,6 +53,7 @@ class DefaultButton extends StatelessWidget {
             color: textColor ?? Colors.white,
             fontFamily: fontFamily,
             fontWeight: fontWeight,
+            alien: TextAlign.center,
           ),
           style: ElevatedButton.styleFrom(
               primary: color ?? WidgetUtils.primaryColor,

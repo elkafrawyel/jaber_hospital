@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../res/res.dart';
 
-class BuildOverallProgress extends StatelessWidget {
-  const BuildOverallProgress({
+class PsychologistOverallProgress extends StatelessWidget {
+  const PsychologistOverallProgress({
     Key? key,
   }) : super(key: key);
 
@@ -38,7 +38,7 @@ class BuildOverallProgress extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     MyText(
-                      title: '110',
+                      title: '0',
                       size: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -72,7 +72,7 @@ class BuildOverallProgress extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     MyText(
-                      title: '750',
+                      title: '0',
                       size: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -106,7 +106,7 @@ class BuildOverallProgress extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     MyText(
-                      title: '88%',
+                      title: '0%',
                       size: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,

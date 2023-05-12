@@ -31,6 +31,7 @@ class ApiNames{
   static const String patientSurgicalHistory = "patient_surgicalHistory";
   static const String patientProcedures = "patient_procedures";
   static const String patientPreOperative = "patient_preOperative";
+  static const String patientQuesAnswer = "questionnaire_answer";
   static const String surgeonNotifications = "doctor_notification";
   static const String labs = "labs";
   static const String uploadFluoroscopyResult = "upload_fluoroscopy_result";

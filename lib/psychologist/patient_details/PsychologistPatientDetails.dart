@@ -2,11 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:tf_validator/tf_validator.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../company/models/update_order_status_response.dart';
+import '../../general/blocks/user_cubit/user_cubit.dart';
 import '../../general/constants/MyColors.dart';
+import '../../general/models/UserModel.dart';
 import '../../general/utilities/http/dio/http/GenericHttp.dart';
 import '../../general/utilities/http/dio/modals/LoadingDialog.dart';
 import '../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
@@ -20,9 +23,11 @@ import '../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../general/widgets/GenScaffold.dart';
 import '../../general/widgets/GeneralAlertDialog.dart';
 import '../../general/widgets/modal_bottom_sheet.dart';
+import '../../patient/models/ques_answer_response.dart';
 import '../../res/res.dart';
 import '../../surgeon/models/patient_details_model.dart';
 import '../../surgeon/models/patient_model.dart';
+import '../home/PsychologistHomeData.dart';
 import 'PsychologistPatientDetailsData.dart';
 
 class PsychologistPatientDetails extends StatefulWidget {
@@ -38,11 +43,13 @@ class PsychologistPatientDetails extends StatefulWidget {
 class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
   String? feedbackStatus;
   PsychologistPatientDetailsData psychologistPatientDetailsData = PsychologistPatientDetailsData();
+  late UserData? userData;
 
   @override
   void initState() {
     psychologistPatientDetailsData.init(context, patientId: widget.patientId);
     super.initState();
+    userData = context.read<UserCubit>().state.model.userData?[0];
   }
 
   @override
@@ -209,7 +216,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                   Image.asset(Res.imagesWeightIcon, scale: 3),
                                   const SizedBox(width: 10),
                                   MyText(
-                                    title: '101 KG',
+                                    title:'${state.data?.patient?.weight} KG',
                                     size: 12,
                                   ),
                                 ],
@@ -220,7 +227,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 Image.asset(Res.imagesHeightIcon, scale: 3),
                                 const SizedBox(width: 10),
                                 MyText(
-                                  title: '177 CM',
+                                  title: '${state.data?.patient?.height} CM',
                                   size: 12,
                                 ),
                               ],
@@ -626,7 +633,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                     MyText(title: "Psychologist:", size: 12, fontWeight: FontWeight.bold),
                     const SizedBox(width: 4),
                     MyText(
-                      title: ' You',
+                      title: "${userData?.firstNameEn} ${userData?.lastNameEn}",
                       size: 12,
                       color: MyColors.primary,
                       fontWeight: FontWeight.bold,
@@ -639,86 +646,122 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                 ),
                 MyText(title: "Assessment Score:", size: 14, color: MyColors.primary, fontWeight: FontWeight.bold),
                 const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(title: "Depression Assessment Score: ", size: 11, fontWeight: FontWeight.bold),
-                    Expanded(
-                      child: MyText(
-                        title: state.data?.patient?.operationType ?? '',
-                        size: 12,
-                        color: MyColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                BlocBuilder<GenericBloc<QuesAnswerResponse?>, GenericState<QuesAnswerResponse?>>(
+                  bloc: psychologistPatientDetailsData.patScoreCubit,
+                  builder: (context, state) {
+                    if(state is GenericUpdateState){
+                      if(state.data!.data!.isNotEmpty){
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                MyText(title: "Depression Assessment Score: ", size: 11, fontWeight: FontWeight.bold),
+                                Expanded(
+                                  child: MyText(
+                                    title: state.data!.data![0].depressionScore?? '',
+                                    size: 12,
+                                    color: MyColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                MyText(title: "Depression Assessment Result:", size: 11, fontWeight: FontWeight.bold),
+                                Expanded(
+                                  child: MyText(
+                                    //convert date to 12 aug 2021
+                                    title: state.data!.data![0].depressionScoreLevel?? '',
+                                    size: 12,
+                                    color: MyColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                MyText(title: "Anxiety Assessment Score:", size: 11, fontWeight: FontWeight.bold),
+                                Expanded(
+                                  child: MyText(
+                                    //convert date to 12 aug 2021
+                                    title: state.data!.data![0].anxietyScore?? '',
+                                    size: 12,
+                                    color: MyColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                MyText(title: "Anxiety Assessment Result:", size: 11, fontWeight: FontWeight.bold),
+                                Expanded(
+                                  child: MyText(
+                                    //convert date to 12 aug 2021
+                                    title: state.data!.data![0].anxietyScoreLevel?? '',
+                                    size: 12,
+                                    color: MyColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                MyText(title: "Feedback:", size: 11, fontWeight: FontWeight.bold),
+                                Expanded(
+                                  child: MyText(
+                                    //convert date to 12 aug 2021
+                                    title: state.data!.data![0].questionnaireType ?? '',
+                                    size: 12,
+                                    color: MyColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                          ],
+                        );
+                      }else{
+                        return Center(
+                          child: MyText(
+                            title: """Patient patient didn't submit his answers""",
+                            size: 12,
+                            color: MyColors.grey,
+                          ),
+                        );
+                      }
+                    }else{
+                      return Shimmer.fromColors(
+                        baseColor: Colors.white,
+                        highlightColor: MyColors.greyWhite,
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                          height: MediaQuery.of(context).size.height / 6,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: MyColors.white,
+                          ),
+                        ),
+                      );
+                    }
+                  },
                 ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(title: "Depression Assessment Result:", size: 11, fontWeight: FontWeight.bold),
-                    Expanded(
-                      child: MyText(
-                        //convert date to 12 aug 2021
-                        title: state.data?.patient?.operationDate ?? '',
-                        size: 12,
-                        color: MyColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(title: "Anxiety Assessment Score:", size: 11, fontWeight: FontWeight.bold),
-                    Expanded(
-                      child: MyText(
-                        //convert date to 12 aug 2021
-                        title: state.data?.patient?.operationDate ?? '',
-                        size: 12,
-                        color: MyColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(title: "Anxiety Assessment Result:", size: 11, fontWeight: FontWeight.bold),
-                    Expanded(
-                      child: MyText(
-                        //convert date to 12 aug 2021
-                        title: state.data?.patient?.operationDate ?? '',
-                        size: 12,
-                        color: MyColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(title: "Feedback:", size: 11, fontWeight: FontWeight.bold),
-                    Expanded(
-                      child: MyText(
-                        //convert date to 12 aug 2021
-                        title: state.data?.patient?.operationDate ?? '',
-                        size: 12,
-                        color: MyColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                const Divider(thickness: 1, height: 20),
+                const Divider(thickness: 1, height: 16),
                 Row(
                   children: [
                     Expanded(
                       child: DefaultButton(
-                        color: Color(0xFF00116E),
                         title: "Edit Feedback",
+                        fontSize: 10,
                         onTap: () {
                           showModalBottomSheet(
                             context: context,
@@ -772,7 +815,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                             "final_feedback": feedbackStatus,
                                           };
                                           UpdateOrderStatusResponse? result =
-                                              await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
+                                          await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
                                             name: "${ApiNames.feedbackStatus}?user_id=${state.data?.patient?.id}",
                                             returnType: ReturnType.Model,
                                             methodType: MethodType.Put,
@@ -802,11 +845,12 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                       ),
                     ),
                     const SizedBox(
-                      width: 10.0,
+                      width: 6.0,
                     ),
                     Expanded(
                       child: DefaultButton(
                         title: "Book Appointment",
+                        fontSize: 10,
                         onTap: () async {
                           FocusScope.of(context).requestFocus(FocusNode());
                           await AdaptivePicker.datePicker(
@@ -821,7 +865,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                     "appointment_date": bookedDate,
                                   };
                                   UpdateOrderStatusResponse? result =
-                                      await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
+                                  await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
                                     name: ApiNames.bookAppointmentDate,
                                     returnType: ReturnType.Model,
                                     methodType: MethodType.Post,

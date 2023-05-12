@@ -11,6 +11,7 @@ import '../../customer/model/dto/add_patient_dto.dart';
 import '../../general/blocks/user_cubit/user_cubit.dart';
 import '../../general/models/UserModel.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
+import '../../patient/models/ques_answer_response.dart';
 import '../../surgeon/models/dto/profile_entities.dart';
 import '../../surgeon/models/medication_model.dart';
 import '../../surgeon/models/medications_orders_model.dart';

@@ -34,6 +34,9 @@ class PsychologistRepository {
   Future<PatientDetailsModel?> getPatientDetails(String patientId) =>
       _surgeonHttpMethods.getPatientDetails(patientId);
 
+  Future<QuesAnswerResponse?> getPatScore(String patientId) =>
+      _surgeonHttpMethods.getPatAssessmentScore(patientId);
+
   Future<bool> addAppointment(
           String patientId, String date, String comments, String clinicName) =>
       _surgeonHttpMethods.addAppointment(patientId, date, comments, clinicName);

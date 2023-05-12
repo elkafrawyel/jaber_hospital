@@ -1,10 +1,11 @@
 import 'package:base_flutter/psychologist/home/widgets/BuildHomeSearchPatient.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../company/comp_home/widgets/overall_progress.dart';
 import '../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../res/res.dart';
 import 'PsychologistHomeData.dart';
+import 'widgets/BuildOverallProgress.dart';
 import 'widgets/BuildPsychologistHomePatients.dart';
 import 'widgets/psychologist_appBar.dart';
 import 'widgets/psychologist_drawer.dart';
@@ -39,7 +40,7 @@ class _PsychologistHomeScreenState extends State<PsychologistHomeScreen> {
             const SizedBox(height: 16.0),
             BuildPsychologistHomePatients(),
             const SizedBox(height: 16.0),
-            BuildOverallProgress(),
+            PsychologistOverallProgress(),
             const SizedBox(height: 16.0),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
@@ -48,7 +49,8 @@ class _PsychologistHomeScreenState extends State<PsychologistHomeScreen> {
                   size: 12,
                   fontWeight: FontWeight.bold),
             ),
-            Image.asset(Res.imagesBarChart),
+            SvgPicture.asset(Res.surBarChartSvg, fit: BoxFit.fill,),
+            const SizedBox(height: 28.0),
           ],
         ),
       );
