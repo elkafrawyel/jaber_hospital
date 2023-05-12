@@ -29,36 +29,39 @@ class _PastAppointmentsState extends State<PastAppointments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<GenericBloc<List<AppointmentModel>?>,
-          GenericState<List<AppointmentModel>?>>(
+      body: BlocBuilder<GenericBloc<List<AppointmentModel>?>, GenericState<List<AppointmentModel>?>>(
         bloc: _pastAppointmentsData.pastCubit,
         builder: (context, state) {
           if (state is GenericUpdateState) {
-            return state.data!.isNotEmpty?Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                  child: MyText(
-                    title: '${state.data?.length} Appointments',
-                    size: 13,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Expanded(child: ListView.builder(
-                  padding: const EdgeInsets.all(6.0),
-                  itemCount: state.data?.length,
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => BuildSurFollowUpItem(appointmentModel: state.data![index],),),),
-              ],
-            ): Center(
-              child: MyText(
-                title: 'No patients founded',
-                size: 12,
-                color: MyColors.grey,
-              ),
-            );
+            return state.data!.isNotEmpty
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: MyText(
+                          title: '${state.data?.length} Appointments',
+                          size: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: state.data?.length,
+                          itemBuilder: (context, index) => BuildSurFollowUpItem(
+                            appointmentModel: state.data![index],
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : Center(
+                    child: MyText(
+                      title: 'No patients founded',
+                      size: 12,
+                      color: MyColors.grey,
+                    ),
+                  );
           } else {
             return Center(child: LoadingDialog.showLoadingView());
           }

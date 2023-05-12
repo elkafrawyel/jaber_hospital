@@ -827,40 +827,36 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                     ),
                                     const SizedBox(height: 4),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Expanded(
-                                            child: Row(
-                                              children: [
-                                                Image.asset(
-                                                  Res.imagesVector,
-                                                  scale: 3,
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                Res.imagesVector,
+                                                scale: 3,
+                                              ),
+                                              const SizedBox(width: 5),
+                                              MyText(
+                                                title: DateFormat("E ,d MMM y").format(
+                                                  DateTime.parse(state.data!.appointments![index].appointmentDate!),
                                                 ),
-                                                const SizedBox(width: 2),
-                                                Expanded(
-                                                  child: MyText(
-                                                    title: DateFormat("E ,d MMM y").format(
-                                                      DateTime.parse(state.data!.appointments![index].appointmentDate!),
-                                                    ),
-                                                    overflow: TextOverflow.ellipsis,
-                                                    size: 11,
-                                                    color: MyColors.primary,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                                overflow: TextOverflow.ellipsis,
+                                                size: 12,
+                                                color: MyColors.primary,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ],
                                           ),
-                                          const SizedBox(width: 4),
+                                          Spacer(),
                                           Row(
                                             children: [
                                               Image.asset(
                                                 Res.imagesClockIcon,
                                                 scale: 3,
                                               ),
-                                              const SizedBox(width: 2),
+                                              const SizedBox(width: 5),
                                               MyText(
                                                 title: DateFormat("hh:mm a").format(
                                                   DateTime.parse(state.data!.appointments![index].appointmentDate!),
@@ -894,29 +890,29 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         color: MyColors.black,
                         fontWeight: FontWeight.bold),
                   ),
-                const SizedBox(height: 16.0),
-                Row(
-                  children: [
-                    Expanded(
-                      child: DefaultButton(
-                          title: "Add Appointment",
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId),
-                            );
-                          },
-                          ),
-                    ),
-                    const SizedBox(width: 16.0),
-                    // if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op") ...[
-                    Expanded(
-                      child: DefaultButton(
-                        title: "Order Instruments",
-                        onTap: () => Nav.navigateTo(RequestInstrumentsScreen(patientModel: state.data!), navigatorType: NavigatorType.push),
+                Padding(
+                  padding: const EdgeInsets.only(top:16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: DefaultButton(
+                            title: "Add Appointment",
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
+                            },
                       ),),
-                    // ],
-                  ],
+                      const SizedBox(width: 8.0),
+                      if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op") ...[
+                        Expanded(
+                          child: DefaultButton(
+                              title: "Order Instruments",
+                              onTap: () => Nav.navigateTo(RequestInstrumentsScreen(patientModel: state.data!), navigatorType: NavigatorType.push),
+                              ),
+                        ),
+                    ],
+                      ])
                 ),
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
                     (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear')
