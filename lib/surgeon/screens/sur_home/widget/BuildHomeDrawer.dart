@@ -20,8 +20,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                 children: [
                   DrawerHeader(
                     child: InkWell(
-                      onTap: () => Nav.navigateTo(SurAccountSetting(),
-                          navigatorType: NavigatorType.push),
+                      onTap: () => Nav.navigateTo(SurAccountSetting(), navigatorType: NavigatorType.push),
                       child: Row(
                         children: [
                           CachedImage(
@@ -40,14 +39,14 @@ class BuildSurHomeDrawer extends StatelessWidget {
                               children: [
                                 // Text()
                                 MyText(
-                                  title: "${user?.firstNameEn??"Samer Hany"} ${user?.lastNameEn}",
+                                  title: "${user?.firstNameEn} ${user?.lastNameEn}",
                                   size: 13,
                                   color: MyColors.primary,
                                   overflow: TextOverflow.ellipsis,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 MyText(
-                                  title: user?.role ?? "Surgeon",
+                                  title: user?.role ?? '',
                                   size: 12,
                                   color: MyColors.black,
                                 ),
@@ -69,10 +68,8 @@ class BuildSurHomeDrawer extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    leading:
-                        Image.asset(Res.imagesNotificationIcon, scale: 2.8),
-                    onTap: () => Nav.navigateTo(SurNotifications(),
-                        navigatorType: NavigatorType.push),
+                    leading: Image.asset(Res.imagesNotificationIcon, scale: 2.8),
+                    onTap: () => Nav.navigateTo(SurNotifications(), navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "Notifications",
                       size: 12,
@@ -94,91 +91,92 @@ class BuildSurHomeDrawer extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  ExpansionTile(
-                    title: MyText(
-                      title: "MDT Discussions",
-                      size: 12,
-                      color: MyColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    leading: Image.asset(
-                      Res.imagesOrder,
-                      scale: 2.8,
-                      color: Colors.black,
-                      width: 24,
-                      height: 24,
-                      fit: BoxFit.cover,
-                    ),
-                    //add icon
-                    childrenPadding: EdgeInsets.only(left: 60),
-                    //children padding
-                    children: [
-                      ListTile(
-                        title: Text("Discussions"),
-                        onTap: () => Nav.navigateTo(SurMdtDiscussions(), navigatorType: NavigatorType.push),
+                  if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+                    ExpansionTile(
+                      title: MyText(
+                        title: "MDT Discussions",
+                        size: 12,
+                        color: MyColors.black,
+                        fontWeight: FontWeight.bold,
                       ),
-                      if (user?.mdtAdmin ?? false)
+                      leading: Image.asset(
+                        Res.imagesOrder,
+                        scale: 2.8,
+                        color: Colors.black,
+                        width: 24,
+                        height: 24,
+                        fit: BoxFit.cover,
+                      ),
+                      //add icon
+                      childrenPadding: EdgeInsets.only(left: 60),
+                      //children padding
+                      children: [
                         ListTile(
-                          title: Text("Admin"),
-                          onTap: () => Nav.navigateTo(MdtAdmin(), navigatorType: NavigatorType.push),
+                          title: Text("Discussions"),
+                          onTap: () => Nav.navigateTo(SurMdtDiscussions(), navigatorType: NavigatorType.push),
                         ),
-                      //more child menu
-                    ],
-                  ),
-                  ListTile(
-                    leading:
-                        Image.asset(Res.imagesOperationsdrawer, scale: 2.8),
-                    onTap: () => Nav.navigateTo(SurOperations(),
-                        navigatorType: NavigatorType.push),
-                    title: MyText(
-                      title: "Operations",
-                      size: 12,
-                      color: MyColors.black,
-                      fontWeight: FontWeight.bold,
+                        if (user?.mdtAdmin ?? false)
+                          ListTile(
+                            title: Text("Admin"),
+                            onTap: () => Nav.navigateTo(MdtAdmin(), navigatorType: NavigatorType.push),
+                          ),
+                        //more child menu
+                      ],
                     ),
-                  ),
+                  if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+                    ListTile(
+                      leading: Image.asset(Res.imagesOperationsdrawer, scale: 2.8),
+                      onTap: () => Nav.navigateTo(SurOperations(), navigatorType: NavigatorType.push),
+                      title: MyText(
+                        title: "Operations",
+                        size: 12,
+                        color: MyColors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ListTile(
                     leading: Image.asset(Res.imagesAppointmentsdrawer, scale: 2.8),
                     onTap: () => Nav.navigateTo(SurAppointments(), navigatorType: NavigatorType.push),
                     title: MyText(
-                      title: "Appointments",
+                      title: context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon'
+                          ? "Appointments"
+                          : "Follow-ups",
                       size: 12,
                       color: MyColors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  ExpansionTile(
-                    title: MyText(
-                      title: "Orders",
-                      size: 12,
-                      color: MyColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    leading: Image.asset(
-                      Res.imagesOrder,
-                      scale: 2.8,
-                      color: Colors.black,
-                      width: 24,
-                      height: 24,
-                      fit: BoxFit.cover,
-                    ),
-                    //add icon
-                    childrenPadding: EdgeInsets.only(left: 60),
-                    //children padding
-                    children: [
-                      ListTile(
-                        title: Text("Instruments"),
-                        onTap: () => Nav.navigateTo(SurInstrumentsOrdersScreen(),
-                            navigatorType: NavigatorType.push),
+                  if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+                    ExpansionTile(
+                      title: MyText(
+                        title: "Orders",
+                        size: 12,
+                        color: MyColors.black,
+                        fontWeight: FontWeight.bold,
                       ),
-                      ListTile(
-                        title: Text("Medication"),
-                        onTap: () => Nav.navigateTo(SurMedicationOrder(),
-                            navigatorType: NavigatorType.push),
+                      leading: Image.asset(
+                        Res.imagesOrder,
+                        scale: 2.8,
+                        color: Colors.black,
+                        width: 24,
+                        height: 24,
+                        fit: BoxFit.cover,
                       ),
-                      //more child menu
-                    ],
-                  ),
+                      //add icon
+                      childrenPadding: EdgeInsets.only(left: 60),
+                      //children padding
+                      children: [
+                        ListTile(
+                          title: Text("Instruments"),
+                          onTap: () => Nav.navigateTo(SurInstrumentsOrdersScreen(), navigatorType: NavigatorType.push),
+                        ),
+                        ListTile(
+                          title: Text("Medication"),
+                          onTap: () => Nav.navigateTo(SurMedicationOrder(), navigatorType: NavigatorType.push),
+                        ),
+                        //more child menu
+                      ],
+                    ),
 
                   // BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
                   //   bloc: SurHomeData().orderSelect,
@@ -254,8 +252,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
             Divider(color: MyColors.primary),
             ListTile(
               leading: Image.asset(Res.imagesLogoutDrawer, scale: 2.8),
-              onTap: () => showDialog(
-                  context: context, builder: (context) => LogoutDialog()),
+              onTap: () => showDialog(context: context, builder: (context) => LogoutDialog()),
               title: MyText(
                 title: "Logout",
                 size: 12,
@@ -285,9 +282,7 @@ class LogoutDialog extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.centerRight,
-            child: CloseButton(
-                color: MyColors.primary,
-                onPressed: () => navigationKey.currentState!.pop()),
+            child: CloseButton(color: MyColors.primary, onPressed: () => navigationKey.currentState!.pop()),
           ),
           MyText(
             title: "Log Out",
@@ -297,8 +292,7 @@ class LogoutDialog extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           MyText(
-            title:
-                "Are you sure you that you want to log out from your account?",
+            title: "Are you sure you that you want to log out from your account?",
             size: 12,
             color: MyColors.black,
           ),

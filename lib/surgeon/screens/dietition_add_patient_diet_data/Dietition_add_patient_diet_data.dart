@@ -375,7 +375,7 @@ class _DietitionAddPatientDietDataState extends State<DietitionAddPatientDietDat
                 controller: attempt_lose_notes,
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 action: TextInputAction.next,
-                type: TextInputType.number,
+                type: TextInputType.text,
                 onChange: (value) => calculateBMI(),
                 validate: (value) => value!.validateEmpty(context),
               ),
