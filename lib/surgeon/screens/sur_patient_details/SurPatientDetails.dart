@@ -936,7 +936,6 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                           },
                         ),
                       ),
-                      const SizedBox(width: 8.0),
                       if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
                           (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear')
                         Expanded(
@@ -1038,7 +1037,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         ),
                       if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn ==
                               'physiotherapist' &&
-                          (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear')
+                          (state.data?.patient?.feedback ?? '') != 'Clear')
                         Expanded(
                           child: DefaultButton(
                             title: "Add Physiotherapy Data",
