@@ -34,7 +34,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
       actions: [
         Row(
           children: [
-            if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+            if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+                (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
+                        SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
+                    context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
+                        SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId))
               InkWell(
                 onTap: () {
                   scaleAlertDialog(
@@ -63,7 +67,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
               ),
             const SizedBox(width: 10),
-            if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+            if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+                (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
+                        SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
+                    context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
+                        SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId))
               InkWell(
                 onTap: () {
                   Nav.navigateTo(
@@ -926,7 +934,13 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                   padding: const EdgeInsets.only(top: 16.0),
                   child: Row(
                     children: [
-                      Expanded(
+                      if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+                          (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
+                              SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
+                              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
+                                  SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId))
+
+                        Expanded(
                         child: DefaultButton(
                           title: "Add Appointment",
                           onTap: () {
@@ -937,7 +951,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         ),
                       ),
                       if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
-                          (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear')
+                          (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear' &&
+                          context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
+                              SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.dietationId?.sId)
                         Expanded(
                           child: DefaultButton(
                             title: "Add Diet Plan",
@@ -1037,7 +1053,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         ),
                       if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn ==
                               'physiotherapist' &&
-                          (state.data?.patient?.feedback ?? '') != 'Clear')
+                          (state.data?.patient?.feedback ?? '') != 'Clear' &&
+                          context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
+                              SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.physiotherapyId?.sId)
                         Expanded(
                           child: DefaultButton(
                             title: "Add Physiotherapy Data",

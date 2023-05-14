@@ -23,28 +23,30 @@ class _SurPatientState extends State<SurPatient> {
       actions: [
         Row(
           children: [
-            IconButton(
-              onPressed: () {
-                Nav.navigateTo(SearchScreen(), navigatorType: NavigatorType.push);
-              },
-              icon: Icon(Icons.search, color: MyColors.primary, size: 30),
-            ),
-            IconButton(
-              onPressed: () => Nav.navigateTo(
-                SurAddPatient(),
-                navigatorType: NavigatorType.push,
+            if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+              IconButton(
+                onPressed: () {
+                  Nav.navigateTo(SearchScreen(), navigatorType: NavigatorType.push);
+                },
+                icon: Icon(Icons.search, color: MyColors.primary, size: 30),
               ),
-              icon: Container(
-                decoration: BoxDecoration(
-                  color: MyColors.primary,
-                  borderRadius: BorderRadius.circular(100),
+            if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+              IconButton(
+                onPressed: () => Nav.navigateTo(
+                  SurAddPatient(),
+                  navigatorType: NavigatorType.push,
                 ),
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
+                icon: Container(
+                  decoration: BoxDecoration(
+                    color: MyColors.primary,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
           ],
         )
       ],
