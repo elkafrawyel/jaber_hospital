@@ -5,7 +5,9 @@ import 'package:shimmer/shimmer.dart';
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../surgeon/models/surgeon_home_model.dart';
+import '../../../surgeon/screens/sur_appointments/sur_appointments_imports.dart';
 import '../PsychologistHomeData.dart';
 import 'upcoming_appointment_widget.dart';
 
@@ -24,12 +26,15 @@ class UpcomingAppointments extends StatelessWidget {
                 title: 'Upcoming Appointments',
                 size: 12,
                 fontWeight: FontWeight.bold),
-            MyText(
-              title: 'See All',
-              size: 10,
-              fontWeight: FontWeight.bold,
-              color: MyColors.primary,
-              decoration: TextDecoration.underline,
+            InkWell(
+              onTap: ()=> Nav.navigateTo(SurAppointments(), navigatorType: NavigatorType.push),
+              child: MyText(
+                title: 'See All',
+                size: 10,
+                fontWeight: FontWeight.bold,
+                color: MyColors.primary,
+                decoration: TextDecoration.underline,
+              ),
             ),
           ],
         ),

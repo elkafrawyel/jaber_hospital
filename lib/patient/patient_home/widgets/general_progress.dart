@@ -90,7 +90,7 @@ class _GeneralProgressState extends State<HomeView> {
                   ),
                   Container(
                     margin:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
                         color: Color(0xfff2f2f2),
@@ -197,10 +197,12 @@ class _GeneralProgressState extends State<HomeView> {
                                         iconData: Icons.check,
                                       ),
                                     ),
-                                    endChild: MyText(
-                                      title: "العلاج الطبيعي",
-                                      size: 9,
-                                      color: generalProgress.data?.feedback == 'Clear' ? MyColors.primary : Colors.red,
+                                    endChild: FittedBox(
+                                      child: MyText(
+                                        title: "العلاج الطبيعي",
+                                        size: 9,
+                                        color: generalProgress.data?.feedback == 'Clear' ? MyColors.primary : Colors.red,
+                                      ),
                                     ),
                                   ),
                                 ),
