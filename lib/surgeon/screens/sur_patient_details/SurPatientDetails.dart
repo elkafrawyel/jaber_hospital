@@ -17,6 +17,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
   }
 
   String? feedbackStatus;
+  String? physiotherapyFeedbackStatus;
 
   bool isOpened = false;
 
@@ -33,44 +34,46 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
       actions: [
         Row(
           children: [
-            InkWell(
-              onTap: () {
-                scaleAlertDialog(
-                  context: context,
-                  title: 'Archive',
-                  body: 'Are you sure you want to archive this patient?',
-                  cancelText: 'Cancel',
-                  confirmText: 'Submit',
-                  barrierDismissible: true,
-                  onCancelClick: () {
-                    Navigator.pop(context);
-                  },
-                  onConfirmClick: () async {
-                    Navigator.pop(context);
-                    bool result = await SurPatientDetailsData().archivePatient(context);
-                    if (result) {
-                      Navigator.pop(context, result);
-                    }
-                  },
-                );
-              },
-              child: SvgPicture.asset(
-                Res.imagesArchive,
-                width: 30,
-                height: 30,
+            if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+              InkWell(
+                onTap: () {
+                  scaleAlertDialog(
+                    context: context,
+                    title: 'Archive',
+                    body: 'Are you sure you want to archive this patient?',
+                    cancelText: 'Cancel',
+                    confirmText: 'Submit',
+                    barrierDismissible: true,
+                    onCancelClick: () {
+                      Navigator.pop(context);
+                    },
+                    onConfirmClick: () async {
+                      Navigator.pop(context);
+                      bool result = await SurPatientDetailsData().archivePatient(context);
+                      if (result) {
+                        Navigator.pop(context, result);
+                      }
+                    },
+                  );
+                },
+                child: SvgPicture.asset(
+                  Res.imagesArchive,
+                  width: 30,
+                  height: 30,
+                ),
               ),
-            ),
             const SizedBox(width: 10),
-            InkWell(
-              onTap: () {
-                Nav.navigateTo(
-                    SurAddPatient(
-                      patientDetailsModel: SurPatientDetailsData().patientDetailsCubit.state.data,
-                    ),
-                    navigatorType: NavigatorType.push);
-              },
-              child: Image.asset(Res.imagesAddPatient, scale: 2.5),
-            ),
+            if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+              InkWell(
+                onTap: () {
+                  Nav.navigateTo(
+                      SurAddPatient(
+                        patientDetailsModel: SurPatientDetailsData().patientDetailsCubit.state.data,
+                      ),
+                      navigatorType: NavigatorType.push);
+                },
+                child: Image.asset(Res.imagesAddPatient, scale: 2.5),
+              ),
             const SizedBox(width: 10),
             InkWell(
               onTap: () {
@@ -516,10 +519,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     MyText(title: "Surgeon:", size: 12, fontWeight: FontWeight.bold),
                     SizedBox(width: 10),
                     MyText(
-                      title: "You",
+                      title:
+                          '${state.data?.patient?.surgeonId?.firstNameEn ?? ''} ${state.data?.patient?.surgeonId?.lastNameEn ?? ''}',
                       size: 12,
                       fontWeight: FontWeight.bold,
-                      color: MyColors.primary,
+                      color: MyColors.blackOpacity,
                     ),
                   ],
                 ),
@@ -600,6 +604,37 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       SizedBox(width: 10),
                       MyText(
                         title: state.data?.patient?.dietation_feedback_decision ?? '',
+                        size: 12,
+                        color: MyColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
+                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
+                    (state.data?.patient?.feedback ?? '').isNotEmpty)
+                  const Divider(thickness: 1, height: 20),
+                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
+                    (state.data?.patient?.feedback ?? '').isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: MyText(
+                      title: 'Your Feedback',
+                      size: 12,
+                      color: MyColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
+                    (state.data?.patient?.feedback ?? '').isNotEmpty)
+                  Row(
+                    children: [
+                      MyText(
+                        title: 'Doctor Feedback:',
+                        size: 12,
+                      ),
+                      SizedBox(width: 10),
+                      MyText(
+                        title: state.data?.patient?.feedback ?? '',
                         size: 12,
                         color: MyColors.primary,
                         fontWeight: FontWeight.bold,
@@ -775,16 +810,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
                 if (state.data!.appointments!.isNotEmpty)
                   SizedBox(
-                    height: 140,
+                    height: 130,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: state.data?.appointments?.length ?? 0,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                           width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
+                          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.86),
                           decoration: BoxDecoration(
                             color: MyColors.textFields,
                             borderRadius: BorderRadius.circular(10),
@@ -826,50 +861,47 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                     const SizedBox(height: 4),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                Res.imagesVector,
-                                                scale: 3,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              Res.imagesVector,
+                                              scale: 3,
+                                            ),
+                                            const SizedBox(width: 5),
+                                            MyText(
+                                              title: DateFormat("E ,d MMM y").format(
+                                                DateTime.parse(state.data!.appointments![index].appointmentDate!),
                                               ),
-                                              const SizedBox(width: 5),
-                                              MyText(
-                                                title: DateFormat("E ,d MMM y").format(
-                                                  DateTime.parse(state.data!.appointments![index].appointmentDate!),
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                                size: 12,
-                                                color: MyColors.primary,
-                                                fontWeight: FontWeight.bold,
+                                              overflow: TextOverflow.ellipsis,
+                                              size: 12,
+                                              color: MyColors.primary,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ],
+                                        ),
+                                        Spacer(),
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              Res.imagesClockIcon,
+                                              scale: 3,
+                                            ),
+                                            const SizedBox(width: 5),
+                                            MyText(
+                                              title: DateFormat("hh:mm a").format(
+                                                DateTime.parse(state.data!.appointments![index].appointmentDate!),
                                               ),
-                                            ],
-                                          ),
-                                          Spacer(),
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                Res.imagesClockIcon,
-                                                scale: 3,
-                                              ),
-                                              const SizedBox(width: 5),
-                                              MyText(
-                                                title: DateFormat("hh:mm a").format(
-                                                  DateTime.parse(state.data!.appointments![index].appointmentDate!),
-                                                ),
-                                                size: 10,
-                                                overflow: TextOverflow.ellipsis,
-                                                color: MyColors.primary,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                              size: 10,
+                                              overflow: TextOverflow.ellipsis,
+                                              color: MyColors.primary,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -891,128 +923,219 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         fontWeight: FontWeight.bold),
                   ),
                 Padding(
-                  padding: const EdgeInsets.only(top:16.0),
+                  padding: const EdgeInsets.only(top: 16.0),
                   child: Row(
                     children: [
                       Expanded(
                         child: DefaultButton(
-                            title: "Add Appointment",
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
-                            },
-                      ),),
-                      const SizedBox(width: 8.0),
-                      if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op") ...[
+                          title: "Add Appointment",
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
+                          },
+                        ),
+                      ),
+                      if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
+                          (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear')
                         Expanded(
                           child: DefaultButton(
-                              title: "Order Instruments",
-                              onTap: () => Nav.navigateTo(RequestInstrumentsScreen(patientModel: state.data!), navigatorType: NavigatorType.push),
-                              ),
-                        ),
-                    ],
-                      ])
-                ),
-                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
-                    (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear')
-                  DefaultButton(
-                    title: "Add Diet Plan Date",
-                    onTap: () async {
-                      bool? result = await Nav.navigateTo(
-                        DietitionAddPatientDietData(patient: state.data!.patient!),
-                        navigatorType: NavigatorType.push,
-                      );
-                      // if (result ?? false) {
-                      //   await Future.delayed(Duration(seconds: 1));
-                      await showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        isDismissible: true,
-                        builder: (BuildContext context) {
-                          return ModelBottomSheet(
-                            child: StatefulBuilder(
-                              builder: (BuildContext context, StateSetter setState) => SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Center(
-                                      child: MyText(
-                                        title: "Your Feedback",
-                                        size: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: MyColors.primary,
+                            title: "Add Diet Plan",
+                            onTap: () async {
+                              await Nav.navigateTo(
+                                DietitionAddPatientDietData(patient: state.data!.patient!),
+                                navigatorType: NavigatorType.push,
+                              );
+                              await showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                isDismissible: true,
+                                builder: (BuildContext context) {
+                                  return ModelBottomSheet(
+                                    child: StatefulBuilder(
+                                      builder: (BuildContext context, StateSetter setState) => SingleChildScrollView(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Center(
+                                              child: MyText(
+                                                title: "Your Feedback",
+                                                size: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: MyColors.primary,
+                                              ),
+                                            ),
+                                            RadioListTile(
+                                              title: Text("Clear"),
+                                              value: "Clear",
+                                              groupValue: feedbackStatus,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  feedbackStatus = value.toString();
+                                                });
+                                              },
+                                            ),
+                                            RadioListTile(
+                                              title: Text("Need Visit"),
+                                              value: "Need Visit",
+                                              groupValue: feedbackStatus,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  feedbackStatus = value.toString();
+                                                });
+                                              },
+                                            ),
+                                            RadioListTile(
+                                              title: Text("Need Second Visit"),
+                                              value: "Need Second Visit",
+                                              groupValue: feedbackStatus,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  feedbackStatus = value.toString();
+                                                });
+                                              },
+                                            ),
+                                            const SizedBox(height: 10.0),
+                                            DefaultButton(
+                                              height: 38,
+                                              title: "Update",
+                                              onTap: () async {
+                                                final Map<String, dynamic> body = {
+                                                  'dietation_feedback_decision': feedbackStatus,
+                                                };
+                                                dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
+                                                  name:
+                                                      ApiNames.patientDietation + '?user_id=${state.data!.patient!.id}',
+                                                  returnType: ReturnType.Type,
+                                                  methodType: MethodType.Put,
+                                                  returnDataFun: (data) => data,
+                                                  jsonBody: body,
+                                                  showLoader: true,
+                                                );
+                                                if (data != null) {
+                                                  Navigator.pop(context);
+                                                  CustomToast.showSnackBar(context, data["message"]["message_en"]);
+                                                  SurPatientDetailsData().getPatientDetails(context, widget.patientId);
+                                                }
+                                              },
+                                              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                                            ),
+                                            const SizedBox(height: 16.0),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                    RadioListTile(
-                                      title: Text("Clear"),
-                                      value: "Clear",
-                                      groupValue: feedbackStatus,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          feedbackStatus = value.toString();
-                                        });
-                                      },
+                                    sheetHeight: MediaQuery.of(context).size.height * 0.45,
+                                  );
+                                },
+                              );
+                              setState(() {});
+                              // }
+                            },
+                          ),
+                        ),
+                      if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn ==
+                              'physiotherapist' &&
+                          (state.data?.patient?.feedback ?? '') != 'Clear')
+                        Expanded(
+                          child: DefaultButton(
+                            title: "Add Physiotherapy Data",
+                            onTap: () async {
+                              await Nav.navigateTo(
+                                PhysiotherapyAddPatientData(patient: state.data!.patient!),
+                                navigatorType: NavigatorType.push,
+                              );
+                              await showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                isDismissible: true,
+                                builder: (BuildContext context) {
+                                  return ModelBottomSheet(
+                                    child: StatefulBuilder(
+                                      builder: (BuildContext context, StateSetter setState) => SingleChildScrollView(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Center(
+                                              child: MyText(
+                                                title: "Your Feedback",
+                                                size: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: MyColors.primary,
+                                              ),
+                                            ),
+                                            RadioListTile(
+                                              title: Text("Clear"),
+                                              value: "Clear",
+                                              groupValue: physiotherapyFeedbackStatus,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  physiotherapyFeedbackStatus = value.toString();
+                                                });
+                                              },
+                                            ),
+                                            RadioListTile(
+                                              title: Text("Not Clear"),
+                                              value: "Not Clear",
+                                              groupValue: physiotherapyFeedbackStatus,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  physiotherapyFeedbackStatus = value.toString();
+                                                });
+                                              },
+                                            ),
+                                            const SizedBox(height: 10.0),
+                                            DefaultButton(
+                                              height: 38,
+                                              title: "Update",
+                                              onTap: () async {
+                                                final Map<String, dynamic> body = {
+                                                  'feedback': physiotherapyFeedbackStatus,
+                                                };
+                                                dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
+                                                  name: ApiNames.patientPhysiotherapy +
+                                                      '?user_id=${state.data!.patient!.id}',
+                                                  returnType: ReturnType.Type,
+                                                  methodType: MethodType.Put,
+                                                  returnDataFun: (data) => data,
+                                                  jsonBody: body,
+                                                  showLoader: true,
+                                                );
+                                                if (data != null) {
+                                                  Navigator.pop(context);
+                                                  CustomToast.showSnackBar(context, data["message"]["message_en"]);
+                                                  SurPatientDetailsData().getPatientDetails(context, widget.patientId);
+                                                }
+                                              },
+                                              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                                            ),
+                                            const SizedBox(height: 16.0),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                    RadioListTile(
-                                      title: Text("Need Visit"),
-                                      value: "Need Visit",
-                                      groupValue: feedbackStatus,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          feedbackStatus = value.toString();
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      title: Text("Need Second Visit"),
-                                      value: "Need Second Visit",
-                                      groupValue: feedbackStatus,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          feedbackStatus = value.toString();
-                                        });
-                                      },
-                                    ),
-                                    const SizedBox(height: 10.0),
-                                    DefaultButton(
-                                      height: 38,
-                                      title: "Update",
-                                      onTap: () async {
-                                        final Map<String, dynamic> body = {
-                                          'dietation_feedback_decision': feedbackStatus,
-                                        };
-                                        dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
-                                          name: ApiNames.patientDietation + '?user_id=${state.data!.patient!.id}',
-                                          returnType: ReturnType.Type,
-                                          methodType: MethodType.Put,
-                                          returnDataFun: (data) => data,
-                                          jsonBody: body,
-                                          showLoader: true,
-                                        );
-                                        if (data != null) {
-                                          Navigator.pop(context);
-                                          CustomToast.showSnackBar(context, data["message"]["message_en"]);
-                                          SurPatientDetailsData().getPatientDetails(context, widget.patientId);
-                                        }
-                                      },
-                                      margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
-                                    ),
-                                    const SizedBox(height: 16.0),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            sheetHeight: MediaQuery.of(context).size.height * 0.45,
-                          );
-                        },
-                      );
-                      setState(() {});
-                      // }
-                    },
-                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80),
+                                    sheetHeight: MediaQuery.of(context).size.height * 0.35,
+                                  );
+                                },
+                              );
+                              setState(() {});
+                              // }
+                            },
+                          ),
+                        ),
+                      if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op")
+                        Expanded(
+                          child: DefaultButton(
+                            title: "Order Instruments",
+                            onTap: () => Nav.navigateTo(RequestInstrumentsScreen(patientModel: state.data!),
+                                navigatorType: NavigatorType.push),
+                          ),
+                        ),
+                    ],
                   ),
+                ),
               ],
             );
           } else {
@@ -1092,7 +1215,7 @@ class buildAddAppointmentSheet extends StatelessWidget {
             // ),
             MyText(title: "Notes", size: 12, fontWeight: FontWeight.bold),
             GenericTextField(
-              hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+              hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
               fieldTypes: FieldTypes.normal,
               fillColor: MyColors.textFields,
               hint: "Notes",
