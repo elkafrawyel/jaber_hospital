@@ -936,20 +936,19 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     children: [
                       if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
                           (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
-                              SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
+                                  SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
                               context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
                                   SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId))
-
                         Expanded(
-                        child: DefaultButton(
-                          title: "Add Appointment",
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
-                          },
+                          child: DefaultButton(
+                            title: "Add Appointment",
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
+                            },
+                          ),
                         ),
-                      ),
                       if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
                           (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear' &&
                           context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
