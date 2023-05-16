@@ -29,7 +29,7 @@ import '../../sur_instruments_order/instruments_orders_screen.dart';
 import '../../sur_mdt_discussions/SurMdtDiscussionsImports.dart';
 import '../../sur_mdt_discussions/mdt_admin/mdt_admin_screen.dart';
 import '../../sur_notifications/SurNotificationsImports.dart';
-import '../../sur_oprations/SurOperationsImports.dart';
+import '../../sur_oprations/SurOperations.dart';
 import '../../sur_patient/SurPatientImports.dart';
 import '../../sur_patient_details/SurPatientDetailsImports.dart';
 import '../../sur_search/SurSearchScreen.dart';

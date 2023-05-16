@@ -827,7 +827,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                           width: MediaQuery.of(context).size.width,
                           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.86),
+                          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.80),
                           decoration: BoxDecoration(
                             color: MyColors.textFields,
                             borderRadius: BorderRadius.circular(10),
@@ -844,10 +844,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CachedImage(
-                                  url: state.data?.patient?.image ?? "",
-                                  height: 56,
-                                  width: 50,
-                                  borderRadius: BorderRadius.circular(5)),
+                                url: state.data?.patient?.image ?? "",
+                                height: 56,
+                                width: 50,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Column(
@@ -870,7 +871,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                     ),
                                     const SizedBox(height: 4),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         Row(
                                           children: [
@@ -884,13 +885,13 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                                 DateTime.parse(state.data!.appointments![index].appointmentDate!),
                                               ),
                                               overflow: TextOverflow.ellipsis,
-                                              size: 12,
+                                              size: 10,
                                               color: MyColors.primary,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ],
                                         ),
-                                        Spacer(),
+                                        SizedBox(width: 15),
                                         Row(
                                           children: [
                                             Image.asset(
@@ -935,10 +936,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                   child: Row(
                     children: [
                       if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
-                          (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
-                                  SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
-                              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
-                                  SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId))
+                          (context.read<UserCubit>().state.model.userData![0].sId ==
+                                  SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId))
                         Expanded(
                           child: DefaultButton(
                             title: "Add Appointment",
@@ -951,7 +950,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         ),
                       if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
                           (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear' &&
-                          context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
+                          context.read<UserCubit>().state.model.userData![0].sId ==
                               SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.dietationId?.sId)
                         Expanded(
                           child: DefaultButton(
@@ -1053,7 +1052,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn ==
                               'physiotherapist' &&
                           (state.data?.patient?.feedback ?? '') != 'Clear' &&
-                          context.read<UserCubit>().state.model.userData![0].doctorRoleId?.sId ==
+                          context.read<UserCubit>().state.model.userData![0].sId ==
                               SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.physiotherapyId?.sId)
                         Expanded(
                           child: DefaultButton(

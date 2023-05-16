@@ -1,9 +1,18 @@
-part of 'SurOperationsWImports.dart';
+import 'package:base_flutter/surgeon/models/future_operations_response.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+import '../../../general/constants/MyColors.dart';
+import '../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
+import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../res/res.dart';
 
 class BuildSurOperationsItem extends StatelessWidget {
+  final FutureOperationModel operation;
+
   const BuildSurOperationsItem({
     Key? key,
+    required this.operation,
   }) : super(key: key);
 
   @override
@@ -11,9 +20,7 @@ class BuildSurOperationsItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-          color: Color(0xfff2f2f2),
-          borderRadius: BorderRadius.circular(15)),
+      decoration: BoxDecoration(color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
       child: Column(
         children: [
           Padding(
@@ -21,7 +28,7 @@ class BuildSurOperationsItem extends StatelessWidget {
             child: Row(
               children: [
                 CachedImage(
-                  url: 'https://picsum.photos/180',
+                  url: operation.image ?? '',
                   height: 65,
                   width: 55,
                   borderRadius: BorderRadius.circular(10),
@@ -33,13 +40,13 @@ class BuildSurOperationsItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyText(
-                        title: 'Ahmed Ali',
+                        title: '${operation.firstNameEn ?? ''} ${operation.lastNameEn ?? ''}',
                         size: 12,
                         fontWeight: FontWeight.bold,
                       ),
                       const SizedBox(height: 5),
                       MyText(
-                        title: 'Revisional Operation',
+                        title: operation.operationType ?? '',
                         size: 11,
                         color: MyColors.grey,
                       ),
@@ -49,10 +56,15 @@ class BuildSurOperationsItem extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Image.asset(Res.imagesVector, scale: 3,),
+                              Image.asset(
+                                Res.imagesVector,
+                                scale: 3,
+                              ),
                               const SizedBox(width: 5),
                               MyText(
-                                title: '14 AUG 2022',
+                                title: DateFormat("E ,d MMM y").format(
+                                  DateTime.parse(operation.operationDate ?? ''),
+                                ),
                                 size: 9,
                                 color: MyColors.primary,
                                 fontWeight: FontWeight.bold,
@@ -61,10 +73,15 @@ class BuildSurOperationsItem extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Image.asset(Res.imagesClockIcon, scale: 3,),
+                              Image.asset(
+                                Res.imagesClockIcon,
+                                scale: 3,
+                              ),
                               const SizedBox(width: 5),
                               MyText(
-                                title: '14:30 PM',
+                                title: DateFormat("hh:mm a").format(
+                                  DateTime.parse(operation.operationDate ?? ''),
+                                ),
                                 size: 9,
                                 color: MyColors.primary,
                                 fontWeight: FontWeight.bold,
