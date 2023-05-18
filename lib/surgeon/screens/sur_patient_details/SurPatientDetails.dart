@@ -96,6 +96,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
       body: BlocBuilder<GenericBloc<PatientDetailsModel?>, GenericState<PatientDetailsModel?>>(
         bloc: SurPatientDetailsData().patientDetailsCubit,
         builder: (context, state) {
+          DateTime? dateTime = DateTime.tryParse(state.data?.patient?.operationDate ?? '');
           bool isReady = (state.data?.patient?.egd ?? false) &&
               (state.data?.patient?.ultrasound ?? false) &&
               (state.data?.patient?.surgionVisit ?? false) &&
@@ -666,14 +667,15 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       ),
                     ],
                   ),
-                if ((state.data?.patient?.operationDate ?? '').isNotEmpty) const SizedBox(height: 10),
-                if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
+                if ((state.data?.patient?.operationDate ?? '').isNotEmpty && dateTime != null)
+                  const SizedBox(height: 10),
+                if ((state.data?.patient?.operationDate ?? '').isNotEmpty && dateTime != null)
                   Row(
                     children: [
                       MyText(title: "Operation Done On:", size: 12, fontWeight: FontWeight.bold),
                       SizedBox(width: 10),
                       MyText(
-                        title: DateFormat('yyyy-MM-dd').format(DateTime.parse(state.data!.patient!.operationDate!)),
+                        title: DateFormat('yyyy-MM-dd').format(dateTime),
                         size: 12,
                         color: MyColors.primary,
                         fontWeight: FontWeight.bold,
@@ -823,6 +825,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       scrollDirection: Axis.horizontal,
                       itemCount: state.data?.appointments?.length ?? 0,
                       itemBuilder: (BuildContext context, int index) {
+                        DateTime? dateTime = DateTime.tryParse(state.data!.appointments![index].appointmentDate!);
                         return Container(
                           width: MediaQuery.of(context).size.width,
                           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
@@ -870,48 +873,45 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                     const SizedBox(height: 4),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Image.asset(
-                                              Res.imagesVector,
-                                              scale: 3,
-                                            ),
-                                            const SizedBox(width: 5),
-                                            MyText(
-                                              title: DateFormat("E ,d MMM y").format(
-                                                DateTime.parse(state.data!.appointments![index].appointmentDate!),
+                                    if (dateTime != null)
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                Res.imagesVector,
+                                                scale: 3,
                                               ),
-                                              overflow: TextOverflow.ellipsis,
-                                              size: 10,
-                                              color: MyColors.primary,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(width: 15),
-                                        Row(
-                                          children: [
-                                            Image.asset(
-                                              Res.imagesClockIcon,
-                                              scale: 3,
-                                            ),
-                                            const SizedBox(width: 5),
-                                            MyText(
-                                              title: DateFormat("hh:mm a").format(
-                                                DateTime.parse(state.data!.appointments![index].appointmentDate!),
+                                              const SizedBox(width: 5),
+                                              MyText(
+                                                title: DateFormat("E ,d MMM y").format(dateTime),
+                                                overflow: TextOverflow.ellipsis,
+                                                size: 10,
+                                                color: MyColors.primary,
+                                                fontWeight: FontWeight.bold,
                                               ),
-                                              size: 10,
-                                              overflow: TextOverflow.ellipsis,
-                                              color: MyColors.primary,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                            ],
+                                          ),
+                                          SizedBox(width: 15),
+                                          Row(
+                                            children: [
+                                              Image.asset(
+                                                Res.imagesClockIcon,
+                                                scale: 3,
+                                              ),
+                                              const SizedBox(width: 5),
+                                              MyText(
+                                                title: DateFormat("hh:mm a").format(dateTime),
+                                                size: 10,
+                                                overflow: TextOverflow.ellipsis,
+                                                color: MyColors.primary,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                   ],
                                 ),
                               )
@@ -937,7 +937,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     children: [
                       if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
                           (context.read<UserCubit>().state.model.userData![0].sId ==
-                                  SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId))
+                              SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId))
                         Expanded(
                           child: DefaultButton(
                             title: "Add Appointment",
