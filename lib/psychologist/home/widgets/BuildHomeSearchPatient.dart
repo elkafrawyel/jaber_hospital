@@ -4,6 +4,7 @@ import 'package:tf_validator/tf_validator.dart';
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
 import '../../../general/utilities/utils_functions/Navigator.dart';
+import '../../../surgeon/screens/sur_search/SurSearchScreen.dart';
 import '../PsychologistHomeData.dart';
 
 
@@ -28,7 +29,7 @@ class BuildPsychologyHomeSearchPatient extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 20),
         action: TextInputAction.search,
         type: TextInputType.text,
-        // onTab: () => Nav.navigateTo(SurHomePatient(), navigatorType: NavigatorType.push),
+        onTab: () => Nav.navigateTo(SearchScreen(), navigatorType: NavigatorType.push),
         validate: (value) => value!.noValidate(),
       ),
     );

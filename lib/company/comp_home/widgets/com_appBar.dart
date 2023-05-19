@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../general/blocks/user_cubit/user_cubit.dart';
 import '../../../general/constants/MyColors.dart';
+import '../../../general/models/UserModel.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../general/widgets/BuildNotificationIcon.dart';
@@ -11,7 +14,7 @@ import '../../comp_notifications/CompNotificationsImports.dart';
 class BuildComHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
-    // UserModel user = context.read<UserCubit>().state.model;
+    UserModel user = context.read<UserCubit>().state.model;
     return AppBar(
       backgroundColor: MyColors.white,
       centerTitle: false,
@@ -27,7 +30,7 @@ class BuildComHomeAppBar extends StatelessWidget implements PreferredSizeWidget 
         ),
       ],
       title: MyText(
-        title: "SUMC",
+        title: "${user.userData?[0].compNameEn}",
         size: 12,
         fontWeight: FontWeight.bold,
         color: MyColors.primary,

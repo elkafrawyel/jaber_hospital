@@ -77,13 +77,13 @@ class ApiNames{
   static const String listMedication = "medication";
   static const String requestInstrumentsOrder = "order";
   static const String requestMedicationOrder = "medication_order";
+  static const String mdtReadyPatientsPath = "mdt_ready_patients";
   static const String mdtPatientsPath = "patient_by_mdt_status";
   static const String confirmMdtBookingPath = "patient_mdt";
   static const String updatePatientMdtStatusPath = "patient_mdt_status";
   static const String patientMdtResultPath = "patient_mdt_results";
   static const String rescheduleMdtPatientPath = "reschedule_mdt";
   static const String mdtAdminPatientsPath = "today_patients_mdt";
-  static const String mdtReadyPatientsPath = "mdt_ready_patients";
   static const String companiesPath = "company";
   static const String companyInstrumentsPath = "instruments_for_company";
   static const String surFutureAppointmentsPath = "future_appointment_patients";

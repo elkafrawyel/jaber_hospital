@@ -27,21 +27,25 @@ class QuestionnaireData{
 
   late GenericBloc<int> curPageCubit;
   late GenericBloc<List<QuestionsObjects>?> questionsCubit;
-  late QuestionnaireResponse? questionnaireResponse;
+  QuestionnaireResponse? questionnaireResponse;
   int curQuesPage = 1;
   List<AnsweredQuestionModel> answeredQuestions = [];
+  List<QuestionsObjects>? curQues = [];
 
-  void init(BuildContext context) {
+  void init(BuildContext context) async{
     this.curPageCubit = GenericBloc<int>(1);
     this.questionsCubit = GenericBloc<List<QuestionsObjects>?>([]);
-    fetchPatientQuestionnaire(context, curQuesPage);
+    await fetchPatientQuestionnaire(context, curQuesPage);
     answeredQuestions = [];
   }
 
   Future<void> fetchPatientQuestionnaire(BuildContext context,int page) async {
+    curQues = [];
     questionnaireResponse = await PatientRepository(context).getPatientQuestionnaire(page);
+    curQues = questionnaireResponse?.data?[0].questionsObjects??[];
     log("Questionnaire=> ${questionnaireResponse?.data?[0].questionsObjects?.length}");
-    List<QuestionsObjects>? curQues = questionnaireResponse?.data?[0].questionsObjects??[];
+    log("curQues=> ${curQues?.length}");
+    curPageCubit.onUpdateData(page);
     questionsCubit.onUpdateData(curQues);
   }
 

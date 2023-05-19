@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../res/res.dart';
@@ -44,7 +45,8 @@ class _ComHomeScreenState extends State<ComHomeScreen> {
                 size: 12,
                 fontWeight: FontWeight.bold),
           ),
-          Image.asset(Res.companyChart),
+          SvgPicture.asset(Res.surBarChartSvg, fit: BoxFit.fill,),
+          const SizedBox(height: 28.0),
         ],
       ),
     );

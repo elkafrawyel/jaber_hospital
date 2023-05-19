@@ -13,6 +13,7 @@ import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../general/widgets/GeneralAlertDialog.dart';
 import '../../../res/res.dart';
+import '../../../surgeon/screens/sur_appointments/sur_appointments_imports.dart';
 import '../../../surgeon/screens/sur_notifications/SurNotificationsImports.dart';
 import '../../psychologist_patients/patients_screen.dart';
 
@@ -98,6 +99,16 @@ class PsychologistHomeDrawer extends StatelessWidget {
                     onTap: () => Nav.navigateTo(PsychologistPatientsScreen(), navigatorType: NavigatorType.push),
                     title: MyText(
                       title: "Patients",
+                      size: 12,
+                      color: MyColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  ListTile(
+                    leading: Image.asset(Res.imagesAppointmentsdrawer, scale: 2.8),
+                    onTap: () => Nav.navigateTo(SurAppointments(), navigatorType: NavigatorType.push),
+                    title: MyText(
+                      title: "Appointments",
                       size: 12,
                       color: MyColors.black,
                       fontWeight: FontWeight.bold,

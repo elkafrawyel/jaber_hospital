@@ -44,7 +44,8 @@ class DioHelper {
     _dio.options.headers = DioUtils.header ?? await _getHeader();
     try {
       var response = await _dio.get("$url", queryParameters: query, options: _buildCacheOptions());
-      log("response ${response.statusCode}");
+      log("response==> ${response.statusCode}");
+      log("response==> ${response.data}");
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return response.data;
       } else {

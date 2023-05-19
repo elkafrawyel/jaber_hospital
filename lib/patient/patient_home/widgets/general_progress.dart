@@ -61,14 +61,13 @@ class _GeneralProgressState extends State<HomeView> {
           color: MyColors.white,
         ),
       ),
-    ):generalProgress.data?.finalFeedback != "true"
-        ? _horizontalProgressView(size)
+    ): isReady? _horizontalProgressView(size)
         : VerticalGeneralProgress(generalProgress: generalProgress,);
   }
 
   Widget _horizontalProgressView(Size size) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 3),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -90,7 +89,7 @@ class _GeneralProgressState extends State<HomeView> {
                   ),
                   Container(
                     margin:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
                         color: Color(0xfff2f2f2),
@@ -191,16 +190,19 @@ class _GeneralProgressState extends State<HomeView> {
                                     ),
                                     indicatorStyle: IndicatorStyle(
                                       height: 26,
-                                      color: generalProgress.data?.feedback == 'Clear' ? MyColors.primary : Colors.red,
+                                      color: generalProgress.data?.feedback == 'Clear' ?
+                                      MyColors.primary : Colors.red,
                                       iconStyle: IconStyle(
                                         color: Colors.white,
                                         iconData: Icons.check,
                                       ),
                                     ),
-                                    endChild: MyText(
-                                      title: "العلاج الطبيعي",
-                                      size: 9,
-                                      color: generalProgress.data?.feedback == 'Clear' ? MyColors.primary : Colors.red,
+                                    endChild: FittedBox(
+                                      child: MyText(
+                                        title: "العلاج الطبيعي",
+                                        size: 9,
+                                        color: generalProgress.data?.feedback == 'Clear' ? MyColors.primary : Colors.red,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -358,12 +360,12 @@ class _GeneralProgressState extends State<HomeView> {
       returnDataFun: (data) => data,
       toJsonFunc: (json) => GeneralProgressResponse.fromJson(json),
     );
-    isReady = (generalProgress.data?.egd ?? false) &&
-        (generalProgress.data?.ultrasound ?? false) &&
-        (generalProgress.data?.surgionVisit ?? false) &&
+    isReady = (generalProgress.data?.egd ?? true) &&
+        (generalProgress.data?.ultrasound ?? true) &&
+        (generalProgress.data?.surgionVisit ?? true) &&
         (generalProgress.data?.dietationFeedbackDecision == 'Clear') &&
         (generalProgress.data?.feedback == 'Clear') &&
-        (generalProgress.data?.watchedClip ?? false) &&
+        (generalProgress.data?.watchedClip ?? true) &&
         (generalProgress.data?.finalFeedback == 'Clear');
     setState(() {
       isLoading = false;
