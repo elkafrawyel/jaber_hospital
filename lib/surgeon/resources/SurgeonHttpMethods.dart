@@ -415,6 +415,17 @@ class SurgeonHttpMethods {
     return data;
   }
 
+  Future<MdtPatientsResponse?> fetchMdtReadyPatients() async {
+    MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
+      name: ApiNames.mdtReadyPatientsPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => MdtPatientsResponse.fromJson(json),
+    );
+    return data;
+  }
+
   Future<MdtPatientsResponse?> fetchMdtPatientsByStatus(String status) async {
     MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
       name: "${ApiNames.mdtPatientsPath}?mdt_status=$status",

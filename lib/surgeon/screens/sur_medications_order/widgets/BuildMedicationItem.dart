@@ -47,16 +47,14 @@ class BuildMedicationItem extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                       const SizedBox(height: 4),
-                      MyText(
-                        title: model.notes  ?? "Not Available",
-                        size: 12,
-                        color: MyColors.blackOpacity,
-                      ),
-                      const SizedBox(height: 4),
-                      MyText(
-                        title: model.notes  ?? "Not Available",
-                        size: 12,
-                        color: MyColors.blackOpacity,
+                      Wrap(
+                        children: [
+                          ...List.generate(model.medications!.length, (index) => MyText(
+                            title: model.medications?[index].medicationName??""+", ",
+                            size: 10,
+                            color: MyColors.blackOpacity,
+                          ),)
+                        ],
                       ),
                       const SizedBox(height: 4),
                       Row(

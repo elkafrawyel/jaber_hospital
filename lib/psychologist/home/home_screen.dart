@@ -32,7 +32,7 @@ class _PsychologistHomeScreenState extends State<PsychologistHomeScreen> {
         appBar: BuildPsychologistHomeAppBar(),
         drawer: PsychologistHomeDrawer(),
         body: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
           children: [
             BuildPsychologyHomeSearchPatient(),
             const SizedBox(height: 16.0),

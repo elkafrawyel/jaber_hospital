@@ -118,8 +118,8 @@ class SurgeonRepository {
   Future<NotificationsResponse?> getSurgeonNotifications() => _surgeonHttpMethods.fetchSurgeonNotifications();
 
   /// Mdt
-  Future<MdtPatientsResponse?> requestMdtPatientsByStatus(String mdtStatus) =>
-      _surgeonHttpMethods.fetchMdtPatientsByStatus(mdtStatus);
+  Future<MdtPatientsResponse?> requestMdtPatientsByStatus(String mdtStatus) => _surgeonHttpMethods.fetchMdtPatientsByStatus(mdtStatus);
+  Future<MdtPatientsResponse?> fetchMdtReadyPatients() => _surgeonHttpMethods.fetchMdtReadyPatients();
 
   Future<MdtPatientsResponse?> requestMdtAdminPatients() => _surgeonHttpMethods.fetchMdtAdminPatients();
 

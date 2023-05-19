@@ -54,6 +54,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
 
   @override
   Widget build(BuildContext context) {
+    log("patientFeedBack==> ${widget.patientModel.feedback}");
     final size = MediaQuery.of(context).size;
     return GeneralScaffold(
       back: true,
@@ -123,11 +124,20 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                   Row(
                                     children: [
                                       Expanded(
-                                        child: MyText(
-                                          title: state.data?.patient?.fNameEn ?? "",
-                                          size: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                        child: Row(
+                                          children: [
+                                            MyText(
+                                              title: state.data?.patient?.fNameEn ?? "",
+                                              size: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            MyText(
+                                              title: state.data?.patient?.lNameEn ?? "",
+                                              size: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ],
+                                        )
                                       ),
                                       widget.patientModel.finalFeedback == "true"
                                           ? Container(
@@ -192,13 +202,10 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                               children: [
                                 Image.asset(Res.imagesFileIcon, scale: 3),
                                 const SizedBox(width: 10),
-                                FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: MyText(
+                                MyText(
                                     title: state.data?.patient?.publicId ?? "Not set yet",
                                     size: 12,
                                   ),
-                                ),
                               ],
                             ),
                           ],
@@ -633,7 +640,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                     MyText(title: "Psychologist:", size: 12, fontWeight: FontWeight.bold),
                     const SizedBox(width: 4),
                     MyText(
-                      title: "${userData?.firstNameEn} ${userData?.lastNameEn}",
+                      title: '${state.data?.patient?.dietationId?.firstNameEn ?? ''} ${state.data?.patient?.dietationId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.primary,
                       fontWeight: FontWeight.bold,
@@ -711,22 +718,6 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                MyText(title: "Feedback:", size: 11, fontWeight: FontWeight.bold),
-                                Expanded(
-                                  child: MyText(
-                                    //convert date to 12 aug 2021
-                                    title: state.data!.data![0].questionnaireType ?? '',
-                                    size: 12,
-                                    color: MyColors.primary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-
                           ],
                         );
                       }else{
@@ -755,10 +746,26 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                     }
                   },
                 ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    MyText(title: "Feedback:", size: 11, fontWeight: FontWeight.bold),
+                    const SizedBox(width: 3.0,),
+                    Expanded(
+                      child: MyText(
+                        title: widget.patientModel.feedback?? '',
+                        size: 12,
+                        color: MyColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+
                 const Divider(thickness: 1, height: 16),
                 Row(
                   children: [
-                    Expanded(
+                    widget.patientModel.finalFeedback!="Clear"?Expanded(
                       child: DefaultButton(
                         title: "Edit Feedback",
                         fontSize: 10,
@@ -843,7 +850,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                           );
                         },
                       ),
-                    ),
+                    ): const SizedBox.shrink(),
                     const SizedBox(
                       width: 6.0,
                     ),
