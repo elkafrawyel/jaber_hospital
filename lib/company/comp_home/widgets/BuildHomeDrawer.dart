@@ -51,7 +51,7 @@ class BuildCompHomeDrawer extends StatelessWidget {
                             url: user?.image ?? "https://picsum.photos/203",
                             height: 68,
                             width: 68,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                             borderRadius: BorderRadius.circular(80),
                           ),
                           const SizedBox(width: 10),
@@ -61,7 +61,7 @@ class BuildCompHomeDrawer extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 MyText(
-                                  title: user?.compNameEn ?? "SUMC",
+                                  title: user?.compNameEn??"",
                                   size: 13,
                                   color: MyColors.primary,
                                   overflow: TextOverflow.ellipsis,
