@@ -61,14 +61,13 @@ class _GeneralProgressState extends State<HomeView> {
           color: MyColors.white,
         ),
       ),
-    ):generalProgress.data?.finalFeedback != "true"
-        ? _horizontalProgressView(size)
+    ): isReady? _horizontalProgressView(size)
         : VerticalGeneralProgress(generalProgress: generalProgress,);
   }
 
   Widget _horizontalProgressView(Size size) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 3),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -191,7 +190,8 @@ class _GeneralProgressState extends State<HomeView> {
                                     ),
                                     indicatorStyle: IndicatorStyle(
                                       height: 26,
-                                      color: generalProgress.data?.feedback == 'Clear' ? MyColors.primary : Colors.red,
+                                      color: generalProgress.data?.feedback == 'Clear' ?
+                                      MyColors.primary : Colors.red,
                                       iconStyle: IconStyle(
                                         color: Colors.white,
                                         iconData: Icons.check,
@@ -360,12 +360,12 @@ class _GeneralProgressState extends State<HomeView> {
       returnDataFun: (data) => data,
       toJsonFunc: (json) => GeneralProgressResponse.fromJson(json),
     );
-    isReady = (generalProgress.data?.egd ?? false) &&
-        (generalProgress.data?.ultrasound ?? false) &&
-        (generalProgress.data?.surgionVisit ?? false) &&
+    isReady = (generalProgress.data?.egd ?? true) &&
+        (generalProgress.data?.ultrasound ?? true) &&
+        (generalProgress.data?.surgionVisit ?? true) &&
         (generalProgress.data?.dietationFeedbackDecision == 'Clear') &&
         (generalProgress.data?.feedback == 'Clear') &&
-        (generalProgress.data?.watchedClip ?? false) &&
+        (generalProgress.data?.watchedClip ?? true) &&
         (generalProgress.data?.finalFeedback == 'Clear');
     setState(() {
       isLoading = false;

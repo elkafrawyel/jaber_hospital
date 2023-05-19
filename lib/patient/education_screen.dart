@@ -104,25 +104,24 @@ class _EducationScreenState extends State<EducationScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           ),
                         ),
+                        const SizedBox(height: 28.0),
+                        DefaultButton(
+                          height: 40,
+                          title: "تم الإنتهاء",
+                          onTap: () async {
+                            await updateWatchClip();
+                          },
+                          margin: const EdgeInsets.symmetric(horizontal: 56, vertical: 5),
+                        ),
                       ],
                     );
                   } else {
-                    // If the VideoPlayerController is still initializing, show a
-                    // loading spinner.
+                    // If the VideoPlayerController is still initializing, show a loading spinner.
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
                 },
-              ),
-              const SizedBox(height: 28.0),
-              DefaultButton(
-                height: 40,
-                title: "تم الإنتهاء",
-                onTap: () async {
-                  await updateWatchClip();
-                },
-                margin: const EdgeInsets.symmetric(horizontal: 56, vertical: 5),
               ),
             ],
           ),

@@ -11,15 +11,16 @@ import '../../questionnaire/questionaire_screen.dart';
 import 'coming_appointments.dart';
 
 class VerticalGeneralProgress extends StatelessWidget {
-  const VerticalGeneralProgress({Key? key, required this.generalProgress}) : super(key: key);
+  const VerticalGeneralProgress({Key? key, required this.generalProgress})
+      : super(key: key);
   final GeneralProgressResponse generalProgress;
 
   @override
   Widget build(BuildContext context) {
-    bool surgionVisit = generalProgress.data!.surgionVisit??false;
+    bool surgionVisit = generalProgress.data!.surgionVisit ?? false;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       children: [
         ComingAppointments(),
         const SizedBox(height: 12.0),
@@ -34,270 +35,402 @@ class VerticalGeneralProgress extends StatelessWidget {
           ],
         ),
         Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TimelineTile(
-                    axis: TimelineAxis.vertical,
-                    alignment: TimelineAlign.start,
-                    isFirst: true,
-                    indicatorStyle: IndicatorStyle(
-                      width: 32,
-                      height: 32,
-                      drawGap: true,
-                      indicator: Container(
-                        decoration: BoxDecoration(
-                          color: surgionVisit?MyColors.primary:Colors.black,
-                          shape: BoxShape.circle,
-                        ),alignment: Alignment.center,
-                        child: surgionVisit? Icon(Icons.check, color: Colors.white):
-                        MyText(title: "1", size: 11, color:Colors.white),
-                      ),
-                    ),
-                    beforeLineStyle: LineStyle(
-                      color: surgionVisit?MyColors.primary:Colors.black,
-                      thickness: 6,
-                    ),
-                    endChild: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SizedBox(height: 16),
-                          MyText(title: "الجراحة", size: 12, color: MyColors.primary, fontWeight: FontWeight.bold,),
-                          MyText(title: "تم الإنهاء في 25 أغسطس 2022", size: 9, color: MyColors.black,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: MyColors.primary,
-                                    radius: 9.0,
-                                    child: Icon(Icons.check,
-                                        color: Colors.white,
-                                        size: 14),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  MyText(title: "الجراحة", size: 9),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor:  MyColors.primary,
-                                    radius: 9.0,
-                                    child: Icon(
-                                        Icons.check,
-                                        color: Colors.white,
-                                        size: 14),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  MyText(title: "التنظير", size: 9),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor:  MyColors.primary,
-                                    radius: 9.0,
-                                    child: Icon(
-                                        Icons.check,
-                                        color: Colors.white,
-                                        size: 14),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  MyText(title: "الموجات فوق الصوتية", size: 9),
-                                ],
-                              ),
-                            ],
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: TimelineTile(
+                      axis: TimelineAxis.vertical,
+                      alignment: TimelineAlign.start,
+                      isFirst: true,
+                      indicatorStyle: IndicatorStyle(
+                        width: 36,
+                        height: 36,
+                        drawGap: true,
+                        indicator: Container(
+                          decoration: BoxDecoration(
+                            color: (generalProgress.data?.egd ?? false) &&
+                                    (generalProgress.data?.ultrasound ?? false) &&
+                                    (generalProgress.data?.surgionVisit ?? false)
+                                ? MyColors.primary
+                                : Colors.red,
+                            shape: BoxShape.circle,
                           ),
-                        ],),
-                    ),
-                ),
-                TimelineTile(
-                  axis: TimelineAxis.vertical,
-                  alignment: TimelineAlign.start,
-                  beforeLineStyle: LineStyle(
-                    color: generalProgress.data?.dietationFeedbackDecision=="true"?MyColors.primary:Colors.black,
-                    thickness: 6,
-                  ),
-                  afterLineStyle: LineStyle(
-                    color: generalProgress.data?.dietationFeedbackDecision=="true"?MyColors.primary:Colors.black,
-                    thickness: 6,
-                  ),
-                  indicatorStyle: IndicatorStyle(
-                    width: 32,
-                    height: 32,
-                    drawGap: true,
-                    indicator: Container(
-                      decoration: BoxDecoration(
-                        color: generalProgress.data?.dietationFeedbackDecision=="true"?MyColors.primary:Colors.black,
-                        shape: BoxShape.circle,
-                      ),alignment: Alignment.center,
-                      child: generalProgress.data?.dietationFeedbackDecision=="true"?
-                      Icon(Icons.check, color: Colors.white):
-                      MyText(title: "2", size: 11, color:Colors.white),
-                    ),
-                  ),
-                  endChild: Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                      const SizedBox(height: 16),
-                      MyText(title: "التغذية", size: 12, color: MyColors.primary, fontWeight: FontWeight.bold,),
-                      MyText(title: "تم الإنهاء في 19 أغسطس 2022", size: 9, color: MyColors.black,),
-                    ],),
-                  ),
-                ),
-                TimelineTile(
-                  axis: TimelineAxis.vertical,
-                  alignment: TimelineAlign.start,
-                  beforeLineStyle: LineStyle(
-                    color: generalProgress.data?.dietationFeedbackDecision=="true"?MyColors.primary:Colors.black,
-                    thickness: 6,
-                  ),
-                  afterLineStyle: LineStyle(
-                    color: generalProgress.data?.dietationFeedbackDecision=="true"?MyColors.primary:Colors.black,
-                    thickness: 6,
-                  ),
-                  indicatorStyle:  IndicatorStyle(
-                    width: 32,
-                    height: 32,
-                    color: generalProgress.data?.dietationFeedbackDecision=="true"?MyColors.primary:Colors.black,
-                    indicator: Container(
-                      decoration: BoxDecoration(
-                        color: generalProgress.data?.dietationFeedbackDecision=="true"?MyColors.primary:Colors.black,
-                        shape: BoxShape.circle,
-                      ),alignment: Alignment.center,
-                      child: generalProgress.data?.dietationFeedbackDecision=="true"?
-                      Icon(Icons.check, color: Colors.white):
-                      MyText(title: "3", size: 11, color:Colors.white),
-                    ),
-                  ),
-                  endChild: Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(height: 16),
-                        MyText(title: "العلاج الطبيعي", size: 12, color: MyColors.primary, fontWeight: FontWeight.bold,),
-                        MyText(title: "تم الإنهاء في 25 أغسطس 2022", size: 9, color: MyColors.black,),
-                        Row(
+                          alignment: Alignment.center,
+                          child: surgionVisit
+                              ? Icon(Icons.check, color: Colors.white)
+                              : MyText(title: "1", size: 11, color: Colors.white),
+                        ),
+                      ),
+                      beforeLineStyle: LineStyle(
+                        color: (generalProgress.data?.egd ?? false) &&
+                                (generalProgress.data?.ultrasound ?? false) &&
+                                (generalProgress.data?.surgionVisit ?? false)
+                            ? MyColors.primary
+                            : Colors.red,
+                        thickness: 6,
+                      ),
+                      endChild: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            MyText(title: "النتيجة:", size: 9, color: MyColors.black,),
-                            MyText(title: "زيارة ثانية في 25 سبتمبر 2022", size: 9, color: MyColors.primary,),
-                          ],)
-                      ],),
-                  ),
-                ),
-                TimelineTile(
-                  axis: TimelineAxis.vertical,
-                  alignment: TimelineAlign.start,
-                  beforeLineStyle: LineStyle(
-                    color: generalProgress.data?.dietationFeedbackDecision=="true"?MyColors.primary:Colors.black,
-                    thickness: 6,
-                  ),
-                  afterLineStyle: LineStyle(
-                    color: generalProgress.data?.dietationFeedbackDecision=="true"?MyColors.primary:Colors.black,
-                    thickness: 6,
-                  ),
-                  indicatorStyle:  IndicatorStyle(
-                    width: 32,
-                    height: 32,
-                    indicator: Container(
-                      decoration: BoxDecoration(
-                        color: generalProgress.data?.dietationFeedbackDecision=="true"?MyColors.primary:Colors.black,
-                        shape: BoxShape.circle,
-                      ),alignment: Alignment.center,
-                      child: generalProgress.data?.dietationFeedbackDecision=="true"?
-                      Icon(Icons.check, color: Colors.white):
-                      MyText(title: "4", size: 11, color:Colors.white),
+                            MyText(
+                              title: "الجراحة",
+                              size: 12,
+                              color: (generalProgress.data?.egd ?? false) &&
+                                      (generalProgress.data?.ultrasound ?? false) &&
+                                      (generalProgress.data?.surgionVisit ?? false)
+                                  ? MyColors.primary
+                                  : Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            // MyText(
+                            //   title: "تم الإنهاء في ${generalProgress.data?.}",
+                            //   size: 9,
+                            //   color: MyColors.black,
+                            // ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: MyColors.primary,
+                                      radius: 9.0,
+                                      child: Icon(Icons.check,
+                                          color: Colors.white, size: 14),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    MyText(title: "الجراحة", size: 9),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: MyColors.primary,
+                                      radius: 9.0,
+                                      child: Icon(Icons.check,
+                                          color: Colors.white, size: 14),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    MyText(title: "التنظير", size: 9),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: MyColors.primary,
+                                      radius: 9.0,
+                                      child: Icon(Icons.check,
+                                          color: Colors.white, size: 14),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    MyText(title: "الموجات فوق الصوتية", size: 9),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                  endChild:  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        MyText(title: "التعليم", size: 12, color: MyColors.primary, fontWeight: FontWeight.bold,),
-                        // MyText(title: "سيتاح قريباً", size: 9, color: MyColors.black,),
-                        SizedBox(
-                          height: 48,
-                          width: 210,
-                          child: DefaultButton(
-                            title: "مشاهدة الفيديو التعليمي",
-                            onTap: () =>Nav.navigateTo(EducationScreen(), navigatorType: NavigatorType.push),
+                  Expanded(
+                    child: TimelineTile(
+                      axis: TimelineAxis.vertical,
+                      alignment: TimelineAlign.start,
+                      beforeLineStyle: LineStyle(
+                        color: generalProgress.data?.dietationFeedbackDecision ==
+                                'Clear'
+                            ? MyColors.primary
+                            : Colors.red,
+                        thickness: 6,
+                      ),
+                      afterLineStyle: LineStyle(
+                        color: generalProgress.data?.dietationFeedbackDecision ==
+                                'Clear'
+                            ? MyColors.primary
+                            : Colors.red,
+                        thickness: 6,
+                      ),
+                      indicatorStyle: IndicatorStyle(
+                        width: 36,
+                        height: 36,
+                        drawGap: true,
+                        indicator: Container(
+                          decoration: BoxDecoration(
+                            color:
+                                generalProgress.data?.dietationFeedbackDecision ==
+                                        'Clear'
+                                    ? MyColors.primary
+                                    : Colors.red,
+                            shape: BoxShape.circle,
                           ),
+                          alignment: Alignment.center,
+                          child: generalProgress.data?.dietationFeedbackDecision ==
+                                  'Clear'
+                              ? Icon(Icons.check, color: Colors.white)
+                              : MyText(title: "2", size: 11, color: Colors.white),
                         ),
-                      ],),
-                  ),
-                ),
-                TimelineTile(
-                  axis: TimelineAxis.vertical,
-                  alignment: TimelineAlign.start,
-                  isLast: true,
-                  beforeLineStyle: LineStyle(
-                    color:generalProgress.data?.finalFeedback=="true"?MyColors.primary:Colors.black,
-                    thickness: 6,
-                  ),
-                  indicatorStyle: IndicatorStyle(
-                    width: 32,
-                    height: 32,
-                    indicator: Container(
-                      decoration: BoxDecoration(
-                        color: generalProgress.data?.finalFeedback=="true"?MyColors.primary:Colors.black,
-                        shape: BoxShape.circle,
-                      ),alignment: Alignment.center,
-                      child: generalProgress.data?.finalFeedback=="true"?
-                      Icon(Icons.check, color: Colors.white):
-                      MyText(title: "5", size: 11, color:Colors.white),
+                      ),
+                      endChild: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            MyText(
+                              title: "التغذية",
+                              size: 12,
+                              color:
+                                  generalProgress.data?.dietationFeedbackDecision ==
+                                          'Clear'
+                                      ? MyColors.primary
+                                      : Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                  endChild: Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(height: 8.0),
-                        MyText(title: "الطب النفسي", size: 12, color: MyColors.primary, fontWeight: FontWeight.bold,),
-                        MyText(title: "قيد التنفيذً", size: 9, color: Colors.red,),
-                        SizedBox(
-                          height: 48,
-                          width: 160,
-                          child: DefaultButton(
-                            title: "إكمال الاستبيان",
-                            onTap: () {
-                              Nav.navigateTo(QuestionnaireCompletedScreen(), navigatorType: NavigatorType.push);
-                            },
+                  Expanded(
+                    child: TimelineTile(
+                      axis: TimelineAxis.vertical,
+                      alignment: TimelineAlign.start,
+                      beforeLineStyle: LineStyle(
+                        color: generalProgress.data?.feedback == 'Clear'
+                            ? MyColors.primary
+                            : Colors.red,
+                        thickness: 6,
+                      ),
+                      afterLineStyle: LineStyle(
+                        color: generalProgress.data?.feedback == 'Clear'
+                            ? MyColors.primary
+                            : Colors.red,
+                        thickness: 6,
+                      ),
+                      indicatorStyle: IndicatorStyle(
+                        width: 36,
+                        height: 36,
+                        color: generalProgress.data?.feedback == 'Clear'
+                            ? MyColors.primary
+                            : Colors.red,
+                        indicator: Container(
+                          decoration: BoxDecoration(
+                            color: generalProgress.data?.feedback == 'Clear'
+                                ? MyColors.primary
+                                : Colors.red,
+                            shape: BoxShape.circle,
                           ),
+                          alignment: Alignment.center,
+                          child: generalProgress.data?.feedback == 'Clear'
+                              ? Icon(Icons.check, color: Colors.white)
+                              : MyText(title: "3", size: 11, color: Colors.white),
                         ),
-                      ],),
+                      ),
+                      endChild: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            MyText(
+                              title: "العلاج الطبيعي",
+                              size: 12,
+                              color: generalProgress.data?.feedback == 'Clear'
+                                  ? MyColors.primary
+                                  : Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            // MyText(
+                            //   title: "تم الإنهاء في 25 أغسطس 2022",
+                            //   size: 9,
+                            //   color: MyColors.black,
+                            // ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.start,
+                            //   mainAxisSize: MainAxisSize.min,
+                            //   children: [
+                            //     MyText(
+                            //       title: "النتيجة:",
+                            //       size: 9,
+                            //       color: MyColors.black,
+                            //     ),
+                            //     MyText(
+                            //       title: "زيارة ثانية في 25 سبتمبر 2022",
+                            //       size: 9,
+                            //       color: MyColors.primary,
+                            //     ),
+                            //   ],
+                            // )
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
+                  Expanded(
+                    child: TimelineTile(
+                      axis: TimelineAxis.vertical,
+                      alignment: TimelineAlign.start,
+                      beforeLineStyle: LineStyle(
+                        color: (generalProgress.data?.watchedClip ?? false)
+                            ? MyColors.primary
+                            : Colors.red,
+                        thickness: 6,
+                      ),
+                      afterLineStyle: LineStyle(
+                        color: (generalProgress.data?.watchedClip ?? false)
+                            ? MyColors.primary
+                            : Colors.red,
+                        thickness: 6,
+                      ),
+                      indicatorStyle: IndicatorStyle(
+                        width: 36,
+                        height: 36,
+                        indicator: Container(
+                          decoration: BoxDecoration(
+                            color: (generalProgress.data?.watchedClip ?? false)
+                                ? MyColors.primary
+                                : Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          alignment: Alignment.center,
+                          child: (generalProgress.data?.watchedClip ?? false)
+                              ? Icon(Icons.check, color: Colors.white)
+                              : MyText(title: "4", size: 11, color: Colors.white),
+                        ),
+                      ),
+                      endChild: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            MyText(
+                              title: "التعليم",
+                              size: 12,
+                              color: (generalProgress.data?.watchedClip ?? false)
+                                  ? MyColors.primary
+                                  : Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            (generalProgress.data?.watchedClip ?? false)
+                                ? const SizedBox.shrink()
+                                : SizedBox(
+                                    height: 48,
+                                    width: 210,
+                                    child: DefaultButton(
+                                      title: "مشاهدة الفيديو التعليمي",
+                                      onTap: () => Nav.navigateTo(EducationScreen(),
+                                          navigatorType: NavigatorType.push),
+                                    ),
+                                  ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: TimelineTile(
+                      axis: TimelineAxis.vertical,
+                      alignment: TimelineAlign.start,
+                      isLast: true,
+                      beforeLineStyle: LineStyle(
+                        color: generalProgress.data?.finalFeedback == 'Clear'
+                            ? MyColors.primary
+                            : Colors.red,
+                        thickness: 6,
+                      ),
+                      indicatorStyle: IndicatorStyle(
+                        width: 36,
+                        height: 36,
+                        indicator: Container(
+                          decoration: BoxDecoration(
+                            color: generalProgress.data?.finalFeedback == 'Clear'
+                                ? MyColors.primary
+                                : Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          alignment: Alignment.center,
+                          child: generalProgress.data?.finalFeedback == 'Clear'
+                              ? Icon(Icons.check, color: Colors.white)
+                              : MyText(title: "5", size: 11, color: Colors.white),
+                        ),
+                      ),
+                      endChild: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MyText(
+                              title: "الطب النفسي",
+                              size: 12,
+                              color: generalProgress.data?.finalFeedback == 'Clear'
+                                  ? MyColors.primary
+                                  : Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            generalProgress.data?.finalFeedback == 'Clear'
+                                ? const SizedBox():SizedBox(
+                              height: 38,
+                              width: 160,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // MyText(
+                                  //   title: "قيد التنفيذ",
+                                  //   size: 11,
+                                  //   color: generalProgress.data?.finalFeedback == 'Clear'
+                                  //       ? MyColors.primary
+                                  //       : Colors.red,
+                                  //   alien: TextAlign.center,
+                                  // ),
+                                  InkWell(
+                                    onTap: ()=> Nav.navigateTo(QuestionnaireCompletedScreen(),
+                                        navigatorType: NavigatorType.push),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 3.0),
+                                      decoration: BoxDecoration(
+                                        color: MyColors.primary,
+                                        borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: MyText(
+                                        title: "إكمال الاستبيان",
+                                        size: 11,
+                                        color:  Colors.white,
+                                        alien: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
           ),
         ),
-        const SizedBox(height: 16,),
+        const SizedBox(
+          height: 16,
+        ),
       ],
     );
   }
