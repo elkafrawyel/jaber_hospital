@@ -1,9 +1,10 @@
 part of 'SurHomeImports.dart';
 
-
 class SurHomeData {
   SurHomeData._();
+
   static final SurHomeData _instance = SurHomeData._();
+
   factory SurHomeData() => _instance;
 
   late TextEditingController search;
@@ -11,8 +12,6 @@ class SurHomeData {
   late GenericBloc<bool> loadingHome;
   late GenericBloc<bool> mdtDiscussionsSelect;
   late GenericBloc<bool> orderSelect;
-
-
 
   void init(BuildContext context) {
     this.search = TextEditingController();
@@ -24,16 +23,12 @@ class SurHomeData {
     getHome(context);
   }
 
-
   //fetch home
-   getHome(BuildContext context) async {
-      loadingHome.onUpdateData(true);
+  getHome(BuildContext context) async {
+    loadingHome.onUpdateData(true);
     UserModel user = context.read<UserCubit>().state.model;
-     SurgeonHomeModel? result = await  SurgeonRepository(context).getHome(doctorId:user.userData?[0].sId??'' );
-      homeCubit.onUpdateData(result);
-      loadingHome.onUpdateData(false);
+    SurgeonHomeModel? result = await SurgeonRepository(context).getHome(doctorId: user.userData?[0].sId ?? '');
+    homeCubit.onUpdateData(result);
+    loadingHome.onUpdateData(false);
   }
-
-
-
 }

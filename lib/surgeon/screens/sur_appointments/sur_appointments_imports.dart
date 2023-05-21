@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:base_flutter/general/utilities/tf_custom_widgets/tf_custom_widgets.dart';
 import 'package:base_flutter/general/widgets/GenScaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../general/blocks/user_cubit/user_cubit.dart';
 import '../../../general/constants/MyColors.dart';
 import '../../models/apointments_response.dart';
 import '../../models/appointment_model.dart';
