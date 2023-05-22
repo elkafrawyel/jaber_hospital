@@ -12,6 +12,7 @@ class SurPatientDetails extends StatefulWidget {
 class _SurPatientDetailsState extends State<SurPatientDetails> {
   @override
   void initState() {
+    // SurPatientDetailsData().init(context, patientId: '64471516be50c8694d9bad61');
     SurPatientDetailsData().init(context, patientId: widget.patientId);
     super.initState();
   }
@@ -666,7 +667,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 MyText(title: "Operation Done On:", size: 12, fontWeight: FontWeight.bold),
                 SizedBox(width: 10),
                 MyText(
-                  title: DateFormat('yyyy-MM-dd').format(dateTime),
+                  title: DateFormat("E ,d MMM y hh:mm a").format(dateTime),
                   size: 12,
                   color: MyColors.primary,
                   fontWeight: FontWeight.bold,
@@ -681,6 +682,51 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 SizedBox(width: 10),
                 MyText(
                   title: state.data?.patient?.mdtStatus ?? '-',
+                  size: 12,
+                  color: MyColors.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
+            ),
+          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty) const Divider(thickness: 1, height: 20),
+          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty)
+            MyText(title: "MDT Discussion Details:", size: 14, color: MyColors.primary, fontWeight: FontWeight.bold),
+          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty) SizedBox(height: 10),
+          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty)
+            Row(
+              children: [
+                MyText(title: "Result:", size: 12, fontWeight: FontWeight.bold),
+                SizedBox(width: 10),
+                MyText(
+                  title: state.data?.patient?.mdtResults ?? '-',
+                  size: 12,
+                  color: MyColors.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
+            ),
+          if ((state.data?.patient?.mdtComments ?? '').isNotEmpty) SizedBox(height: 10),
+          if ((state.data?.patient?.mdtComments ?? '').isNotEmpty)
+            Row(
+              children: [
+                MyText(title: "Acceptance Details:", size: 12, fontWeight: FontWeight.bold),
+                SizedBox(width: 10),
+                MyText(
+                  title: state.data?.patient?.mdtComments ?? '-',
+                  size: 12,
+                  color: MyColors.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
+            ),
+          if ((state.data?.patient?.operationDate ?? '').isNotEmpty) SizedBox(height: 10),
+          if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
+            Row(
+              children: [
+                MyText(title: "Operation Date:", size: 12, fontWeight: FontWeight.bold),
+                SizedBox(width: 10),
+                MyText(
+                  title: dateTime == null ? '' : DateFormat("E ,d MMM y hh:mm a").format(dateTime),
                   size: 12,
                   color: MyColors.primary,
                   fontWeight: FontWeight.bold,
@@ -1129,6 +1175,25 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       title: "Order Instruments",
                       onTap: () => Nav.navigateTo(RequestInstrumentsScreen(patientModel: state.data!),
                           navigatorType: NavigatorType.push),
+                    ),
+                  ),
+                if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept' &&
+                    (state.data?.patient?.operationDate ?? '').isNotEmpty)
+                  Expanded(
+                    child: DefaultButton(
+                      title: "Request Instruments",
+                      color: Color(0xff00116E),
+                      onTap: () => Nav.navigateTo(
+                        RequestInstrumentsScreen(patientModel: state.data!),
+                        navigatorType: NavigatorType.push,
+                      ),
+                    ),
+                  ),
+                if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept')
+                  Expanded(
+                    child: DefaultButton(
+                      title: dateTime == null ? "Book Operation" : "Edit Operation",
+                      onTap: () => SurPatientDetailsData().bookOperation(context),
                     ),
                   ),
               ],
