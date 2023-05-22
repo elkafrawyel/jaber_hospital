@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:tf_validator/localization/LocalizationMethods.dart';
 
 import '../../general/MyApp.dart';
+import '../../general/models/doctor_model.dart';
 import '../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../general/utilities/utils_functions/AdaptivePicker.dart';
 import '../../patient/models/ques_answer_response.dart';
@@ -24,6 +25,8 @@ class PsychologistPatientDetailsData {
   late GenericBloc<PatientDetailsModel?> patientDetailsCubit;
   late GenericBloc<QuesAnswerResponse?> patScoreCubit;
   late GlobalKey<FormState> formKey;
+  late String patSurgeonId;
+  late DoctorId psychologistId;
 
   void init(BuildContext context, {required String patientId}) {
     appointmentDate = TextEditingController();
@@ -38,8 +41,9 @@ class PsychologistPatientDetailsData {
   }
 
   void getPatientDetails(BuildContext context, String patientId) async {
-    PatientDetailsModel? data =
-        await PsychologistRepository(context).getPatientDetails(patientId);
+    PatientDetailsModel? data = await PsychologistRepository(context).getPatientDetails(patientId);
+    patSurgeonId = data?.patient?.surgeonId?.sId ?? '';
+    psychologistId = data!.patient!.psychologistId!;
     patientDetailsCubit.onUpdateData(data);
   }
 
@@ -91,7 +95,4 @@ class PsychologistPatientDetailsData {
       }
     }
   }
-
-  // drhussein83@gmail.com
-
 }

@@ -255,20 +255,32 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 isFirst: true,
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: MyColors.primary,
+                                  color: (state.data?.patient?.egd ?? false) &&
+                                      (state.data?.patient?.ultrasound ?? false) &&
+                                      (state.data?.patient?.surgionVisit ?? false)
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   iconStyle: IconStyle(
                                     color: Colors.white,
                                     iconData: Icons.check,
                                   ),
                                 ),
                                 beforeLineStyle: LineStyle(
-                                  color: MyColors.primary,
+                                  color: (state.data?.patient?.egd ?? false) &&
+                                      (state.data?.patient?.ultrasound ?? false) &&
+                                      (state.data?.patient?.surgionVisit ?? false)
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   thickness: 6,
                                 ),
                                 endChild: MyText(
                                   title: "Surgery OPD",
-                                  size: 9,
-                                  color: MyColors.primary,
+                                  size: 8,
+                                  color: (state.data?.patient?.egd ?? false) &&
+                                      (state.data?.patient?.ultrasound ?? false) &&
+                                      (state.data?.patient?.surgionVisit ?? false)
+                                      ? MyColors.primary
+                                      : Colors.red,
                                 ),
                               ),
                             ),
@@ -277,20 +289,20 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 axis: TimelineAxis.horizontal,
                                 alignment: TimelineAlign.center,
                                 beforeLineStyle: LineStyle(
-                                  color: widget.patientModel.dietationFeedbackDecision == "true"
+                                  color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
                                       ? MyColors.primary
                                       : Colors.red,
                                   thickness: 6,
                                 ),
                                 afterLineStyle: LineStyle(
-                                  color: widget.patientModel.dietationFeedbackDecision == "true"
+                                  color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
                                       ? MyColors.primary
                                       : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: widget.patientModel.dietationFeedbackDecision == "true"
+                                  color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
                                       ? MyColors.primary
                                       : Colors.red,
                                   iconStyle: IconStyle(
@@ -301,7 +313,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 endChild: MyText(
                                   title: "Dietitian",
                                   size: 9,
-                                  color: widget.patientModel.dietationFeedbackDecision == "true"
+                                  color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
                                       ? MyColors.primary
                                       : Colors.red,
                                 ),
@@ -312,16 +324,16 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 axis: TimelineAxis.horizontal,
                                 alignment: TimelineAlign.center,
                                 beforeLineStyle: LineStyle(
-                                  color: widget.patientModel.feedback == "true" ? MyColors.primary : Colors.red,
+                                  color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                   thickness: 6,
                                 ),
                                 afterLineStyle: LineStyle(
-                                  color: widget.patientModel.feedback == "true" ? MyColors.primary : Colors.red,
+                                  color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: widget.patientModel.feedback == "true" ? MyColors.primary : Colors.red,
+                                  color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                   iconStyle: IconStyle(
                                     color: Colors.white,
                                     iconData: Icons.check,
@@ -330,7 +342,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 endChild: MyText(
                                   title: "Physiotherapy",
                                   size: 9,
-                                  color: widget.patientModel.feedback == "true" ? MyColors.primary : Colors.red,
+                                  color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
                                 ),
                               ),
                             ),
@@ -339,16 +351,16 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 axis: TimelineAxis.horizontal,
                                 alignment: TimelineAlign.center,
                                 beforeLineStyle: LineStyle(
-                                  color: widget.patientModel.watchedClip == "true" ? MyColors.primary : Colors.red,
+                                  color: (state.data?.patient?.watchedClip ?? false) ? MyColors.primary : Colors.red,
                                   thickness: 6,
                                 ),
                                 afterLineStyle: LineStyle(
-                                  color: widget.patientModel.watchedClip == "true" ? MyColors.primary : Colors.red,
+                                  color: (state.data?.patient?.watchedClip ?? false) ? MyColors.primary : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: widget.patientModel.watchedClip == "true" ? MyColors.primary : Colors.red,
+                                  color: (state.data?.patient?.watchedClip ?? false) ? MyColors.primary : Colors.red,
                                   iconStyle: IconStyle(
                                     color: Colors.white,
                                     iconData: Icons.check,
@@ -357,7 +369,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 endChild: MyText(
                                   title: "Education",
                                   size: 9,
-                                  color: widget.patientModel.watchedClip == "true" ? MyColors.primary : Colors.red,
+                                  color: (state.data?.patient?.watchedClip?? false) ? MyColors.primary : Colors.red,
                                 ),
                               ),
                             ),
@@ -367,12 +379,16 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 alignment: TimelineAlign.center,
                                 isLast: true,
                                 beforeLineStyle: LineStyle(
-                                  color: widget.patientModel.finalFeedback == "true" ? MyColors.primary : Colors.red,
+                                  color: state.data?.patient?.finalFeedback == 'Clear'
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: widget.patientModel.finalFeedback == "true" ? MyColors.primary : Colors.red,
+                                  color: state.data?.patient?.finalFeedback == 'Clear'
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   iconStyle: IconStyle(
                                     color: Colors.white,
                                     iconData: Icons.check,
@@ -381,149 +397,15 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 endChild: MyText(
                                   title: "Psychology",
                                   size: 9,
-                                  color: widget.patientModel.finalFeedback == "true" ? MyColors.primary : Colors.red,
+                                  color: state.data?.patient?.finalFeedback == 'Clear'
+                                      ? MyColors.primary
+                                      : Colors.red,
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.center,
-                      //         children: List.generate(
-                      //             5,
-                      //             (index) => Stack(
-                      //                   alignment: Alignment.centerLeft,
-                      //                   children: [
-                      //                     if (index <= 3)
-                      //                       Container(
-                      //                         width: MediaQuery.of(context)
-                      //                                 .size
-                      //                                 .width /
-                      //                             6,
-                      //                         height: 5,
-                      //                         color: MyColors.primary,
-                      //                       ),
-                      //                     CircleAvatar(
-                      //                       backgroundColor: MyColors.primary,
-                      //                       radius: 12.0,
-                      //                       child: Icon(Icons.check,
-                      //                           color: Colors.white, size: 15),
-                      //                     ),
-                      //                   ],
-                      //                 )),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      // const SizedBox(height: 10),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //         children: [
-                      //           Expanded(
-                      //             child: Padding(
-                      //               padding: const EdgeInsets.only(left: 2),
-                      //               child: Column(
-                      //                 children: [
-                      //                   FittedBox(
-                      //                     fit: BoxFit.scaleDown,
-                      //                     child: MyText(
-                      //                       alien: TextAlign.center,
-                      //                       title: "Surgery OPD",
-                      //                       size: 9,
-                      //                       color: MyColors.primary,
-                      //                     ),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //             ),
-                      //           ),
-                      //           Expanded(
-                      //             child: Padding(
-                      //               padding: const EdgeInsets.only(left: 2),
-                      //               child: Column(
-                      //                 children: [
-                      //                   FittedBox(
-                      //                     fit: BoxFit.scaleDown,
-                      //                     child: MyText(
-                      //                       alien: TextAlign.center,
-                      //                       title: "Dietitian",
-                      //                       size: 9,
-                      //                       color: MyColors.primary,
-                      //                     ),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //             ),
-                      //           ),
-                      //           Expanded(
-                      //             child: Padding(
-                      //               padding: const EdgeInsets.only(left: 2),
-                      //               child: Column(
-                      //                 children: [
-                      //                   FittedBox(
-                      //                     fit: BoxFit.scaleDown,
-                      //                     child: MyText(
-                      //                       alien: TextAlign.center,
-                      //                       title: "Physiotherapy",
-                      //                       size: 9,
-                      //                       color: MyColors.primary,
-                      //                     ),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //             ),
-                      //           ),
-                      //           Expanded(
-                      //             child: Padding(
-                      //               padding: const EdgeInsets.only(left: 2),
-                      //               child: Column(
-                      //                 children: [
-                      //                   FittedBox(
-                      //                     fit: BoxFit.scaleDown,
-                      //                     child: MyText(
-                      //                       alien: TextAlign.center,
-                      //                       title: "Education",
-                      //                       size: 9,
-                      //                       color: MyColors.primary,
-                      //                     ),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //             ),
-                      //           ),
-                      //           Expanded(
-                      //             child: Padding(
-                      //               padding: const EdgeInsets.only(left: 2),
-                      //               child: Column(
-                      //                 children: [
-                      //                   FittedBox(
-                      //                     fit: BoxFit.scaleDown,
-                      //                     child: MyText(
-                      //                       alien: TextAlign.center,
-                      //                       title: "Psychology",
-                      //                       size: 9,
-                      //                       color: MyColors.primary,
-                      //                     ),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //     const SizedBox(
-                      //       width: 10,
-                      //     )
-                      //   ],
-                      // ),
                       Divider(color: MyColors.grey),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -538,10 +420,9 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 Row(
                                   children: [
                                     CircleAvatar(
-                                      backgroundColor: widget.patientModel.egd == true ? MyColors.primary : Colors.red,
+                                      backgroundColor: MyColors.primary,
                                       radius: 12.0,
-                                      child: Icon(widget.patientModel.egd == true ? Icons.check : Icons.close,
-                                          color: Colors.white, size: 15),
+                                      child: Icon(Icons.check, color: Colors.white, size: 15),
                                     ),
                                     const SizedBox(width: 10),
                                     MyText(title: "EGD", size: 9),
@@ -550,10 +431,9 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 Row(
                                   children: [
                                     CircleAvatar(
-                                      backgroundColor:
-                                          widget.patientModel.ultrasound == true ? MyColors.primary : Colors.red,
+                                      backgroundColor: state.data?.patient?.ultrasound == true ? MyColors.primary : Colors.red,
                                       radius: 12.0,
-                                      child: Icon(widget.patientModel.ultrasound == true ? Icons.check : Icons.close,
+                                      child: Icon(state.data?.patient?.ultrasound == true ? Icons.check : Icons.close,
                                           color: Colors.white, size: 15),
                                     ),
                                     const SizedBox(width: 10),
@@ -563,10 +443,9 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 Row(
                                   children: [
                                     CircleAvatar(
-                                      backgroundColor:
-                                          widget.patientModel.surgionVisit == true ? MyColors.primary : Colors.red,
+                                      backgroundColor: state.data?.patient?.surgionVisit == true ? MyColors.primary : Colors.red,
                                       radius: 12.0,
-                                      child: Icon(widget.patientModel.surgionVisit == true ? Icons.check : Icons.close,
+                                      child: Icon(state.data?.patient?.surgionVisit == true ? Icons.check : Icons.close,
                                           color: Colors.white, size: 15),
                                     ),
                                     const SizedBox(width: 10),
@@ -615,8 +494,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                     MyText(title: "Physiotherapist:", size: 12, fontWeight: FontWeight.bold),
                     const SizedBox(width: 4),
                     MyText(
-                      title:
-                          '${state.data?.patient?.physiotherapyId?.firstNameEn ?? ''} ${state.data?.patient?.physiotherapyId?.lastNameEn ?? ''}',
+                      title: '${state.data?.patient?.physiotherapyId?.firstNameEn ?? ''} ${state.data?.patient?.physiotherapyId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -640,7 +518,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                     MyText(title: "Psychologist:", size: 12, fontWeight: FontWeight.bold),
                     const SizedBox(width: 4),
                     MyText(
-                      title: '${state.data?.patient?.dietationId?.firstNameEn ?? ''} ${state.data?.patient?.dietationId?.lastNameEn ?? ''}',
+                      title: '${state.data?.patient?.psychologistId?.firstNameEn ?? ''} ${state.data?.patient?.psychologistId?.lastNameEn ?? ''}',
                       size: 12,
                       color: MyColors.primary,
                       fontWeight: FontWeight.bold,
@@ -709,13 +587,177 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 MyText(title: "Anxiety Assessment Result:", size: 11, fontWeight: FontWeight.bold),
                                 Expanded(
                                   child: MyText(
-                                    //convert date to 12 aug 2021
                                     title: state.data!.data![0].anxietyScoreLevel?? '',
                                     size: 12,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                MyText(title: "Feedback:", size: 11, fontWeight: FontWeight.bold),
+                                const SizedBox(width: 3.0,),
+                                Expanded(
+                                  child: MyText(
+                                    title: widget.patientModel.feedback?? '',
+                                    size: 12,
+                                    color: MyColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                MyText(title: "Feedback:", size: 11, fontWeight: FontWeight.bold),
+                                const SizedBox(width: 3.0,),
+                                Expanded(
+                                  child: MyText(
+                                    title: widget.patientModel.feedback?? '',
+                                    size: 12,
+                                    color: MyColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Divider(thickness: 1, height: 16),
+                            Row(
+                              children: [
+                                (widget.patientModel.finalFeedback!="Clear"&&
+                                    psychologistPatientDetailsData.psychologistId.sId!="")?Row(children: [
+                                  Expanded(
+                                    child: DefaultButton(
+                                      title: "Edit Feedback",
+                                      fontSize: 10,
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          isDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return ModelBottomSheet(
+                                              child: StatefulBuilder(
+                                                builder: (BuildContext context, StateSetter setState) => Column(
+                                                  children: [
+                                                    Center(
+                                                      child: MyText(
+                                                        title: "Your Feedback",
+                                                        size: 15,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: MyColors.primary,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 16.0),
+                                                    RadioListTile(
+                                                      title: Text("Clear"),
+                                                      value: "Clear",
+                                                      groupValue: feedbackStatus,
+                                                      onChanged: (value) {
+                                                        log("value=> $value");
+                                                        setState(() {
+                                                          feedbackStatus = value.toString();
+                                                        });
+                                                      },
+                                                    ),
+                                                    const SizedBox(height: 10.0),
+                                                    RadioListTile(
+                                                      title: Text("Not Clear"),
+                                                      value: "Not Clear",
+                                                      groupValue: feedbackStatus,
+                                                      onChanged: (value) {
+                                                        log("value=> $value");
+                                                        setState(() {
+                                                          feedbackStatus = value.toString();
+                                                        });
+                                                      },
+                                                    ),
+                                                    const SizedBox(height: 10.0),
+                                                    DefaultButton(
+                                                      height: 38,
+                                                      title: "Update",
+                                                      onTap: () async {
+                                                        log('fetchHomeCompOrders called...');
+                                                        Map<String, dynamic> body = {
+                                                          "final_feedback": feedbackStatus,
+                                                        };
+                                                        UpdateOrderStatusResponse? result =
+                                                        await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
+                                                          name: "${ApiNames.feedbackStatus}?user_id=${widget.patientModel.sId}",
+                                                          returnType: ReturnType.Model,
+                                                          methodType: MethodType.Put,
+                                                          returnDataFun: (data) => data,
+                                                          jsonBody: body,
+                                                          toJsonFunc: (json) => UpdateOrderStatusResponse.fromJson(json),
+                                                        );
+                                                        log("data=> ${result?.toJson()}");
+                                                        if (result?.success ?? false) {
+                                                          Navigator.of(context).pop();
+                                                          CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
+                                                        } else {
+                                                          CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
+                                                        }
+                                                      },
+                                                      margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+                                                    ),
+                                                    const SizedBox(height: 16.0),
+                                                  ],
+                                                ),
+                                              ),
+                                              sheetHeight: size.height * 0.45,
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 6.0,
+                                  ),
+                                  Expanded(
+                                    child: DefaultButton(
+                                      title: "Book Appointment",
+                                      fontSize: 10,
+                                      onTap: () async {
+                                        FocusScope.of(context).requestFocus(FocusNode());
+                                        await AdaptivePicker.datePicker(
+                                            context: context,
+                                            title: tr(context, "selectStartDate"),
+                                            onConfirm: (bookedDate) async {
+                                              if (bookedDate != null) {
+                                                log("bookedDate==> ${psychologistPatientDetailsData.dateBloc.state.data}");
+                                                Map<String, dynamic> body = {
+                                                  "doctor_id": psychologistPatientDetailsData.patSurgeonId??'',
+                                                  "patient_id": widget.patientModel.sId?? "",
+                                                  "appointment_date": bookedDate,
+                                                };
+                                                UpdateOrderStatusResponse? result =
+                                                await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
+                                                  name: ApiNames.bookAppointmentDate,
+                                                  returnType: ReturnType.Model,
+                                                  methodType: MethodType.Post,
+                                                  returnDataFun: (data) => data,
+                                                  jsonBody: body,
+                                                  toJsonFunc: (json) => UpdateOrderStatusResponse.fromJson(json),
+                                                );
+                                                log("data=> ${result?.toJson()}");
+                                                if (result?.success ?? false) {
+                                                  Navigator.of(context).pop();
+                                                  CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
+                                                } else {
+                                                  CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
+                                                }
+                                              }
+                                            });
+                                      },
+                                    ),
+                                  ),
+                                ],): const SizedBox.shrink(),
                               ],
                             ),
                           ],
@@ -745,154 +787,6 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                       );
                     }
                   },
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(title: "Feedback:", size: 11, fontWeight: FontWeight.bold),
-                    const SizedBox(width: 3.0,),
-                    Expanded(
-                      child: MyText(
-                        title: widget.patientModel.feedback?? '',
-                        size: 12,
-                        color: MyColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-
-                const Divider(thickness: 1, height: 16),
-                Row(
-                  children: [
-                    widget.patientModel.finalFeedback!="Clear"?Expanded(
-                      child: DefaultButton(
-                        title: "Edit Feedback",
-                        fontSize: 10,
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            isDismissible: false,
-                            builder: (BuildContext context) {
-                              return ModelBottomSheet(
-                                child: StatefulBuilder(
-                                  builder: (BuildContext context, StateSetter setState) => Column(
-                                    children: [
-                                      Center(
-                                        child: MyText(
-                                          title: "Your Feedback",
-                                          size: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: MyColors.primary,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 16.0),
-                                      RadioListTile(
-                                        title: Text("Clear"),
-                                        value: "Clear",
-                                        groupValue: feedbackStatus,
-                                        onChanged: (value) {
-                                          log("value=> $value");
-                                          setState(() {
-                                            feedbackStatus = value.toString();
-                                          });
-                                        },
-                                      ),
-                                      const SizedBox(height: 10.0),
-                                      RadioListTile(
-                                        title: Text("Not Clear"),
-                                        value: "Not Clear",
-                                        groupValue: feedbackStatus,
-                                        onChanged: (value) {
-                                          log("value=> $value");
-                                          setState(() {
-                                            feedbackStatus = value.toString();
-                                          });
-                                        },
-                                      ),
-                                      const SizedBox(height: 10.0),
-                                      DefaultButton(
-                                        height: 38,
-                                        title: "Update",
-                                        onTap: () async {
-                                          log('fetchHomeCompOrders called...');
-                                          Map<String, dynamic> body = {
-                                            "final_feedback": feedbackStatus,
-                                          };
-                                          UpdateOrderStatusResponse? result =
-                                          await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
-                                            name: "${ApiNames.feedbackStatus}?user_id=${state.data?.patient?.id}",
-                                            returnType: ReturnType.Model,
-                                            methodType: MethodType.Put,
-                                            returnDataFun: (data) => data,
-                                            jsonBody: body,
-                                            toJsonFunc: (json) => UpdateOrderStatusResponse.fromJson(json),
-                                          );
-                                          log("data=> ${result?.toJson()}");
-                                          if (result?.success ?? false) {
-                                            Navigator.of(context).pop();
-                                            CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
-                                          } else {
-                                            CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
-                                          }
-                                        },
-                                        margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
-                                      ),
-                                      const SizedBox(height: 16.0),
-                                    ],
-                                  ),
-                                ),
-                                sheetHeight: size.height * 0.45,
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ): const SizedBox.shrink(),
-                    const SizedBox(
-                      width: 6.0,
-                    ),
-                    Expanded(
-                      child: DefaultButton(
-                        title: "Book Appointment",
-                        fontSize: 10,
-                        onTap: () async {
-                          FocusScope.of(context).requestFocus(FocusNode());
-                          await AdaptivePicker.datePicker(
-                              context: context,
-                              title: tr(context, "selectStartDate"),
-                              onConfirm: (bookedDate) async {
-                                if (bookedDate != null) {
-                                  log("bookedDate==> ${psychologistPatientDetailsData.dateBloc.state.data}");
-                                  Map<String, dynamic> body = {
-                                    "doctor_id": state.data?.patient?.surgeonId?.sId ?? '',
-                                    "patient_id": state.data?.patient?.id ?? "",
-                                    "appointment_date": bookedDate,
-                                  };
-                                  UpdateOrderStatusResponse? result =
-                                  await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
-                                    name: ApiNames.bookAppointmentDate,
-                                    returnType: ReturnType.Model,
-                                    methodType: MethodType.Post,
-                                    returnDataFun: (data) => data,
-                                    jsonBody: body,
-                                    toJsonFunc: (json) => UpdateOrderStatusResponse.fromJson(json),
-                                  );
-                                  log("data=> ${result?.toJson()}");
-                                  if (result?.success ?? false) {
-                                    Navigator.of(context).pop();
-                                    CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
-                                  } else {
-                                    CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
-                                  }
-                                }
-                              });
-                        },
-                      ),
-                    )
-                  ],
                 ),
                 const SizedBox(height: 28),
               ],

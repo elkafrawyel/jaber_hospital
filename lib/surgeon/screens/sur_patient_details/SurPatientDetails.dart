@@ -1137,7 +1137,6 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 },
                               );
                               setState(() {});
-                              // }
                             },
                           ),
                         ),

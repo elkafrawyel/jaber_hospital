@@ -22,6 +22,14 @@ class BuildPreOpItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<PatientModel> list = PsychologistPatientData().patientsCubit.state.data;
+    PatientModel patientModel = list[index];
+    bool isReady = (patientModel.egd ?? false) &&
+        (patientModel.ultrasound ?? false) &&
+        (patientModel.surgionVisit ?? false) &&
+        (patientModel.dietationFeedbackDecision == 'Clear') &&
+        (patientModel.feedback == 'Clear') &&
+        (patientModel.watchedClip ?? false) &&
+        (patientModel.finalFeedback == 'Clear');
     return InkWell(
       onTap: () => Nav.navigateTo(
           PsychologistPatientDetails(patientId: list[index].sId ?? '', patientModel: patientModel),
@@ -58,8 +66,7 @@ class BuildPreOpItem extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            list[index].finalFeedback == "true"
-                                ? Container(
+                            isReady ? Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                                     decoration: BoxDecoration(
                                       color: Color(0xffaff7c3),
@@ -131,28 +138,6 @@ class BuildPreOpItem extends StatelessWidget {
                 Expanded(
                   child: SizedBox(
                     height: 58,
-                    // child: Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: List.generate(
-                    //       5,
-                    //       (index) => Stack(
-                    //             alignment: Alignment.centerLeft,
-                    //             children: [
-                    //               if (index <= 3)
-                    //                 Container(
-                    //                   width: MediaQuery.of(context).size.width / 6,
-                    //                   height: 5,
-                    //                   color: MyColors.primary,
-                    //                 ),
-                    //               CircleAvatar(
-                    //                 backgroundColor: MyColors.primary,
-                    //                 radius: 12.0,
-                    //                 child: Icon(Icons.check,
-                    //                     color: Colors.white, size: 15),
-                    //               ),
-                    //             ],
-                    //           )),
-                    // ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -163,20 +148,32 @@ class BuildPreOpItem extends StatelessWidget {
                             isFirst: true,
                             indicatorStyle: IndicatorStyle(
                               height: 26,
-                              color: MyColors.primary,
+                              color: (list[index].egd ?? false) &&
+                                  (list[index].ultrasound ?? false) &&
+                                  (list[index].surgionVisit ?? false)
+                                  ? MyColors.primary
+                                  : Colors.red,
                               iconStyle: IconStyle(
                                 color: Colors.white,
                                 iconData: Icons.check,
                               ),
                             ),
                             beforeLineStyle: LineStyle(
-                              color: MyColors.primary,
+                              color: (list[index].egd ?? false) &&
+                                  (list[index].ultrasound ?? false) &&
+                                  (list[index].surgionVisit ?? false)
+                                  ? MyColors.primary
+                                  : Colors.red,
                               thickness: 6,
                             ),
                             endChild: MyText(
                               title: "Surgery OPD",
                               size: 8,
-                              color: MyColors.primary,
+                              color: (list[index].egd ?? false) &&
+                                  (list[index].ultrasound ?? false) &&
+                                  (list[index].surgionVisit ?? false)
+                                  ? MyColors.primary
+                                  : Colors.red,
                             ),
                           ),
                         ),
@@ -185,16 +182,16 @@ class BuildPreOpItem extends StatelessWidget {
                             axis: TimelineAxis.horizontal,
                             alignment: TimelineAlign.center,
                             beforeLineStyle: LineStyle(
-                              color: list[index].dietationFeedbackDecision == "true" ? MyColors.primary : Colors.red,
+                              color: list[index].dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             afterLineStyle: LineStyle(
-                              color: list[index].dietationFeedbackDecision == "true" ? MyColors.primary : Colors.red,
+                              color: list[index].dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             indicatorStyle: IndicatorStyle(
                               height: 26,
-                              color: list[index].dietationFeedbackDecision == "true" ? MyColors.primary : Colors.red,
+                              color: list[index].dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                               iconStyle: IconStyle(
                                 color: Colors.white,
                                 iconData: Icons.check,
@@ -203,7 +200,7 @@ class BuildPreOpItem extends StatelessWidget {
                             endChild: MyText(
                               title: "Dietitian",
                               size: 8,
-                              color: list[index].dietationFeedbackDecision == "true" ? MyColors.primary : Colors.red,
+                              color: list[index].dietationFeedbackDecision == 'Clear' ? MyColors.primary : Colors.red,
                             ),
                           ),
                         ),
@@ -212,16 +209,16 @@ class BuildPreOpItem extends StatelessWidget {
                             axis: TimelineAxis.horizontal,
                             alignment: TimelineAlign.center,
                             beforeLineStyle: LineStyle(
-                              color: list[index].feedback == "true" ? MyColors.primary : Colors.red,
+                              color: list[index].feedback == 'Clear' ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             afterLineStyle: LineStyle(
-                              color: list[index].feedback == "true" ? MyColors.primary : Colors.red,
+                              color: list[index].feedback == 'Clear' ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             indicatorStyle: IndicatorStyle(
                               height: 26,
-                              color: list[index].feedback == "true" ? MyColors.primary : Colors.red,
+                              color: list[index].feedback == 'Clear' ? MyColors.primary : Colors.red,
                               iconStyle: IconStyle(
                                 color: Colors.white,
                                 iconData: Icons.check,
@@ -230,7 +227,7 @@ class BuildPreOpItem extends StatelessWidget {
                             endChild: MyText(
                               title: "Physiotherapy",
                               size: 8,
-                              color: list[index].feedback == "true" ? MyColors.primary : Colors.red,
+                              color: list[index].feedback == 'Clear' ? MyColors.primary : Colors.red,
                             ),
                           ),
                         ),
@@ -239,16 +236,16 @@ class BuildPreOpItem extends StatelessWidget {
                             axis: TimelineAxis.horizontal,
                             alignment: TimelineAlign.center,
                             beforeLineStyle: LineStyle(
-                              color: list[index].watchedClip == "true" ? MyColors.primary : Colors.red,
+                              color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             afterLineStyle: LineStyle(
-                              color: list[index].watchedClip == "true" ? MyColors.primary : Colors.red,
+                              color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             indicatorStyle: IndicatorStyle(
                               height: 26,
-                              color: list[index].watchedClip == "true" ? MyColors.primary : Colors.red,
+                              color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
                               iconStyle: IconStyle(
                                 color: Colors.white,
                                 iconData: Icons.check,
@@ -257,7 +254,7 @@ class BuildPreOpItem extends StatelessWidget {
                             endChild: MyText(
                               title: "Education",
                               size: 8,
-                              color: list[index].watchedClip == "true" ? MyColors.primary : Colors.red,
+                              color: (list[index].watchedClip ?? false) ? MyColors.primary : Colors.red,
                             ),
                           ),
                         ),
@@ -267,12 +264,12 @@ class BuildPreOpItem extends StatelessWidget {
                             alignment: TimelineAlign.center,
                             isLast: true,
                             beforeLineStyle: LineStyle(
-                              color: list[index].finalFeedback == "true" ? MyColors.primary : Colors.red,
+                              color: list[index].finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                               thickness: 6,
                             ),
                             indicatorStyle: IndicatorStyle(
                               height: 26,
-                              color: list[index].finalFeedback == "true" ? MyColors.primary : Colors.red,
+                              color: list[index].finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                               iconStyle: IconStyle(
                                 color: Colors.white,
                                 iconData: Icons.check,
@@ -281,7 +278,7 @@ class BuildPreOpItem extends StatelessWidget {
                             endChild: MyText(
                               title: "Psychology",
                               size: 8,
-                              color: list[index].finalFeedback == "true" ? MyColors.primary : Colors.red,
+                              color: list[index].finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
                             ),
                           ),
                         ),
@@ -301,110 +298,6 @@ class BuildPreOpItem extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //         children: [
-            //           Expanded(
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 2),
-            //               child: Column(
-            //                 children: [
-            //                   FittedBox(
-            //                     fit: BoxFit.scaleDown,
-            //                     child: MyText(
-            //                       alien: TextAlign.center,
-            //                       title: "Surgery OPD",
-            //                       size: 9,
-            //                       color: MyColors.primary,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //           Expanded(
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 2),
-            //               child: Column(
-            //                 children: [
-            //                   FittedBox(
-            //                     fit: BoxFit.scaleDown,
-            //                     child: MyText(
-            //                       alien: TextAlign.center,
-            //                       title: "Dietitian",
-            //                       size: 9,
-            //                       color: MyColors.primary,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //           Expanded(
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 2),
-            //               child: Column(
-            //                 children: [
-            //                   FittedBox(
-            //                     fit: BoxFit.scaleDown,
-            //                     child: MyText(
-            //                       alien: TextAlign.center,
-            //                       title: "Physiotherapy",
-            //                       size: 9,
-            //                       color: MyColors.primary,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //           Expanded(
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 2),
-            //               child: Column(
-            //                 children: [
-            //                   FittedBox(
-            //                     fit: BoxFit.scaleDown,
-            //                     child: MyText(
-            //                       alien: TextAlign.center,
-            //                       title: "Education",
-            //                       size: 9,
-            //                       color: MyColors.primary,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //           Expanded(
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 2),
-            //               child: Column(
-            //                 children: [
-            //                   FittedBox(
-            //                     fit: BoxFit.scaleDown,
-            //                     child: MyText(
-            //                       alien: TextAlign.center,
-            //                       title: "Psychology",
-            //                       size: 9,
-            //                       color: MyColors.primary,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //     const SizedBox(
-            //       width: 10,
-            //     )
-            //   ],
-            // ),
             Visibility(visible: list[index].isOpen == true, child: Divider(color: MyColors.grey)),
             Visibility(
               visible: list[index].isOpen == true,
@@ -421,9 +314,9 @@ class BuildPreOpItem extends StatelessWidget {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: list[index].egd == true ? MyColors.primary : Colors.red,
+                              backgroundColor: MyColors.primary,
                               radius: 12.0,
-                              child: Icon(list[index].egd == true ? Icons.check : Icons.close,
+                              child: Icon(Icons.check,
                                   color: Colors.white, size: 15),
                             ),
                             const SizedBox(width: 10),
@@ -433,9 +326,9 @@ class BuildPreOpItem extends StatelessWidget {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: list[index].ultrasound == true ? MyColors.primary : Colors.red,
+                              backgroundColor: list[index].ultrasound == true? MyColors.primary : Colors.red,
                               radius: 12.0,
-                              child: Icon(list[index].ultrasound == true ? Icons.check : Icons.close,
+                              child: Icon(list[index].ultrasound == true? Icons.check : Icons.close,
                                   color: Colors.white, size: 15),
                             ),
                             const SizedBox(width: 10),
@@ -445,9 +338,9 @@ class BuildPreOpItem extends StatelessWidget {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: list[index].surgionVisit == true ? MyColors.primary : Colors.red,
+                              backgroundColor: list[index].surgionVisit == true? MyColors.primary : Colors.red,
                               radius: 12.0,
-                              child: Icon(list[index].surgionVisit == true ? Icons.check : Icons.close,
+                              child: Icon(list[index].surgionVisit == true? Icons.check : Icons.close,
                                   color: Colors.white, size: 15),
                             ),
                             const SizedBox(width: 10),
@@ -459,7 +352,7 @@ class BuildPreOpItem extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
