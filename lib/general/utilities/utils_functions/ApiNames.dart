@@ -86,6 +86,7 @@ class ApiNames{
   static const String mdtAdminPatientsPath = "today_patients_mdt";
   static const String companiesPath = "company";
   static const String companyInstrumentsPath = "instruments_for_company";
+  static const String companyMedicationsPath = "medication";
   static const String surFutureAppointmentsPath = "future_appointment_patients";
   static const String surPastAppointmentsPath = "past_appointment_patients";
   // static const String confirmMdtBookingPath = "patient_mdt";

@@ -16,6 +16,7 @@ import '../../general/utilities/utils_functions/Navigator.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../patient/models/update_consent_response.dart';
 import '../models/apointments_response.dart';
+import '../models/comp_medications_response.dart';
 import '../models/companies_response.dart';
 import '../models/company_instruments_response.dart';
 import '../models/dto/add_patient_fourth_dto.dart';

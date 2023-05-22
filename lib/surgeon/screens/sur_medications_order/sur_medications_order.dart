@@ -54,7 +54,6 @@ class _SurMedicationOrderState extends State<SurMedicationOrder>
                   }else{
                     return Center(child: LoadingDialog.showLoadingView());
                   }
-
                 },
               ),
             ),

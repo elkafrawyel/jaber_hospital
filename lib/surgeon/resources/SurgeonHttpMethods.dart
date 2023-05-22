@@ -675,4 +675,19 @@ class SurgeonHttpMethods {
     );
     return data;
   }
+
+  Future<CompMedicationsResponse> fetchCompanyMedications(String companyId) async {
+    Map<String, dynamic> query = {
+      "company_id": companyId,
+    };
+    dynamic data = await GenericHttp<CompMedicationsResponse>(context).callApi(
+      name: ApiNames.companyMedicationsPath,
+      returnType: ReturnType.Model,
+      query: query,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => CompMedicationsResponse.fromJson(json),
+    );
+    return data;
+  }
 }

@@ -12,6 +12,11 @@ class SurMedicationsOrderData {
   late GenericBloc<bool> loading;
   late GenericBloc<List<MedicationsOrdersModel>> medicationsOrdersCubit;
 
+  late GenericBloc<List<CompanyId>?> companiesCubit;
+  late GenericBloc<List<MedicationModel>?> companyMedicationsCubit;
+  List<MedicationModel> medications = [];
+  CompanyId? selectedCompany;
+
   void init(BuildContext context, SingleTickerProviderStateMixin ticker) {
     tabController = TabController(length: 3, vsync: ticker);
     tabSelect = GenericBloc<int>(0);

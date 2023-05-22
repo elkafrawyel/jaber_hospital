@@ -23,6 +23,12 @@ class SurOrderMedicationsData {
   late GenericBloc<List<MedicationInfo>> selectedMedicationCubit;
   late ScrollController scrollController;
 
+  List<CompanyId> companies = [];
+  late GenericBloc<List<CompanyId>?> companiesCubit;
+  late GenericBloc<List<MedicationInfo>?> companyMedicationsCubit;
+  List<MedicationInfo> medications = [];
+  CompanyId? selectedCompany;
+
   DateTime startDate = DateTime.now();
 
   void init(BuildContext context) {
@@ -46,6 +52,24 @@ class SurOrderMedicationsData {
         nextPage: false,
         paginationLoading: GenericBloc<bool>(false),
         refreshLoading: GenericBloc<bool>(false));
+    this.companiesCubit = GenericBloc<List<CompanyId>?>([]);
+    fetchCompanies(context);
+  }
+
+  Future<void> fetchCompanies(BuildContext context) async {
+    selectedCompany = null;
+    CompaniesResponse? result = await SurgeonRepository(context).fetchCompanies();
+    companies = result?.companies ?? [];
+    log("companies=> ${companies.length}");
+    companiesCubit.onUpdateData(companies);
+  }
+
+  Future<void> fetchCompanyMedications(BuildContext context, String companyId) async {
+    this.companyMedicationsCubit = GenericBloc<List<MedicationInfo>?>(null);
+    CompMedicationsResponse? result = await SurgeonRepository(context).fetchCompanyMedications(companyId);
+    List<MedicationInfo> compMedications = result?.medications??[];
+    log("compMedications==> ${compMedications.length}");
+    companyMedicationsCubit.onUpdateData(compMedications);
   }
 
   void getMedication(BuildContext context) {
@@ -160,7 +184,7 @@ class SurOrderMedicationsData {
       }).toList();
       Map<String, dynamic> body = {
         "doctor_id": "${context.read<UserCubit>().state.model.userData?[0].sId}",
-        "company_id": "${selectedMedicationCubit.state.data[0].companyId?.sId}",
+        "company_id": "${selectedCompany?.sId}",
         "patient_id": "${selectedPatientModel?.sId}",
         "mobile_number": "${Utils.convertDigitsToLatin(PatientMobileNumber.text)}",
         "order_start_date": "${dateBloc.state.data}",
@@ -169,8 +193,8 @@ class SurOrderMedicationsData {
         "medications": medications,
       };
       // var result = await SurgeonRepository(context).requestMedicationOrder(body);
-      log("medicationOrderBody=> $body");
-      final response = await ApiService.post(ApiNames.requestMedicationOrder, body: body,);
+      log("medicationOrderBody==> $body");
+      final response = await ApiService.post("${ApiNames.requestMedicationOrder}?company_id=${selectedCompany?.sId}", body: body,);
       log("responseData==> ${response.data}");
       DioUtils.dismissDialog();
       if(response.statusCode==200){

@@ -8,16 +8,18 @@ class SurOrderMedications extends StatefulWidget {
 }
 
 class _SurOrderMedicationsState extends State<SurOrderMedications> {
+  SurOrderMedicationsData surOrderMedicationsData = SurOrderMedicationsData();
+
   @override
   void initState() {
-    SurOrderMedicationsData().init(context);
+    surOrderMedicationsData.init(context);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()) ,
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: GeneralScaffold(
         back: true,
         title: "Order Medications",
@@ -25,7 +27,7 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           children: [
             Form(
-              key: SurOrderMedicationsData().formKey,
+              key: surOrderMedicationsData.formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -81,7 +83,6 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     action: TextInputAction.next,
                     type: TextInputType.phone,
-
                     validate: (value) => value!.validatePhone(context),
                   ),
                   MyText(
@@ -122,111 +123,158 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
                     },
                   ),
                   MyText(
-                    title: "Medication",
-                    size: 12,
-                    color: MyColors.black,
+                    title: 'Company',
+                    size: 10,
                     fontWeight: FontWeight.bold,
                   ),
-                  BlocConsumer<GenericBloc<List<MedicationInfo>>,
-                      GenericState<List<MedicationInfo>>>(
-                    bloc: SurOrderMedicationsData().selectedMedicationCubit,
-                    listener: (context, state) {
-                      if (state.data.isNotEmpty) {
-                        SurOrderMedicationsData().Medication.text =
-                            "${state.data.length} Medications";
-                      }
-                    },
+                  BlocBuilder<GenericBloc<List<CompanyId>?>,
+                      GenericState<List<CompanyId>?>>(
+                    bloc: surOrderMedicationsData.companiesCubit,
                     builder: (context, state) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GenericTextField(
-                            hintColor: Theme.of(context)
-                                .textTheme
-                                .subtitle1
-                                ?.color
-                                ?.withOpacity(.8),
-                            fieldTypes: FieldTypes.clickable,
-                            fillColor: MyColors.textFields,
-                            hint: "Please choose from the list",
-                            controller: SurOrderMedicationsData().Medication,
-                            margin: const EdgeInsets.symmetric(vertical: 10),
-                            action: TextInputAction.done,
-                            type: TextInputType.text,
-                            suffixIcon: Icon(
-                              Icons.keyboard_arrow_down,
-                              color: MyColors.black,
-                            ),
-                            onTab: () {
-                              showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (_) => BuildMedicationBottomSheet());
-                            },
-                            validate: (value) => value!.validateEmpty(context),
-                          ),
-                          Wrap(
-                            spacing: 10,
-                            children: List.generate(
-                              state.data.length,
-                              (index) => Container(
-                                margin: const EdgeInsets.symmetric(vertical: 10),
-                                decoration: BoxDecoration(
-                                  color: Color(0xffD3E0F6),
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 5),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    MyText(
-                                      title:
-                                          state.data[index].medicationName ?? '',
-                                      size: 12,
-                                      color: MyColors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    MyText(
-                                      title:
-                                          "  (${state.data[index].quantity ?? ''})",
-                                      size: 12,
-                                      color: MyColors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    InkWell(
-                                        onTap: () {
-                                          SurOrderMedicationsData()
-                                              .selectedMedicationCubit
-                                              .state
-                                              .data
-                                              .remove(state.data[index]);
-                                          SurOrderMedicationsData()
-                                              .selectedMedicationCubit
-                                              .onUpdateData(
-                                                  SurOrderMedicationsData()
-                                                      .selectedMedicationCubit
-                                                      .state
-                                                      .data);
-                                        },
-                                        child: Icon(Icons.close,
-                                            color: MyColors.primary)),
-                                  ],
-                                ),
+                      if (state is GenericUpdateState) {
+                        return AppDropMenu<CompanyId>(
+                          hint: "Company",
+                          items: surOrderMedicationsData.companies,
+                          expanded: true,
+                          selectedItem:
+                          surOrderMedicationsData.selectedCompany ?? null,
+                          onChanged: (value) {
+                            CompanyId company = value as CompanyId;
+                            log("val=> ${company.sId}");
+                            log("val=> ${company.companyNameEn}");
+                            surOrderMedicationsData.selectedCompany = company;
+                            setState(() {});
+                            surOrderMedicationsData.fetchCompanyMedications(
+                                context, company.sId ?? "");
+                          },
+                        );
+                      } else {
+                        return SizedBox(
+                          height: 56,
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.white,
+                            highlightColor: MyColors.greyWhite,
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  top: 10, left: 20, right: 20),
+                              height: MediaQuery.of(context).size.height / 6,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: MyColors.white,
                               ),
                             ),
                           ),
-                        ],
-                      );
+                        );
+                      }
                     },
                   ),
-                  DefaultButton(
-                    title: "Confirm Request",
-                    margin: const EdgeInsets.symmetric(vertical: 28, horizontal: 48),
-                    onTap: () => SurOrderMedicationsData().onAddMedication(context),
-                  )
+                  const SizedBox(height: 8.0),
+                  if (surOrderMedicationsData.selectedCompany != null) ...[
+                    MyText(
+                      title: "Medication",
+                      size: 12,
+                      color: MyColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    BlocConsumer<GenericBloc<List<MedicationInfo>?>,
+                        GenericState<List<MedicationInfo>?>>(
+                      // bloc: SurOrderMedicationsData().companyMedicationsCubit,
+                      bloc: SurOrderMedicationsData().selectedMedicationCubit,
+                      listener: (context, state) {
+                        if (state.data!.isNotEmpty) {
+                          SurOrderMedicationsData().Medication.text = "${state.data?.length} Medications";
+                        }
+                      },
+                      builder: (context, state) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GenericTextField(
+                              hintColor: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1
+                                  ?.color
+                                  ?.withOpacity(.8),
+                              fieldTypes: FieldTypes.clickable,
+                              fillColor: MyColors.textFields,
+                              hint: "Please choose from the list",
+                              controller: SurOrderMedicationsData().Medication,
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              action: TextInputAction.done,
+                              type: TextInputType.text,
+                              suffixIcon: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: MyColors.black,
+                              ),
+                              onTab: () {
+                                showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    context: context,
+                                    builder: (_) =>
+                                        BuildMedicationBottomSheet());
+                              },
+                              validate: (value) =>
+                                  value!.validateEmpty(context),
+                            ),
+                            Wrap(
+                              spacing: 10,
+                              children: List.generate(
+                                state.data?.length??0,
+                                (index) => Container(
+                                  margin: const EdgeInsets.symmetric(vertical: 10),
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffD3E0F6),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      MyText(
+                                        title:
+                                            state.data?[index].medicationName ??
+                                                '',
+                                        size: 12,
+                                        color: MyColors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      MyText(
+                                        title:
+                                            "  (${state.data?[index].quantity ?? ''})",
+                                        size: 12,
+                                        color: MyColors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      InkWell(
+                                          onTap: () {
+                                            SurOrderMedicationsData()
+                                                .selectedMedicationCubit
+                                                .state.data.remove(state.data?[index]);
+                                            SurOrderMedicationsData()
+                                                .selectedMedicationCubit
+                                                .onUpdateData(
+                                                    SurOrderMedicationsData().selectedMedicationCubit.state.data);
+                                          },
+                                          child: Icon(Icons.close, color: MyColors.primary)),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                    DefaultButton(
+                      title: "Confirm Request",
+                      margin: const EdgeInsets.symmetric(vertical: 28, horizontal: 48),
+                      onTap: ()=> SurOrderMedicationsData().onAddMedication(context),
+                    ),
+                  ],
                 ],
               ),
             ),

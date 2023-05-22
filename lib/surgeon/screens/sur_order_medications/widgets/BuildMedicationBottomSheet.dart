@@ -30,18 +30,19 @@ class _BuildMedicationBottomSheetState
       child: Column(
         children: [
           Expanded(
-            child: BlocBuilder<GenericBloc<List<MedicationInfo>>,
-                GenericState<List<MedicationInfo>>>(
-              bloc: SurOrderMedicationsData().medicationCubit,
+            child: BlocBuilder<GenericBloc<List<MedicationInfo>?>,
+                GenericState<List<MedicationInfo>?>>(
+              bloc: SurOrderMedicationsData().companyMedicationsCubit,
+              // bloc: SurOrderMedicationsData().medicationCubit,
               builder: (context, state) {
                 if (state is GenericUpdateState) {
-                  if (state.data.isNotEmpty) {
+                  if (state.data!.isNotEmpty) {
                     return ListView.builder(
                         controller: SurOrderMedicationsData().scrollController,
                         padding: const EdgeInsets.only(top: 10, bottom: 30),
-                        itemCount: state.data.length + 1,
+                        itemCount: (state.data?.length??0) + 1,
                         itemBuilder: (context, index) {
-                          if (index < state.data.length) {
+                          if (index < (state.data?.length??0)) {
                             return BuildMedicationItem(index: index);
                           } else {
                             return BuildPaginationLoadingIndicator(
@@ -52,10 +53,12 @@ class _BuildMedicationBottomSheetState
                           }
                         });
                   } else {
-                    return MyText(
-                      title: "No Medications",
-                      size: 12,
-                      color: MyColors.blackOpacity,
+                    return Center(
+                      child: MyText(
+                        title: "No Medications",
+                        size: 13,
+                        color: MyColors.black,
+                      ),
                     );
                   }
                 } else {

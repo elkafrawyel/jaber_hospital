@@ -172,4 +172,7 @@ class SurgeonRepository {
 
   Future<CompanyInstrumentsResponse?> fetchCompanyInstruments(String companyId) =>
       _surgeonHttpMethods.fetchCompanyInstruments(companyId);
+
+  Future<CompMedicationsResponse?> fetchCompanyMedications(String companyId) =>
+      _surgeonHttpMethods.fetchCompanyMedications(companyId);
 }
