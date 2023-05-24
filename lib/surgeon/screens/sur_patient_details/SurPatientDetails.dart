@@ -643,11 +643,17 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
               ],
             ),
-          if ((state.data?.patient?.operationDate ?? '').isNotEmpty) const Divider(thickness: 1, height: 20),
-          if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
+          if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
+              state.data?.patient?.operationStatus == "Post-op")
+            const Divider(thickness: 1, height: 20),
+          if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
+              state.data?.patient?.operationStatus == "Post-op")
             MyText(title: "Operation Details", size: 14, color: MyColors.primary, fontWeight: FontWeight.bold),
-          if ((state.data?.patient?.operationDate ?? '').isNotEmpty) const SizedBox(height: 10),
-          if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
+          if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
+              state.data?.patient?.operationStatus == "Post-op")
+            const SizedBox(height: 10),
+          if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
+              state.data?.patient?.operationStatus == "Post-op")
             Row(
               children: [
                 MyText(title: "Operation Type: ", size: 12, fontWeight: FontWeight.bold),
@@ -660,8 +666,13 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
               ],
             ),
-          if ((state.data?.patient?.operationDate ?? '').isNotEmpty && dateTime != null) const SizedBox(height: 10),
-          if ((state.data?.patient?.operationDate ?? '').isNotEmpty && dateTime != null)
+          if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
+              dateTime != null &&
+              state.data?.patient?.operationStatus == "Post-op")
+            const SizedBox(height: 10),
+          if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
+              dateTime != null &&
+              state.data?.patient?.operationStatus == "Post-op")
             Row(
               children: [
                 MyText(title: "Operation Done On:", size: 12, fontWeight: FontWeight.bold),
@@ -674,8 +685,21 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
               ],
             ),
-          if ((state.data?.patient?.operationDate ?? '').isNotEmpty) const SizedBox(height: 10),
-          if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
+          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty &&
+              state.data?.patient?.operationStatus == "Pre-op" &&
+              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+            const Divider(thickness: 1, height: 20),
+          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty &&
+              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              state.data?.patient?.operationStatus == "Pre-op")
+            MyText(title: "MDT Discussion Details:", size: 14, color: MyColors.primary, fontWeight: FontWeight.bold),
+          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty &&
+              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              state.data?.patient?.operationStatus == "Pre-op")
+            SizedBox(height: 10),
+          if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
+              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              state.data?.patient?.operationStatus == "Pre-op")
             Row(
               children: [
                 MyText(title: "MDT Status:", size: 12, fontWeight: FontWeight.bold),
@@ -688,11 +712,13 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
               ],
             ),
-          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty) const Divider(thickness: 1, height: 20),
-          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty)
-            MyText(title: "MDT Discussion Details:", size: 14, color: MyColors.primary, fontWeight: FontWeight.bold),
-          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty) SizedBox(height: 10),
-          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty)
+          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty &&
+              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              state.data?.patient?.operationStatus == "Pre-op")
+            SizedBox(height: 10),
+          if ((state.data?.patient?.mdtResults ?? '').isNotEmpty &&
+              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              state.data?.patient?.operationStatus == "Pre-op")
             Row(
               children: [
                 MyText(title: "Result:", size: 12, fontWeight: FontWeight.bold),
@@ -705,8 +731,13 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
               ],
             ),
-          if ((state.data?.patient?.mdtComments ?? '').isNotEmpty) SizedBox(height: 10),
-          if ((state.data?.patient?.mdtComments ?? '').isNotEmpty)
+          if ((state.data?.patient?.mdtComments ?? '').isNotEmpty &&
+              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              state.data?.patient?.operationStatus == "Pre-op")
+            SizedBox(height: 10),
+          if ((state.data?.patient?.mdtComments ?? '').isNotEmpty &&
+              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              state.data?.patient?.operationStatus == "Pre-op")
             Row(
               children: [
                 MyText(title: "Acceptance Details:", size: 12, fontWeight: FontWeight.bold),
@@ -719,8 +750,13 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
               ],
             ),
-          if ((state.data?.patient?.operationDate ?? '').isNotEmpty) SizedBox(height: 10),
-          if ((state.data?.patient?.operationDate ?? '').isNotEmpty)
+          if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
+              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              state.data?.patient?.operationStatus == "Pre-op")
+            SizedBox(height: 10),
+          if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
+              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              state.data?.patient?.operationStatus == "Pre-op")
             Row(
               children: [
                 MyText(title: "Operation Date:", size: 12, fontWeight: FontWeight.bold),
@@ -733,124 +769,128 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
               ],
             ),
-          const Divider(thickness: 1, height: 20),
-          MyText(
-            title: "Patient’s Weekly Exercise Overview",
-            size: 14,
-            color: MyColors.primary,
-            fontWeight: FontWeight.bold,
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 7,
-                  padding: const EdgeInsets.only(bottom: 0, left: 20, right: 20, top: 20),
-                  decoration: BoxDecoration(
-                    color: Color(0xff24C647),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        Res.imagesStepsIcon,
-                        scale: 3,
-                      ),
-                      const SizedBox(height: 5),
-                      MyText(
-                        title: '0',
-                        size: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      Flexible(
-                        child: MyText(
-                            alien: TextAlign.center,
-                            title: 'Steps Moved',
-                            size: 9,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 7,
-                  padding: const EdgeInsets.only(bottom: 0, left: 20, right: 20, top: 20),
-                  decoration: BoxDecoration(
-                    color: Color(0xffEB7826),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        Res.imagesMinutesIcon,
-                        scale: 3,
-                      ),
-                      const SizedBox(height: 5),
-                      MyText(
-                        title: '0',
-                        size: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      Flexible(
-                        child: MyText(
-                            alien: TextAlign.center,
-                            title: 'Minutes Spent',
-                            size: 9,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ],
+          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+            const Divider(thickness: 1, height: 20),
+          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+            MyText(
+              title: "Patient’s Weekly Exercise Overview",
+              size: 14,
+              color: MyColors.primary,
+              fontWeight: FontWeight.bold,
+            ),
+          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+            const SizedBox(height: 10),
+          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 7,
+                    padding: const EdgeInsets.only(bottom: 0, left: 20, right: 20, top: 20),
+                    decoration: BoxDecoration(
+                      color: Color(0xff24C647),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          Res.imagesStepsIcon,
+                          scale: 3,
+                        ),
+                        const SizedBox(height: 5),
+                        MyText(
+                          title: '0',
+                          size: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        Flexible(
+                          child: MyText(
+                              alien: TextAlign.center,
+                              title: 'Steps Moved',
+                              size: 9,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 7,
-                  padding: const EdgeInsets.only(bottom: 0, left: 20, right: 20, top: 20),
-                  decoration: BoxDecoration(
-                    color: Color(0xffD84545),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        Res.imagesWeightLossIcon,
-                        scale: 3,
-                      ),
-                      const SizedBox(height: 5),
-                      MyText(
-                        title: '0',
-                        size: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      Flexible(
-                        child: MyText(
-                            alien: TextAlign.center,
-                            title: 'Calories Burned',
-                            size: 9,
-                            // overflow: TextOverflow.ellipsis,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ],
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 7,
+                    padding: const EdgeInsets.only(bottom: 0, left: 20, right: 20, top: 20),
+                    decoration: BoxDecoration(
+                      color: Color(0xffEB7826),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          Res.imagesMinutesIcon,
+                          scale: 3,
+                        ),
+                        const SizedBox(height: 5),
+                        MyText(
+                          title: '0',
+                          size: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        Flexible(
+                          child: MyText(
+                              alien: TextAlign.center,
+                              title: 'Minutes Spent',
+                              size: 9,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 7,
+                    padding: const EdgeInsets.only(bottom: 0, left: 20, right: 20, top: 20),
+                    decoration: BoxDecoration(
+                      color: Color(0xffD84545),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          Res.imagesWeightLossIcon,
+                          scale: 3,
+                        ),
+                        const SizedBox(height: 5),
+                        MyText(
+                          title: '0',
+                          size: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        Flexible(
+                          child: MyText(
+                              alien: TextAlign.center,
+                              title: 'Calories Burned',
+                              size: 9,
+                              // overflow: TextOverflow.ellipsis,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           const Divider(thickness: 1, height: 30),
           MyText(
             title:
-                "Upcoming Appointment With ${'${state.data?.patient?.surgeonId?.firstNameEn ?? ''} ${state.data?.patient?.surgeonId?.lastNameEn ?? ''}'}",
+                "Upcoming Appointment With\n${'${context.read<UserCubit>().state.model.userData![0].firstNameEn ?? ''} ${context.read<UserCubit>().state.model.userData![0].lastNameEn ?? ''}'}",
             size: 14,
             color: MyColors.primary,
             fontWeight: FontWeight.w800,
@@ -972,14 +1012,22 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
             child: Row(
               children: [
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
-                    (context.read<UserCubit>().state.model.userData![0].sId ==
-                        SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId))
+                        (context.read<UserCubit>().state.model.userData![0].sId ==
+                                SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
+                            context.read<UserCubit>().state.model.userData![0].sId ==
+                                SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId) ||
+                    (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
+                        (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear') ||
+                    (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
+                        (state.data?.patient?.feedback ?? '') != 'Clear'))
                   Expanded(
                     child: DefaultButton(
                       title: "Add Appointment",
                       onTap: () {
                         showDialog(
-                            context: context, builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId));
+                          context: context,
+                          builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId),
+                        );
                       },
                     ),
                   ),
@@ -987,7 +1035,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear')
                   Expanded(
                     child: DefaultButton(
-                      title: "Add Diet Plan",
+                      title: (state.data?.patient?.dietation_feedback_decision ?? '').isEmpty
+                          ? "Add Diet Plan"
+                          : 'Edit Diet Plan',
                       onTap: () async {
                         await Nav.navigateTo(
                           DietitionAddPatientDietData(patient: state.data!.patient!),
@@ -1169,14 +1219,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       },
                     ),
                   ),
-                if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Post-op")
-                  Expanded(
-                    child: DefaultButton(
-                      title: "Order Instruments",
-                      onTap: () => Nav.navigateTo(RequestInstrumentsScreen(patientModel: state.data!),
-                          navigatorType: NavigatorType.push),
-                    ),
-                  ),
+                // if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Pre-op")
+                //   Expanded(
+                //     child: DefaultButton(
+                //       title: "Order Instruments",
+                //       onTap: () => Nav.navigateTo(
+                //         RequestInstrumentsScreen(patientModel: state.data!),
+                //         navigatorType: NavigatorType.push,
+                //       ),
+                //     ),
+                //   ),
                 if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept' &&
                     (state.data?.patient?.operationDate ?? '').isNotEmpty)
                   Expanded(
