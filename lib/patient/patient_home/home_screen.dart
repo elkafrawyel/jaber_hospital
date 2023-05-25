@@ -112,8 +112,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   Future<void> updateConsent() async {
     log('fetchInstruments called...');
     Map<String, dynamic> body = {"consent": false};
-    UpdateConsentResponse data =
-        await GenericHttp<UpdateConsentResponse>(context).callApi(
+    UpdateConsentResponse data = await GenericHttp<UpdateConsentResponse>(context).callApi(
       name: ApiNames.patientConsentPath,
       returnType: ReturnType.Model,
       methodType: MethodType.Put,

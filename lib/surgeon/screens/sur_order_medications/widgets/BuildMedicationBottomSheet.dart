@@ -8,11 +8,11 @@ class BuildMedicationBottomSheet extends StatefulWidget {
       _BuildMedicationBottomSheetState();
 }
 
-class _BuildMedicationBottomSheetState
-    extends State<BuildMedicationBottomSheet> {
+class _BuildMedicationBottomSheetState extends State<BuildMedicationBottomSheet> {
+  SurOrderMedicationsData surOrderMedicationsData = SurOrderMedicationsData();
   @override
   void initState() {
-    SurOrderMedicationsData().getMedication(context);
+    surOrderMedicationsData.getMedication(context);
     super.initState();
   }
 
@@ -32,13 +32,13 @@ class _BuildMedicationBottomSheetState
           Expanded(
             child: BlocBuilder<GenericBloc<List<MedicationInfo>?>,
                 GenericState<List<MedicationInfo>?>>(
-              bloc: SurOrderMedicationsData().companyMedicationsCubit,
+              bloc: surOrderMedicationsData.companyMedicationsCubit,
               // bloc: SurOrderMedicationsData().medicationCubit,
               builder: (context, state) {
                 if (state is GenericUpdateState) {
                   if (state.data!.isNotEmpty) {
                     return ListView.builder(
-                        controller: SurOrderMedicationsData().scrollController,
+                        controller: surOrderMedicationsData.scrollController,
                         padding: const EdgeInsets.only(top: 10, bottom: 30),
                         itemCount: (state.data?.length??0) + 1,
                         itemBuilder: (context, index) {
@@ -46,8 +46,7 @@ class _BuildMedicationBottomSheetState
                             return BuildMedicationItem(index: index);
                           } else {
                             return BuildPaginationLoadingIndicator(
-                              paginationLoadingBloc: SurOrderMedicationsData()
-                                  .paginationDto
+                              paginationLoadingBloc: surOrderMedicationsData.paginationDto
                                   .paginationLoading,
                             );
                           }
@@ -72,15 +71,14 @@ class _BuildMedicationBottomSheetState
           DefaultButton(
             title: "Save Results",
             onTap: () {
-              SurOrderMedicationsData().selectedMedicationCubit.onUpdateData(
-                  SurOrderMedicationsData()
-                      .medicationCubit
+              surOrderMedicationsData.selectedMedicationCubit.onUpdateData(
+                  surOrderMedicationsData.companyMedicationsCubit
                       .state
                       .data
                       .where((element) => element.isSelected == true)
                       .toList());
               navigationKey.currentState!.pop();
-              log("selectedMedicationCubit ${SurOrderMedicationsData().selectedMedicationCubit.state.data} ");
+              log("selectedMedicationCubit ${surOrderMedicationsData.selectedMedicationCubit.state.data} ");
             },
             margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 10)
           ),
@@ -99,12 +97,12 @@ class BuildMedicationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     // list of checkbox values with counter for each item in the list if selected you can access to change counter
     // and if not selected you can't access to change counter
-    return BlocBuilder<GenericBloc<List<MedicationInfo>>,
-        GenericState<List<MedicationInfo>>>(
-      bloc: SurOrderMedicationsData().medicationCubit,
+    return BlocBuilder<GenericBloc<List<MedicationInfo>?>,
+        GenericState<List<MedicationInfo>?>>(
+      bloc: SurOrderMedicationsData().companyMedicationsCubit,
+      // bloc: SurOrderMedicationsData().medicationCubit,
       builder: (context, state) {
         return Container(
-          // margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
             color: MyColors.white,
@@ -112,24 +110,22 @@ class BuildMedicationItem extends StatelessWidget {
           ),
           child: Column(
             children: [
-              // checkbox list tile
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero ,
-                value: state.data[index].isSelected ?? false,
+                value: state.data?[index].isSelected ?? false,
                 onChanged: (value) {
-                  SurOrderMedicationsData().medicationCubit.state.data[index]
-                      .isSelected = value;
-                  SurOrderMedicationsData().medicationCubit.onUpdateData(
-                      SurOrderMedicationsData().medicationCubit.state.data);
+                  SurOrderMedicationsData().companyMedicationsCubit.state.data?[index].isSelected = value;
+                  SurOrderMedicationsData().companyMedicationsCubit.onUpdateData(
+                      SurOrderMedicationsData().companyMedicationsCubit.state.data);
                 },
                 title: MyText(
-                  title: state.data[index].medicationName??'',
+                  title: state.data?[index].medicationName??'',
                   size: 13,
                   color: MyColors.black,
                   fontWeight: FontWeight.bold,
                 ),
                 subtitle: MyText(
-                  title: state.data[index].description??'',
+                  title: state.data?[index].description??'',
                   size: 12,
                   color: MyColors.grey,
                   // fontWeight: FontWeight.bold,
@@ -138,7 +134,7 @@ class BuildMedicationItem extends StatelessWidget {
               ),
 
               Visibility(
-                visible: state.data[index].isSelected ?? false,
+                visible: state.data?[index].isSelected ?? false,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
@@ -179,7 +175,7 @@ class BuildMedicationItem extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: MyText(
-                              title: state.data[index].quantity.toString(),
+                              title: state.data?[index].quantity.toString()??"",
                               size: 12,
                               color: MyColors.blackOpacity,
                             ),
@@ -208,11 +204,7 @@ class BuildMedicationItem extends StatelessWidget {
                   ),
                 ),
               ),
-              Divider(
-                thickness: 1,
-
-              ),
-
+              Divider(thickness: 1,),
             ],
           ),
         );

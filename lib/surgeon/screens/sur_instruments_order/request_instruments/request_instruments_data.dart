@@ -56,9 +56,9 @@ class RequestInstrumentsData {
   }
 
   Future<void> fetchCompanyInstruments(BuildContext context, String companyId) async {
-    this.companyInstrumentsCubit = GenericBloc<List<CompInstrumentsModel>?>(null);
-    CompanyInstrumentsResponse? result = await SurgeonRepository(context)
-        .fetchCompanyInstruments(companyId);
+    this.companyInstrumentsCubit = GenericBloc<List<CompInstrumentsModel>?>([]);
+    selectedInstrumentsList = [];
+    CompanyInstrumentsResponse? result = await SurgeonRepository(context).fetchCompanyInstruments(companyId);
     List<InstrumentModel> compInstruments = result?.data??[];
     log("compInstruments=> ${compInstruments.length}");
     compInstruments.forEach((element) {

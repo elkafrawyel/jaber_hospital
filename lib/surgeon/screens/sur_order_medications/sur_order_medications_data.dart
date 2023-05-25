@@ -25,7 +25,7 @@ class SurOrderMedicationsData {
 
   List<CompanyId> companies = [];
   late GenericBloc<List<CompanyId>?> companiesCubit;
-  late GenericBloc<List<MedicationInfo>?> companyMedicationsCubit;
+  late GenericBloc<List<MedicationInfo>> companyMedicationsCubit;
   List<MedicationInfo> medications = [];
   CompanyId? selectedCompany;
 
@@ -42,6 +42,7 @@ class SurOrderMedicationsData {
     dateBloc = GenericBloc(null);
     patientNameBloc = GenericBloc(List.empty());
     medicationCubit = GenericBloc(List.empty());
+    companyMedicationsCubit = GenericBloc(List.empty());
     selectedMedicationCubit = GenericBloc(List.empty());
 
     fullPatientList = [];
@@ -65,7 +66,7 @@ class SurOrderMedicationsData {
   }
 
   Future<void> fetchCompanyMedications(BuildContext context, String companyId) async {
-    this.companyMedicationsCubit = GenericBloc<List<MedicationInfo>?>(null);
+    this.companyMedicationsCubit = GenericBloc<List<MedicationInfo>>([]);
     CompMedicationsResponse? result = await SurgeonRepository(context).fetchCompanyMedications(companyId);
     List<MedicationInfo> compMedications = result?.medications??[];
     log("compMedications==> ${compMedications.length}");
@@ -88,7 +89,8 @@ class SurOrderMedicationsData {
       _.addedList = [];
     }
     _.addedList.addAll(result?.medicationInfoList?.toSet().toList() ?? []);
-    medicationCubit.onUpdateData(_.addedList.toSet().toList());
+    companyMedicationsCubit.onUpdateData(_.addedList.toSet().toList());
+    // medicationCubit.onUpdateData(_.addedList.toSet().toList());
     _.paginationLoading.onUpdateData(false);
     log("===================  ${medicationCubit.state.data.length}  ===================");
   }
@@ -110,15 +112,15 @@ class SurOrderMedicationsData {
   }
 
   void onChangeCounter({required int index, required bool isAdd}) {
-    var model = medicationCubit.state.data;
+    var model = companyMedicationsCubit.state.data;
     if (isAdd) {
-      model[index].quantity = model[index].quantity! + 1;
+      model![index].quantity = model[index].quantity! + 1;
     } else {
-      if (model[index].quantity! > 1) {
+      if (model![index].quantity! > 1) {
         model[index].quantity = model[index].quantity! - 1;
       }
     }
-    medicationCubit.onUpdateData(model);
+    companyMedicationsCubit.onUpdateData(model);
   }
 
   _onConfirmFromDate(date) {
@@ -194,7 +196,7 @@ class SurOrderMedicationsData {
       };
       // var result = await SurgeonRepository(context).requestMedicationOrder(body);
       log("medicationOrderBody==> $body");
-      final response = await ApiService.post("${ApiNames.requestMedicationOrder}?company_id=${selectedCompany?.sId}", body: body,);
+      final response = await ApiService.post(ApiNames.requestMedicationOrder, body: body,);
       log("responseData==> ${response.data}");
       DioUtils.dismissDialog();
       if(response.statusCode==200){

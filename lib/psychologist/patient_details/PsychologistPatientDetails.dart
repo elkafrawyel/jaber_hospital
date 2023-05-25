@@ -62,10 +62,6 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
       actions: [
         Row(
           children: [
-            // Image.asset(Res.imagesHistory, scale: 2.5),
-            // const SizedBox(width: 10),
-            // Image.asset(Res.imagesAddPatient, scale: 2.5),
-            // const SizedBox(width: 10),
             Image.asset(Res.imagesDownload, scale: 2.5),
             const SizedBox(width: 16),
           ],
@@ -139,8 +135,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                           ],
                                         )
                                       ),
-                                      widget.patientModel.finalFeedback == "true"
-                                          ? Container(
+                                      psychologistPatientDetailsData.isReadyPatient? Container(
                                               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                                               decoration: BoxDecoration(
                                                 color: Color(0xffaff7c3),

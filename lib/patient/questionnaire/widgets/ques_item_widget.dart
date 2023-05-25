@@ -18,7 +18,6 @@ class QuestionItemWidget extends StatefulWidget {
 
 class _QuestionItemWidgetState extends State<QuestionItemWidget> {
   QuestionnaireData questionnaireData = QuestionnaireData();
-  String _selectedScore = "";
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +37,15 @@ class _QuestionItemWidgetState extends State<QuestionItemWidget> {
                     Radio(
                         activeColor: MyColors.primary,
                         value: widget.questionsObjects.score1??"",
-                        groupValue: _selectedScore,
+                        groupValue: questionnaireData.selectedScore,
                         onChanged: (index) {
                           setState(() {
-                            _selectedScore = widget.questionsObjects.score1??"";
+                            questionnaireData.selectedScore = widget.questionsObjects.score1??"";
                           });
+                          log("QuesId==> ${widget.questionsObjects.iId}");
                           questionnaireData.updateQuesAnswered(
-                              AnsweredQuestionModel(ques: widget.questionsObjects.question??"",
-                                  quesAnswer: widget.questionsObjects.answer1??"",answerScore: _selectedScore));
+                              AnsweredQuestionModel(quesId: widget.questionsObjects.iId, ques: widget.questionsObjects.question??"",
+                                  quesAnswer: widget.questionsObjects.answer1??"",answerScore: questionnaireData.selectedScore));
                         }),
                     Expanded(
                       child: MyText(
@@ -66,14 +66,15 @@ class _QuestionItemWidgetState extends State<QuestionItemWidget> {
                     Radio(
                         activeColor: MyColors.primary,
                         value: widget.questionsObjects.score2??"",
-                        groupValue: _selectedScore,
+                        groupValue: questionnaireData.selectedScore,
                         onChanged: (index) {
                           setState(() {
-                            _selectedScore = widget.questionsObjects.score2??"";
+                            questionnaireData.selectedScore = widget.questionsObjects.score2??"";
                           });
+                          log("QuesId==> ${widget.questionsObjects.iId}");
                           questionnaireData.updateQuesAnswered(
-                              AnsweredQuestionModel(ques: widget.questionsObjects.question??"",
-                                  quesAnswer: widget.questionsObjects.answer2??"",answerScore: _selectedScore));
+                              AnsweredQuestionModel(quesId: widget.questionsObjects.iId, ques: widget.questionsObjects.question??"",
+                                  quesAnswer: widget.questionsObjects.answer1??"",answerScore: questionnaireData.selectedScore));
                         }),
                     Expanded(
                       child: MyText(
@@ -93,14 +94,15 @@ class _QuestionItemWidgetState extends State<QuestionItemWidget> {
                     Radio(
                         activeColor: MyColors.primary,
                         value: widget.questionsObjects.score3??"",
-                        groupValue: _selectedScore,
+                        groupValue: questionnaireData.selectedScore,
                         onChanged: (index) {
                           setState(() {
-                            _selectedScore = widget.questionsObjects.score3??"";
+                            questionnaireData.selectedScore = widget.questionsObjects.score3??"";
                           });
+                          log("QuesId==> ${widget.questionsObjects.iId}");
                           questionnaireData.updateQuesAnswered(
-                              AnsweredQuestionModel(ques: widget.questionsObjects.question??"",
-                                  quesAnswer: widget.questionsObjects.answer3??"",answerScore: _selectedScore));
+                              AnsweredQuestionModel(quesId: widget.questionsObjects.iId, ques: widget.questionsObjects.question??"",
+                                  quesAnswer: widget.questionsObjects.answer1??"",answerScore: questionnaireData.selectedScore));
                         }),
                     Expanded(
                       child: MyText(
@@ -120,14 +122,15 @@ class _QuestionItemWidgetState extends State<QuestionItemWidget> {
                     Radio(
                         activeColor: MyColors.primary,
                         value: widget.questionsObjects.score4??"",
-                        groupValue: _selectedScore,
+                        groupValue: questionnaireData.selectedScore,
                         onChanged: (index) {
                           setState(() {
-                            _selectedScore = widget.questionsObjects.score4??"";
+                            questionnaireData.selectedScore = widget.questionsObjects.score4??"";
                           });
+                          log("QuesId==> ${widget.questionsObjects.iId}");
                           questionnaireData.updateQuesAnswered(
-                              AnsweredQuestionModel(ques: widget.questionsObjects.question??"",
-                                  quesAnswer: widget.questionsObjects.answer4??"",answerScore: _selectedScore));
+                              AnsweredQuestionModel(quesId: widget.questionsObjects.iId, ques: widget.questionsObjects.question??"",
+                                  quesAnswer: widget.questionsObjects.answer1??"",answerScore: questionnaireData.selectedScore));
                         }),
                     Expanded(
                       child: MyText(

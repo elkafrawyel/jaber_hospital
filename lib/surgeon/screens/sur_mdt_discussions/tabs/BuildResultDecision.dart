@@ -73,27 +73,22 @@ class _BuildResultDecisionState extends State<BuildResultDecision>
                                           color: MyColors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
-                                        MyText(
-                                          title: "${state.data?.patients?[index]
-                                              .surgeonId?.firstNameEn} ${state.data?.patients?[index]
-                                              .surgeonId?.lastNameEn}",
-                                          size: 11,
-                                          color: MyColors.grey,
+                                        const SizedBox(width: 2.0),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            MyText(title: state.data?.patients?[index]
+                                                  .surgeonId?.firstNameEn??"",
+                                              size: 11, color: MyColors.grey,
+                                            ),
+                                            MyText(title: state.data?.patients?[index]
+                                                  .surgeonId?.lastNameEn??"",
+                                              size: 11, color: MyColors.grey,
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                    // IntrinsicHeight(
-                                    //   child: Row(
-                                    //     children: [
-                                    //       Expanded(child: ),
-                                    //       Padding(
-                                    //         padding: const EdgeInsets.symmetric(horizontal: 3.0),
-                                    //         child: const VerticalDivider(),
-                                    //       ),
-                                    //
-                                    //     ],
-                                    //   ),
-                                    // ),
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -103,12 +98,19 @@ class _BuildResultDecisionState extends State<BuildResultDecision>
                                           color: MyColors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
-                                        MyText(
-                                          title: "${state.data?.patients?[index]
-                                              .dietationId?.firstNameEn} ${state.data?.patients?[index]
-                                              .dietationId?.lastNameEn}",
-                                          size: 11,
-                                          color: MyColors.grey,
+                                        const SizedBox(width: 3.0),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            MyText(title: state.data?.patients?[index]
+                                                .dietationId?.firstNameEn??"",
+                                              size: 11, color: MyColors.grey,
+                                            ),
+                                            MyText(title: state.data?.patients?[index]
+                                                .dietationId?.lastNameEn??"",
+                                              size: 11, color: MyColors.grey,
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -120,8 +122,9 @@ class _BuildResultDecisionState extends State<BuildResultDecision>
                                           color: MyColors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
+                                        const SizedBox(width: 3.0),
                                         MyText(
-                                          title: 'Accept',
+                                          title: state.data?.patients?[index].mdtResults??'',
                                           size: 10,
                                           color: Colors.green,
                                         ),

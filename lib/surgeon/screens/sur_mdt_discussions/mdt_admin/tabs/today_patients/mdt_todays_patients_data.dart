@@ -24,7 +24,7 @@ class MdtTodaysPatientsData{
   }
 
   Future<void> fetchMdtAdminPatients(BuildContext context) async {
-    MdtPatientsResponse? result = await SurgeonRepository(context).requestMdtAdminPatients();
+    MdtPatientsResponse? result = await SurgeonRepository(context).requestMdtAdminTodayPatients();
     log("AdminPatients=> ${result?.patients?.length}");
     todayPatients = result?.patients??[];
     mdtAdminCubit.onUpdateData(todayPatients);

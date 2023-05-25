@@ -34,18 +34,21 @@ class _SurMedicationOrderState extends State<SurMedicationOrder>
                       builder: (context, state) {
                         if (state is GenericUpdateState<
                             List<MedicationsOrdersModel>>) {
-                          return Column(
-                            children: [
-                              BuildOrderMedicationTabBar(),
-                              Expanded(
-                                child: ListView.builder(
-                                  itemBuilder: (context, index) {
-                                    return BuildMedicationItem(index: index);
-                                  },
-                                  itemCount: state.data.length,
-                                ),
-                              )
-                            ],
+                          return RefreshIndicator(
+                            onRefresh: ()=> SurMedicationsOrderData().getMedicationsOrders(context),
+                            child: Column(
+                              children: [
+                                BuildOrderMedicationTabBar(),
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemBuilder: (context, index) {
+                                      return BuildMedicationItem(index: index);
+                                    },
+                                    itemCount: state.data.length,
+                                  ),
+                                )
+                              ],
+                            ),
                           );
                         }
                         return Center(child: LoadingDialog.showLoadingView());

@@ -37,7 +37,7 @@ class SurMedicationsOrderData {
     }
   }
 
-  void getMedicationsOrders(BuildContext context) async {
+  Future<void> getMedicationsOrders(BuildContext context) async {
     loading.onUpdateData(true);
     var response = await SurgeonRepository(context)
         .getMedicationOrders(tabSelect.state.data);
