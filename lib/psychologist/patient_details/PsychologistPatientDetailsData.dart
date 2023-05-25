@@ -27,6 +27,7 @@ class PsychologistPatientDetailsData {
   late GlobalKey<FormState> formKey;
   late String patSurgeonId;
   late DoctorId psychologistId;
+  late bool isReadyPatient;
 
   void init(BuildContext context, {required String patientId}) {
     appointmentDate = TextEditingController();
@@ -43,7 +44,13 @@ class PsychologistPatientDetailsData {
   void getPatientDetails(BuildContext context, String patientId) async {
     PatientDetailsModel? data = await PsychologistRepository(context).getPatientDetails(patientId);
     patSurgeonId = data?.patient?.surgeonId?.sId ?? '';
-    psychologistId = data!.patient!.psychologistId!;
+    isReadyPatient = (data?.patient?.egd?? false) &&
+        (data?.patient?.ultrasound ?? false) &&
+        (data?.patient?.surgionVisit ?? false) &&
+        (data?.patient?.dietationFeedbackDecision == 'Clear') &&
+        (data?.patient?.feedback == 'Clear') &&
+        (data?.patient?.watchedClip ?? false) &&
+        (data?.patient?.finalFeedback == 'Clear');
     patientDetailsCubit.onUpdateData(data);
   }
 

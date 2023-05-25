@@ -13,7 +13,6 @@ class ApiNames{
   static const String forgetPassword = "forgot_password";
   static const String resetPassword = "reset_password";
   static const String contactUs = "ContactUs";
-
   static const String verifyOtp = "verify_otp";
   static const String logout = "logout";
   static const String changePassword = "change_password";
@@ -83,13 +82,13 @@ class ApiNames{
   static const String updatePatientMdtStatusPath = "patient_mdt_status";
   static const String patientMdtResultPath = "patient_mdt_results";
   static const String rescheduleMdtPatientPath = "reschedule_mdt";
+  static const String mdtAdminReadyPatsPath = "all_patients_overall_status_true";
   static const String mdtAdminPatientsPath = "today_patients_mdt";
   static const String companiesPath = "company";
   static const String companyInstrumentsPath = "instruments_for_company";
   static const String companyMedicationsPath = "medication";
   static const String surFutureAppointmentsPath = "future_appointment_patients";
   static const String surPastAppointmentsPath = "past_appointment_patients";
-  // static const String confirmMdtBookingPath = "patient_mdt";
   static const String instrumentsRoutedOrdersPath = "instrument_routed_orders";
   static const String instrumentsProgressOrdersPath = "instrument_inprogress_orders";
   static const String instrumentsCompletedOrdersPath = "instrument_completed_orders";

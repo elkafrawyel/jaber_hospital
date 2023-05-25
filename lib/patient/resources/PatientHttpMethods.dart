@@ -103,7 +103,7 @@ class PatientHttpMethods {
 
   Future<QuestionnaireResponse?> fetchPatientQuestionnaire(int page) async {
     final data = await GenericHttp<QuestionnaireResponse>(context).callApi(
-      name: ApiNames.patientQuestionnairePath+"?page=$page",
+      name: ApiNames.patientQuestionnairePath+"?page=$page&mobile=true",
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,

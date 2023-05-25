@@ -54,10 +54,14 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                       const SizedBox(height: 5),
-                      MyText(
-                        title: ordersModel.notes  ?? "Not Available",
-                        size: 12,
-                        color: MyColors.blackOpacity,
+                      Wrap(
+                        children: [
+                          ...List.generate(ordersModel.instruments!.length, (index) => MyText(
+                            title: ordersModel.instruments?[index].description??""+", ",
+                            size: 10,
+                            color: MyColors.blackOpacity,
+                          ),)
+                        ],
                       ),
                       const SizedBox(height: 5),
                       Row(
@@ -68,11 +72,11 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                               children: [
                                 Image.asset(Res.imagesCalendar,
                                     scale: 3, color: MyColors.primary),
-                                const SizedBox(width: 5),
+                                const SizedBox(width: 2),
                                 Expanded(
                                   child: MyText(
                                     title: ordersModel.orderStartDate??'' ,
-                                    size: 10,
+                                    size: 9,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -85,7 +89,7 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                             children: [
                               Image.asset(Res.imagesTime,
                                   scale: 2, color: MyColors.primary),
-                              const SizedBox(width: 5),
+                              const SizedBox(width: 2),
                               MyText(
                                 title: "14:30 PM",
                                 size: 10,

@@ -70,21 +70,26 @@ class _QuestionnaireCompletedScreenState extends State<QuestionnaireCompletedScr
                     DefaultButton(
                       title: "الاستمرار",
                       onTap: () async{
-                        if(state.data?.length != questionnaireData.answeredQuestions.length){
+                        log("answers==> ${questionnaireData.answeredQuestions.length}");
+                        if(questionnaireData.questionsMap[questionnaireData.curQuesPage] != (questionnaireData.answersMap[questionnaireData.curQuesPage]??[]).length){
                           CustomToast.showSnackBar(context, "يجب استكمال أسئلة الاستبيان اولا");
                           return;
                         }
-                        bool hasNext = questionnaireData.questionnaireResponse?.pageInfo?.hasNext??false;
-                        if (hasNext && state.data!.isNotEmpty) {
-                          log('hasNext=> $hasNext');
+                        int page = int.parse(questionnaireData.questionnaireResponse?.pageInfo?.page??"");
+                        int totalPages = questionnaireData.questionnaireResponse?.pageInfo?.total??1;
+                        if (page < totalPages) {
+                          log('page=> $page, total=> $totalPages');
                           await questionnaireData.nextPage(context);
                         } else {
                           /// finish it
-                          log('notHasNext=> $hasNext');
+                          log('page=> $page, total=> $totalPages');
                           await questionnaireData.sendQuestionnaireResult(context,
                               questionnaireData.questionnaireResponse?.data?[0].sId??"");
                         }
                       },
+                    ),
+                    const SizedBox(
+                      height: 16.0,
                     ),
                   ]);
             } else {

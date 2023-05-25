@@ -31,20 +31,38 @@ class QuestionnaireData{
   int curQuesPage = 1;
   List<AnsweredQuestionModel> answeredQuestions = [];
   List<QuestionsObjects>? curQues = [];
+  Map<int, int> questionsMap = {};
+  Map<int, List<AnsweredQuestionModel>> answersMap = {};
+  String selectedScore = "";
 
   void init(BuildContext context) async{
-    this.curPageCubit = GenericBloc<int>(1);
+    curQuesPage = 1;
+    this.curPageCubit = GenericBloc<int>(curQuesPage);
     this.questionsCubit = GenericBloc<List<QuestionsObjects>?>([]);
-    await fetchPatientQuestionnaire(context, curQuesPage);
     answeredQuestions = [];
+    log("initCurQues=> ${curQues?.length}");
+    log("initAnsweredQuestions=> ${answeredQuestions.length}");
+    await fetchPatientQuestionnaire(context, curQuesPage);
   }
 
   Future<void> fetchPatientQuestionnaire(BuildContext context,int page) async {
     curQues = [];
+    answeredQuestions = [];
+    selectedScore = "";
+    DioUtils.showLoadingDialog();
     questionnaireResponse = await PatientRepository(context).getPatientQuestionnaire(page);
-    curQues = questionnaireResponse?.data?[0].questionsObjects??[];
-    log("Questionnaire=> ${questionnaireResponse?.data?[0].questionsObjects?.length}");
-    log("curQues=> ${curQues?.length}");
+    if(questionnaireResponse!.data!.isNotEmpty){
+      curQues = questionnaireResponse?.data?[0].questionsObjects??[];
+      questionsMap[page] = curQues?.length??0;
+      // questionsMap = {page, curQues?.length??0} as Map<int, int>;
+      log("curPage=> $page, curQues=> ${curQues?.length}");
+      // curQues?.forEach((element) {
+      //   answeredQuestions.add(AnsweredQuestionModel(quesId: element.iId, ques: "", quesAnswer: ""));
+      // });
+      // log("answeredQuestions=> ${answeredQuestions.length}");
+
+    }
+    DioUtils.dismissDialog();
     curPageCubit.onUpdateData(page);
     questionsCubit.onUpdateData(curQues);
   }
@@ -65,13 +83,20 @@ class QuestionnaireData{
       log("contains false...");
       answeredQuestions.add(answeredModel);
     }
+    answersMap[curQuesPage] = answeredQuestions;
+    log("answersMap=> ${answersMap[curQuesPage]?.length??0}");
     log("answeredQuestions=> ${answeredQuestions.length}");
   }
 
   Future<void> sendQuestionnaireResult(BuildContext context, String quesId) async {
     UserModel? users = context.read<UserCubit>().state.model;
       DioUtils.showLoadingDialog();
-      List<dynamic> answers = answeredQuestions.map((item) => {
+      List<AnsweredQuestionModel> patAnswers = [];
+      answersMap.values.forEach((element) {
+        patAnswers.addAll(element);
+        log("patAnswers == > ${patAnswers.length}");
+      });
+      List<dynamic> answers = patAnswers.map((item) => {
         "Question1": item.ques,
         "answer2":item.quesAnswer,
         "score2":item.answerScore,
