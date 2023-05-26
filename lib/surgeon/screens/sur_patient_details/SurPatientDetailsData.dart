@@ -82,4 +82,68 @@ class SurPatientDetailsData {
     bool? result = await SurgeonRepository(context).archivePatient(patientDetailsCubit.state.data!.patient!.id!);
     return result;
   }
+
+  DateTime? operationDate;
+
+  bookOperation(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
+
+    showCupertinoModalPopup(
+      context: context,
+      builder: (_) => CupertinoTheme(
+        data: CupertinoThemeData(
+          brightness: Brightness.light,
+          textTheme: CupertinoTextThemeData(primaryColor: Theme.of(context).primaryColor),
+          // scaffoldBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          primaryContrastingColor: Theme.of(context).primaryColor,
+        ),
+        child: CupertinoActionSheet(
+          cancelButton: CupertinoButton(
+            onPressed: () async {
+              if (operationDate == null) {
+                Navigator.pop(context);
+              }
+              final Map<String, dynamic> body = {
+                'operation_date': operationDate!.toIso8601String(),
+              };
+              dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
+                name: ApiNames.addOperationDate + '?patient_id=${patientDetailsCubit.state.data!.patient!.id!}',
+                returnType: ReturnType.Type,
+                methodType: MethodType.Put,
+                returnDataFun: (data) => data,
+                jsonBody: body,
+                showLoader: true,
+              );
+              if (data != null) {
+                Navigator.pop(context);
+                CustomToast.showSnackBar(context, data["message"]["message_en"]);
+                getPatientDetails(context, patientDetailsCubit.state.data!.patient!.id!);
+              }
+            },
+            color: Theme.of(context).scaffoldBackgroundColor,
+            child: MyText(
+              title: "Confirm Date",
+              size: 14,
+              color: MyColors.primary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            Container(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              height: 200,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.dateAndTime,
+                minimumDate: DateTime.now(),
+                maximumDate: DateTime(2050),
+                onDateTimeChanged: (DateTime picked) {
+                  operationDate = picked;
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

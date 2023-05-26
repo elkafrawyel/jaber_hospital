@@ -391,8 +391,8 @@ class SurAddPatientData {
       osa: diagnosisTypesCubit.state.data.contains("OSA") ? true : false,
       fattyLiver: diagnosisTypesCubit.state.data.contains("Fatty Liver") ? true : false,
       pcos: diagnosisTypesCubit.state.data.contains("PCOS") ? true : false,
-      cardiacDiseaseIhd: cardiacDiseaseHFCubit.state.data == "HF" ? true : false,
-      cardiacDiseaseHf: cardiacDiseaseIHDCubit.state.data == "IHD" ? true : false,
+      cardiacDiseaseHf: cardiacDiseaseHFCubit.state.data == "HF" ? true : false,
+      cardiacDiseaseIhd: cardiacDiseaseIHDCubit.state.data == "IHD" ? true : false,
       respiratory_dis: RespiratoryDiseaseSelectionCubit.state.data,
       respiratoryDisVte: respiratoryDiseaseCubit.state.data.contains("VTE") ? true : false,
       respiratoryDisAnticoag: respiratoryDiseaseCubit.state.data.contains("Anticoagulants") ? true : false,
@@ -421,9 +421,9 @@ class SurAddPatientData {
       vape: smokingHabitsCubit.state.data == "Vape",
       occationalSmoker: smokingHabitsCubit.state.data == "Occasional smoker",
       shisha: smokingHabitsCubit.state.data == "Shisha",
-      refluxMedRegular: medicationsCubit.state.data == "Regular" || dmSelectCubit.state.data,
-      refluxMedOcc: medicationsCubit.state.data == "Occasional" || dmSelectCubit.state.data,
-      refluxMedNone: medicationsCubit.state.data == "None" || dmSelectCubit.state.data,
+      refluxMedRegular: medicationsCubit.state.data == "Regular",
+      refluxMedOcc: medicationsCubit.state.data == "Occasional",
+      refluxMedNone: medicationsCubit.state.data == "None",
     );
     bool result = await SurgeonRepository(context).addPatientThird(
       model: model,

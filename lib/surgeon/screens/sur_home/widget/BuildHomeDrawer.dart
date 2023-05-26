@@ -138,9 +138,7 @@ class BuildSurHomeDrawer extends StatelessWidget {
                     leading: Image.asset(Res.imagesAppointmentsdrawer, scale: 2.8),
                     onTap: () => Nav.navigateTo(SurAppointments(), navigatorType: NavigatorType.push),
                     title: MyText(
-                      title: context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon'
-                          ? "Appointments"
-                          : "Follow-ups",
+                      title: "Appointments",
                       size: 12,
                       color: MyColors.black,
                       fontWeight: FontWeight.bold,
