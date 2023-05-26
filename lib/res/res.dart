@@ -22,6 +22,7 @@ class Res {
   static const String imagesBarChart = 'assets/images/BarChart.png';
   static const String imagesSurBarChart = 'assets/images/sur_barchart.jpeg';
   static const String surBarChartSvg = 'assets/images/sur_chart_bar.svg';
+  static const String patDoneIllustrationSvg = 'assets/images/DoneIllustration.svg';
   static const String companyChart = 'assets/images/company_chart.png';
   static const String imagesMedication = 'assets/images/medication.png';
   static const String imagesOrder = 'assets/images/order.png';
