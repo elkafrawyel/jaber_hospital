@@ -1230,7 +1230,12 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 //     ),
                 //   ),
                 if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept' &&
-                    (state.data?.patient?.operationDate ?? '').isNotEmpty)
+                    (state.data?.patient?.operationDate ?? '').isNotEmpty &&
+                    (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+                        (context.read<UserCubit>().state.model.userData![0].sId ==
+                                SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
+                            context.read<UserCubit>().state.model.userData![0].sId ==
+                                SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId)))
                   Expanded(
                     child: DefaultButton(
                       title: "Request Instruments",
@@ -1241,7 +1246,12 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       ),
                     ),
                   ),
-                if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept')
+                if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept' &&
+                    (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+                        (context.read<UserCubit>().state.model.userData![0].sId ==
+                                SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
+                            context.read<UserCubit>().state.model.userData![0].sId ==
+                                SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId)))
                   Expanded(
                     child: DefaultButton(
                       title: dateTime == null ? "Book Operation" : "Edit Operation",
