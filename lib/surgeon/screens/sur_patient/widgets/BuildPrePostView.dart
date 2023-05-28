@@ -27,9 +27,12 @@ class BuildPrePostView extends StatelessWidget {
                           },
                           showLoadMoreEndWidget: false,
                           showLoadMoreWidget: loadMoreState.data,
-                          child: ListView.builder(
-                            itemCount: patientState.data.length,
-                            itemBuilder: (context, index) => BuildPrePostItem(index: index),
+                          child: RefreshIndicator(
+                            onRefresh: () async => SurPatientData().fetchPatient(context),
+                            child: ListView.builder(
+                              itemCount: patientState.data.length,
+                              itemBuilder: (context, index) => BuildPrePostItem(index: index),
+                            ),
                           ),
                         ),
                       ),

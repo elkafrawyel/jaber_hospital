@@ -11,17 +11,18 @@ class BuildPreOpView extends StatelessWidget {
       bloc: SurPatientData().isLoading,
       builder: (context, state) {
         if (!state.data) {
-          return BlocBuilder<GenericBloc<List<PatientModel>>,
-              GenericState<List<PatientModel>>>(
+          return BlocBuilder<GenericBloc<List<PatientModel>>, GenericState<List<PatientModel>>>(
             bloc: SurPatientData().patientsCubit,
             builder: (context, state) {
               if (state is GenericUpdateState) {
                 if (state.data.isNotEmpty) {
                   return Expanded(
-                    child: ListView.builder(
-                      itemCount: state.data.length,
-                      itemBuilder: (context, index) =>
-                          BuildPreOpItem(index: index),
+                    child: RefreshIndicator(
+                      onRefresh: () async => SurPatientData().fetchPatient(context),
+                      child: ListView.builder(
+                        itemCount: state.data.length,
+                        itemBuilder: (context, index) => BuildPreOpItem(index: index),
+                      ),
                     ),
                   );
                 } else {
