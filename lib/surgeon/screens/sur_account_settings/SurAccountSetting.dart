@@ -96,7 +96,7 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
               ),
             ),
           ),
-          // if(Platform.isIOS)
+          if(Platform.isIOS)
           InkWell(
             onTap: () {
               deleteAccount();
