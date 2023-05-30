@@ -40,28 +40,28 @@ class DefaultButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Color border = color ?? WidgetUtils.primaryColor;
     return IgnorePointer(
-      ignoring: disabled??false,
+      ignoring: disabled ?? false,
       child: Container(
-        width: width ?? MediaQuery.of(context).size.width,
-        height: height??45,
+        width: width ?? MediaQuery.of(context).size.width / 2.6,
+        height: height ?? 45,
         margin: margin ?? EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: ElevatedButton(
           onPressed: onTap,
           child: MyText(
             title: "$title",
-            size: fontSize??11,
+            size: fontSize ?? 11,
             color: textColor ?? Colors.white,
             fontFamily: fontFamily,
             fontWeight: fontWeight,
             alien: TextAlign.center,
           ),
           style: ElevatedButton.styleFrom(
-              primary: color ?? WidgetUtils.primaryColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: borderRadius ?? BorderRadius.circular(10),
-                  side: BorderSide(color: borderColor ?? border, width: 1),
-              ),
-              elevation: elevation??0,
+            primary: color ?? WidgetUtils.primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: borderRadius ?? BorderRadius.circular(10),
+              side: BorderSide(color: borderColor ?? border, width: 1),
+            ),
+            elevation: elevation ?? 0,
           ),
         ),
       ),

@@ -1009,7 +1009,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
             ),
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
-            child: Row(
+            child: Wrap(
               children: [
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
                         (context.read<UserCubit>().state.model.userData![0].sId ==
@@ -1020,204 +1020,198 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear') ||
                     (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
                         (state.data?.patient?.feedback ?? '') != 'Clear'))
-                  Expanded(
-                    child: DefaultButton(
-                      title: "Add Appointment",
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId),
-                        );
-                      },
-                    ),
+                  DefaultButton(
+                    title: "Add Appointment",
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId),
+                      );
+                    },
                   ),
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
                     (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear')
-                  Expanded(
-                    child: DefaultButton(
-                      title: (state.data?.patient?.dietation_feedback_decision ?? '').isEmpty
-                          ? "Add Diet Plan"
-                          : 'Edit Diet Plan',
-                      onTap: () async {
-                        await Nav.navigateTo(
-                          DietitionAddPatientDietData(patient: state.data!.patient!),
-                          navigatorType: NavigatorType.push,
-                        );
-                        await showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          isDismissible: true,
-                          builder: (BuildContext context) {
-                            return ModelBottomSheet(
-                              child: StatefulBuilder(
-                                builder: (BuildContext context, StateSetter setState) => SingleChildScrollView(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Center(
-                                        child: MyText(
-                                          title: "Your Feedback",
-                                          size: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: MyColors.primary,
-                                        ),
+                  DefaultButton(
+                    title: (state.data?.patient?.dietation_feedback_decision ?? '').isEmpty
+                        ? "Add Diet Plan"
+                        : 'Edit Diet Plan',
+                    onTap: () async {
+                      await Nav.navigateTo(
+                        DietitionAddPatientDietData(patient: state.data!.patient!),
+                        navigatorType: NavigatorType.push,
+                      );
+                      await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        isDismissible: true,
+                        builder: (BuildContext context) {
+                          return ModelBottomSheet(
+                            child: StatefulBuilder(
+                              builder: (BuildContext context, StateSetter setState) => SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      child: MyText(
+                                        title: "Your Feedback",
+                                        size: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: MyColors.primary,
                                       ),
-                                      RadioListTile(
-                                        title: Text("Clear"),
-                                        value: "Clear",
-                                        groupValue: feedbackStatus,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            feedbackStatus = value.toString();
-                                          });
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        title: Text("Need Visit"),
-                                        value: "Need Visit",
-                                        groupValue: feedbackStatus,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            feedbackStatus = value.toString();
-                                          });
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        title: Text("Need Second Visit"),
-                                        value: "Need Second Visit",
-                                        groupValue: feedbackStatus,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            feedbackStatus = value.toString();
-                                          });
-                                        },
-                                      ),
-                                      const SizedBox(height: 10.0),
-                                      DefaultButton(
-                                        height: 38,
-                                        title: "Update",
-                                        onTap: () async {
-                                          final Map<String, dynamic> body = {
-                                            'dietation_feedback_decision': feedbackStatus,
-                                          };
-                                          dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
-                                            name: ApiNames.patientDietation + '?user_id=${state.data!.patient!.id}',
-                                            returnType: ReturnType.Type,
-                                            methodType: MethodType.Put,
-                                            returnDataFun: (data) => data,
-                                            jsonBody: body,
-                                            showLoader: true,
-                                          );
-                                          if (data != null) {
-                                            Navigator.pop(context);
-                                            CustomToast.showSnackBar(context, data["message"]["message_en"]);
-                                            SurPatientDetailsData().getPatientDetails(context, widget.patientId);
-                                          }
-                                        },
-                                        margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
-                                      ),
-                                      const SizedBox(height: 16.0),
-                                    ],
-                                  ),
+                                    ),
+                                    RadioListTile(
+                                      title: Text("Clear"),
+                                      value: "Clear",
+                                      groupValue: feedbackStatus,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          feedbackStatus = value.toString();
+                                        });
+                                      },
+                                    ),
+                                    RadioListTile(
+                                      title: Text("Need Visit"),
+                                      value: "Need Visit",
+                                      groupValue: feedbackStatus,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          feedbackStatus = value.toString();
+                                        });
+                                      },
+                                    ),
+                                    RadioListTile(
+                                      title: Text("Need Second Visit"),
+                                      value: "Need Second Visit",
+                                      groupValue: feedbackStatus,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          feedbackStatus = value.toString();
+                                        });
+                                      },
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    DefaultButton(
+                                      height: 38,
+                                      title: "Update",
+                                      onTap: () async {
+                                        final Map<String, dynamic> body = {
+                                          'dietation_feedback_decision': feedbackStatus,
+                                        };
+                                        dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
+                                          name: ApiNames.patientDietation + '?user_id=${state.data!.patient!.id}',
+                                          returnType: ReturnType.Type,
+                                          methodType: MethodType.Put,
+                                          returnDataFun: (data) => data,
+                                          jsonBody: body,
+                                          showLoader: true,
+                                        );
+                                        if (data != null) {
+                                          Navigator.pop(context);
+                                          CustomToast.showSnackBar(context, data["message"]["message_en"]);
+                                          SurPatientDetailsData().getPatientDetails(context, widget.patientId);
+                                        }
+                                      },
+                                      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                                    ),
+                                    const SizedBox(height: 16.0),
+                                  ],
                                 ),
                               ),
-                              sheetHeight: MediaQuery.of(context).size.height * 0.45,
-                            );
-                          },
-                        );
-                        setState(() {});
-                        // }
-                      },
-                    ),
+                            ),
+                            sheetHeight: MediaQuery.of(context).size.height * 0.45,
+                          );
+                        },
+                      );
+                      setState(() {});
+                      // }
+                    },
                   ),
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
                     (state.data?.patient?.feedback ?? '') != 'Clear')
-                  Expanded(
-                    child: DefaultButton(
-                      title: "Add Physiotherapy Data",
-                      onTap: () async {
-                        await Nav.navigateTo(
-                          PhysiotherapyAddPatientData(patient: state.data!.patient!),
-                          navigatorType: NavigatorType.push,
-                        );
-                        await showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          isDismissible: true,
-                          builder: (BuildContext context) {
-                            return ModelBottomSheet(
-                              child: StatefulBuilder(
-                                builder: (BuildContext context, StateSetter setState) => SingleChildScrollView(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Center(
-                                        child: MyText(
-                                          title: "Your Feedback",
-                                          size: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: MyColors.primary,
-                                        ),
+                  DefaultButton(
+                    title: "Add Physiotherapy Data",
+                    onTap: () async {
+                      await Nav.navigateTo(
+                        PhysiotherapyAddPatientData(patient: state.data!.patient!),
+                        navigatorType: NavigatorType.push,
+                      );
+                      await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        isDismissible: true,
+                        builder: (BuildContext context) {
+                          return ModelBottomSheet(
+                            child: StatefulBuilder(
+                              builder: (BuildContext context, StateSetter setState) => SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      child: MyText(
+                                        title: "Your Feedback",
+                                        size: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: MyColors.primary,
                                       ),
-                                      RadioListTile(
-                                        title: Text("Clear"),
-                                        value: "Clear",
-                                        groupValue: physiotherapyFeedbackStatus,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            physiotherapyFeedbackStatus = value.toString();
-                                          });
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        title: Text("Not Clear"),
-                                        value: "Not Clear",
-                                        groupValue: physiotherapyFeedbackStatus,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            physiotherapyFeedbackStatus = value.toString();
-                                          });
-                                        },
-                                      ),
-                                      const SizedBox(height: 10.0),
-                                      DefaultButton(
-                                        height: 38,
-                                        title: "Update",
-                                        onTap: () async {
-                                          final Map<String, dynamic> body = {
-                                            'feedback': physiotherapyFeedbackStatus,
-                                          };
-                                          dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
-                                            name: ApiNames.patientPhysiotherapy + '?user_id=${state.data!.patient!.id}',
-                                            returnType: ReturnType.Type,
-                                            methodType: MethodType.Put,
-                                            returnDataFun: (data) => data,
-                                            jsonBody: body,
-                                            showLoader: true,
-                                          );
-                                          if (data != null) {
-                                            Navigator.pop(context);
-                                            CustomToast.showSnackBar(context, data["message"]["message_en"]);
-                                            SurPatientDetailsData().getPatientDetails(context, widget.patientId);
-                                          }
-                                        },
-                                        margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
-                                      ),
-                                      const SizedBox(height: 16.0),
-                                    ],
-                                  ),
+                                    ),
+                                    RadioListTile(
+                                      title: Text("Clear"),
+                                      value: "Clear",
+                                      groupValue: physiotherapyFeedbackStatus,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          physiotherapyFeedbackStatus = value.toString();
+                                        });
+                                      },
+                                    ),
+                                    RadioListTile(
+                                      title: Text("Not Clear"),
+                                      value: "Not Clear",
+                                      groupValue: physiotherapyFeedbackStatus,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          physiotherapyFeedbackStatus = value.toString();
+                                        });
+                                      },
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    DefaultButton(
+                                      height: 38,
+                                      title: "Update",
+                                      onTap: () async {
+                                        final Map<String, dynamic> body = {
+                                          'feedback': physiotherapyFeedbackStatus,
+                                        };
+                                        dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
+                                          name: ApiNames.patientPhysiotherapy + '?user_id=${state.data!.patient!.id}',
+                                          returnType: ReturnType.Type,
+                                          methodType: MethodType.Put,
+                                          returnDataFun: (data) => data,
+                                          jsonBody: body,
+                                          showLoader: true,
+                                        );
+                                        if (data != null) {
+                                          Navigator.pop(context);
+                                          CustomToast.showSnackBar(context, data["message"]["message_en"]);
+                                          SurPatientDetailsData().getPatientDetails(context, widget.patientId);
+                                        }
+                                      },
+                                      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                                    ),
+                                    const SizedBox(height: 16.0),
+                                  ],
                                 ),
                               ),
-                              sheetHeight: MediaQuery.of(context).size.height * 0.35,
-                            );
-                          },
-                        );
-                        setState(() {});
-                        // }
-                      },
-                    ),
+                            ),
+                            sheetHeight: MediaQuery.of(context).size.height * 0.35,
+                          );
+                        },
+                      );
+                      setState(() {});
+                      // }
+                    },
                   ),
                 // if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Pre-op")
                 //   Expanded(
@@ -1236,14 +1230,12 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
                             context.read<UserCubit>().state.model.userData![0].sId ==
                                 SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId)))
-                  Expanded(
-                    child: DefaultButton(
-                      title: "Request Instruments",
-                      color: Color(0xff00116E),
-                      onTap: () => Nav.navigateTo(
-                        RequestInstrumentsScreen(patientModel: state.data!),
-                        navigatorType: NavigatorType.push,
-                      ),
+                  DefaultButton(
+                    title: "Request Instruments",
+                    color: Color(0xff00116E),
+                    onTap: () => Nav.navigateTo(
+                      RequestInstrumentsScreen(patientModel: state.data!),
+                      navigatorType: NavigatorType.push,
                     ),
                   ),
                 if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept' &&
@@ -1252,11 +1244,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
                             context.read<UserCubit>().state.model.userData![0].sId ==
                                 SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId)))
-                  Expanded(
-                    child: DefaultButton(
-                      title: dateTime == null ? "Book Operation" : "Edit Operation",
-                      onTap: () => SurPatientDetailsData().bookOperation(context),
-                    ),
+                  DefaultButton(
+                    title: dateTime == null ? "Book Operation" : "Edit Operation",
+                    onTap: () => SurPatientDetailsData().bookOperation(context),
                   ),
               ],
             ),
