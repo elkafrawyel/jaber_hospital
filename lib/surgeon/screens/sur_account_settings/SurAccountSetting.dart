@@ -96,7 +96,7 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
               ),
             ),
           ),
-          if(Platform.isIOS)
+          // if(Platform.isIOS)
           InkWell(
             onTap: () {
               deleteAccount();
@@ -117,7 +117,7 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
   void deleteAccount() async {
     scaleAlertDialog(
       context: context,
-      title: 'Archive',
+      title: 'Delete Account',
       body: 'Are you sure you want to delete your account?',
       cancelText: 'Cancel',
       confirmText: 'Submit',
@@ -129,6 +129,9 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
         Navigator.pop(context);
         // http://localhost:5000/api/company/123
         dynamic data = await GenericHttp<bool>(context).callApi(
+          // name: 'company/6474d52631cd2da98ca57ee2',
+          // name: 'doctor/6473be04344dbb226a5a2434',
+          // name: 'patient/644952febc59cd34c82a0495',// done
           name: 'doctor/' + context.read<UserCubit>().state.model.userData![0].sId!,
           returnType: ReturnType.Type,
           methodType: MethodType.Delete,

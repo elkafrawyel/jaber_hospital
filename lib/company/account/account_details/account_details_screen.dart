@@ -127,7 +127,7 @@ class AccountDetailsScreen extends StatelessWidget {
   void deleteAccount(BuildContext context) async {
     scaleAlertDialog(
       context: context,
-      title: 'Archive',
+      title: 'Delete Account',
       body: 'Are you sure you want to delete your account?',
       cancelText: 'Cancel',
       confirmText: 'Submit',
