@@ -113,9 +113,7 @@ class QuestionnaireData{
       DioUtils.dismissDialog();
       if(response.statusCode==200){
         CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const QuestionnaireResultScreen()),
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const QuestionnaireResultScreen()),
         );
       } else{
         CustomToast.showSnackBar(context, response.data["message"]["message_en"]);

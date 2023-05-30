@@ -44,6 +44,7 @@ class ApiNames{
   static const String futureOperations = "patient_future_operations";
   static const String pastOperations = "patient_past_operations";
   static const String addOperationDate = "add_operation_date";
+  static const String createNotification = "notification";
 
   /// companies
   static const String companyHomeOrders = "company_orders_completed_inProgress";

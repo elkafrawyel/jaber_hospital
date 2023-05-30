@@ -1,10 +1,10 @@
 class AnswerModel {
   String? question1;
   String? answer2;
-  int? score2;
+  String? score2;
   String? question2;
   String? answer1;
-  int? score1;
+  String? score1;
   String? question;
 
   AnswerModel(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/utilities/utils_functions/Navigator.dart';
+import '../../../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../../../res/res.dart';
 import '../../../models/instrument_order_model.dart';
 import '../instrument_order_details.dart';
@@ -53,17 +54,18 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                         color: MyColors.black,
                         fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 6),
                       Wrap(
                         children: [
                           ...List.generate(ordersModel.instruments!.length, (index) => MyText(
                             title: ordersModel.instruments?[index].description??""+", ",
                             size: 10,
-                            color: MyColors.blackOpacity,
+                            color: Colors.black87,
+                            // color: MyColors.blackOpacity,
                           ),)
                         ],
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 6),
                       Row(
                         children: [
                           Expanded(
@@ -72,11 +74,11 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                               children: [
                                 Image.asset(Res.imagesCalendar,
                                     scale: 3, color: MyColors.primary),
-                                const SizedBox(width: 2),
+                                const SizedBox(width: 4),
                                 Expanded(
                                   child: MyText(
-                                    title: ordersModel.orderStartDate??'' ,
-                                    size: 9,
+                                    title: Utils.getDate(ordersModel.orderStartDate??''),
+                                    size: 10,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -84,20 +86,20 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SizedBox(width: 20),
-                          Row(
-                            children: [
-                              Image.asset(Res.imagesTime,
-                                  scale: 2, color: MyColors.primary),
-                              const SizedBox(width: 2),
-                              MyText(
-                                title: "14:30 PM",
-                                size: 10,
-                                color: MyColors.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ],
-                          ),
+                          const SizedBox(width: 16),
+                          // Row(
+                          //   children: [
+                          //     Image.asset(Res.imagesTime,
+                          //         scale: 2, color: MyColors.primary),
+                          //     const SizedBox(width: 2),
+                          //     MyText(
+                          //       title: "14:30 PM",
+                          //       size: 10,
+                          //       color: MyColors.primary,
+                          //       fontWeight: FontWeight.bold,
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ],

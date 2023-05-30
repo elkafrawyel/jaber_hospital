@@ -54,7 +54,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
 
   @override
   Widget build(BuildContext context) {
-    log("patientFeedBack==> ${widget.patientModel.feedback}");
+    log("patientFeedBack==> ${widget.patientModel.finalFeedback}");
     final size = MediaQuery.of(context).size;
     return GeneralScaffold(
       back: true,
@@ -532,10 +532,12 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                     if(state is GenericUpdateState){
                       if(state.data!.data!.isNotEmpty){
                         return Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Row(
                               children: [
                                 MyText(title: "Depression Assessment Score: ", size: 11, fontWeight: FontWeight.bold),
+                                const SizedBox(width: 4.0,),
                                 Expanded(
                                   child: MyText(
                                     title: state.data!.data![0].depressionScore?? '',
@@ -550,9 +552,9 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                             Row(
                               children: [
                                 MyText(title: "Depression Assessment Result:", size: 11, fontWeight: FontWeight.bold),
+                                const SizedBox(width: 4.0,),
                                 Expanded(
                                   child: MyText(
-                                    //convert date to 12 aug 2021
                                     title: state.data!.data![0].depressionScoreLevel?? '',
                                     size: 12,
                                     color: MyColors.primary,
@@ -565,6 +567,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                             Row(
                               children: [
                                 MyText(title: "Anxiety Assessment Score:", size: 11, fontWeight: FontWeight.bold),
+                                const SizedBox(width: 4.0,),
                                 Expanded(
                                   child: MyText(
                                     //convert date to 12 aug 2021
@@ -580,6 +583,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                             Row(
                               children: [
                                 MyText(title: "Anxiety Assessment Result:", size: 11, fontWeight: FontWeight.bold),
+                                const SizedBox(width: 4.0,),
                                 Expanded(
                                   child: MyText(
                                     title: state.data!.data![0].anxietyScoreLevel?? '',
@@ -594,25 +598,10 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                             Row(
                               children: [
                                 MyText(title: "Feedback:", size: 11, fontWeight: FontWeight.bold),
-                                const SizedBox(width: 3.0,),
+                                const SizedBox(width: 4.0,),
                                 Expanded(
                                   child: MyText(
-                                    title: widget.patientModel.feedback?? '',
-                                    size: 12,
-                                    color: MyColors.primary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                MyText(title: "Feedback:", size: 11, fontWeight: FontWeight.bold),
-                                const SizedBox(width: 3.0,),
-                                Expanded(
-                                  child: MyText(
-                                    title: widget.patientModel.feedback?? '',
+                                    title: widget.patientModel.finalFeedback?? '',
                                     size: 12,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
@@ -621,10 +610,8 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                               ],
                             ),
                             const Divider(thickness: 1, height: 16),
-                            Row(
-                              children: [
-                                (widget.patientModel.finalFeedback!="Clear"&&
-                                    psychologistPatientDetailsData.psychologistId.sId!="")?Row(children: [
+                            widget.patientModel.finalFeedback!="Clear"?
+                            Row(children: [
                                   Expanded(
                                     child: DefaultButton(
                                       title: "Edit Feedback",
@@ -752,9 +739,8 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                       },
                                     ),
                                   ),
-                                ],): const SizedBox.shrink(),
                               ],
-                            ),
+                            ): const SizedBox.shrink(),
                           ],
                         );
                       }else{

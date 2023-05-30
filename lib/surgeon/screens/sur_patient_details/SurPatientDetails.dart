@@ -3,7 +3,8 @@ part of 'SurPatientDetailsImports.dart';
 class SurPatientDetails extends StatefulWidget {
   final String patientId;
 
-  const SurPatientDetails({Key? key, required this.patientId}) : super(key: key);
+  const SurPatientDetails({Key? key, required this.patientId})
+      : super(key: key);
 
   @override
   State<SurPatientDetails> createState() => _SurPatientDetailsState();
@@ -29,15 +30,34 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GenericBloc<PatientDetailsModel?>, GenericState<PatientDetailsModel?>>(
+    return BlocBuilder<GenericBloc<PatientDetailsModel?>,
+        GenericState<PatientDetailsModel?>>(
       bloc: SurPatientDetailsData().patientDetailsCubit,
       builder: (context, state) {
-        bool showActionButtons =
-            context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
-                (context.read<UserCubit>().state.model.userData![0].sId ==
-                        SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
-                    context.read<UserCubit>().state.model.userData![0].sId ==
-                        SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId);
+        bool showActionButtons = context
+                    .read<UserCubit>()
+                    .state
+                    .model
+                    .userData![0]
+                    .doctorRoleId
+                    ?.roleNameEn ==
+                'Surgeon' &&
+            (context.read<UserCubit>().state.model.userData![0].sId ==
+                    SurPatientDetailsData()
+                        .patientDetailsCubit
+                        .state
+                        .data
+                        ?.patient
+                        ?.surgeonId
+                        ?.sId ||
+                context.read<UserCubit>().state.model.userData![0].sId ==
+                    SurPatientDetailsData()
+                        .patientDetailsCubit
+                        .state
+                        .data
+                        ?.patient
+                        ?.surgeon2Id
+                        ?.sId);
         return GeneralScaffold(
           back: true,
           title: "Patient Details",
@@ -59,7 +79,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                         },
                         onConfirmClick: () async {
                           Navigator.pop(context);
-                          bool result = await SurPatientDetailsData().archivePatient(context);
+                          bool result = await SurPatientDetailsData()
+                              .archivePatient(context);
                           if (result) {
                             Navigator.pop(context, result);
                           }
@@ -78,7 +99,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     onTap: () {
                       Nav.navigateTo(
                           SurAddPatient(
-                            patientDetailsModel: SurPatientDetailsData().patientDetailsCubit.state.data,
+                            patientDetailsModel: SurPatientDetailsData()
+                                .patientDetailsCubit
+                                .state
+                                .data,
                           ),
                           navigatorType: NavigatorType.push);
                     },
@@ -102,7 +126,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
   }
 
   _body(GenericState<PatientDetailsModel?> state) {
-    DateTime? dateTime = DateTime.tryParse(state.data?.patient?.operationDate ?? '');
+    DateTime? dateTime =
+        DateTime.tryParse(state.data?.patient?.operationDate ?? '');
     bool isReady = (state.data?.patient?.egd ?? false) &&
         (state.data?.patient?.ultrasound ?? false) &&
         (state.data?.patient?.surgionVisit ?? false) &&
@@ -116,7 +141,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            decoration: BoxDecoration(color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
+            decoration: BoxDecoration(
+                color: Color(0xfff2f2f2),
+                borderRadius: BorderRadius.circular(15)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -169,13 +196,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 ),
                                 isReady
                                     ? Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 6, vertical: 3),
                                         decoration: BoxDecoration(
                                           color: Color(0xffaff7c3),
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
                                           child: MyText(
                                             title: 'Ready',
                                             size: 9,
@@ -185,13 +215,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                         ),
                                       )
                                     : Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 2, vertical: 3),
                                         decoration: BoxDecoration(
                                           color: Color(0xffFBD6BC),
-                                          borderRadius: BorderRadius.circular(20),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
                                           child: MyText(
                                             title: 'Not Ready',
                                             size: 9,
@@ -247,7 +280,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -293,8 +327,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
                                   color: (state.data?.patient?.egd ?? false) &&
-                                          (state.data?.patient?.ultrasound ?? false) &&
-                                          (state.data?.patient?.surgionVisit ?? false)
+                                          (state.data?.patient?.ultrasound ??
+                                              false) &&
+                                          (state.data?.patient?.surgionVisit ??
+                                              false)
                                       ? MyColors.primary
                                       : Colors.red,
                                   iconStyle: IconStyle(
@@ -304,8 +340,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 ),
                                 beforeLineStyle: LineStyle(
                                   color: (state.data?.patient?.egd ?? false) &&
-                                          (state.data?.patient?.ultrasound ?? false) &&
-                                          (state.data?.patient?.surgionVisit ?? false)
+                                          (state.data?.patient?.ultrasound ??
+                                              false) &&
+                                          (state.data?.patient?.surgionVisit ??
+                                              false)
                                       ? MyColors.primary
                                       : Colors.red,
                                   thickness: 6,
@@ -314,8 +352,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                   title: "Surgery OPD",
                                   size: 8,
                                   color: (state.data?.patient?.egd ?? false) &&
-                                          (state.data?.patient?.ultrasound ?? false) &&
-                                          (state.data?.patient?.surgionVisit ?? false)
+                                          (state.data?.patient?.ultrasound ??
+                                              false) &&
+                                          (state.data?.patient?.surgionVisit ??
+                                              false)
                                       ? MyColors.primary
                                       : Colors.red,
                                 ),
@@ -326,20 +366,26 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 axis: TimelineAxis.horizontal,
                                 alignment: TimelineAlign.center,
                                 beforeLineStyle: LineStyle(
-                                  color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
+                                  color: state.data?.patient
+                                              ?.dietationFeedbackDecision ==
+                                          'Clear'
                                       ? MyColors.primary
                                       : Colors.red,
                                   thickness: 6,
                                 ),
                                 afterLineStyle: LineStyle(
-                                  color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
+                                  color: state.data?.patient
+                                              ?.dietationFeedbackDecision ==
+                                          'Clear'
                                       ? MyColors.primary
                                       : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
+                                  color: state.data?.patient
+                                              ?.dietationFeedbackDecision ==
+                                          'Clear'
                                       ? MyColors.primary
                                       : Colors.red,
                                   iconStyle: IconStyle(
@@ -350,7 +396,9 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 endChild: MyText(
                                   title: "Dietitian",
                                   size: 8,
-                                  color: state.data?.patient?.dietationFeedbackDecision == 'Clear'
+                                  color: state.data?.patient
+                                              ?.dietationFeedbackDecision ==
+                                          'Clear'
                                       ? MyColors.primary
                                       : Colors.red,
                                 ),
@@ -361,16 +409,25 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 axis: TimelineAxis.horizontal,
                                 alignment: TimelineAlign.center,
                                 beforeLineStyle: LineStyle(
-                                  color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
+                                  color:
+                                      state.data?.patient?.feedback == 'Clear'
+                                          ? MyColors.primary
+                                          : Colors.red,
                                   thickness: 6,
                                 ),
                                 afterLineStyle: LineStyle(
-                                  color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
+                                  color:
+                                      state.data?.patient?.feedback == 'Clear'
+                                          ? MyColors.primary
+                                          : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
+                                  color:
+                                      state.data?.patient?.feedback == 'Clear'
+                                          ? MyColors.primary
+                                          : Colors.red,
                                   iconStyle: IconStyle(
                                     color: Colors.white,
                                     iconData: Icons.check,
@@ -379,7 +436,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 endChild: MyText(
                                   title: "Physiotherapy",
                                   size: 8,
-                                  color: state.data?.patient?.feedback == 'Clear' ? MyColors.primary : Colors.red,
+                                  color:
+                                      state.data?.patient?.feedback == 'Clear'
+                                          ? MyColors.primary
+                                          : Colors.red,
                                 ),
                               ),
                             ),
@@ -388,16 +448,25 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 axis: TimelineAxis.horizontal,
                                 alignment: TimelineAlign.center,
                                 beforeLineStyle: LineStyle(
-                                  color: (state.data?.patient?.watchedClip ?? false) ? MyColors.primary : Colors.red,
+                                  color: (state.data?.patient?.watchedClip ??
+                                          false)
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   thickness: 6,
                                 ),
                                 afterLineStyle: LineStyle(
-                                  color: (state.data?.patient?.watchedClip ?? false) ? MyColors.primary : Colors.red,
+                                  color: (state.data?.patient?.watchedClip ??
+                                          false)
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: (state.data?.patient?.watchedClip ?? false) ? MyColors.primary : Colors.red,
+                                  color: (state.data?.patient?.watchedClip ??
+                                          false)
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   iconStyle: IconStyle(
                                     color: Colors.white,
                                     iconData: Icons.check,
@@ -406,7 +475,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 endChild: MyText(
                                   title: "Education",
                                   size: 8,
-                                  color: (state.data?.patient?.watchedClip ?? false) ? MyColors.primary : Colors.red,
+                                  color: (state.data?.patient?.watchedClip ??
+                                          false)
+                                      ? MyColors.primary
+                                      : Colors.red,
                                 ),
                               ),
                             ),
@@ -416,12 +488,18 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 alignment: TimelineAlign.center,
                                 isLast: true,
                                 beforeLineStyle: LineStyle(
-                                  color: state.data?.patient?.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
+                                  color: state.data?.patient?.finalFeedback ==
+                                          'Clear'
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   thickness: 6,
                                 ),
                                 indicatorStyle: IndicatorStyle(
                                   height: 26,
-                                  color: state.data?.patient?.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
+                                  color: state.data?.patient?.finalFeedback ==
+                                          'Clear'
+                                      ? MyColors.primary
+                                      : Colors.red,
                                   iconStyle: IconStyle(
                                     color: Colors.white,
                                     iconData: Icons.check,
@@ -430,7 +508,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                 endChild: MyText(
                                   title: "Psychology",
                                   size: 8,
-                                  color: state.data?.patient?.finalFeedback == 'Clear' ? MyColors.primary : Colors.red,
+                                  color: state.data?.patient?.finalFeedback ==
+                                          'Clear'
+                                      ? MyColors.primary
+                                      : Colors.red,
                                 ),
                               ),
                             ),
@@ -443,14 +524,18 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       onTap: () => toggleTimeLine(),
                       child: Padding(
                         padding: const EdgeInsets.only(right: 8),
-                        child: Icon(isOpened ? Icons.keyboard_arrow_down : Icons.arrow_forward_ios,
+                        child: Icon(
+                            isOpened
+                                ? Icons.keyboard_arrow_down
+                                : Icons.arrow_forward_ios,
                             size: isOpened ? 22 : 15),
                       ),
                     )
                   ],
                 ),
                 const SizedBox(height: 10),
-                Visibility(visible: isOpened, child: Divider(color: MyColors.grey)),
+                Visibility(
+                    visible: isOpened, child: Divider(color: MyColors.grey)),
                 Visibility(
                   visible: isOpened,
                   child: Padding(
@@ -458,7 +543,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        MyText(title: "Surgery OPD Details;", size: 10, fontWeight: FontWeight.bold),
+                        MyText(
+                            title: "Surgery OPD Details;",
+                            size: 10,
+                            fontWeight: FontWeight.bold),
                         const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -466,10 +554,15 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                             Row(
                               children: [
                                 CircleAvatar(
-                                  backgroundColor: state.data?.patient?.egd == true ? MyColors.primary : Colors.red,
+                                  backgroundColor:
+                                      state.data?.patient?.egd == true
+                                          ? MyColors.primary
+                                          : Colors.red,
                                   radius: 12.0,
                                   child: Icon(
-                                    state.data?.patient?.egd == true ? Icons.check : Icons.close,
+                                    state.data?.patient?.egd == true
+                                        ? Icons.check
+                                        : Icons.close,
                                     color: Colors.white,
                                     size: 15,
                                   ),
@@ -482,10 +575,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                               children: [
                                 CircleAvatar(
                                   backgroundColor:
-                                      state.data?.patient?.ultrasound == true ? MyColors.primary : Colors.red,
+                                      state.data?.patient?.ultrasound == true
+                                          ? MyColors.primary
+                                          : Colors.red,
                                   radius: 12.0,
-                                  child: Icon(state.data?.patient?.ultrasound == true ? Icons.check : Icons.close,
-                                      color: Colors.white, size: 15),
+                                  child: Icon(
+                                      state.data?.patient?.ultrasound == true
+                                          ? Icons.check
+                                          : Icons.close,
+                                      color: Colors.white,
+                                      size: 15),
                                 ),
                                 const SizedBox(width: 10),
                                 MyText(title: "US", size: 9),
@@ -495,10 +594,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                               children: [
                                 CircleAvatar(
                                   backgroundColor:
-                                      state.data?.patient?.surgionVisit == true ? MyColors.primary : Colors.red,
+                                      state.data?.patient?.surgionVisit == true
+                                          ? MyColors.primary
+                                          : Colors.red,
                                   radius: 12.0,
-                                  child: Icon(state.data?.patient?.surgionVisit == true ? Icons.check : Icons.close,
-                                      color: Colors.white, size: 15),
+                                  child: Icon(
+                                      state.data?.patient?.surgionVisit == true
+                                          ? Icons.check
+                                          : Icons.close,
+                                      color: Colors.white,
+                                      size: 15),
                                 ),
                                 const SizedBox(width: 10),
                                 MyText(title: "Surgery OPD", size: 9),
@@ -514,7 +619,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
             ),
           ),
           const SizedBox(height: 10),
-          MyText(title: "Doctors Info", size: 14, fontWeight: FontWeight.bold, color: MyColors.primary),
+          MyText(
+              title: "Doctors Info",
+              size: 14,
+              fontWeight: FontWeight.bold,
+              color: MyColors.primary),
           const SizedBox(height: 10),
           Row(
             children: [
@@ -532,7 +641,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
           const SizedBox(height: 10),
           Row(
             children: [
-              MyText(title: "Dietitian:", size: 12, fontWeight: FontWeight.bold),
+              MyText(
+                  title: "Dietitian:", size: 12, fontWeight: FontWeight.bold),
               SizedBox(width: 10),
               MyText(
                 title:
@@ -545,7 +655,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
           const SizedBox(height: 10),
           Row(
             children: [
-              MyText(title: "Physiotherapist:", size: 12, fontWeight: FontWeight.bold),
+              MyText(
+                  title: "Physiotherapist:",
+                  size: 12,
+                  fontWeight: FontWeight.bold),
               SizedBox(width: 10),
               MyText(
                 title:
@@ -571,7 +684,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
           const SizedBox(height: 10),
           Row(
             children: [
-              MyText(title: "Psychologist:", size: 12, fontWeight: FontWeight.bold),
+              MyText(
+                  title: "Psychologist:",
+                  size: 12,
+                  fontWeight: FontWeight.bold),
               SizedBox(width: 10),
               MyText(
                 title:
@@ -581,11 +697,27 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
               ),
             ],
           ),
-          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
-              (state.data?.patient?.dietation_feedback_decision ?? '').isNotEmpty)
+          if (context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Dietitian' &&
+              (state.data?.patient?.dietation_feedback_decision ?? '')
+                  .isNotEmpty)
             const Divider(thickness: 1, height: 20),
-          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
-              (state.data?.patient?.dietation_feedback_decision ?? '').isNotEmpty)
+          if (context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Dietitian' &&
+              (state.data?.patient?.dietation_feedback_decision ?? '')
+                  .isNotEmpty)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: MyText(
@@ -595,8 +727,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
-              (state.data?.patient?.dietation_feedback_decision ?? '').isNotEmpty)
+          if (context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Dietitian' &&
+              (state.data?.patient?.dietation_feedback_decision ?? '')
+                  .isNotEmpty)
             Row(
               children: [
                 MyText(
@@ -612,10 +752,24 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
               ],
             ),
-          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
+          if (context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'physiotherapist' &&
               (state.data?.patient?.feedback ?? '').isNotEmpty)
             const Divider(thickness: 1, height: 20),
-          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
+          if (context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'physiotherapist' &&
               (state.data?.patient?.feedback ?? '').isNotEmpty)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -626,7 +780,14 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
+          if (context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'physiotherapist' &&
               (state.data?.patient?.feedback ?? '').isNotEmpty)
             Row(
               children: [
@@ -648,7 +809,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
             const Divider(thickness: 1, height: 20),
           if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
               state.data?.patient?.operationStatus == "Post-op")
-            MyText(title: "Operation Details", size: 14, color: MyColors.primary, fontWeight: FontWeight.bold),
+            MyText(
+                title: "Operation Details",
+                size: 14,
+                color: MyColors.primary,
+                fontWeight: FontWeight.bold),
           if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
               state.data?.patient?.operationStatus == "Post-op")
             const SizedBox(height: 10),
@@ -656,7 +821,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
               state.data?.patient?.operationStatus == "Post-op")
             Row(
               children: [
-                MyText(title: "Operation Type: ", size: 12, fontWeight: FontWeight.bold),
+                MyText(
+                    title: "Operation Type: ",
+                    size: 12,
+                    fontWeight: FontWeight.bold),
                 SizedBox(width: 10),
                 MyText(
                   title: state.data?.patient?.operationType ?? '',
@@ -675,7 +843,10 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
               state.data?.patient?.operationStatus == "Post-op")
             Row(
               children: [
-                MyText(title: "Operation Done On:", size: 12, fontWeight: FontWeight.bold),
+                MyText(
+                    title: "Operation Done On:",
+                    size: 12,
+                    fontWeight: FontWeight.bold),
                 SizedBox(width: 10),
                 MyText(
                   title: DateFormat("E ,d MMM y hh:mm a").format(dateTime),
@@ -687,22 +858,57 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
             ),
           if ((state.data?.patient?.mdtResults ?? '').isNotEmpty &&
               state.data?.patient?.operationStatus == "Pre-op" &&
-              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+              context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Surgeon')
             const Divider(thickness: 1, height: 20),
           if ((state.data?.patient?.mdtResults ?? '').isNotEmpty &&
-              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Surgeon' &&
               state.data?.patient?.operationStatus == "Pre-op")
-            MyText(title: "MDT Discussion Details:", size: 14, color: MyColors.primary, fontWeight: FontWeight.bold),
+            MyText(
+                title: "MDT Discussion Details:",
+                size: 14,
+                color: MyColors.primary,
+                fontWeight: FontWeight.bold),
           if ((state.data?.patient?.mdtResults ?? '').isNotEmpty &&
-              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Surgeon' &&
               state.data?.patient?.operationStatus == "Pre-op")
             SizedBox(height: 10),
           if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
-              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Surgeon' &&
               state.data?.patient?.operationStatus == "Pre-op")
             Row(
               children: [
-                MyText(title: "MDT Status:", size: 12, fontWeight: FontWeight.bold),
+                MyText(
+                    title: "MDT Status:",
+                    size: 12,
+                    fontWeight: FontWeight.bold),
                 SizedBox(width: 10),
                 MyText(
                   title: state.data?.patient?.mdtStatus ?? '-',
@@ -713,11 +919,25 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
               ],
             ),
           if ((state.data?.patient?.mdtResults ?? '').isNotEmpty &&
-              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Surgeon' &&
               state.data?.patient?.operationStatus == "Pre-op")
             SizedBox(height: 10),
           if ((state.data?.patient?.mdtResults ?? '').isNotEmpty &&
-              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Surgeon' &&
               state.data?.patient?.operationStatus == "Pre-op")
             Row(
               children: [
@@ -732,15 +952,32 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
               ],
             ),
           if ((state.data?.patient?.mdtComments ?? '').isNotEmpty &&
-              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Surgeon' &&
               state.data?.patient?.operationStatus == "Pre-op")
             SizedBox(height: 10),
           if ((state.data?.patient?.mdtComments ?? '').isNotEmpty &&
-              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Surgeon' &&
               state.data?.patient?.operationStatus == "Pre-op")
             Row(
               children: [
-                MyText(title: "Acceptance Details:", size: 12, fontWeight: FontWeight.bold),
+                MyText(
+                    title: "Acceptance Details:",
+                    size: 12,
+                    fontWeight: FontWeight.bold),
                 SizedBox(width: 10),
                 MyText(
                   title: state.data?.patient?.mdtComments ?? '-',
@@ -751,42 +988,90 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
               ],
             ),
           if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
-              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Surgeon' &&
               state.data?.patient?.operationStatus == "Pre-op")
             SizedBox(height: 10),
           if ((state.data?.patient?.operationDate ?? '').isNotEmpty &&
-              context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+              context
+                      .read<UserCubit>()
+                      .state
+                      .model
+                      .userData![0]
+                      .doctorRoleId
+                      ?.roleNameEn ==
+                  'Surgeon' &&
               state.data?.patient?.operationStatus == "Pre-op")
             Row(
               children: [
-                MyText(title: "Operation Date:", size: 12, fontWeight: FontWeight.bold),
+                MyText(
+                    title: "Operation Date:",
+                    size: 12,
+                    fontWeight: FontWeight.bold),
                 SizedBox(width: 10),
                 MyText(
-                  title: dateTime == null ? '' : DateFormat("E ,d MMM y hh:mm a").format(dateTime),
+                  title: dateTime == null
+                      ? ''
+                      : DateFormat("E ,d MMM y hh:mm a").format(dateTime),
                   size: 12,
                   color: MyColors.primary,
                   fontWeight: FontWeight.bold,
                 ),
               ],
             ),
-          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+          if (context
+                  .read<UserCubit>()
+                  .state
+                  .model
+                  .userData![0]
+                  .doctorRoleId
+                  ?.roleNameEn ==
+              'Surgeon')
             const Divider(thickness: 1, height: 20),
-          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+          if (context
+                  .read<UserCubit>()
+                  .state
+                  .model
+                  .userData![0]
+                  .doctorRoleId
+                  ?.roleNameEn ==
+              'Surgeon')
             MyText(
               title: "Patient’s Weekly Exercise Overview",
               size: 14,
               color: MyColors.primary,
               fontWeight: FontWeight.bold,
             ),
-          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+          if (context
+                  .read<UserCubit>()
+                  .state
+                  .model
+                  .userData![0]
+                  .doctorRoleId
+                  ?.roleNameEn ==
+              'Surgeon')
             const SizedBox(height: 10),
-          if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon')
+          if (context
+                  .read<UserCubit>()
+                  .state
+                  .model
+                  .userData![0]
+                  .doctorRoleId
+                  ?.roleNameEn ==
+              'Surgeon')
             Row(
               children: [
                 Expanded(
                   child: Container(
                     height: MediaQuery.of(context).size.height / 7,
-                    padding: const EdgeInsets.only(bottom: 0, left: 20, right: 20, top: 20),
+                    padding: const EdgeInsets.only(
+                        bottom: 0, left: 20, right: 20, top: 20),
                     decoration: BoxDecoration(
                       color: Color(0xff24C647),
                       borderRadius: BorderRadius.circular(10),
@@ -820,7 +1105,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 Expanded(
                   child: Container(
                     height: MediaQuery.of(context).size.height / 7,
-                    padding: const EdgeInsets.only(bottom: 0, left: 20, right: 20, top: 20),
+                    padding: const EdgeInsets.only(
+                        bottom: 0, left: 20, right: 20, top: 20),
                     decoration: BoxDecoration(
                       color: Color(0xffEB7826),
                       borderRadius: BorderRadius.circular(10),
@@ -854,7 +1140,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 Expanded(
                   child: Container(
                     height: MediaQuery.of(context).size.height / 7,
-                    padding: const EdgeInsets.only(bottom: 0, left: 20, right: 20, top: 20),
+                    padding: const EdgeInsets.only(
+                        bottom: 0, left: 20, right: 20, top: 20),
                     decoration: BoxDecoration(
                       color: Color(0xffD84545),
                       borderRadius: BorderRadius.circular(10),
@@ -902,12 +1189,16 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 scrollDirection: Axis.horizontal,
                 itemCount: state.data?.appointments?.length ?? 0,
                 itemBuilder: (BuildContext context, int index) {
-                  DateTime? dateTime = DateTime.tryParse(state.data!.appointments![index].appointmentDate!);
+                  DateTime? dateTime = DateTime.tryParse(
+                      state.data!.appointments![index].appointmentDate!);
                   return Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.80),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 0.80),
                     decoration: BoxDecoration(
                       color: MyColors.textFields,
                       borderRadius: BorderRadius.circular(10),
@@ -916,7 +1207,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                           color: MyColors.greyWhite,
                           spreadRadius: .1,
                           blurRadius: 1,
-                          offset: const Offset(0, 1), // changes position of shadow
+                          offset:
+                              const Offset(0, 1), // changes position of shadow
                         ),
                       ],
                     ),
@@ -935,13 +1227,17 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               MyText(
-                                title: '${state.data?.patient?.fNameEn ?? ''} ${state.data?.patient?.lNameEn ?? ''}',
+                                title:
+                                    '${state.data?.patient?.fNameEn ?? ''} ${state.data?.patient?.lNameEn ?? ''}',
                                 size: 14,
                                 fontWeight: FontWeight.bold,
                               ),
                               const SizedBox(height: 4),
                               MyText(
-                                title: (state.data?.appointments?[index].comments ?? '').isNotEmpty
+                                title: (state.data?.appointments?[index]
+                                                .comments ??
+                                            '')
+                                        .isNotEmpty
                                     ? state.data!.appointments![index].comments!
                                     : 'Scheduled Appointment',
                                 color: MyColors.grey,
@@ -961,7 +1257,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                         ),
                                         const SizedBox(width: 5),
                                         MyText(
-                                          title: DateFormat("E ,d MMM y").format(dateTime),
+                                          title: DateFormat("E ,d MMM y")
+                                              .format(dateTime),
                                           overflow: TextOverflow.ellipsis,
                                           size: 10,
                                           color: MyColors.primary,
@@ -978,7 +1275,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                         ),
                                         const SizedBox(width: 5),
                                         MyText(
-                                          title: DateFormat("hh:mm a").format(dateTime),
+                                          title: DateFormat("hh:mm a")
+                                              .format(dateTime),
                                           size: 10,
                                           overflow: TextOverflow.ellipsis,
                                           color: MyColors.primary,
@@ -1011,14 +1309,54 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
             padding: const EdgeInsets.only(top: 16.0),
             child: Row(
               children: [
-                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
+                if (context
+                                .read<UserCubit>()
+                                .state
+                                .model
+                                .userData![0]
+                                .doctorRoleId
+                                ?.roleNameEn ==
+                            'Surgeon' &&
                         (context.read<UserCubit>().state.model.userData![0].sId ==
-                                SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeonId?.sId ||
-                            context.read<UserCubit>().state.model.userData![0].sId ==
-                                SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId) ||
-                    (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
-                        (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear') ||
-                    (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
+                                SurPatientDetailsData()
+                                    .patientDetailsCubit
+                                    .state
+                                    .data
+                                    ?.patient
+                                    ?.surgeonId
+                                    ?.sId ||
+                            context
+                                    .read<UserCubit>()
+                                    .state
+                                    .model
+                                    .userData![0]
+                                    .sId ==
+                                SurPatientDetailsData()
+                                    .patientDetailsCubit
+                                    .state
+                                    .data
+                                    ?.patient
+                                    ?.surgeon2Id
+                                    ?.sId) ||
+                    (context
+                                .read<UserCubit>()
+                                .state
+                                .model
+                                .userData![0]
+                                .doctorRoleId
+                                ?.roleNameEn ==
+                            'Dietitian' &&
+                        (state.data?.patient?.dietation_feedback_decision ??
+                                '') !=
+                            'Clear') ||
+                    (context
+                                .read<UserCubit>()
+                                .state
+                                .model
+                                .userData![0]
+                                .doctorRoleId
+                                ?.roleNameEn ==
+                            'physiotherapist' &&
                         (state.data?.patient?.feedback ?? '') != 'Clear'))
                   Expanded(
                     child: DefaultButton(
@@ -1026,21 +1364,34 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       onTap: () {
                         showDialog(
                           context: context,
-                          builder: (_) => buildAddAppointmentSheet(patientId: widget.patientId),
+                          builder: (_) => buildAddAppointmentSheet(
+                              patientId: widget.patientId),
                         );
                       },
                     ),
                   ),
-                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
-                    (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear')
+                if (context
+                            .read<UserCubit>()
+                            .state
+                            .model
+                            .userData![0]
+                            .doctorRoleId
+                            ?.roleNameEn ==
+                        'Dietitian' &&
+                    (state.data?.patient?.dietation_feedback_decision ?? '') !=
+                        'Clear')
                   Expanded(
                     child: DefaultButton(
-                      title: (state.data?.patient?.dietation_feedback_decision ?? '').isEmpty
-                          ? "Add Diet Plan"
-                          : 'Edit Diet Plan',
+                      title:
+                          (state.data?.patient?.dietation_feedback_decision ??
+                                      '')
+                                  .isEmpty
+                              ? "Add Diet Plan"
+                              : 'Edit Diet Plan',
                       onTap: () async {
                         await Nav.navigateTo(
-                          DietitionAddPatientDietData(patient: state.data!.patient!),
+                          DietitionAddPatientDietData(
+                              patient: state.data!.patient!),
                           navigatorType: NavigatorType.push,
                         );
                         await showModalBottomSheet(
@@ -1051,9 +1402,12 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                           builder: (BuildContext context) {
                             return ModelBottomSheet(
                               child: StatefulBuilder(
-                                builder: (BuildContext context, StateSetter setState) => SingleChildScrollView(
+                                builder: (BuildContext context,
+                                        StateSetter setState) =>
+                                    SingleChildScrollView(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Center(
                                         child: MyText(
@@ -1099,10 +1453,14 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                         title: "Update",
                                         onTap: () async {
                                           final Map<String, dynamic> body = {
-                                            'dietation_feedback_decision': feedbackStatus,
+                                            'dietation_feedback_decision':
+                                                feedbackStatus,
                                           };
-                                          dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
-                                            name: ApiNames.patientDietation + '?user_id=${state.data!.patient!.id}',
+                                          dynamic data = await GenericHttp<
+                                                  PatientDetailsModel>(context)
+                                              .callApi(
+                                            name: ApiNames.patientDietation +
+                                                '?user_id=${state.data!.patient!.id}',
                                             returnType: ReturnType.Type,
                                             methodType: MethodType.Put,
                                             returnDataFun: (data) => data,
@@ -1111,18 +1469,23 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                           );
                                           if (data != null) {
                                             Navigator.pop(context);
-                                            CustomToast.showSnackBar(context, data["message"]["message_en"]);
-                                            SurPatientDetailsData().getPatientDetails(context, widget.patientId);
+                                            CustomToast.showSnackBar(context,
+                                                data["message"]["message_en"]);
+                                            SurPatientDetailsData()
+                                                .getPatientDetails(
+                                                    context, widget.patientId);
                                           }
                                         },
-                                        margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 40, vertical: 5),
                                       ),
                                       const SizedBox(height: 16.0),
                                     ],
                                   ),
                                 ),
                               ),
-                              sheetHeight: MediaQuery.of(context).size.height * 0.45,
+                              sheetHeight:
+                                  MediaQuery.of(context).size.height * 0.45,
                             );
                           },
                         );
@@ -1131,14 +1494,22 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       },
                     ),
                   ),
-                if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
+                if (context
+                            .read<UserCubit>()
+                            .state
+                            .model
+                            .userData![0]
+                            .doctorRoleId
+                            ?.roleNameEn ==
+                        'physiotherapist' &&
                     (state.data?.patient?.feedback ?? '') != 'Clear')
                   Expanded(
                     child: DefaultButton(
                       title: "Add Physiotherapy Data",
                       onTap: () async {
                         await Nav.navigateTo(
-                          PhysiotherapyAddPatientData(patient: state.data!.patient!),
+                          PhysiotherapyAddPatientData(
+                              patient: state.data!.patient!),
                           navigatorType: NavigatorType.push,
                         );
                         await showModalBottomSheet(
@@ -1149,9 +1520,12 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                           builder: (BuildContext context) {
                             return ModelBottomSheet(
                               child: StatefulBuilder(
-                                builder: (BuildContext context, StateSetter setState) => SingleChildScrollView(
+                                builder: (BuildContext context,
+                                        StateSetter setState) =>
+                                    SingleChildScrollView(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Center(
                                         child: MyText(
@@ -1167,7 +1541,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                         groupValue: physiotherapyFeedbackStatus,
                                         onChanged: (value) {
                                           setState(() {
-                                            physiotherapyFeedbackStatus = value.toString();
+                                            physiotherapyFeedbackStatus =
+                                                value.toString();
                                           });
                                         },
                                       ),
@@ -1177,7 +1552,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                         groupValue: physiotherapyFeedbackStatus,
                                         onChanged: (value) {
                                           setState(() {
-                                            physiotherapyFeedbackStatus = value.toString();
+                                            physiotherapyFeedbackStatus =
+                                                value.toString();
                                           });
                                         },
                                       ),
@@ -1187,10 +1563,15 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                         title: "Update",
                                         onTap: () async {
                                           final Map<String, dynamic> body = {
-                                            'feedback': physiotherapyFeedbackStatus,
+                                            'feedback':
+                                                physiotherapyFeedbackStatus,
                                           };
-                                          dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
-                                            name: ApiNames.patientPhysiotherapy + '?user_id=${state.data!.patient!.id}',
+                                          dynamic data = await GenericHttp<
+                                                  PatientDetailsModel>(context)
+                                              .callApi(
+                                            name: ApiNames
+                                                    .patientPhysiotherapy +
+                                                '?user_id=${state.data!.patient!.id}',
                                             returnType: ReturnType.Type,
                                             methodType: MethodType.Put,
                                             returnDataFun: (data) => data,
@@ -1199,18 +1580,23 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                           );
                                           if (data != null) {
                                             Navigator.pop(context);
-                                            CustomToast.showSnackBar(context, data["message"]["message_en"]);
-                                            SurPatientDetailsData().getPatientDetails(context, widget.patientId);
+                                            CustomToast.showSnackBar(context,
+                                                data["message"]["message_en"]);
+                                            SurPatientDetailsData()
+                                                .getPatientDetails(
+                                                    context, widget.patientId);
                                           }
                                         },
-                                        margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 40, vertical: 5),
                                       ),
                                       const SizedBox(height: 16.0),
                                     ],
                                   ),
                                 ),
                               ),
-                              sheetHeight: MediaQuery.of(context).size.height * 0.35,
+                              sheetHeight:
+                                  MediaQuery.of(context).size.height * 0.35,
                             );
                           },
                         );
@@ -1229,12 +1615,13 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 //       ),
                 //     ),
                 //   ),
+
                 if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept' &&
                     (state.data?.patient?.operationDate ?? '').isNotEmpty)
                   Expanded(
                     child: DefaultButton(
                       title: "Request Instruments",
-                      color: Color(0xff00116E),
+                      // color: Color(0xff00116E),
                       onTap: () => Nav.navigateTo(
                         RequestInstrumentsScreen(patientModel: state.data!),
                         navigatorType: NavigatorType.push,
@@ -1244,8 +1631,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept')
                   Expanded(
                     child: DefaultButton(
-                      title: dateTime == null ? "Book Operation" : "Edit Operation",
-                      onTap: () => SurPatientDetailsData().bookOperation(context),
+                      title: dateTime == null
+                          ? "Book Operation"
+                          : "Edit Operation",
+                      onTap: () =>
+                          SurPatientDetailsData().bookOperation(context),
                     ),
                   ),
               ],
@@ -1287,7 +1677,10 @@ class buildAddAppointmentSheet extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 10),
-            MyText(title: "Appointment Date", size: 12, fontWeight: FontWeight.bold),
+            MyText(
+                title: "Appointment Date",
+                size: 12,
+                fontWeight: FontWeight.bold),
             BlocConsumer<GenericBloc<String?>, GenericState<String?>>(
               bloc: SurPatientDetailsData().dateBloc,
               listener: (context, state) {
@@ -1295,7 +1688,11 @@ class buildAddAppointmentSheet extends StatelessWidget {
               },
               builder: (context, state) {
                 return GenericTextField(
-                  hintColor: Theme.of(context).textTheme.displaySmall?.color?.withOpacity(.8),
+                  hintColor: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.color
+                      ?.withOpacity(.8),
                   fieldTypes: FieldTypes.clickable,
                   fillColor: MyColors.textFields,
                   hint: "Appointment Date",
@@ -1327,7 +1724,11 @@ class buildAddAppointmentSheet extends StatelessWidget {
             // ),
             MyText(title: "Notes", size: 12, fontWeight: FontWeight.bold),
             GenericTextField(
-              hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
+              hintColor: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.color
+                  ?.withOpacity(.8),
               fieldTypes: FieldTypes.normal,
               fillColor: MyColors.textFields,
               hint: "Notes",

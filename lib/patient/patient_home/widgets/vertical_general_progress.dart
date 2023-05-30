@@ -341,8 +341,7 @@ class VerticalGeneralProgress extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Flexible(
-                    flex: 1,
+                  Expanded(
                     child: TimelineTile(
                       axis: TimelineAxis.vertical,
                       alignment: TimelineAlign.start,
@@ -372,8 +371,8 @@ class VerticalGeneralProgress extends StatelessWidget {
                       endChild: Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             MyText(
                               title: "الطب النفسي",
@@ -385,7 +384,7 @@ class VerticalGeneralProgress extends StatelessWidget {
                             ),
                             generalProgress.data?.finalFeedback == 'Clear'
                                 ? const SizedBox():SizedBox(
-                              height: 38,
+                              height: 40,
                               width: 160,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

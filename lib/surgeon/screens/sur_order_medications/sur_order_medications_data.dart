@@ -11,7 +11,7 @@ class SurOrderMedicationsData {
   late GlobalKey<FormState> formKey;
   late TextEditingController patientName;
   late TextEditingController PatientMobileNumber;
-  late TextEditingController Date;
+  late TextEditingController dateController;
   late TextEditingController Medication;
   late TextEditingController search;
   late GenericBloc<String?> dateBloc;
@@ -21,22 +21,24 @@ class SurOrderMedicationsData {
   late PaginationDto<MedicationInfo> paginationDto;
   late GenericBloc<List<MedicationInfo>> medicationCubit;
   late GenericBloc<List<MedicationInfo>> selectedMedicationCubit;
-  late ScrollController scrollController;
+  // late ScrollController scrollController;
 
   List<CompanyId> companies = [];
   late GenericBloc<List<CompanyId>?> companiesCubit;
   late GenericBloc<List<MedicationInfo>> companyMedicationsCubit;
   List<MedicationInfo> medications = [];
   CompanyId? selectedCompany;
+  // late DateTime dateTime;
+  late String curDate;
 
   DateTime startDate = DateTime.now();
 
   void init(BuildContext context) {
-    scrollController = ScrollController();
+    // scrollController = ScrollController();
     formKey = GlobalKey<FormState>();
     patientName = TextEditingController();
     PatientMobileNumber = TextEditingController();
-    Date = TextEditingController();
+    dateController= TextEditingController();
     Medication = TextEditingController();
     search = TextEditingController();
     dateBloc = GenericBloc(null);
@@ -47,12 +49,18 @@ class SurOrderMedicationsData {
 
     fullPatientList = [];
     selectedPatientModel = null;
-    paginationDto = PaginationDto<MedicationInfo>(
-        addedList: [],
-        currentPage: 1,
-        nextPage: false,
-        paginationLoading: GenericBloc<bool>(false),
-        refreshLoading: GenericBloc<bool>(false));
+    // paginationDto = PaginationDto<MedicationInfo>(
+    //     addedList: [],
+    //     currentPage: 1,
+    //     nextPage: false,
+    //     paginationLoading: GenericBloc<bool>(false),
+    //     refreshLoading: GenericBloc<bool>(false));
+
+    startDate = new DateTime.now();
+    curDate = DateFormat("dd/MM/yyyy").format(startDate);
+    dateController.text = curDate;
+    log("dateInIsoFormat==> ${startDate.toIso8601String()}");
+
     this.companiesCubit = GenericBloc<List<CompanyId>?>([]);
     fetchCompanies(context);
   }
@@ -67,6 +75,7 @@ class SurOrderMedicationsData {
 
   Future<void> fetchCompanyMedications(BuildContext context, String companyId) async {
     this.companyMedicationsCubit = GenericBloc<List<MedicationInfo>>([]);
+    this.selectedMedicationCubit = GenericBloc<List<MedicationInfo>>([]);
     CompMedicationsResponse? result = await SurgeonRepository(context).fetchCompanyMedications(companyId);
     List<MedicationInfo> compMedications = result?.medications??[];
     log("compMedications==> ${compMedications.length}");
@@ -96,19 +105,19 @@ class SurOrderMedicationsData {
   }
 
   void _scrollListener(BuildContext context) {
-    scrollController.addListener(() {
-      if (scrollController.offset >=
-              scrollController.position.maxScrollExtent &&
-          !scrollController.position.outOfRange) {
-        final _ = paginationDto;
-        if (_.nextPage != "") {
-          _.paginationLoading.onUpdateData(true);
-          log("paginate ${_.currentPage}");
-          _getListMedication(context,
-              firstTime: false, pageNumber: _.currentPage + 1);
-        }
-      }
-    });
+    // scrollController.addListener(() {
+    //   if (scrollController.offset >=
+    //           scrollController.position.maxScrollExtent &&
+    //       !scrollController.position.outOfRange) {
+    //     final _ = paginationDto;
+    //     if (_.nextPage != "") {
+    //       _.paginationLoading.onUpdateData(true);
+    //       log("paginate ${_.currentPage}");
+    //       _getListMedication(context,
+    //           firstTime: false, pageNumber: _.currentPage + 1);
+    //     }
+    //   }
+    // });
   }
 
   void onChangeCounter({required int index, required bool isAdd}) {
@@ -189,7 +198,7 @@ class SurOrderMedicationsData {
         "company_id": "${selectedCompany?.sId}",
         "patient_id": "${selectedPatientModel?.sId}",
         "mobile_number": "${Utils.convertDigitsToLatin(PatientMobileNumber.text)}",
-        "order_start_date": "${dateBloc.state.data}",
+        "order_start_date": "${startDate.toIso8601String()}",
         "order_status": "routed to company",
         "status": true,
         "medications": medications,
@@ -197,11 +206,16 @@ class SurOrderMedicationsData {
       // var result = await SurgeonRepository(context).requestMedicationOrder(body);
       log("medicationOrderBody==> $body");
       final response = await ApiService.post(ApiNames.requestMedicationOrder, body: body,);
+      InstrumentsOrderResponse medicationsOrderResponse = InstrumentsOrderResponse.fromJson(response.data);
       log("responseData==> ${response.data}");
       DioUtils.dismissDialog();
-      if(response.statusCode==200){
-        navigationKey.currentState!.pop();
+      if(medicationsOrderResponse.code==200){
         CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
+        await SurNotificationsData().createNotification(context, notificationTitle: "Medication Order has been created",
+            notificationMsg: "Medication Order created successfully", orderId: medicationsOrderResponse.orderData?.sId??"",
+            doctorId: medicationsOrderResponse.orderData?.doctorId??"", patientId: medicationsOrderResponse.orderData?.patientId??""
+        );
+        navigationKey.currentState!.pop();
       } else{
         CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
       }
@@ -209,10 +223,10 @@ class SurOrderMedicationsData {
   }
 
   void dispose(BuildContext context) {
-    scrollController.dispose();
+    // scrollController.dispose();
     medicationCubit.close();
     paginationDto.paginationLoading.close();
     paginationDto.refreshLoading.close();
-    scrollController.removeListener(() => _scrollListener(context));
+    // scrollController.removeListener(() => _scrollListener(context));
   }
 }

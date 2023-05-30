@@ -17,7 +17,6 @@ class Utils {
       setCurrentUserData(data, context);
     } else {
       Nav.navigateTo(Login(), navigatorType: NavigatorType.pushAndPopUntil);
-
     }
   }
 
@@ -446,20 +445,24 @@ class Utils {
 
   static String getDate(String createAt){
     DateTime dt = DateTime.parse(createAt);
-    DateFormat formatter = DateFormat('MMM'); // create a formatter to get months 3 character
+    // DateFormat formatter = DateFormat('MMM'); // create a formatter to get months 3 character
+    // String monthAbbr = formatter.format(dt);
+    return "${dt.day}/${dt.month}/${dt.year}";
+  }
 
-    String monthAbbr = formatter.format(dt);
-    return "${dt.day}/$monthAbbr/${dt.year}";
+  String getCurrentData(){
+    final now = new DateTime.now();
+    String currentDate = DateFormat('yMMMd').format(now);
+    return currentDate;
   }
 
   static String getTimeFromStringTimeStamp(String createAt){
     DateTime dt = DateTime.parse(createAt);
     return "${dt.hour}:${dt.minute}";
   }
+}
 
-  static String getCurrentData(){
-    final now = new DateTime.now();
-    String currentDate = DateFormat('yMMMd').format(now);
-    return currentDate;
-  }
+extension StringCasingExtension on String {
+  String toCapitalized() => length > 0 ?'${this[0].toUpperCase()}${substring(1).toLowerCase()}':'';
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(' ');
 }

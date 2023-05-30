@@ -21,24 +21,22 @@ class _ReloadsItemWidgetState extends State<ReloadsItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    log("checked==> ${widget.instrumentModel.checked}");
+    log("checked==> ${widget.instrumentModel.checked??false}");
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Checkbox(
-            value: widget.instrumentModel.checked,
+            value: widget.instrumentModel.checked??false,
             onChanged: (value) {
               setState(() {
                 widget.instrumentModel.checked = value;
               });
               if (value ?? false)
-                requestInstrumentsData.selectedInstrumentsList
-                    .add(widget.instrumentModel);
+                requestInstrumentsData.selectedInstrumentsList.add(widget.instrumentModel);
               else
-                requestInstrumentsData.selectedInstrumentsList
-                    .remove(widget.instrumentModel);
+                requestInstrumentsData.selectedInstrumentsList.remove(widget.instrumentModel);
             },
           ),
           const SizedBox(

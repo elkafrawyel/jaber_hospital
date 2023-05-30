@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../res/res.dart';
+import '../../../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../models/patient_appointment_model.dart';
 import '../../patient_appointments/appointment_details_screen.dart';
 
@@ -64,9 +66,9 @@ class ComingAppointmentWidget extends StatelessWidget {
                             Res.imagesVector,
                             scale: 3,
                           ),
-                          const SizedBox(width: 5),
+                          const SizedBox(width: 2),
                           MyText(
-                            title: appointmentModel.appointmentDate??"",
+                            title: DateFormat("E ,d MMM").format(DateTime.parse(appointmentModel.appointmentDate??"")),
                             overflow: TextOverflow.ellipsis,
                             size: 9,
                             color: MyColors.primary,
@@ -80,9 +82,9 @@ class ComingAppointmentWidget extends StatelessWidget {
                             Res.imagesClockIcon,
                             scale: 3,
                           ),
-                          const SizedBox(width: 5),
+                          const SizedBox(width: 2),
                           MyText(
-                            title: "14:30 PM",
+                            title: DateFormat("hh:mm a").format(DateTime.parse(appointmentModel.appointmentDate??"")),
                             size: 9,
                             overflow: TextOverflow.ellipsis,
                             color: MyColors.primary,

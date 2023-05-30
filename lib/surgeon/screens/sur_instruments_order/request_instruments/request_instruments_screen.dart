@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tf_validator/tf_validator.dart';
 
@@ -13,18 +14,11 @@ import '../../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/DefaultButton.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
-import '../../../../general/utilities/utils_functions/LoadingDialog.dart';
-import '../../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../../general/widgets/GenScaffold.dart';
 import '../../../../general/widgets/app_drop_menu.dart';
-import '../../../../general/widgets/loading_widget.dart';
 import '../../../models/comp_instruments_model.dart';
-import '../../../models/company_instruments_response.dart';
-import '../../../models/instrument_order_model.dart';
 import '../../../models/patient_details_model.dart';
-import '../models/handles_instrument_model.dart';
 import 'request_instruments_data.dart';
-import 'widgets/radio_check_item.dart';
 import 'widgets/reloads_item_widget.dart';
 
 class RequestInstrumentsScreen extends StatefulWidget {
@@ -42,6 +36,8 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
   late TextEditingController dateController= TextEditingController();
 
   String? selectedHandle;
+  late DateTime dateTime;
+  late String curDate;
 
   @override
   void initState() {
@@ -51,6 +47,10 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
         "${widget.patientModel.patient?.lNameEn}");
     phoneController = TextEditingController(text: widget.patientModel.patient?.telephone1??"");
     dateController = TextEditingController(text: widget.patientModel.patient?.mdtDateTime??"");
+    dateTime = new DateTime.now();
+    curDate = DateFormat("dd/MM/yyyy").format(dateTime);
+    dateController.text = curDate;
+    log("dateInIsoFormat==> ${dateTime.toIso8601String()}");
     super.initState();
   }
 
@@ -105,8 +105,7 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                   fontWeight: FontWeight.bold,
                 ),
                 GenericTextField(
-                  hintColor:
-                  Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                  hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
                   fieldTypes: FieldTypes.disable,
                   fillColor: MyColors.textFields,
                   hint: "Date",
@@ -181,7 +180,7 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                             elevation: 3,
                             // Controlling the expansion behavior
                             expansionCallback: (index, isExpanded) {
-                              state.data?[index].isExpanded= !isExpanded;
+                              state.data?[index].isExpanded = !isExpanded;
                               requestInstrumentsData.companyInstrumentsCubit.onUpdateData(state.data);
                             },
                             animationDuration: const Duration(milliseconds: 500),
@@ -236,19 +235,19 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                         "id": item.sId,
                         "quantity":item.quantity,
                       }).toList();
+                      log("date=> ${dateTime.toIso8601String()}");
                       Map<String, dynamic> body = {
                         "doctor_id": widget.patientModel.patient?.surgeonId?.sId??"",
                         "company_id": widget.patientModel.patient?.surgeonId?.sId??"",
                         "patient_id": widget.patientModel.patient?.id??"",
                         "mobile_number": widget.patientModel.patient?.telephone1??"",
-                        "order_start_date": "",
+                        "order_start_date": "${dateTime.toIso8601String()}",
                         "order_status": "routed to company",
                         "status": true,
                         "instruments": instruments,
                       };
-                      log("instruments=> ${jsonEncode(instruments)}");
+                      // log("instruments=> ${jsonEncode(instruments)}");
                       await requestInstrumentsData.requestInstrumentsOrder(context, body);
-                      // Nav.navigateTo(QuestionnaireCompletedScreen(), navigatorType: NavigatorType.push);
                     },
                   ),
                 ],

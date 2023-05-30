@@ -52,7 +52,7 @@ class BuildMedicationItem extends StatelessWidget {
                           ...List.generate(model.medications!.length, (index) => MyText(
                             title: model.medications?[index].medicationName??""+", ",
                             size: 10,
-                            color: MyColors.blackOpacity,
+                            color: Colors.black87,
                           ),)
                         ],
                       ),
@@ -68,7 +68,8 @@ class BuildMedicationItem extends StatelessWidget {
                                 const SizedBox(width: 5),
                                 Expanded(
                                   child: MyText(
-                                    title: model.orderStartDate??'' ,
+                                    // title: Utils.getDate(model.orderStartDate??''),
+                                    title: model.orderStartDate??'',
                                     size: 10,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
@@ -77,20 +78,20 @@ class BuildMedicationItem extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SizedBox(width: 20),
-                          Row(
-                            children: [
-                              Image.asset(Res.imagesTime,
-                                  scale: 2, color: MyColors.primary),
-                              const SizedBox(width: 5),
-                              MyText(
-                                title: "14:30 PM",
-                                size: 10,
-                                color: MyColors.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ],
-                          ),
+                          const SizedBox(width: 16),
+                          // Row(
+                          //   children: [
+                          //     Image.asset(Res.imagesTime,
+                          //         scale: 2, color: MyColors.primary),
+                          //     const SizedBox(width: 5),
+                          //     MyText(
+                          //       title: "14:30 PM",
+                          //       size: 10,
+                          //       color: MyColors.primary,
+                          //       fontWeight: FontWeight.bold,
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ],

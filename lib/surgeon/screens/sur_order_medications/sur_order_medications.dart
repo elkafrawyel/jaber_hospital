@@ -91,37 +91,54 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
                     color: MyColors.black,
                     fontWeight: FontWeight.bold,
                   ),
-                  BlocConsumer<GenericBloc<String?>, GenericState<String?>>(
-                    bloc: SurOrderMedicationsData().dateBloc,
-                    listener: (context, state) {
-                      if (state.data != null) {
-                        SurOrderMedicationsData().Date.text = state.data!;
-                      }
-                    },
-                    builder: (context, state) {
-                      return GenericTextField(
-                        hintColor: Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            ?.color
-                            ?.withOpacity(.8),
-                        fieldTypes: FieldTypes.clickable,
-                        fillColor: MyColors.textFields,
-                        hint: "Date",
-                        controller: SurOrderMedicationsData().Date,
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        action: TextInputAction.next,
-                        type: TextInputType.text,
-                        suffixIcon: Icon(
-                          Icons.calendar_month,
-                          color: MyColors.primary,
-                        ),
-                        onTab: () =>
-                            SurOrderMedicationsData().chooseFromDate(context),
-                        validate: (value) => value!.validateEmpty(context),
-                      );
-                    },
+                  GenericTextField(
+                    hintColor: Theme.of(context)
+                        .textTheme.subtitle1?.color?.withOpacity(.8),
+                    fieldTypes: FieldTypes.disable,
+                    fillColor: MyColors.textFields,
+                    hint: "Date",
+                    controller: surOrderMedicationsData.dateController,
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    action: TextInputAction.next,
+                    type: TextInputType.text,
+                    suffixIcon: Icon(
+                      Icons.calendar_month,
+                      color: MyColors.primary,
+                    ),
+                    onTab: () => surOrderMedicationsData.chooseFromDate(context),
+                    validate: (value) => value!.validateEmpty(context),
                   ),
+                  // BlocConsumer<GenericBloc<String?>, GenericState<String?>>(
+                  //   bloc: SurOrderMedicationsData().dateBloc,
+                  //   listener: (context, state) {
+                  //     if (state.data != null) {
+                  //       SurOrderMedicationsData().Date.text = state.data!;
+                  //     }
+                  //   },
+                  //   builder: (context, state) {
+                  //     return GenericTextField(
+                  //       hintColor: Theme.of(context)
+                  //           .textTheme
+                  //           .subtitle1
+                  //           ?.color
+                  //           ?.withOpacity(.8),
+                  //       fieldTypes: FieldTypes.disable,
+                  //       fillColor: MyColors.textFields,
+                  //       hint: "Date",
+                  //       controller: SurOrderMedicationsData().Date,
+                  //       margin: const EdgeInsets.symmetric(vertical: 10),
+                  //       action: TextInputAction.next,
+                  //       type: TextInputType.text,
+                  //       suffixIcon: Icon(
+                  //         Icons.calendar_month,
+                  //         color: MyColors.primary,
+                  //       ),
+                  //       onTab: () =>
+                  //           SurOrderMedicationsData().chooseFromDate(context),
+                  //       validate: (value) => value!.validateEmpty(context),
+                  //     );
+                  //   },
+                  // ),
                   MyText(
                     title: 'Company',
                     size: 10,
@@ -140,12 +157,10 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
                           surOrderMedicationsData.selectedCompany ?? null,
                           onChanged: (value) {
                             CompanyId company = value as CompanyId;
-                            log("val=> ${company.sId}");
-                            log("val=> ${company.companyNameEn}");
+                            log("name=> ${company.companyNameEn}, ID=> ${company.sId}");
                             surOrderMedicationsData.selectedCompany = company;
                             setState(() {});
-                            surOrderMedicationsData.fetchCompanyMedications(
-                                context, company.sId ?? "");
+                            surOrderMedicationsData.fetchCompanyMedications(context, company.sId ?? "");
                           },
                         );
                       } else {
@@ -180,10 +195,10 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
                     BlocConsumer<GenericBloc<List<MedicationInfo>?>,
                         GenericState<List<MedicationInfo>?>>(
                       // bloc: SurOrderMedicationsData().companyMedicationsCubit,
-                      bloc: SurOrderMedicationsData().selectedMedicationCubit,
+                      bloc: surOrderMedicationsData.selectedMedicationCubit,
                       listener: (context, state) {
                         if (state.data!.isNotEmpty) {
-                          SurOrderMedicationsData().Medication.text = "${state.data?.length} Medications";
+                          surOrderMedicationsData.Medication.text = "${state.data?.length} Medications";
                         }
                       },
                       builder: (context, state) {
@@ -212,8 +227,7 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
                                     context: context,
-                                    builder: (_) =>
-                                        BuildMedicationBottomSheet());
+                                    builder: (_) => BuildMedicationBottomSheet());
                               },
                               validate: (value) =>
                                   value!.validateEmpty(context),
@@ -235,9 +249,7 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       MyText(
-                                        title:
-                                            state.data?[index].medicationName ??
-                                                '',
+                                        title: state.data?[index].medicationName ?? '',
                                         size: 12,
                                         color: MyColors.black,
                                         fontWeight: FontWeight.bold,
@@ -251,13 +263,10 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
                                       ),
                                       InkWell(
                                           onTap: () {
-                                            SurOrderMedicationsData()
-                                                .selectedMedicationCubit
+                                            surOrderMedicationsData.selectedMedicationCubit
                                                 .state.data.remove(state.data?[index]);
-                                            SurOrderMedicationsData()
-                                                .selectedMedicationCubit
-                                                .onUpdateData(
-                                                    SurOrderMedicationsData().selectedMedicationCubit.state.data);
+                                            surOrderMedicationsData.selectedMedicationCubit
+                                                .onUpdateData(surOrderMedicationsData.selectedMedicationCubit.state.data);
                                           },
                                           child: Icon(Icons.close, color: MyColors.primary)),
                                     ],
@@ -272,7 +281,7 @@ class _SurOrderMedicationsState extends State<SurOrderMedications> {
                     DefaultButton(
                       title: "Confirm Request",
                       margin: const EdgeInsets.symmetric(vertical: 28, horizontal: 48),
-                      onTap: ()=> SurOrderMedicationsData().onAddMedication(context),
+                      onTap: ()=> surOrderMedicationsData.onAddMedication(context),
                     ),
                   ],
                 ],

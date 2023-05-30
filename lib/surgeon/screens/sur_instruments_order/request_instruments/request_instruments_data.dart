@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ import '../../../models/comp_instruments_model.dart';
 import '../../../models/companies_response.dart';
 import '../../../models/company_instruments_response.dart';
 import '../../../resources/SurgeonRepoImports.dart';
+import '../../sur_notifications/SurNotificationsImports.dart';
+import '../models/instruments_order_response.dart';
 
 
 class RequestInstrumentsData {
@@ -57,6 +60,7 @@ class RequestInstrumentsData {
 
   Future<void> fetchCompanyInstruments(BuildContext context, String companyId) async {
     this.companyInstrumentsCubit = GenericBloc<List<CompInstrumentsModel>?>([]);
+    compAllInstruments = [];
     selectedInstrumentsList = [];
     CompanyInstrumentsResponse? result = await SurgeonRepository(context).fetchCompanyInstruments(companyId);
     List<InstrumentModel> compInstruments = result?.data??[];
@@ -122,13 +126,17 @@ class RequestInstrumentsData {
 
   Future<void> requestInstrumentsOrder(BuildContext context, Map<String, dynamic> body) async {
       DioUtils.showLoadingDialog();
-      log("instrumentsOrderBody=> $body");
       final response = await ApiService.post(ApiNames.requestInstrumentsOrder, body: body,);
-      log("responseData==> ${response.data}");
+      InstrumentsOrderResponse instrumentsOrderResponse = InstrumentsOrderResponse.fromJson(response.data);
       DioUtils.dismissDialog();
-      if(response.statusCode==200){
+      if(instrumentsOrderResponse.code==200){
+        log("orderId=> ${instrumentsOrderResponse.orderData?.sId??""}");
+        CustomToast.showSnackBar(context, instrumentsOrderResponse.message?.messageEn??"");
+        await SurNotificationsData().createNotification(context, notificationTitle: "Instrument Order has been created",
+            notificationMsg: "Instrument Order created successfully", orderId: instrumentsOrderResponse.orderData?.sId??"",
+          doctorId: instrumentsOrderResponse.orderData?.doctorId??"", patientId: instrumentsOrderResponse.orderData?.patientId??""
+        );
         navigationKey.currentState!.pop();
-        CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
       } else{
         CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
       }

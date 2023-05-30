@@ -12,7 +12,7 @@ class _BuildMedicationBottomSheetState extends State<BuildMedicationBottomSheet>
   SurOrderMedicationsData surOrderMedicationsData = SurOrderMedicationsData();
   @override
   void initState() {
-    surOrderMedicationsData.getMedication(context);
+    // surOrderMedicationsData.getMedication(context);
     super.initState();
   }
 
@@ -38,18 +38,19 @@ class _BuildMedicationBottomSheetState extends State<BuildMedicationBottomSheet>
                 if (state is GenericUpdateState) {
                   if (state.data!.isNotEmpty) {
                     return ListView.builder(
-                        controller: surOrderMedicationsData.scrollController,
+                        // controller: surOrderMedicationsData.scrollController,
                         padding: const EdgeInsets.only(top: 10, bottom: 30),
-                        itemCount: (state.data?.length??0) + 1,
+                        itemCount: state.data?.length??0,
                         itemBuilder: (context, index) {
-                          if (index < (state.data?.length??0)) {
-                            return BuildMedicationItem(index: index);
-                          } else {
-                            return BuildPaginationLoadingIndicator(
-                              paginationLoadingBloc: surOrderMedicationsData.paginationDto
-                                  .paginationLoading,
-                            );
-                          }
+                          return BuildMedicationItem(index: index);
+                          // if (index < (state.data?.length??0)) {
+                          //   return BuildMedicationItem(index: index);
+                          // } else {
+                          //   return BuildPaginationLoadingIndicator(
+                          //     paginationLoadingBloc: surOrderMedicationsData.paginationDto
+                          //         .paginationLoading,
+                          //   );
+                          // }
                         });
                   } else {
                     return Center(
@@ -100,7 +101,6 @@ class BuildMedicationItem extends StatelessWidget {
     return BlocBuilder<GenericBloc<List<MedicationInfo>?>,
         GenericState<List<MedicationInfo>?>>(
       bloc: SurOrderMedicationsData().companyMedicationsCubit,
-      // bloc: SurOrderMedicationsData().medicationCubit,
       builder: (context, state) {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -114,7 +114,7 @@ class BuildMedicationItem extends StatelessWidget {
                 contentPadding: EdgeInsets.zero ,
                 value: state.data?[index].isSelected ?? false,
                 onChanged: (value) {
-                  SurOrderMedicationsData().companyMedicationsCubit.state.data?[index].isSelected = value;
+                  SurOrderMedicationsData().companyMedicationsCubit.state.data[index].isSelected = value;
                   SurOrderMedicationsData().companyMedicationsCubit.onUpdateData(
                       SurOrderMedicationsData().companyMedicationsCubit.state.data);
                 },

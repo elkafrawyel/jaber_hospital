@@ -41,9 +41,6 @@ class _SponsoredByState extends State<SponsoredBy> {
 
   @override
   void initState() {
-    // Future.delayed(Duration(seconds: allValue), () {
-    //   Utils.manipulateSplashData(context);
-    // });
     startTimer();
     super.initState();
   }

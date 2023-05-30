@@ -26,7 +26,7 @@ class PsychologistPatientDetailsData {
   late GenericBloc<QuesAnswerResponse?> patScoreCubit;
   late GlobalKey<FormState> formKey;
   late String patSurgeonId;
-  late DoctorId psychologistId;
+  // late DoctorId psychologistId;
   late bool isReadyPatient;
 
   void init(BuildContext context, {required String patientId}) {

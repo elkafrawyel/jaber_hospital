@@ -9,7 +9,6 @@ import '../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cu
 import '../../general/utilities/tf_custom_widgets/widgets/DefaultButton.dart';
 import '../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../general/utilities/utils_functions/LoadingDialog.dart';
-import '../../general/widgets/GenScaffold.dart';
 import '../models/question_objects.dart';
 import 'questionaire_data.dart';
 import 'widgets/ques_appbar.dart';
@@ -24,6 +23,7 @@ class QuestionnaireCompletedScreen extends StatefulWidget {
 
 class _QuestionnaireCompletedScreenState extends State<QuestionnaireCompletedScreen> {
   QuestionnaireData questionnaireData = QuestionnaireData();
+  ScrollController _scrollController = new ScrollController();
 
   @override
   void initState() {
@@ -50,6 +50,8 @@ class _QuestionnaireCompletedScreenState extends State<QuestionnaireCompletedScr
                     Expanded(
                         child: state.data!.isNotEmpty
                             ? SingleChildScrollView(
+                          controller: _scrollController,
+                          scrollDirection: Axis.vertical,
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             children: List.generate(state.data!.length, (index) =>QuestionItemWidget(
@@ -79,6 +81,7 @@ class _QuestionnaireCompletedScreenState extends State<QuestionnaireCompletedScr
                         int totalPages = questionnaireData.questionnaireResponse?.pageInfo?.total??1;
                         if (page < totalPages) {
                           log('page=> $page, total=> $totalPages');
+                          _scrollController.animateTo(0, duration: Duration(milliseconds: 500),curve: Curves.ease);
                           await questionnaireData.nextPage(context);
                         } else {
                           /// finish it

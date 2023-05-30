@@ -23,4 +23,36 @@ class SurNotificationsData {
     notificationsList = result?.notifications??[];
     notificationsCubit.onUpdateData(result);
   }
+
+  Future<void> createNotification(BuildContext context,
+      {String? notificationTitle,
+      String? notificationMsg,
+      String? patientId,
+      String? doctorId,
+      String? orderId}) async {
+    UserModel user = context.read<UserCubit>().state.model;
+    String userId = user.userData?[0].sId??"";
+    Map<String, dynamic> body = {
+      "status": true,
+      "notifcation_patient_ar": "",
+      "notifcation_doctor_en": notificationTitle,
+      "patient_id": patientId,
+      "doctor_id": doctorId,
+      "order_id": orderId,
+      "appointment_id": "",
+    };
+    UpdateConsentResponse data = await GenericHttp<UpdateConsentResponse>(context).callApi(
+      name: ApiNames.createNotification,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Put,
+      jsonBody: body,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
+    );
+    if (data.success ?? false) {
+      CustomToast.showSimpleToast(msg: data.message?.messageAr ?? "");
+    } else {
+      CustomToast.showSimpleToast(msg: data.message?.messageAr ?? "");
+    }
+  }
 }
