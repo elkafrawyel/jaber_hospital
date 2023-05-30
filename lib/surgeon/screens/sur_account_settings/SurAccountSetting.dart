@@ -20,13 +20,15 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
           Column(
             children: [
               CachedImage(
-                  url: model.userData?[0].image ?? 'https://www.w3schools.com/w3images/avatar6.png',
+                  url: model.userData?[0].image ??
+                      'https://www.w3schools.com/w3images/avatar6.png',
                   height: 100,
                   width: 100,
                   borderRadius: BorderRadius.circular(100)),
               const SizedBox(height: 10),
               MyText(
-                title: '${model.userData?[0].firstNameEn} ${model.userData?[0].lastNameEn}',
+                title:
+                    '${model.userData?[0].firstNameEn} ${model.userData?[0].lastNameEn}',
                 size: 12,
                 fontWeight: FontWeight.bold,
               ),
@@ -41,7 +43,8 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
             height: 20,
           ),
           InkWell(
-            onTap: () => Nav.navigateTo(SurProfile(), navigatorType: NavigatorType.push),
+            onTap: () =>
+                Nav.navigateTo(SurProfile(), navigatorType: NavigatorType.push),
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 10),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -69,7 +72,8 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
             ),
           ),
           GestureDetector(
-            onTap: () => Nav.navigateTo(ChangePassword(userId: ''), navigatorType: NavigatorType.push),
+            onTap: () => Nav.navigateTo(ChangePassword(userId: ''),
+                navigatorType: NavigatorType.push),
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 10),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -96,7 +100,7 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
               ),
             ),
           ),
-          // if(Platform.isIOS)
+          if(Platform.isIOS)
           InkWell(
             onTap: () {
               deleteAccount();
@@ -105,7 +109,10 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Delete Account',
-                style: TextStyle(fontSize: 16, color: Colors.red, decoration: TextDecoration.underline),
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.red,
+                    decoration: TextDecoration.underline),
               ),
             ),
           )
@@ -127,11 +134,7 @@ class _SurAccountSettingState extends State<SurAccountSetting> {
       },
       onConfirmClick: () async {
         Navigator.pop(context);
-        // http://localhost:5000/api/company/123
         dynamic data = await GenericHttp<bool>(context).callApi(
-          // name: 'company/6474d52631cd2da98ca57ee2',
-          // name: 'doctor/6473be04344dbb226a5a2434',
-          // name: 'patient/644952febc59cd34c82a0495',// done
           name: 'doctor/' + context.read<UserCubit>().state.model.userData![0].sId!,
           returnType: ReturnType.Type,
           methodType: MethodType.Delete,

@@ -7,7 +7,7 @@ import Foundation
 
 import device_info_plus_macos
 import geolocator_apple
-import package_info_plus_macos
+import package_info_plus
 import path_provider_foundation
 import pdfx
 import shared_preferences_foundation

@@ -122,7 +122,7 @@ class _SurAccountSettingState extends State<PatientAccountSetting> {
               ),
             ),
           ),
-          // if(Platform.isIOS)
+          if(Platform.isIOS)
             InkWell(
               onTap: () {
                 deleteAccount();
