@@ -350,7 +350,7 @@ class AddPatientSixthPage extends StatelessWidget {
                                               onChanged: (value) {
                                                 if (value!) {
                                                   medCubit.onUpdateData(state.data + list[index]);
-                                                  // log("selected value: ${state.data}");
+                                                  log("selected value: ${state.data}");
                                                   // listt.add(list[index]);
                                                   // log("listt ${listt}");
                                                 } else {
@@ -458,7 +458,13 @@ class AddPatientSixthPage extends StatelessWidget {
             SurAddPatientData().patientDetailsModel?.patient?.fluoroscopyResult ?? '',
             width: 100,
             height: 100,
-            errorBuilder: (e, c, d) => SizedBox(),
+            errorBuilder: (e, c, d) => Center(
+              child: Icon(
+                Icons.error,
+                size: 50,
+                color: Colors.red,
+              ),
+            ),
           ),
         const SizedBox(height: 10),
         MyText(

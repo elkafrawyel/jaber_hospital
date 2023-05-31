@@ -146,14 +146,14 @@ class SurAddPatientData {
     pageController = PageController();
     formKey1 = GlobalKey<FormState>();
     pageCubit = GenericBloc(1);
-    otherNotesDm = TextEditingController(text: patientDetailsModel?.patient?.otherNotes ?? '');
+    otherNotesDm = TextEditingController(text: patientDetailsModel?.patient?.coMorbiditiesOtherNotes ?? '');
     patientGenderCubit = GenericBloc(patientDetailsModel?.patient?.gender == 'female' ? 'female' : 'male');
     patientFNameEn = TextEditingController(text: patientDetailsModel?.patient?.fNameEn ?? '');
     patientLNameEn = TextEditingController(text: patientDetailsModel?.patient?.lNameEn ?? '');
     patientFNameAr = TextEditingController(text: patientDetailsModel?.patient?.fNameAr ?? '');
     patientLNameAr = TextEditingController(text: patientDetailsModel?.patient?.lNameAr ?? '');
     patientId = TextEditingController(text: patientDetailsModel?.patient?.civilId ?? '');
-    patientFileNumber = TextEditingController(text: patientDetailsModel?.patient?.publicId ?? '');
+    patientFileNumber = TextEditingController(text: patientDetailsModel?.patient?.fileId ?? '');
     patientMobile1 = TextEditingController(text: patientDetailsModel?.patient?.telephone1 ?? '');
     patientMobile2 = TextEditingController(text: patientDetailsModel?.patient?.telephone2 ?? '');
     patientEmail = TextEditingController(text: patientDetailsModel?.patient?.email ?? '');
@@ -164,7 +164,20 @@ class SurAddPatientData {
     BMI = TextEditingController(text: patientDetailsModel?.patient?.bmi?.toString() ?? '');
     otherNotes = TextEditingController(text: patientDetailsModel?.patient?.otherNotes?.toString() ?? '');
     refSelectionCubit = GenericBloc(patientDetailsModel?.patient?.reflux ?? false);
-    dmTypeSelectionCubit = GenericBloc(patientDetailsModel?.patient?.dmType ?? false ? 1 : 0);
+    medicationsCubit = GenericBloc((patientDetailsModel?.patient?.refluxMedRegular ?? false)
+        ? 'Regular'
+        : (patientDetailsModel?.patient?.refluxMedOcc ?? false)
+            ? 'Occasional'
+            : (patientDetailsModel?.patient?.refluxMedNone ?? false)
+                ? 'None'
+                : '');
+
+    dmTypeSelectionCubit = GenericBloc(((patientDetailsModel?.patient?.dmTypel ?? false)
+        ? 1
+        : (patientDetailsModel?.patient?.dmTypell ?? false)
+            ? 2
+            : -1));
+    dmSelectCubit = GenericBloc(patientDetailsModel?.patient?.dmType ?? false);
     diagnosisTypesCubit = GenericBloc([]);
     if (patientDetailsModel?.patient?.htn ?? false) {
       diagnosisTypesCubit.state.data.add('HTN');
@@ -193,10 +206,21 @@ class SurAddPatientData {
     if (patientDetailsModel?.patient?.anticoag ?? false) {
       respiratoryDiseaseCubit.state.data.add('Anticoagulants');
     }
-    medicationsCubit = GenericBloc("");
-    smokingHabitsCubit = GenericBloc("");
-    dmSelectCubit = GenericBloc(
-        (patientDetailsModel?.patient?.dmTypel ?? false) ? (patientDetailsModel?.patient?.dmTypell ?? false) : false);
+    smokingHabitsCubit = GenericBloc((patientDetailsModel?.patient?.nonSmoker ?? false)
+        ? 'Non-smoker'
+        : (patientDetailsModel?.patient?.exSmoker ?? false)
+            ? 'Ex:smoker'
+            : (patientDetailsModel?.patient?.occationalSmoker ?? false)
+                ? 'Occasional smoker'
+                : (patientDetailsModel?.patient?.vape ?? false)
+                    ? 'Vape'
+                    : (patientDetailsModel?.patient?.lessThan20Cigg ?? false)
+                        ? 'Less Than 20 cigarettes'
+                        : (patientDetailsModel?.patient?.moreThan20Cigg ?? false)
+                            ? 'More Than 20 cigarettes'
+                            : (patientDetailsModel?.patient?.shisha ?? false)
+                                ? 'Shisha'
+                                : '');
     historyBallonSelectionCubit = GenericBloc(patientDetailsModel?.patient?.historyOfBallon ?? false);
     weightLossFrom = TextEditingController(text: patientDetailsModel?.patient?.ballonWeightLossFrom?.toString() ?? '');
     weightLossTo = TextEditingController(text: patientDetailsModel?.patient?.ballonWeightLossTo?.toString() ?? '');
@@ -205,7 +229,14 @@ class SurAddPatientData {
     historyWeightLossSelectionCubit = GenericBloc(patientDetailsModel?.patient?.historyOfWeightLoss ?? false);
     outcomeResult = TextEditingController(text: patientDetailsModel?.patient?.weightLossOutcomeResult?.toString());
     outcomeDate = TextEditingController(text: patientDetailsModel?.patient?.weightLossOutcomeDate ?? '');
-    medicationTypeCubit = GenericBloc([]);
+    medicationTypeCubit = GenericBloc([
+      if (patientDetailsModel?.patient?.medicationTypeVictoza ?? false) 'Victoza',
+      if (patientDetailsModel?.patient?.medicationTypeSaxenda ?? false) 'Saxenda',
+      if (patientDetailsModel?.patient?.medicationTypeOzempic ?? false) 'Ozempic',
+      if (patientDetailsModel?.patient?.medicationTypeWegovo ?? false) 'Wegovy',
+      if (patientDetailsModel?.patient?.medicationTypeTrulicity ?? false) 'Trulicity',
+      if (patientDetailsModel?.patient?.medicationTypeMounjaro ?? false) 'Mounjaro',
+    ]);
     proceduresSelectionCubit = GenericBloc(false);
     proceduresOutcomeResultCubit = TextEditingController();
     proceduresOutcomeDateCubit = TextEditingController();
@@ -383,7 +414,7 @@ class SurAddPatientData {
   /// #############################  second page  #############################
   void addPatientSecond(BuildContext context) async {
     AddPatientSecondDto model = AddPatientSecondDto(
-      dmType: refSelectionCubit.state.data,
+      dmType: dmSelectCubit.state.data,
       dmTypel: dmTypeSelectionCubit.state.data == 1 ? true : false,
       dmTypell: dmTypeSelectionCubit.state.data == 2 ? true : false,
       htn: diagnosisTypesCubit.state.data.contains("HTN") ? true : false,
@@ -414,6 +445,9 @@ class SurAddPatientData {
   void addPatientThird(BuildContext context) async {
     AddPatientThirdDto model = AddPatientThirdDto(
       reflux: refSelectionCubit.state.data,
+      refluxMedRegular: medicationsCubit.state.data == "Regular",
+      refluxMedOcc: medicationsCubit.state.data == "Occasional",
+      refluxMedNone: medicationsCubit.state.data == "None",
       exSmoker: smokingHabitsCubit.state.data == "Ex-smoker",
       nonSmoker: smokingHabitsCubit.state.data == "Non-smoker",
       lessThan20Cigg: smokingHabitsCubit.state.data == "Less than 20 cigarettes",
@@ -421,9 +455,6 @@ class SurAddPatientData {
       vape: smokingHabitsCubit.state.data == "Vape",
       occationalSmoker: smokingHabitsCubit.state.data == "Occasional smoker",
       shisha: smokingHabitsCubit.state.data == "Shisha",
-      refluxMedRegular: medicationsCubit.state.data == "Regular",
-      refluxMedOcc: medicationsCubit.state.data == "Occasional",
-      refluxMedNone: medicationsCubit.state.data == "None",
     );
     bool result = await SurgeonRepository(context).addPatientThird(
       model: model,
@@ -437,6 +468,11 @@ class SurAddPatientData {
 
   /// #############################  fourth page  ############################
   void addPatientFourth(BuildContext context) async {
+    int? outComeResultNumber = int.tryParse(outcomeResult.text);
+    if(outComeResultNumber==null){
+      CustomToast.showToastNotification('Please Enter valid Outcome Result', color: Colors.red);
+      return;
+    }
     AddPatientFourthDto model = AddPatientFourthDto(
       historyOfBallon: historyBallonSelectionCubit.state.data,
       ballonWeightLossFrom: int.tryParse(weightLossFrom.text),
@@ -444,7 +480,7 @@ class SurAddPatientData {
       ballonDateOfInsertion: insertionDate.text,
       ballonDateOfRemoval: removalDate.text,
       historyOfWeightLoss: historyWeightLossSelectionCubit.state.data,
-      weightLossOutcomeResult: int.tryParse(outcomeResult.text),
+      weightLossOutcomeResult: outComeResultNumber,
       weightLossOutcomeDate: outcomeDate.text,
       medicationTypeOzempic: medicationTypeCubit.state.data.contains("Ozempic"),
       medicationTypeSaxenda: medicationTypeCubit.state.data.contains("Saxenda"),
@@ -638,13 +674,15 @@ class SurAddPatientData {
   }
 
   void onDiscard(BuildContext context) {
-    if (pageCubit.state.data == 0 || currentPatientId.isEmpty) {
-      Navigator.of(context).pop();
-    } else {
-      Nav.navigateTo(
-        SurPatientDetails(patientId: currentPatientId),
-        navigatorType: NavigatorType.push,
-      );
-    }
+    // if (pageCubit.state.data == 0 || currentPatientId.isEmpty) {
+    Navigator.of(context).pop();
+    // } else {
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => SurPatientDetails(patientId: currentPatientId),
+    //     ),
+    //   );
+    // }
   }
 }

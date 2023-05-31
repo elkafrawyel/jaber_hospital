@@ -75,12 +75,14 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 const SizedBox(width: 10),
                 if (showActionButtons)
                   InkWell(
-                    onTap: () {
-                      Nav.navigateTo(
-                          SurAddPatient(
-                            patientDetailsModel: SurPatientDetailsData().patientDetailsCubit.state.data,
-                          ),
-                          navigatorType: NavigatorType.push);
+                    onTap: () async {
+                      await Nav.navigateTo(
+                        SurAddPatient(
+                          patientDetailsModel: SurPatientDetailsData().patientDetailsCubit.state.data,
+                        ),
+                        navigatorType: NavigatorType.push,
+                      );
+                      SurPatientDetailsData().getPatientDetails(context, widget.patientId);
                     },
                     child: Image.asset(Res.imagesAddPatient, scale: 2.5),
                   ),
@@ -202,11 +204,6 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       ),
                               ],
                             ),
-                            MyText(
-                              title: "#${state.data?.patient?.civilId ?? ""}",
-                              size: 12,
-                              color: MyColors.blackOpacity,
-                            ),
                           ],
                         ),
                       ),
@@ -219,12 +216,11 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 2.3,
+                      Expanded(
                         child: Row(
                           children: [
                             Image.asset(Res.imagesPhone, scale: 3),
-                            const SizedBox(width: 10),
+                            const SizedBox(width: 5),
                             MyText(
                               title: state.data?.patient?.telephone1 ?? "-",
                               size: 12,
@@ -232,16 +228,18 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                           ],
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Image.asset(Res.imagesFileIcon, scale: 3),
-                          const SizedBox(width: 10),
-                          MyText(
-                            title: state.data?.patient?.publicId ?? "-",
-                            size: 12,
-                          ),
-                        ],
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Image.asset(Res.imagesFileIcon, scale: 3),
+                            const SizedBox(width: 5),
+                            MyText(
+                              title: state.data?.patient?.fileId ?? "-",
+                              size: 12,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
