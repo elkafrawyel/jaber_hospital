@@ -20,8 +20,16 @@ class _ReloadsItemWidgetState extends State<ReloadsItemWidget> {
   RequestInstrumentsData requestInstrumentsData = RequestInstrumentsData();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    widget.instrumentModel.checked = false;
+    widget.instrumentModel.quantity = 1;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    log("checked==> ${widget.instrumentModel.checked??false}");
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
       child: Row(

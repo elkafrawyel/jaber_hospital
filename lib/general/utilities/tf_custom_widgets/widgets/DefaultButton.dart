@@ -44,7 +44,7 @@ class DefaultButton extends StatelessWidget {
       child: Container(
         width: width ?? MediaQuery.of(context).size.width,
         height: height??45,
-        margin: margin ?? EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        margin: margin ?? EdgeInsets.symmetric(horizontal: 6, vertical: 10),
         child: ElevatedButton(
           onPressed: onTap,
           child: MyText(

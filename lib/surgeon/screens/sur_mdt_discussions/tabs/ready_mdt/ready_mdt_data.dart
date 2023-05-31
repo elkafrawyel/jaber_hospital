@@ -33,6 +33,13 @@ class ReadyMdtData{
     readyCubit.onUpdateData(readyPatients);
   }
 
+  Future<void> fetchMdtAvailableSlots(BuildContext context, String isoDate) async {
+    MdtPatientsResponse? result = await SurgeonRepository(context).fetchMdtAvailableSlots(isoDate);
+    log("patients=> ${result?.patients?.length}");
+    readyPatients = result?.patients??[];
+    readyCubit.onUpdateData(readyPatients);
+  }
+
   Future<void> updateReadyMdtStatus(BuildContext context, String mdtStatus,String patientId) async {
     Map<String, dynamic> body = {
       "mdt_status":"booked",

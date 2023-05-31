@@ -49,20 +49,20 @@ class QuestionnaireResultScreen extends StatelessWidget {
                 color: MyColors.primary,
               ),
               const SizedBox(height: 8),
-              Row(
-                children: [
-                  MyText(
-                    title: 'التقييم:',
-                    size: 14,
-                    color: MyColors.primary,
-                  ),
-                  MyText(
-                    title: 'واضح',
-                    size: 14,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     MyText(
+              //       title: 'التقييم:',
+              //       size: 14,
+              //       color: MyColors.primary,
+              //     ),
+              //     MyText(
+              //       title: 'واضح',
+              //       size: 14,
+              //       color: Colors.black,
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),

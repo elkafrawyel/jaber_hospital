@@ -1616,8 +1616,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 //     ),
                 //   ),
 
-                if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept' &&
-                    (state.data?.patient?.operationDate ?? '').isNotEmpty)
+                // if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept' &&
+                //     (state.data?.patient?.operationDate ?? '').isNotEmpty)
                   Expanded(
                     child: DefaultButton(
                       title: "Request Instruments",

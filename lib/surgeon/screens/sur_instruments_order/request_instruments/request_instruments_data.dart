@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -47,6 +46,7 @@ class RequestInstrumentsData {
 
   void init(BuildContext context) {
     this.companiesCubit = GenericBloc<List<CompanyId>?>([]);
+    selectedInstrumentsList.clear();
     fetchCompanies(context);
   }
 
@@ -61,10 +61,17 @@ class RequestInstrumentsData {
   Future<void> fetchCompanyInstruments(BuildContext context, String companyId) async {
     this.companyInstrumentsCubit = GenericBloc<List<CompInstrumentsModel>?>([]);
     compAllInstruments = [];
-    selectedInstrumentsList = [];
+    selectedInstrumentsList.clear();
+    handles.clear();
+    reloads.clear();
+    trocars.clear();
+    reinforcement.clear();
+    trsReinForced.clear();
+    vesselSealing.clear();
     CompanyInstrumentsResponse? result = await SurgeonRepository(context).fetchCompanyInstruments(companyId);
     List<InstrumentModel> compInstruments = result?.data??[];
     log("compInstruments=> ${compInstruments.length}");
+    log("selectedInstrumentsList=> ${selectedInstrumentsList.length}");
     compInstruments.forEach((element) {
       log("Code=> ${element.code}");
         switch (element.code?.trim()) {
@@ -90,11 +97,6 @@ class RequestInstrumentsData {
         }
     });
     log("Handles=> ${handles.length}");
-    log("Reloads=> ${reloads.length}");
-    log("Trocars=> ${trocars.length}");
-    log("trsReinForced=> ${trsReinForced.length}");
-    log("vesselSealing=> ${vesselSealing.length}");
-    log("reinforcement=> ${reinforcement.length}");
     compAllInstruments.add(CompInstrumentsModel(headerTitle: "Handles", instruments: handles));
     compAllInstruments.add(CompInstrumentsModel(headerTitle: "Reloads", instruments: reloads));
     compAllInstruments.add(CompInstrumentsModel(headerTitle: "Trocars", instruments: trocars));
@@ -131,14 +133,13 @@ class RequestInstrumentsData {
       DioUtils.dismissDialog();
       if(instrumentsOrderResponse.code==200){
         log("orderId=> ${instrumentsOrderResponse.orderData?.sId??""}");
-        CustomToast.showSnackBar(context, instrumentsOrderResponse.message?.messageEn??"");
-        await SurNotificationsData().createNotification(context, notificationTitle: "Instrument Order has been created",
-            notificationMsg: "Instrument Order created successfully", orderId: instrumentsOrderResponse.orderData?.sId??"",
-          doctorId: instrumentsOrderResponse.orderData?.doctorId??"", patientId: instrumentsOrderResponse.orderData?.patientId??""
+        await SurNotificationsData().createNotification(context,
+          orderData: instrumentsOrderResponse.orderData,
         );
         navigationKey.currentState!.pop();
+        CustomToast.showSnackBar(context, instrumentsOrderResponse.message?.messageEn??"");
       } else{
-        CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
+        CustomToast.showSnackBar(context, instrumentsOrderResponse.message?.messageEn??"");
       }
     }
 }

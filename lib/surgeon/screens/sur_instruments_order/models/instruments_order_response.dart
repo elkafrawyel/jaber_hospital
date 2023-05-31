@@ -1,7 +1,7 @@
 class InstrumentsOrderResponse {
   int? code;
   bool? success;
-  Data? orderData;
+  OrderData? orderData;
   Message? message;
 
   InstrumentsOrderResponse({this.code, this.success, this.orderData, this.message});
@@ -9,7 +9,7 @@ class InstrumentsOrderResponse {
   InstrumentsOrderResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     success = json['success'];
-    orderData = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    orderData = json['data'] != null ? OrderData.fromJson(json['data']) : null;
     message =
     json['message'] != null ? new Message.fromJson(json['message']) : null;
   }
@@ -28,7 +28,7 @@ class InstrumentsOrderResponse {
   }
 }
 
-class Data {
+class OrderData {
   String? doctorId;
   String? companyId;
   String? patientId;
@@ -43,7 +43,7 @@ class Data {
   String? updatedAt;
   int? iV;
 
-  Data(
+  OrderData(
       {this.doctorId,
         this.companyId,
         this.patientId,
@@ -58,7 +58,7 @@ class Data {
         this.updatedAt,
         this.iV});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  OrderData.fromJson(Map<String, dynamic> json) {
     doctorId = json['doctor_id'];
     companyId = json['company_id'];
     patientId = json['patient_id'];

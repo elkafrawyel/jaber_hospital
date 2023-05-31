@@ -203,18 +203,16 @@ class SurOrderMedicationsData {
         "status": true,
         "medications": medications,
       };
-      // var result = await SurgeonRepository(context).requestMedicationOrder(body);
       log("medicationOrderBody==> $body");
       final response = await ApiService.post(ApiNames.requestMedicationOrder, body: body,);
       InstrumentsOrderResponse medicationsOrderResponse = InstrumentsOrderResponse.fromJson(response.data);
       log("responseData==> ${response.data}");
       DioUtils.dismissDialog();
       if(medicationsOrderResponse.code==200){
-        CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
-        await SurNotificationsData().createNotification(context, notificationTitle: "Medication Order has been created",
-            notificationMsg: "Medication Order created successfully", orderId: medicationsOrderResponse.orderData?.sId??"",
-            doctorId: medicationsOrderResponse.orderData?.doctorId??"", patientId: medicationsOrderResponse.orderData?.patientId??""
+        await SurNotificationsData().createNotification(context,
+          orderData: medicationsOrderResponse.orderData,
         );
+        CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
         navigationKey.currentState!.pop();
       } else{
         CustomToast.showSnackBar(context, response.data["message"]["message_en"]);

@@ -235,7 +235,6 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                         "id": item.sId,
                         "quantity":item.quantity,
                       }).toList();
-                      log("date=> ${dateTime.toIso8601String()}");
                       Map<String, dynamic> body = {
                         "doctor_id": widget.patientModel.patient?.surgeonId?.sId??"",
                         "company_id": widget.patientModel.patient?.surgeonId?.sId??"",
@@ -246,7 +245,7 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                         "status": true,
                         "instruments": instruments,
                       };
-                      // log("instruments=> ${jsonEncode(instruments)}");
+                      log("body=> ${jsonEncode(body)}");
                       await requestInstrumentsData.requestInstrumentsOrder(context, body);
                     },
                   ),

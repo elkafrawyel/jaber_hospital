@@ -25,34 +25,31 @@ class SurNotificationsData {
   }
 
   Future<void> createNotification(BuildContext context,
-      {String? notificationTitle,
-      String? notificationMsg,
-      String? patientId,
-      String? doctorId,
-      String? orderId}) async {
-    UserModel user = context.read<UserCubit>().state.model;
-    String userId = user.userData?[0].sId??"";
+      {OrderData? orderData}) async {
     Map<String, dynamic> body = {
       "status": true,
+      "notifcation_company_en": "New order number ${orderData?.orderNum} has been created for you by Doctor ZZ",
       "notifcation_patient_ar": "",
-      "notifcation_doctor_en": notificationTitle,
-      "patient_id": patientId,
-      "doctor_id": doctorId,
-      "order_id": orderId,
-      "appointment_id": "",
+      "notifcation_doctor_en": "New order number ${orderData?.orderNum} has been created for you by Doctor ZZ",
+      "company_id": orderData?.companyId??"",
+      "patient_id": orderData?.patientId??"",
+      "doctor_id": orderData?.doctorId??"",
+      "order_id": orderData?.sId??"",
+      "created_date": DateTime.now().toIso8601String(),
+      "is_read": false,
     };
     UpdateConsentResponse data = await GenericHttp<UpdateConsentResponse>(context).callApi(
       name: ApiNames.createNotification,
       returnType: ReturnType.Model,
-      methodType: MethodType.Put,
+      methodType: MethodType.Post,
       jsonBody: body,
       returnDataFun: (data) => data,
       toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
     );
     if (data.success ?? false) {
-      CustomToast.showSimpleToast(msg: data.message?.messageAr ?? "");
+      CustomToast.showSimpleToast(msg: data.message?.messageEn ?? "");
     } else {
-      CustomToast.showSimpleToast(msg: data.message?.messageAr ?? "");
+      CustomToast.showSimpleToast(msg: data.message?.messageEn ?? "");
     }
   }
 }
