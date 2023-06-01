@@ -6,7 +6,7 @@ class AddPatientSixthDto {
   bool? ultrasound_finding_cirrhos;
   bool? ultrasound_finding_others;
   String? ultrasound_finding_others_note;
-  String? fluoroscopy_result;
+  String? other_notes;
   List<PatientLabs>? labs;
 
   AddPatientSixthDto({
@@ -17,7 +17,7 @@ class AddPatientSixthDto {
     this.ultrasound_finding_cirrhos,
     this.ultrasound_finding_others,
     this.ultrasound_finding_others_note,
-    this.fluoroscopy_result,
+    this.other_notes,
     this.labs,
   });
 
@@ -29,7 +29,7 @@ class AddPatientSixthDto {
     ultrasound_finding_cirrhos = json['ultrasound_finding_cirrhos'];
     ultrasound_finding_others = json['ultrasound_finding_others'];
     ultrasound_finding_others_note = json['ultrasound_finding_others_note'];
-    fluoroscopy_result = json['fluoroscopy_result'];
+    other_notes = json['other_notes'];
     if (json['patient_labs'] != null) {
       labs = [];
       json['patient_labs'].forEach((v) {
@@ -47,7 +47,8 @@ class AddPatientSixthDto {
     data['ultrasound_finding_cirrhos'] = this.ultrasound_finding_cirrhos;
     data['ultrasound_finding_others'] = this.ultrasound_finding_others;
     data['ultrasound_finding_others_note'] = this.ultrasound_finding_others_note;
-    data['fluoroscopy_result'] = this.fluoroscopy_result;
+    data['other_notes'] = this.other_notes;
+
     data['patient_labs'] = this.labs;
     if (this.labs != null) {
       data['patient_labs'] = labs?.map((v) => v.toJson()).toList();
@@ -60,13 +61,15 @@ class PatientLabs {
   String? labId;
   bool? status;
   String? result;
+  String? level;
 
-  PatientLabs({this.labId, this.status, this.result});
+  PatientLabs({this.labId, this.status, this.result,this.level});
 
   PatientLabs.fromJson(Map<String, dynamic> json) {
     labId = json['lab_id'];
     status = json['status'];
     result = json['result'];
+    level = json['level'];
   }
 
   Map<String, dynamic> toJson() {
@@ -74,6 +77,7 @@ class PatientLabs {
     data['lab_id'] = this.labId;
     data['status'] = this.status;
     data['result'] = this.result;
+    data['level'] = this.level;
 
     return data;
   }

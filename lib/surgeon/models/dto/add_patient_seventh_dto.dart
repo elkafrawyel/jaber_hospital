@@ -1,7 +1,6 @@
 class AddPatientSeventhDto {
   AddPatientSeventhDto({
     this.egd,
-    this.egdResults,
     this.egdOesophagusGradeType,
     this.egdHiatusHerniaSize,
     this.egdHiatusHerniaSizeCm,
@@ -42,7 +41,6 @@ class AddPatientSeventhDto {
 
   AddPatientSeventhDto.fromJson(dynamic json) {
     egd = json['egd'];
-    egdResults = json['egd_results'];
     egdOesophagusGradeType = json['egd_oesophagus_grade_type'];
     egdHiatusHerniaSize = json['egd_hiatus_hernia_size'];
     egdHiatusHerniaSizeCm = json['egd_hiatus_hernia_size_cm'];
@@ -82,7 +80,6 @@ class AddPatientSeventhDto {
   }
 
   bool? egd;
-  String? egdResults;
   String? egdOesophagusGradeType;
   String? egdHiatusHerniaSize;
   String? egdHiatusHerniaSizeCm;
@@ -123,7 +120,6 @@ class AddPatientSeventhDto {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['egd'] = egd;
-    map['egd_results'] = egdResults;
     map['egd_oesophagus_grade_type'] = egdOesophagusGradeType;
     map['egd_hiatus_hernia_size'] = egdHiatusHerniaSize;
     map['egd_hiatus_hernia_size_cm'] = egdHiatusHerniaSizeCm;

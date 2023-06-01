@@ -95,7 +95,7 @@ class AddPatientFifthPage extends StatelessWidget {
                         ),
                       ),
                       MyText(title: "Surgery Type:", size: 12, fontWeight: FontWeight.bold),
-                      BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                      BlocBuilder<GenericBloc<List<String>>, GenericState<List<String>>>(
                         bloc: SurAddPatientData().surgeryTypeCubit,
                         builder: (context, state) {
                           return Wrap(
@@ -109,10 +109,16 @@ class AddPatientFifthPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Radio(
-                                      value: SurAddPatientData().surgeryTypes[index],
-                                      groupValue: state.data,
-                                      onChanged: (value) => SurAddPatientData().surgeryTypeCubit.onUpdateData(value!),
+                                    Checkbox(
+                                      value: state.data.contains(SurAddPatientData().surgeryTypes[index]),
+                                      onChanged: (value) {
+                                        if (state.data.contains(SurAddPatientData().surgeryTypes[index])) {
+                                          state.data.remove(SurAddPatientData().surgeryTypes[index]);
+                                        } else {
+                                          state.data.add(SurAddPatientData().surgeryTypes[index]);
+                                        }
+                                        SurAddPatientData().surgeryTypeCubit.onUpdateData(state.data);
+                                      },
                                     ),
                                     Expanded(
                                       child: MyText(
@@ -120,30 +126,6 @@ class AddPatientFifthPage extends StatelessWidget {
                                         size: 12,
                                         color: MyColors.black,
                                       ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                          return Wrap(
-                            direction: Axis.horizontal,
-                            children: List.generate(
-                              SurAddPatientData().surgeryTypes.length,
-                              (index) => Padding(
-                                padding: const EdgeInsets.only(right: 20),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Radio(
-                                      value: SurAddPatientData().surgeryTypes[index],
-                                      groupValue: state.data,
-                                      onChanged: (value) => SurAddPatientData().surgeryTypeCubit.onUpdateData(value!),
-                                    ),
-                                    MyText(
-                                      title: SurAddPatientData().surgeryTypes[index],
-                                      size: 12,
-                                      color: MyColors.black,
                                     )
                                   ],
                                 ),

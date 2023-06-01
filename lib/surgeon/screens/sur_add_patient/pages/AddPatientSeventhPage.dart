@@ -119,19 +119,29 @@ class _AddPatientSeventhPageState extends State<AddPatientSeventhPage> {
                                       ],
                                     ),
                                   );
+                                } else if (SurAddPatientData().patientDetailsModel?.patient?.egdResults?.isNotEmpty ??
+                                    false) {
+                                  return Center(
+                                    child: Image.network(
+                                      SurAddPatientData().patientDetailsModel?.patient?.egdResults ?? '',
+                                      width: 100,
+                                      height: 100,
+                                      errorBuilder: (e, c, d) => Center(
+                                        child: Icon(
+                                          Icons.error,
+                                          size: 50,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    ),
+                                  );
                                 } else {
                                   return const SizedBox();
                                 }
                               },
                             ),
                             const Divider(),
-                            if (SurAddPatientData().patientDetailsModel?.patient?.egdResults?.isNotEmpty ?? false)
-                              Image.network(
-                                SurAddPatientData().patientDetailsModel?.patient?.egdResults ?? '',
-                                width: 100,
-                                height: 100,
-                                errorBuilder: (e, c, d) => SizedBox(),
-                              ),
+
                             MyText(
                               title: "Oesophagus:",
                               size: 12,
@@ -829,6 +839,12 @@ class _AddPatientSeventhPageState extends State<AddPatientSeventhPage> {
                                   ],
                                 );
                               },
+                            ),
+                            MyText(
+                              title: "Other",
+                              size: 12,
+                              fontWeight: FontWeight.bold,
+                              color: MyColors.black,
                             ),
                             GenericTextField(
                               hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
