@@ -200,6 +200,7 @@ class Patient {
     this.medicationTypeOzempic,
     this.medicationTypeWegovo,
     this.medicationTypeTrulicity,
+    this.medicationTypeMounjaro,
     this.previousBariatric,
     this.bariatricOutcomeResult,
     this.bariatricOutcomeDate,
@@ -387,6 +388,7 @@ class Patient {
     medicationTypeOzempic = json['medication_type_ozempic'];
     medicationTypeWegovo = json['medication_type_wegovo'];
     medicationTypeTrulicity = json['medication_type_trulicity'];
+    medicationTypeMounjaro = json['medication_type_mounjaro'];
     previousBariatric = json['previous_bariatric'];
     bariatricOutcomeResult = json['bariatric_outcome_result'];
     bariatricOutcomeDate = json['bariatric_outcome_date'];
@@ -573,6 +575,7 @@ class Patient {
   bool? medicationTypeOzempic;
   bool? medicationTypeWegovo;
   bool? medicationTypeTrulicity;
+  bool? medicationTypeMounjaro;
   bool? previousBariatric;
   num? bariatricOutcomeResult;
   String? bariatricOutcomeDate;
@@ -759,6 +762,7 @@ class Patient {
     bool? medicationTypeOzempic,
     bool? medicationTypeWegovo,
     bool? medicationTypeTrulicity,
+    bool? medicationTypeMounjaro,
     bool? previousBariatric,
     num? bariatricOutcomeResult,
     String? bariatricOutcomeDate,
@@ -945,6 +949,7 @@ class Patient {
           medicationTypeOzempic: medicationTypeOzempic ?? this.medicationTypeOzempic,
           medicationTypeWegovo: medicationTypeWegovo ?? this.medicationTypeWegovo,
           medicationTypeTrulicity: medicationTypeTrulicity ?? this.medicationTypeTrulicity,
+        medicationTypeMounjaro: medicationTypeMounjaro ?? this.medicationTypeMounjaro,
           previousBariatric: previousBariatric ?? this.previousBariatric,
           bariatricOutcomeResult: bariatricOutcomeResult ?? this.bariatricOutcomeResult,
           bariatricOutcomeDate: bariatricOutcomeDate ?? this.bariatricOutcomeDate,
@@ -1132,6 +1137,7 @@ class Patient {
     map['medication_type_ozempic'] = medicationTypeOzempic;
     map['medication_type_wegovo'] = medicationTypeWegovo;
     map['medication_type_trulicity'] = medicationTypeTrulicity;
+    map['medication_type_mounjaro'] = medicationTypeMounjaro;
     map['previous_bariatric'] = previousBariatric;
     map['bariatric_outcome_result'] = bariatricOutcomeResult;
     map['bariatric_outcome_date'] = bariatricOutcomeDate;

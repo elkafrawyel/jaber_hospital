@@ -21,7 +21,7 @@ class AddPatientSixthPage extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         GenericTextField(
-          hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+          hintColor: Theme.of(context).textTheme.titleSmall?.color?.withOpacity(.8),
           fieldTypes: FieldTypes.clickable,
           fillColor: MyColors.textFields,
           hint: "Please choose from the list",
@@ -106,21 +106,43 @@ class AddPatientSixthPage extends StatelessWidget {
                                                 Padding(
                                                   padding: const EdgeInsets.symmetric(horizontal: 20),
                                                   child: MyText(
-                                                    title: "${state.data[index].labName} Lab Result:",
+                                                    title: "Result:",
                                                     size: 12,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
                                                 GenericTextField(
                                                   hintColor:
-                                                      Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+                                                      Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
                                                   fieldTypes: FieldTypes.normal,
                                                   fillColor: MyColors.textFields,
-                                                  hint: "Lab Result",
+                                                  hint: "Result",
                                                   controller: state.data[index].resultController,
                                                   margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                                                   action: TextInputAction.next,
-                                                  type: TextInputType.number,
+                                                  type: TextInputType.text,
+                                                  onTab: () {},
+                                                  validate: (value) => value!.validateEmpty(context),
+                                                ),
+                                                SizedBox(height: 5),
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                                  child: MyText(
+                                                    title: "Level:",
+                                                    size: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                GenericTextField(
+                                                  hintColor:
+                                                      Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
+                                                  fieldTypes: FieldTypes.normal,
+                                                  fillColor: MyColors.textFields,
+                                                  hint: "Level",
+                                                  controller: state.data[index].levelController,
+                                                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                                  action: TextInputAction.next,
+                                                  type: TextInputType.text,
                                                   onTab: () {},
                                                   validate: (value) => value!.validateEmpty(context),
                                                 ),
@@ -143,11 +165,12 @@ class AddPatientSixthPage extends StatelessWidget {
                               if (state.data
                                   .any((element) => element.isSelected && element.resultController!.text.isEmpty)) {
                                 CustomToast.showSimpleToast(
-                                    msg:
-                                        "Please fill the fields ${state.data.where((element) => element.isSelected && element.resultController!.text.isEmpty).map(
-                                              (e) => e.labName,
-                                            ).join(", ")}",
-                                    color: Colors.red);
+                                  msg:
+                                      "Please fill the fields ${state.data.where((element) => element.isSelected && element.resultController!.text.isEmpty).map(
+                                            (e) => e.labName,
+                                          ).join(", ")}",
+                                  color: Colors.red,
+                                );
                                 return;
                               }
                               SurAddPatientData()
@@ -175,17 +198,18 @@ class AddPatientSixthPage extends StatelessWidget {
                   (index) => Container(
                         decoration: BoxDecoration(
                             color: Color(0xffD3E0F6),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: MyColors.greyWhite)),
                         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Flexible(
                                 child: MyText(
                                     title:
-                                        "${state.data[index].labName} = ${state.data[index].resultController?.text ?? ''}",
+                                        "${state.data[index].labName}\n   result : ${state.data[index].resultController?.text ?? ''}\n   Level : ${state.data[index].levelController?.text ?? ''}",
                                     size: 12,
                                     fontWeight: FontWeight.bold)),
                             const SizedBox(
@@ -331,36 +355,31 @@ class AddPatientSixthPage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: MyColors.black,
                       ),
-                      BlocBuilder<GenericBloc<String>, GenericState<String>>(
+                      BlocBuilder<GenericBloc<List<String>>, GenericState<List<String>>>(
                         bloc: SurAddPatientData().USFindingsCubit,
                         builder: (context, state) {
-                          var medCubit = SurAddPatientData().USFindingsCubit;
-                          final List<String> list = SurAddPatientData().USFindings;
                           return Wrap(
                             direction: Axis.horizontal,
                             children: List.generate(
-                                list.length,
+                                SurAddPatientData().USFindings.length,
                                 (index) => Container(
                                       width: MediaQuery.of(context).size.width / 3,
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Checkbox(
-                                              value: state.data.contains(list[index]),
-                                              onChanged: (value) {
-                                                if (value!) {
-                                                  medCubit.onUpdateData(state.data + list[index]);
-                                                  // log("selected value: ${state.data}");
-                                                  // listt.add(list[index]);
-                                                  // log("listt ${listt}");
-                                                } else {
-                                                  medCubit.onUpdateData(state.data.replaceAll(list[index], ""));
-                                                  // listt.remove(list[index]);
-                                                  // log("listt removed ${listt}");
-                                                }
-                                              }),
+                                            value: state.data.contains(SurAddPatientData().USFindings[index]),
+                                            onChanged: (value) {
+                                              if (state.data.contains(SurAddPatientData().USFindings[index])) {
+                                                state.data.remove(SurAddPatientData().USFindings[index]);
+                                              } else {
+                                                state.data.add(SurAddPatientData().USFindings[index]);
+                                              }
+                                              SurAddPatientData().USFindingsCubit.onUpdateData(state.data);
+                                            },
+                                          ),
                                           MyText(
-                                            title: list[index],
+                                            title: SurAddPatientData().USFindings[index],
                                             size: 12,
                                             color: MyColors.black,
                                           ),
@@ -385,11 +404,11 @@ class AddPatientSixthPage extends StatelessWidget {
           color: MyColors.black,
         ),
         GenericTextField(
-          hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+          hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
           fieldTypes: FieldTypes.normal,
           fillColor: MyColors.textFields,
           hint: "Please enter other us findings results",
-          controller: SurAddPatientData().significantLabsController,
+          controller: SurAddPatientData().otherUSFindingsController,
           margin: const EdgeInsets.symmetric(vertical: 10),
           action: TextInputAction.next,
           type: TextInputType.text,
@@ -409,7 +428,7 @@ class AddPatientSixthPage extends StatelessWidget {
               fieldTypes: FieldTypes.normal,
               fillColor: MyColors.textFields,
               hint: "Enter or upload Fluoroscopy result",
-              controller: TextEditingController(),
+              controller: SurAddPatientData().FluoroscopyResultController,
               margin: const EdgeInsets.symmetric(vertical: 10),
               action: TextInputAction.next,
               type: TextInputType.text,
@@ -448,18 +467,25 @@ class AddPatientSixthPage extends StatelessWidget {
                   ],
                 ),
               );
+            } else if (SurAddPatientData().patientDetailsModel?.patient?.fluoroscopyResult?.isNotEmpty ?? false) {
+              return Image.network(
+                SurAddPatientData().patientDetailsModel?.patient?.fluoroscopyResult ?? '',
+                width: 100,
+                height: 100,
+                errorBuilder: (e, c, d) => Center(
+                  child: Icon(
+                    Icons.error,
+                    size: 50,
+                    color: Colors.red,
+                  ),
+                ),
+              );
             } else {
-              return const SizedBox();
+              return SizedBox();
             }
           },
         ),
-        if (SurAddPatientData().patientDetailsModel?.patient?.fluoroscopyResult?.isNotEmpty ?? false)
-          Image.network(
-            SurAddPatientData().patientDetailsModel?.patient?.fluoroscopyResult ?? '',
-            width: 100,
-            height: 100,
-            errorBuilder: (e, c, d) => SizedBox(),
-          ),
+
         const SizedBox(height: 10),
         MyText(
           title: "Other notes",
@@ -468,7 +494,7 @@ class AddPatientSixthPage extends StatelessWidget {
           color: MyColors.black,
         ),
         GenericTextField(
-          hintColor: Theme.of(context).textTheme.subtitle1?.color?.withOpacity(.8),
+          hintColor: Theme.of(context).textTheme.titleSmall?.color?.withOpacity(.8),
           fieldTypes: FieldTypes.rich,
           fillColor: MyColors.textFields,
           hint: "Enter or upload Other notes",

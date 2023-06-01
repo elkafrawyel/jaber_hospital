@@ -5,6 +5,7 @@ import '../../../general/utilities/http/dio/http/GenericHttp.dart';
 import '../../../general/utilities/tf_custom_widgets/utils/WidgetUtils.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/utilities/utils_functions/ApiNames.dart';
+import '../../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../../general/widgets/GenScaffold.dart';
 import '../../models/future_operations_response.dart';
 import 'BuildSurOperationsItem.dart';
@@ -20,6 +21,7 @@ class _SurOperationsState extends State<SurOperations> {
   List<FutureOperationModel> futureOperationsList = [];
   List<FutureOperationModel> pastOperationsList = [];
   bool showFutureOperations = true;
+  bool loading = false;
 
   @override
   initState() {
@@ -40,6 +42,9 @@ class _SurOperationsState extends State<SurOperations> {
       setState(() {});
       return;
     }
+    setState(() {
+      loading = true;
+    });
     FutureOperationsResponse data = await GenericHttp<FutureOperationsResponse>(context).callApi(
       name: ApiNames.futureOperations,
       returnType: ReturnType.Model,
@@ -47,7 +52,9 @@ class _SurOperationsState extends State<SurOperations> {
       toJsonFunc: (data) => FutureOperationsResponse.fromJson(data),
     );
     futureOperationsList.addAll(data.data ?? []);
-    setState(() {});
+    setState(() {
+      loading = false;
+    });
   }
 
   getPastOperations() async {
@@ -55,6 +62,9 @@ class _SurOperationsState extends State<SurOperations> {
       setState(() {});
       return;
     }
+    setState(() {
+      loading = true;
+    });
     FutureOperationsResponse data = await GenericHttp<FutureOperationsResponse>(context).callApi(
       name: ApiNames.pastOperations,
       returnType: ReturnType.Model,
@@ -62,7 +72,9 @@ class _SurOperationsState extends State<SurOperations> {
       toJsonFunc: (data) => FutureOperationsResponse.fromJson(data),
     );
     pastOperationsList.addAll(data.data ?? []);
-    setState(() {});
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
@@ -109,13 +121,15 @@ class _SurOperationsState extends State<SurOperations> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              itemCount: showFutureOperations ? futureOperationsList.length : pastOperationsList.length,
-              itemBuilder: (context, index) => BuildSurOperationsItem(
-                operation: showFutureOperations ? futureOperationsList[index] : pastOperationsList[index],
-              ),
-            ),
+            child: loading
+                ? Center(child: LoadingDialog.showLoadingView())
+                : ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    itemCount: showFutureOperations ? futureOperationsList.length : pastOperationsList.length,
+                    itemBuilder: (context, index) => BuildSurOperationsItem(
+                      operation: showFutureOperations ? futureOperationsList[index] : pastOperationsList[index],
+                    ),
+                  ),
           )
         ],
       ),

@@ -94,6 +94,7 @@ class CustomToast{
     final snackBar = SnackBar(
       backgroundColor:backgroundColor,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      duration: Duration(seconds: 1),
       content: MyText(
         title: message,
         color: Colors.white,

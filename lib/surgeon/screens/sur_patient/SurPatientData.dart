@@ -65,7 +65,7 @@ class SurPatientData {
     isLoadingMore.onUpdateData(false);
   }
 
-  void getMyPatientsPre(BuildContext context) async {
+  Future getMyPatientsPre(BuildContext context) async {
     isLoading.onUpdateData(true);
     allPatientPostOpList = await SurgeonRepository(context).getMyPatientPreOp();
     patientsCubit.onUpdateData(allPatientPostOpList);

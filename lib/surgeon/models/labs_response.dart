@@ -113,6 +113,7 @@ class LabModel {
   LabModel({
     this.id,
     this.labName,
+    this.level,
     this.normalRange,
     this.status,
     this.adminCreatedId,
@@ -124,6 +125,7 @@ class LabModel {
   LabModel.fromJson(dynamic json) {
     id = json['_id'];
     labName = json['lab_name'];
+    level = json['level'];
     normalRange = json['normal_range'];
     status = json['status'];
     adminCreatedId = json['admin_created_id'];
@@ -134,6 +136,7 @@ class LabModel {
 
   String? id;
   String? labName;
+  String? level;
   String? normalRange;
   bool? status;
   String? adminCreatedId;
@@ -143,11 +146,13 @@ class LabModel {
 
   bool isSelected = false;
   final TextEditingController? resultController = TextEditingController(text: '');
+  final TextEditingController? levelController = TextEditingController(text: '');
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['_id'] = id;
     map['lab_name'] = labName;
+    map['level'] = level;
     map['normal_range'] = normalRange;
     map['status'] = status;
     map['admin_created_id'] = adminCreatedId;

@@ -63,7 +63,7 @@ class AddPatientFourthDto {
     data['medication_type_ozempic'] = this.medicationTypeOzempic;
     data['medication_type_wegovo'] = this.medicationTypeWegovo;
     data['medication_type_trulicity'] = this.medicationTypeTrulicity;
-    data['medication_type_mounjaroy'] = this.medicationTypeMounjaro;
+    data['medication_type_mounjaro'] = this.medicationTypeMounjaro;
     return data;
   }
 }
