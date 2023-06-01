@@ -28,9 +28,9 @@ class SurNotificationsData {
       {OrderData? orderData}) async {
     Map<String, dynamic> body = {
       "status": true,
-      "notifcation_company_en": "New order number ${orderData?.orderNum} has been created for you by Doctor ZZ",
+      "notifcation_company_en": "New order number ${orderData?.orderNum} has been created for you by Doctor ",
       "notifcation_patient_ar": "",
-      "notifcation_doctor_en": "New order number ${orderData?.orderNum} has been created for you by Doctor ZZ",
+      "notifcation_doctor_en": "New order number ${orderData?.orderNum} has been created for you by Doctor ",
       "company_id": orderData?.companyId??"",
       "patient_id": orderData?.patientId??"",
       "doctor_id": orderData?.doctorId??"",

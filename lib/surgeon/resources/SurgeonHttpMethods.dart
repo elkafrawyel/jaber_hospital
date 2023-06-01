@@ -426,13 +426,13 @@ class SurgeonHttpMethods {
     return data;
   }
 
-  Future<MdtPatientsResponse?> fetchMdtAvailableSlots(String date) async {
-    MdtPatientsResponse data = await GenericHttp<MdtPatientsResponse>(context).callApi(
+  Future<TimeSlotsModelResponse?> fetchMdtAvailableSlots(String date) async {
+    TimeSlotsModelResponse data = await GenericHttp<TimeSlotsModelResponse>(context).callApi(
       name: "${ApiNames.mdtAvailableSlots}?mdt_date_time=$date",
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,
-      toJsonFunc: (json) => MdtPatientsResponse.fromJson(json),
+      toJsonFunc: (json) => TimeSlotsModelResponse.fromJson(json),
     );
     return data;
   }

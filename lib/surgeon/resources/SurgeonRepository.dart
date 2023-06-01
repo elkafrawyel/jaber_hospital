@@ -120,7 +120,7 @@ class SurgeonRepository {
   /// Mdt
   Future<MdtPatientsResponse?> requestMdtPatientsByStatus(String mdtStatus) => _surgeonHttpMethods.fetchMdtPatientsByStatus(mdtStatus);
   Future<MdtPatientsResponse?> fetchMdtReadyPatients() => _surgeonHttpMethods.fetchMdtReadyPatients();
-  Future<MdtPatientsResponse?> fetchMdtAvailableSlots(String date) => _surgeonHttpMethods.fetchMdtAvailableSlots(date);
+  Future<TimeSlotsModelResponse?> fetchMdtAvailableSlots(String date) => _surgeonHttpMethods.fetchMdtAvailableSlots(date);
 
   Future<MdtPatientsResponse?> requestMdtAdminReadyPatients() => _surgeonHttpMethods.fetchMdtAdminReadyPats();
   Future<MdtPatientsResponse?> requestMdtAdminTodayPatients() => _surgeonHttpMethods.fetchMdtAdminTodayPatients();

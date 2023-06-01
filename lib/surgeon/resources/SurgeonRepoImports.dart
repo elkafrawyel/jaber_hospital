@@ -34,6 +34,7 @@ import '../models/patient_details_model.dart';
 import '../models/patient_model.dart';
 import '../models/patient_name_model.dart';
 import '../models/surgeon_home_model.dart';
+import '../models/time_slots_model_response.dart';
 import '../screens/sur_patient/model/all_patient_post_op_response.dart';
 import '../screens/webview_screen.dart';
 

@@ -31,7 +31,7 @@ class BuildNotificationItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyText(
-                  title: notification?.notifcationDoctorEn??"",
+                  title: notification?.notifcationDoctorEn??"" + "${notification?.doctorId?.firstNameEn} ${notification?.doctorId?.lastNameEn}" ,
                   size: 12,
                   color: MyColors.black,
                 ),
@@ -39,7 +39,7 @@ class BuildNotificationItem extends StatelessWidget {
                   height: 5,
                 ),
                 MyText(
-                  title: notification?.createdDate??"13:29 PM",
+                  title: notification?.createdDate??"",
                   size: 10,
                   color: MyColors.primary,
                   fontWeight: FontWeight.bold,
