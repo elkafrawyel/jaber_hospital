@@ -8,9 +8,10 @@ class SurMdtDiscussionsData {
   late GenericBloc<int> decisionTypeCubit;
   late GenericBloc<int> mdtDurationCubit;
   late GenericBloc<int> selectAcceptanceReasonsCubit;
-  late GenericBloc<String> selectBookDateCubit  ;
-  late GenericBloc<int> selectBookTimeCubit  ;
+  late GenericBloc<DateTime> selectBookDateCubit  ;
+  late GenericBloc<String> selectBookTimeCubit  ;
   late GenericBloc<int> selectMDTResultCubit  ;
+  late GenericBloc<List<TimeSlot>> dayTimesCubit  ;
   late TabController  tabController;
   late TextEditingController reason ;
   DateTime next = DateTime.now();
@@ -18,33 +19,35 @@ class SurMdtDiscussionsData {
   String curMonDay = "";
   var monday=1;
 
-  void init (SingleTickerProviderStateMixin ticker){
+  void init (BuildContext context, SingleTickerProviderStateMixin ticker){
     reason = TextEditingController();
     this.decisionTypeCubit = GenericBloc(0);
     selectAcceptanceReasonsCubit = GenericBloc(0);
     this.mdtDurationCubit = GenericBloc(0);
-    this.selectBookTimeCubit = GenericBloc(0);
+    this.selectBookTimeCubit = GenericBloc("");
     this.selectMDTResultCubit = GenericBloc(-1);
+    this.dayTimesCubit = GenericBloc<List<TimeSlot>>([]);
     this.tabController = TabController(length: 3, vsync: ticker);
+    setNextMonday(context);
+  }
+
+  void setNextMonday(BuildContext context)async{
     while(next.weekday!=monday)
     {
       next =next.add(new Duration(days: 1));
     }
     log('Recent monday $next');
     // log("formattedDay==> ${next.day} - ${next.month} - ${next.year}");
-    curMonDay = dateFormat.format(next??DateTime.now());
+    curMonDay = dateFormat.format(next);
     log("formattedDay==> $curMonDay");
-    this.selectBookDateCubit = GenericBloc(curMonDay);
+    this.selectBookDateCubit = GenericBloc(next);
+    await fetchMdtAvailableSlots(context, next.toIso8601String());
   }
 
   void navigateToTimeDialog(int? val , BuildContext context){
     log("mdtDuration==> $val");
     SurMdtDiscussionsData().mdtDurationCubit.onUpdateData(val!);
     navigationKey.currentState?.pop();
-    // showDialog(
-    //     context: context,
-    //     builder: (context) => BuildBookTimesDialog(),
-    // );
   }
 
   void onSelectResult(int?val , BuildContext context, String patientId, int index){
@@ -68,10 +71,10 @@ class SurMdtDiscussionsData {
 
   void getNextMonday(){
     next = next.add(Duration(days: 7));
-    log("next==> $next");
+    log("next==> ${next.toIso8601String()}");
     curMonDay = dateFormat.format(next);
-    log("formattedDay==> $curMonDay");
-    selectBookDateCubit.onUpdateData(curMonDay);
+    // log("formattedDay==> $curMonDay");
+    selectBookDateCubit.onUpdateData(next);
   }
 
   void getPreviousMonday(){
@@ -80,18 +83,25 @@ class SurMdtDiscussionsData {
       {
         nextMonday =nextMonday.add(new Duration(days: 1));
       }
-      log('Recent monday $next');
+      // log('Recent monday $next');
     if(next.difference(nextMonday).inDays > 0){
       next = next.subtract(Duration(days: 7));
-      log("next==> $next");
+      // log("next==> $next");
       curMonDay = dateFormat.format(next);
-      log("formattedDay==> $curMonDay");
-      selectBookDateCubit.onUpdateData(curMonDay);
+      // log("formattedDay==> $curMonDay");
+      selectBookDateCubit.onUpdateData(next);
     }
   }
 
   Future sendMdtPatResult(BuildContext context, Map<String, dynamic> body) async{
     await SurgeonRepository(context).mdtPatientResult(body);
+  }
+
+  Future<void> fetchMdtAvailableSlots(BuildContext context, String isoDate) async {
+    TimeSlotsModelResponse? result = await SurgeonRepository(context).fetchMdtAvailableSlots(isoDate);
+    log("Times==> ${result?.times?.length}");
+    List<TimeSlot> times = result?.times??[];
+    dayTimesCubit.onUpdateData(times);
   }
 }
 

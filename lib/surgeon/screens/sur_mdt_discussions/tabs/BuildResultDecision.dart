@@ -17,7 +17,7 @@ class _BuildResultDecisionState extends State<BuildResultDecision>
   @override
   void initState() {
     // TODO: implement initState
-    surMdtDiscussionsData.init(this);
+    surMdtDiscussionsData.init(context, this);
     decisionMdtData.init(context);
     super.initState();
   }

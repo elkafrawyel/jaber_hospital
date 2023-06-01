@@ -41,10 +41,10 @@ class BuildPatientMDTDurationSheet extends StatelessWidget {
                 onChanged: (val){
                   log("pickedVal=> $val");
                   navigationKey.currentState!.pop();
+                  SurMdtDiscussionsData().setNextMonday(context);
                   showDialog(
                     context: context,
-                    builder: (context) =>
-                        BuildBookTimesDialog(patient: patient, isReady: true),
+                    builder: (context) => BuildBookTimesDialog(patient: patient, isReady: true),
                   );
                 },
                 // onChanged: (val) => SurMdtDiscussionsData().navigateToTimeDialog(val, context),
@@ -57,6 +57,7 @@ class BuildPatientMDTDurationSheet extends StatelessWidget {
                 onChanged: (val){
                   log("pickedVal=> $val");
                   navigationKey.currentState!.pop();
+                  SurMdtDiscussionsData().setNextMonday(context);
                   showDialog(
                     context: context,
                     builder: (context) =>

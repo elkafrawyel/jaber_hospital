@@ -4,20 +4,20 @@ import '../../../../../../../general/utilities/tf_custom_widgets/widgets/CachedI
 import '../../../../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 
 import '../../../../../../models/mdt_patient_model.dart';
+import '../../../../widgets/SurMdtDiscussionsWImports.dart';
 
 class PatientReadyWidget extends StatelessWidget {
-  const PatientReadyWidget({Key? key, required this.patientModel}) : super(key: key);
+  const PatientReadyWidget({Key? key, required this.patientModel})
+      : super(key: key);
   final MdtPatientModel patientModel;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-          horizontal: 20, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-          color: Color(0xfff2f2f2),
-          borderRadius: BorderRadius.circular(15)),
+          color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -26,7 +26,7 @@ class PatientReadyWidget extends StatelessWidget {
             child: Row(
               children: [
                 CachedImage(
-                  url: patientModel.image??'https://picsum.photos/122',
+                  url: patientModel.image ?? 'https://picsum.photos/122',
                   height: 60,
                   width: 60,
                   borderRadius: BorderRadius.circular(10),
@@ -35,14 +35,14 @@ class PatientReadyWidget extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           Expanded(
                             child: MyText(
-                              title: "${patientModel.firstNameEn} ${patientModel.lastNameEn}",
+                              title:
+                                  "${patientModel.firstNameEn} ${patientModel.lastNameEn}",
                               size: 12,
                               fontWeight: FontWeight.bold,
                             ),
@@ -58,7 +58,8 @@ class PatientReadyWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                           MyText(
-                            title: "${patientModel.surgeonId?.firstNameEn} ${patientModel.surgeonId?.lastNameEn}",
+                            title:
+                                "${patientModel.surgeonId?.firstNameEn} ${patientModel.surgeonId?.lastNameEn}",
                             size: 11,
                             color: MyColors.grey,
                           ),
@@ -73,7 +74,8 @@ class PatientReadyWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                           MyText(
-                            title: "${patientModel.dietationId?.firstNameEn} ${patientModel.dietationId?.lastNameEn}",
+                            title:
+                                "${patientModel.dietationId?.firstNameEn} ${patientModel.dietationId?.lastNameEn}",
                             size: 11,
                             color: MyColors.grey,
                           ),
@@ -98,19 +100,18 @@ class PatientReadyWidget extends StatelessWidget {
                 ),
                 Expanded(
                   child: MyText(
-                    title: patientModel.mdtDateTime??"",
+                    title: patientModel.mdtDateTime ?? "",
                     size: 11,
                     color: MyColors.primary,
                   ),
                 ),
                 InkWell(
-                  onTap: () async{
-                    // showDialog(
-                    //   context: context,
-                    //   builder: (context) =>
-                    //       BuildBookTimesDialog(),
-                    // );
-                    // await mdtAdminData.rescheduleMdtPatient(context, state.data?[index].id??"", index);
+                  onTap: () async {
+                    showDialog(
+                      context: context,
+                      builder: (context) =>
+                          BuildBookTimesDialog(patient: patientModel),
+                    );
                   },
                   child: MyText(
                     title: '(Change)',

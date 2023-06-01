@@ -26,7 +26,7 @@ class _MDTAdminState extends State<MdtTodaysPatients>
   void initState() {
     // TODO: implement initState
     mdtAdminData.init(context);
-    surMdtDiscussionsData.init(this);
+    surMdtDiscussionsData.init(context, this);
     super.initState();
   }
 

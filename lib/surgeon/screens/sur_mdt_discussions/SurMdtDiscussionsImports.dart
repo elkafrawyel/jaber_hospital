@@ -10,6 +10,8 @@ import 'package:intl/intl.dart';
 import '../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/widgets/GenScaffold.dart';
+import '../../models/mdt_patients_response.dart';
+import '../../models/time_slots_model_response.dart';
 import '../../resources/SurgeonRepoImports.dart';
 
 part 'SurMdtDiscussions.dart';

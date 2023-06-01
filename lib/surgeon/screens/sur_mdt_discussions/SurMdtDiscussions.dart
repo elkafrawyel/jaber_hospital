@@ -11,7 +11,7 @@ class _SurMdtDiscussionsState extends State<SurMdtDiscussions>with SingleTickerP
 
   @override
   void initState() {
-    SurMdtDiscussionsData().init(this);
+    SurMdtDiscussionsData().init(context, this);
     super.initState();
   }
   @override
