@@ -1,4 +1,4 @@
-name: flutter_build_aab
+name: flutter_build_apk
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - development
 jobs:
   build_upload:
-    name: build_android_abb
+    name: build_android_apk
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
