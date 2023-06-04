@@ -24,11 +24,10 @@ jobs:
       - name: Get Branch Name
         id: branch
         run: echo "::set -output name=branch::${GITHUB_REF##*/}"
-      - name: Clear artifacts
-        uses: kolpav/purge-artifacts-action@v1
+      - name: Remove artifacts
+        uses: c-hive/gha-remove-artifacts@v1.2.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          expire-in: 1hr
+          age: '1 week' # '<number> <unit>', e.g. 5 days, 2 years, 90 seconds, parsed by Moment.js
       - run: flutter --version
       - run: flutter pub get
 #      - run: flutter build appbundle
