@@ -95,7 +95,7 @@ class AddPatientFifthPage extends StatelessWidget {
                         ),
                       ),
                       MyText(title: "Surgery Type:", size: 12, fontWeight: FontWeight.bold),
-                      BlocBuilder<GenericBloc<List<String>>, GenericState<List<String>>>(
+                      BlocBuilder<GenericBloc<String>, GenericState<String>>(
                         bloc: SurAddPatientData().surgeryTypeCubit,
                         builder: (context, state) {
                           return Wrap(
@@ -109,17 +109,22 @@ class AddPatientFifthPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Checkbox(
-                                      value: state.data.contains(SurAddPatientData().surgeryTypes[index]),
-                                      onChanged: (value) {
-                                        if (state.data.contains(SurAddPatientData().surgeryTypes[index])) {
-                                          state.data.remove(SurAddPatientData().surgeryTypes[index]);
-                                        } else {
-                                          state.data.add(SurAddPatientData().surgeryTypes[index]);
-                                        }
-                                        SurAddPatientData().surgeryTypeCubit.onUpdateData(state.data);
-                                      },
+                                    Radio(
+                                      value: SurAddPatientData().surgeryTypes[index],
+                                      groupValue: state.data,
+                                      onChanged: (value) => SurAddPatientData().surgeryTypeCubit.onUpdateData(value!),
                                     ),
+                                    // Checkbox(
+                                    //   value: state.data.contains(SurAddPatientData().surgeryTypes[index]),
+                                    //   onChanged: (value) {
+                                    //     if (state.data.contains(SurAddPatientData().surgeryTypes[index])) {
+                                    //       state.data.remove(SurAddPatientData().surgeryTypes[index]);
+                                    //     } else {
+                                    //       state.data.add(SurAddPatientData().surgeryTypes[index]);
+                                    //     }
+                                    //     SurAddPatientData().surgeryTypeCubit.onUpdateData(state.data);
+                                    //   },
+                                    // ),
                                     Expanded(
                                       child: MyText(
                                         title: SurAddPatientData().surgeryTypes[index],

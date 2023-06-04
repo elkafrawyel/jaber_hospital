@@ -130,7 +130,7 @@ class AddPatientThirdPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: MyColors.primary,
           ),
-          BlocBuilder<GenericBloc<String>, GenericState<String>>(
+          BlocBuilder<GenericBloc<List<String>>, GenericState<List<String>>>(
             bloc: SurAddPatientData().smokingHabitsCubit,
             builder: (context, state) {
               return Wrap(
@@ -144,10 +144,16 @@ class AddPatientThirdPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Radio(
-                          value: SurAddPatientData().smokingHabits[index],
-                          groupValue: state.data,
-                          onChanged: (value) => SurAddPatientData().smokingHabitsCubit.onUpdateData(value!),
+                        Checkbox(
+                          value: state.data.contains(SurAddPatientData().smokingHabits[index]),
+                          onChanged: (value) {
+                            if (state.data.contains(SurAddPatientData().smokingHabits[index])) {
+                              state.data.remove(SurAddPatientData().smokingHabits[index]);
+                            } else {
+                              state.data.add(SurAddPatientData().smokingHabits[index]);
+                            }
+                            SurAddPatientData().smokingHabitsCubit.onUpdateData(state.data);
+                          },
                         ),
                         Expanded(
                           child: MyText(

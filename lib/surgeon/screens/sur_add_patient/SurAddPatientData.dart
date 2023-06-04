@@ -47,7 +47,7 @@ class SurAddPatientData {
   /// third page
   late GenericBloc<bool> refSelectionCubit;
   late GenericBloc<String> medicationsCubit;
-  late GenericBloc<String> smokingHabitsCubit;
+  late GenericBloc<List<String>> smokingHabitsCubit;
 
   List<String> get medications => AddPatientDTOInfo.Medications;
 
@@ -68,7 +68,7 @@ class SurAddPatientData {
 
   /// fifth page
   late GenericBloc<bool> proceduresSelectionCubit;
-  late GenericBloc<List<String>> surgeryTypeCubit;
+  late GenericBloc<String> surgeryTypeCubit;
   late TextEditingController proceduresOutcomeResultCubit;
   late TextEditingController proceduresOutcomeDateCubit;
 
@@ -206,21 +206,16 @@ class SurAddPatientData {
     if (patientDetailsModel?.patient?.anticoag ?? false) {
       respiratoryDiseaseCubit.state.data.add('Anticoagulants');
     }
-    smokingHabitsCubit = GenericBloc((patientDetailsModel?.patient?.nonSmoker ?? false)
-        ? 'Non-smoker'
-        : (patientDetailsModel?.patient?.exSmoker ?? false)
-            ? 'Ex:smoker'
-            : (patientDetailsModel?.patient?.occationalSmoker ?? false)
-                ? 'Occasional smoker'
-                : (patientDetailsModel?.patient?.vape ?? false)
-                    ? 'Vape'
-                    : (patientDetailsModel?.patient?.lessThan20Cigg ?? false)
-                        ? 'Less Than 20 cigarettes'
-                        : (patientDetailsModel?.patient?.moreThan20Cigg ?? false)
-                            ? 'More Than 20 cigarettes'
-                            : (patientDetailsModel?.patient?.shisha ?? false)
-                                ? 'Shisha'
-                                : '');
+    smokingHabitsCubit = GenericBloc([
+      if (patientDetailsModel?.patient?.nonSmoker ?? false) 'Non-smoker',
+      if (patientDetailsModel?.patient?.exSmoker ?? false) 'Ex-smoker',
+      if (patientDetailsModel?.patient?.occationalSmoker ?? false) 'Occasional smoker',
+      if (patientDetailsModel?.patient?.vape ?? false) 'Vape',
+      if (patientDetailsModel?.patient?.lessThan20Cigg ?? false) 'Less than 20 cigarettes',
+      if (patientDetailsModel?.patient?.moreThan20Cigg ?? false) 'More than 20 cigarettes',
+      if (patientDetailsModel?.patient?.shisha ?? false) 'Shisha',
+    ]);
+
     historyBallonSelectionCubit = GenericBloc(patientDetailsModel?.patient?.historyOfBallon ?? false);
     weightLossFrom = TextEditingController(text: patientDetailsModel?.patient?.ballonWeightLossFrom?.toString() ?? '');
     weightLossTo = TextEditingController(text: patientDetailsModel?.patient?.ballonWeightLossTo?.toString() ?? '');
@@ -244,15 +239,21 @@ class SurAddPatientData {
     proceduresOutcomeDateCubit = TextEditingController(
       text: patientDetailsModel?.patient?.bariatricOutcomeDate?.toString() ?? '',
     );
-    surgeryTypeCubit = GenericBloc([
-      if (patientDetailsModel?.patient?.surgeryTypeLsg ?? false) 'LSG',
-      if (patientDetailsModel?.patient?.surgeryTypeLagb ?? false) 'LAGB',
-      if (patientDetailsModel?.patient?.surgeryTypePilication ?? false) 'Pilcation',
-      if (patientDetailsModel?.patient?.surgeryTypeRygbp ?? false) 'RYGBP',
-      if (patientDetailsModel?.patient?.surgeryTypeMgbp ?? false) 'MGBP',
-      if (patientDetailsModel?.patient?.surgeryTypeSadiS ?? false) 'SADI-S',
-      if (patientDetailsModel?.patient?.surgeryTypeSadiS ?? false) 'SASI',
-    ]);
+    surgeryTypeCubit = GenericBloc((patientDetailsModel?.patient?.surgeryTypeLsg ?? false)
+        ? 'LSG'
+        : (patientDetailsModel?.patient?.surgeryTypeLagb ?? false)
+            ? 'LAGB'
+            : (patientDetailsModel?.patient?.surgeryTypePilication ?? false)
+                ? 'Pilcation'
+                : (patientDetailsModel?.patient?.surgeryTypeRygbp ?? false)
+                    ? 'RYGBP'
+                    : (patientDetailsModel?.patient?.surgeryTypeMgbp ?? false)
+                        ? 'MGBP'
+                        : (patientDetailsModel?.patient?.surgeryTypeSadiS ?? false)
+                            ? 'SADI-S'
+                            : (patientDetailsModel?.patient?.surgeryTypeSasi ?? false)
+                                ? 'SASI'
+                                : '');
     significantLabsController = TextEditingController();
     labsCubit = GenericBloc([]);
 
@@ -497,13 +498,13 @@ class SurAddPatientData {
       refluxMedRegular: medicationsCubit.state.data == "Regular",
       refluxMedOcc: medicationsCubit.state.data == "Occasional",
       refluxMedNone: medicationsCubit.state.data == "None",
-      exSmoker: smokingHabitsCubit.state.data == "Ex-smoker",
-      nonSmoker: smokingHabitsCubit.state.data == "Non-smoker",
-      lessThan20Cigg: smokingHabitsCubit.state.data == "Less than 20 cigarettes",
-      moreThan20Cigg: smokingHabitsCubit.state.data == "More than 20 cigarettes",
-      vape: smokingHabitsCubit.state.data == "Vape",
-      occationalSmoker: smokingHabitsCubit.state.data == "Occasional smoker",
-      shisha: smokingHabitsCubit.state.data == "Shisha",
+      exSmoker: smokingHabitsCubit.state.data.indexOf("Ex-smoker") != -1,
+      nonSmoker: smokingHabitsCubit.state.data.indexOf("Non-smoker") != -1,
+      lessThan20Cigg: smokingHabitsCubit.state.data.indexOf("Less than 20 cigarettes") != -1,
+      moreThan20Cigg: smokingHabitsCubit.state.data.indexOf("More than 20 cigarettes") != -1,
+      vape: smokingHabitsCubit.state.data.indexOf("Vape") != -1,
+      occationalSmoker: smokingHabitsCubit.state.data.indexOf("Occasional smoker") != -1,
+      shisha: smokingHabitsCubit.state.data.indexOf("Shisha") != -1,
     );
     bool result = await SurgeonRepository(context).addPatientThird(
       model: model,
@@ -555,13 +556,13 @@ class SurAddPatientData {
       previousBariatric: proceduresSelectionCubit.state.data,
       bariatricOutcomeResult: int.tryParse(proceduresOutcomeResultCubit.text),
       bariatricOutcomeDate: proceduresOutcomeDateCubit.text,
-      surgeryTypeLsg: surgeryTypeCubit.state.data.indexOf('LSG') != -1,
-      surgeryTypeLagb: surgeryTypeCubit.state.data.indexOf('LAGB') != -1,
-      surgeryTypePilication: surgeryTypeCubit.state.data.indexOf('Pilcation') != -1,
-      surgeryTypeRygbp: surgeryTypeCubit.state.data.indexOf('RYGBP') != -1,
-      surgeryTypeMgbp: surgeryTypeCubit.state.data.indexOf('MGBP') != -1,
-      surgeryTypeSadiS: surgeryTypeCubit.state.data.indexOf('SADI-S') != -1,
-      surgeryTypeSasi: surgeryTypeCubit.state.data.indexOf('SASI') != -1,
+      surgeryTypeLsg: surgeryTypeCubit.state.data == ('LSG'),
+      surgeryTypeLagb: surgeryTypeCubit.state.data == ('LAGB'),
+      surgeryTypePilication: surgeryTypeCubit.state.data == ('Pilcation'),
+      surgeryTypeRygbp: surgeryTypeCubit.state.data == ('RYGBP'),
+      surgeryTypeMgbp: surgeryTypeCubit.state.data == ('MGBP'),
+      surgeryTypeSadiS: surgeryTypeCubit.state.data == ('SADI-S'),
+      surgeryTypeSasi: surgeryTypeCubit.state.data == ('SASI'),
     );
     bool result = await SurgeonRepository(context).addPatientFifth(
       model: model,
