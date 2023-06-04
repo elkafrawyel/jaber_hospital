@@ -24,9 +24,14 @@ jobs:
       - name: Get Branch Name
         id: branch
         run: echo "::set -output name=branch::${GITHUB_REF##*/}"
+      - name: Clear artifacts
+        uses: kolpav/purge-artifacts-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          expire-in: 1hr
       - run: flutter --version
       - run: flutter pub get
-      - run: flutter build appbundle
+#      - run: flutter build appbundle
 #      - uses: actions/upload-artifact@v3.1.2
 #        with:
 #          name: release_aab_${{ github.run_number }}
