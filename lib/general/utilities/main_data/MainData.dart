@@ -10,7 +10,7 @@ class MainData {
     backgroundColor: Colors.white,
     primarySwatch: Colors.grey,
     focusColor: MyColors.primary,
-    accentColor: MyColors.primary,
+    // accentColor: MyColors.primary,
     primaryColor: MyColors.primary,
     appBarTheme: AppBarTheme(
       color: MyColors.primary,
@@ -28,7 +28,7 @@ class MainData {
     backgroundColor: Colors.black,
     primarySwatch: Colors.grey,
     focusColor: MyColors.white,
-    accentColor: MyColors.white,
+    // accentColor: MyColors.white,
     primaryColor: Colors.black,
     primaryColorDark: Colors.black,
     appBarTheme: AppBarTheme(

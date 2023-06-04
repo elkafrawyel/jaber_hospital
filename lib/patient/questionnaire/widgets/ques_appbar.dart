@@ -9,7 +9,7 @@ import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 
 
-class BuildQuesAppBar extends StatelessWidget with PreferredSizeWidget {
+class BuildQuesAppBar extends StatelessWidget implements PreferredSizeWidget {
   QuestionnaireData? questionnaireData;
   BuildQuesAppBar({Key? key, required this.questionnaireData}) : super(key: key);
 

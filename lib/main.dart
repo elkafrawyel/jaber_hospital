@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:base_flutter/general/blocks/lang_cubit/lang_cubit.dart';
 import 'package:base_flutter/general/blocks/theme_cubit/theme_cubit.dart';
 import 'package:device_preview/device_preview.dart';

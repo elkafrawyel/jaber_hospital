@@ -35,7 +35,7 @@ class AdaptivePicker {
         height: 300,
         theme: ThemeData.light().copyWith(
           primaryColor: MyColors.primary,
-          accentColor: MyColors.black,
+          // accentColor: MyColors.black,
           backgroundColor: MyColors.white,
           buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
         )).then(onConfirm);
@@ -123,7 +123,7 @@ class AdaptivePicker {
       context: context,
       theme: ThemeData(
         primaryColor: MyColors.primary,
-        accentColor: MyColors.black,
+        // accentColor: MyColors.black,
         backgroundColor: MyColors.white,
         buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
       ),

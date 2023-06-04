@@ -1,7 +1,7 @@
 part  of'SurHomePatientWImports.dart';
 
 
-class BuildAppBarSearch extends StatelessWidget with PreferredSizeWidget {
+class BuildAppBarSearch extends StatelessWidget implements PreferredSizeWidget {
   const BuildAppBarSearch({
     Key? key,
   }) : super(key: key);

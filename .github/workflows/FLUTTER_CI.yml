@@ -17,6 +17,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
+          version: '3.10.3'
       - name: Get Today Date
         id: date
         run: echo "::set -output name=TODAY::$(date +'%Y-%m-%d')"

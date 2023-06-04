@@ -1,6 +1,6 @@
 part of 'SurAddPatientWImports.dart';
 
-class BuildAddPatientAppBar extends StatelessWidget with PreferredSizeWidget {
+class BuildAddPatientAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool editing;
 
   const BuildAddPatientAppBar({Key? key, required this.editing}) : super(key: key);

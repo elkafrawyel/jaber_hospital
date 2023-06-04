@@ -122,7 +122,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
     return Theme(
       data: ThemeData(
         unselectedWidgetColor: widget.unselectedColor ?? Colors.black54,
-        accentColor: widget.selectedColor ?? Theme.of(context).primaryColor,
+        // accentColor: widget.selectedColor ?? Theme.of(context).primaryColor,
       ),
       child: CheckboxListTile(
         checkColor: widget.checkColor,
