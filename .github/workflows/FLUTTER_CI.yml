@@ -31,9 +31,11 @@ jobs:
 #        with:
 #          name: release_aab_${{ github.run_number }}
 #          path: build/app/outputs/bundle/release/app-release.aab
+#           retention-days: 10
       - run: flutter build apk
       - uses: actions/upload-artifact@v1
         with:
           name: release_apk_${{ github.run_number }}
           path: build/app/outputs/apk/release/app-release.apk
+          retention-days: 10
 
