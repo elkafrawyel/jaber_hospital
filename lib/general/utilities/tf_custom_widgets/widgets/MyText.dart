@@ -16,6 +16,7 @@ class MyText extends StatelessWidget {
   final TextDecoration? decoration;
   final TextOverflow? overflow;
   final FontWeight? fontWeight;
+  final int? maxLines;
 
   MyText(
       {required this.title,
@@ -27,6 +28,7 @@ class MyText extends StatelessWidget {
       this.letterSpace,
       this.wordSpace,
       this.overflow,
+      this.maxLines = 5,
       this.fontWeight});
 
   @override
@@ -37,7 +39,7 @@ class MyText extends StatelessWidget {
       "$title",
       textAlign: alien ?? TextAlign.start,
       textScaleFactor: 1.2,
-      maxLines: 5,
+      maxLines: maxLines,
       style: TextStyle(
           color:color?? Theme.of(context).textTheme.subtitle1?.color,
           fontSize: size??16,

@@ -48,13 +48,30 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MyText(
-                        title: "Order #${ordersModel.orderNum}",
-                        size: 12,
-                        color: MyColors.black,
-                        fontWeight: FontWeight.bold,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          MyText(
+                            title: "Order #${ordersModel.orderNum}",
+                            size: 12,
+                            color: MyColors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          const SizedBox(width: 16,),
+                          Expanded(
+                            child: MyText(
+                              title: '${ordersModel.patientId?.firstNameEn?? ''} ${ordersModel.patientId?.lastNameEn?? ''}',
+                              size: 12,
+                              color: MyColors.primary,
+                              fontWeight: FontWeight.bold,
+                              alien: TextAlign.end,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 8),
                       Wrap(
                         children: [
                           ...List.generate(ordersModel.instruments!.length, (index) => MyText(

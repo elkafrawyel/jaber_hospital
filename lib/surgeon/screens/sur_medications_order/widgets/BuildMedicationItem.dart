@@ -40,13 +40,30 @@ class BuildMedicationItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MyText(
-                        title: "Order #${model.orderNum}",
-                        size: 12,
-                        color: MyColors.black,
-                        fontWeight: FontWeight.bold,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          MyText(
+                            title: "Order #${model.orderNum}",
+                            size: 12,
+                            color: MyColors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          const SizedBox(width: 16,),
+                          Expanded(
+                            child: MyText(
+                              title: '${model.patientId?.firstNameEn?? ''} ${model.patientId?.lastNameEn?? ''}',
+                              size: 12,
+                              color: MyColors.primary,
+                              fontWeight: FontWeight.bold,
+                              alien: TextAlign.end,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 8),
                       Wrap(
                         children: [
                           ...List.generate(model.medications!.length, (index) => MyText(
@@ -68,8 +85,8 @@ class BuildMedicationItem extends StatelessWidget {
                                 const SizedBox(width: 5),
                                 Expanded(
                                   child: MyText(
-                                    // title: Utils.getDate(model.orderStartDate??''),
-                                    title: model.orderStartDate??'',
+                                    title: Utils.getDate(model.orderStartDate??''),
+                                    // title: model.orderStartDate??'',
                                     size: 10,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
@@ -79,19 +96,6 @@ class BuildMedicationItem extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 16),
-                          // Row(
-                          //   children: [
-                          //     Image.asset(Res.imagesTime,
-                          //         scale: 2, color: MyColors.primary),
-                          //     const SizedBox(width: 5),
-                          //     MyText(
-                          //       title: "14:30 PM",
-                          //       size: 10,
-                          //       color: MyColors.primary,
-                          //       fontWeight: FontWeight.bold,
-                          //     ),
-                          //   ],
-                          // ),
                         ],
                       ),
                     ],
