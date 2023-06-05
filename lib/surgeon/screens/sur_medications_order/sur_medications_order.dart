@@ -63,6 +63,7 @@ class _SurMedicationOrderState extends State<SurMedicationOrder>
             DefaultButton(
               title: "Order Medications",
               onTap: () =>Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
+              // onTap: () =>Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
               margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
             ),
           ],

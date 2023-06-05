@@ -89,11 +89,6 @@ class VerticalGeneralProgress extends StatelessWidget {
                                   : Colors.red,
                               fontWeight: FontWeight.bold,
                             ),
-                            // MyText(
-                            //   title: "تم الإنهاء في ${generalProgress.data?.}",
-                            //   size: 9,
-                            //   color: MyColors.black,
-                            // ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -101,9 +96,9 @@ class VerticalGeneralProgress extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     CircleAvatar(
-                                      backgroundColor: MyColors.primary,
+                                      backgroundColor: generalProgress.data?.surgionVisit == true? MyColors.primary: Colors.red,
                                       radius: 9.0,
-                                      child: Icon(Icons.check,
+                                      child: Icon(generalProgress.data?.surgionVisit == true? Icons.check : Icons.close,
                                           color: Colors.white, size: 14),
                                     ),
                                     const SizedBox(width: 4),
@@ -114,9 +109,9 @@ class VerticalGeneralProgress extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     CircleAvatar(
-                                      backgroundColor: MyColors.primary,
+                                      backgroundColor: generalProgress.data?.egd == true? MyColors.primary: Colors.red,
                                       radius: 9.0,
-                                      child: Icon(Icons.check,
+                                      child: Icon(generalProgress.data?.egd == true? Icons.check : Icons.close,
                                           color: Colors.white, size: 14),
                                     ),
                                     const SizedBox(width: 4),
@@ -127,9 +122,9 @@ class VerticalGeneralProgress extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     CircleAvatar(
-                                      backgroundColor: MyColors.primary,
+                                      backgroundColor: generalProgress.data?.ultrasound == true? MyColors.primary: Colors.red,
                                       radius: 9.0,
-                                      child: Icon(Icons.check,
+                                      child: Icon(generalProgress.data?.ultrasound == true? Icons.check : Icons.close,
                                           color: Colors.white, size: 14),
                                     ),
                                     const SizedBox(width: 4),

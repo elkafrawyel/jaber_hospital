@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
@@ -77,17 +78,39 @@ class VisitsItemWidget extends StatelessWidget {
                           ),
                           const SizedBox(width: 10),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Image.asset(
-                                Res.imagesClockIcon,
-                                scale: 3,
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.asset(
+                                    Res.imagesVector,
+                                    scale: 3,
+                                  ),
+                                  const SizedBox(width: 2),
+                                  MyText(
+                                    title: DateFormat("E ,d MMM").format(DateTime.parse(appointmentModel.appointmentDate??"")),
+                                    overflow: TextOverflow.ellipsis,
+                                    size: 9,
+                                    color: MyColors.primary,
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: 5),
-                              MyText(
-                                title: "14:30 PM",
-                                size: 9,
-                                overflow: TextOverflow.ellipsis,
-                                color: MyColors.primary,
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.asset(
+                                    Res.imagesClockIcon,
+                                    scale: 3,
+                                  ),
+                                  const SizedBox(width: 2),
+                                  MyText(
+                                    title: DateFormat("hh:mm a").format(DateTime.parse(appointmentModel.appointmentDate??"")),
+                                    size: 9,
+                                    overflow: TextOverflow.ellipsis,
+                                    color: MyColors.primary,
+                                  ),
+                                ],
                               ),
                             ],
                           ),

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import '../../../general/MyApp.dart';
 import '../../../general/constants/MyColors.dart';
+import '../../../general/utilities/utils_functions/UtilsImports.dart';
 
 part 'sur_medication_request_details.dart';
 part 'sur_medication_request_details_data.dart';

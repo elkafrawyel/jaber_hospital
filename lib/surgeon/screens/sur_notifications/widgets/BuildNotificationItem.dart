@@ -8,6 +8,7 @@ class BuildNotificationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("${notification?.doctorId?.firstNameEn} ${notification?.doctorId?.lastNameEn}");
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -31,7 +32,7 @@ class BuildNotificationItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyText(
-                  title: notification?.notifcationDoctorEn??"" + "${notification?.doctorId?.firstNameEn} ${notification?.doctorId?.lastNameEn}" ,
+                  title: "${notification?.notifcationDoctorEn}",
                   size: 12,
                   color: MyColors.black,
                 ),
@@ -39,7 +40,7 @@ class BuildNotificationItem extends StatelessWidget {
                   height: 5,
                 ),
                 MyText(
-                  title: notification?.createdDate??"",
+                  title: Utils.getDate(notification?.createdDate??""),
                   size: 10,
                   color: MyColors.primary,
                   fontWeight: FontWeight.bold,

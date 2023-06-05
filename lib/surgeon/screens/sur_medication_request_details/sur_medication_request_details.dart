@@ -54,126 +54,162 @@ class _SurMedicationRequestDetailsState
         body: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           children: [
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    MyText(
-                      title: "Patient Name: ",
-                      size: 12,
-                      color: MyColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: "${model.patientId?.firstNameEn} ${model.patientId?.lastNameEn}",
-                      size: 12,
-                      color: MyColors.blackOpacity,
-                    ),
-                  ],
+                MyText(
+                  title: "Patient Name: ",
+                  size: 12,
+                  color: MyColors.black,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(
-                      title: "Patient Mobile Number: ",
-                      size: 12,
-                      color: MyColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: model.patientId?.mobile ?? "",
-                      size: 12,
-                      color: MyColors.blackOpacity,
-                    ),
-                  ],
+                MyText(
+                  title: "${model.patientId?.firstNameEn} ${model.patientId?.lastNameEn}",
+                  size: 12,
+                  color: MyColors.blackOpacity,
                 ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(
-                      title: "Date: ",
-                      size: 12,
-                      color: MyColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: model.orderStartDate ?? "Not Available",
-                      size: 12,
-                      color: MyColors.blackOpacity,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(
-                      title: "Medication: ",
-                      size: 12,
-                      color: MyColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: model.notes ?? "Not Available",
-                      size: 12,
-                      color: MyColors.blackOpacity,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(
-                      title: "Quantity: ",
-                      size: 12,
-                      color: MyColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: "${model.medicationsDetails?.length ?? 0}",
-                      size: 12,
-                      color: MyColors.blackOpacity,
-                    ),
-                  ],
-                ),
-                if (model.orderStatus != "completed")
-                  DefaultButton(
-                    title: "Cancel Order",
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) => GeneralAlertDialog(
-                                alertButtonType: AlertButtonType.dueButton,
-                                alertTextType: AlertContentType.title,
-                                alertImageType: AlertImageType.noImg,
-                                headTitle: "Are you sure you want to cancel ?",
-                                rightButtonTitle: "Yes",
-                                leftButtonTitle: "No",
-                                onTapLeftButton: () {
-                                  navigationKey.currentState!.pop();
-                                },
-                                onTapRightButton: () async {
-                                  bool result = await surMedicationsOrderData.cancelOrder(context, orderId: model.sId.toString(),);
-                                  if (result) {
-                                    log("index=> ${widget.index}");
-                                    surMedicationsOrderData
-                                        .medicationsOrdersCubit.state.data
-                                        .removeAt(widget.index);
-                                    surMedicationsOrderData
-                                        .medicationsOrdersCubit
-                                        .onUpdateData(surMedicationsOrderData
-                                            .medicationsOrdersCubit.state.data);
-                                  }
-                                },
-                              ));
-                    },
-                    borderColor: Colors.red,
-                    color: Colors.white,
-                    textColor: Colors.red,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 100, vertical: 20),
-                  )
               ],
-            )
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                MyText(
+                  title: "Patient Mobile Number: ",
+                  size: 12,
+                  color: MyColors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                MyText(
+                  title: model.patientId?.mobile ?? "",
+                  size: 12,
+                  color: MyColors.blackOpacity,
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                MyText(
+                  title: "Date: ",
+                  size: 12,
+                  color: MyColors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                MyText(
+                  title: Utils.getDate(model.orderStartDate ?? ""),
+                  size: 12,
+                  color: MyColors.blackOpacity,
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                MyText(
+                  title: "Company: ",
+                  size: 12,
+                  color: MyColors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                MyText(
+                  title: model.companyId?.companyNameEn ?? "",
+                  size: 12,
+                  color: MyColors.blackOpacity,
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            MyText(
+              title: "Medication: ",
+              size: 12,
+              color: MyColors.black,
+              fontWeight: FontWeight.bold,
+              alien: TextAlign.start,
+            ),
+            const SizedBox(height: 4,),
+            Wrap(
+              children: model.medications!.map((e) =>
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: MyText(
+                            title: "${e.medicationName}",
+                            size: 12,
+                            color: Colors.black87,
+                            maxLines: 2,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        MyText(
+                          title: "(${e.description}), ",
+                          size: 10,
+                          color: MyColors.grey,
+                        )
+                      ],
+                    ),
+                    Divider(),
+                  ],)).toList(),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                MyText(
+                  title: "Quantity: ",
+                  size: 12,
+                  color: MyColors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                MyText(
+                  title: "${model.medicationsDetails?.length ?? 0}",
+                  size: 12,
+                  color: MyColors.blackOpacity,
+                ),
+              ],
+            ),
+            if (model.orderStatus != "completed")
+              DefaultButton(
+                title: "Cancel Order",
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => GeneralAlertDialog(
+                            alertButtonType: AlertButtonType.dueButton,
+                            alertTextType: AlertContentType.title,
+                            alertImageType: AlertImageType.noImg,
+                            headTitle: "Are you sure you want to cancel ?",
+                            rightButtonTitle: "Yes",
+                            leftButtonTitle: "No",
+                            onTapLeftButton: () {
+                              navigationKey.currentState!.pop();
+                            },
+                            onTapRightButton: () async {
+                              bool result = await surMedicationsOrderData.cancelOrder(context, orderId: model.sId.toString(),);
+                              if (result) {
+                                log("index=> ${widget.index}");
+                                surMedicationsOrderData
+                                    .medicationsOrdersCubit.state.data
+                                    .removeAt(widget.index);
+                                surMedicationsOrderData
+                                    .medicationsOrdersCubit
+                                    .onUpdateData(surMedicationsOrderData
+                                        .medicationsOrdersCubit.state.data);
+                              }
+                            },
+                          ));
+                },
+                borderColor: Colors.red,
+                color: Colors.white,
+                textColor: Colors.red,
+                margin: const EdgeInsets.symmetric(
+                    horizontal: 100, vertical: 20),
+              )
           ],
         ));
   }

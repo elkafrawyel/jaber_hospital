@@ -53,14 +53,6 @@ class OrderItemWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       MyText(title: 'Order# ${order.orderNum}', size: 13, fontWeight: FontWeight.bold),
-                      // Container(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
-                      //   decoration: BoxDecoration(
-                      //     color: MyColors.primaryLightBg,
-                      //     borderRadius: BorderRadius.all(Radius.circular(6.0)),
-                      //   ),
-                      //   child: MyText(title: 'Medication', size: 11),
-                      // ),
                     ],
                   ),
                   const SizedBox(height: 4),

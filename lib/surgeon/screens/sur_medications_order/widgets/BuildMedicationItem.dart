@@ -43,23 +43,23 @@ class BuildMedicationItem extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Expanded(
+                            child: MyText(
+                              title: '${model.patientId?.firstNameEn??''} ${model.patientId?.lastNameEn??''}',
+                              size: 14,
+                              color: MyColors.primary,
+                              fontWeight: FontWeight.bold,
+                              alien: TextAlign.start,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(width: 16,),
                           MyText(
                             title: "Order #${model.orderNum}",
                             size: 12,
                             color: MyColors.black,
                             fontWeight: FontWeight.bold,
-                          ),
-                          const SizedBox(width: 16,),
-                          Expanded(
-                            child: MyText(
-                              title: '${model.patientId?.firstNameEn?? ''} ${model.patientId?.lastNameEn?? ''}',
-                              size: 12,
-                              color: MyColors.primary,
-                              fontWeight: FontWeight.bold,
-                              alien: TextAlign.end,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
                           ),
                         ],
                       ),

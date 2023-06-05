@@ -1,3 +1,4 @@
+import 'package:base_flutter/general/utilities/utils_functions/UtilsImports.dart';
 import 'package:base_flutter/patient/models/patient_appointment_model.dart';
 import 'package:flutter/material.dart';
 
@@ -72,27 +73,11 @@ class AppointmentDetailsScreen extends StatelessWidget {
                             Res.imagesVector,
                             scale: 3,
                           ),
-                          const SizedBox(width: 5),
+                          const SizedBox(width: 4),
                           MyText(
-                            title: appointmentModel.appointmentDate??"",
+                            title: Utils.getDate(appointmentModel.appointmentDate??""),
                             overflow: TextOverflow.ellipsis,
                             size: 9,
-                            color: MyColors.primary,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 30),
-                      Row(
-                        children: [
-                          Image.asset(
-                            Res.imagesClockIcon,
-                            scale: 3,
-                          ),
-                          const SizedBox(width: 5),
-                          MyText(
-                            title: "14:30 PM",
-                            size: 9,
-                            overflow: TextOverflow.ellipsis,
                             color: MyColors.primary,
                           ),
                         ],

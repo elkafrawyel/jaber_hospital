@@ -107,7 +107,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 ],
               ),
             ),
-            if (widget.orderModel.orderStatus == "roundedToCompany")...[
+            if (widget.orderModel.orderStatus == "routed to company")...[
               DefaultButton(title: "Respond to Order", onTap: () {
                 // UpdateAccountData().saveCompProfile(context);
                 showModalBottomSheet(

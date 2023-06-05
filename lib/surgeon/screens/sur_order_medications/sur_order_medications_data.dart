@@ -213,7 +213,8 @@ class SurOrderMedicationsData {
           orderData: medicationsOrderResponse.orderData,
         );
         CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
-        navigationKey.currentState!.pop();
+        // navigationKey.currentState!.pop();
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SurMedicationOrder()));
       } else{
         CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
       }

@@ -6,6 +6,7 @@ import '../../../general/MyApp.dart';
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/DefaultButton.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
+import '../../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../../general/widgets/GenScaffold.dart';
 import '../../../general/widgets/GeneralAlertDialog.dart';
 import '../../models/instrument_order_model.dart';
@@ -90,7 +91,7 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: widget.instrumentOrderModel.patientId?.mobile ?? "Not Available",
+                      title: widget.instrumentOrderModel.patientId?.mobile ?? "",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -106,7 +107,23 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: widget.instrumentOrderModel.orderStartDate ?? "Not Available",
+                      title: Utils.getDate(widget.instrumentOrderModel.orderStartDate ?? ""),
+                      size: 12,
+                      color: MyColors.blackOpacity,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    MyText(
+                      title: "Company: ",
+                      size: 12,
+                      color: MyColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    MyText(
+                      title: widget.instrumentOrderModel.companyId?.companyNameEn ?? "",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),

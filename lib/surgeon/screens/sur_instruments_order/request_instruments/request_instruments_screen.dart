@@ -132,8 +132,7 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                         selectedItem: requestInstrumentsData.selectedCompany??null,
                         onChanged: (value) {
                           CompanyId company = value as CompanyId;
-                          log("val=> ${company.sId}");
-                          log("val=> ${company.companyNameEn}");
+                          log("compId==> ${company.sId}, compName==> ${company.companyNameEn}");
                           requestInstrumentsData.selectedCompany = company;
                           setState(() {});
                           requestInstrumentsData.fetchCompanyInstruments(context, company.sId??"");
@@ -223,31 +222,33 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                       }
                     },
                   ),
-                  DefaultButton(
-                    title: "Confirm Request",
-                    onTap: () async{
-                      if(requestInstrumentsData.selectedInstrumentsList.isEmpty){
-                        CustomToast.showSnackBar(context, "Please select instruments first!", backgroundColor: Colors.redAccent);
-                        return;
-                      }
-                      List<dynamic> instruments = requestInstrumentsData.selectedInstrumentsList
-                          .map((item) => {
-                        "id": item.sId,
-                        "quantity":item.quantity,
-                      }).toList();
-                      Map<String, dynamic> body = {
-                        "doctor_id": widget.patientModel.patient?.surgeonId?.sId??"",
-                        "company_id": widget.patientModel.patient?.surgeonId?.sId??"",
-                        "patient_id": widget.patientModel.patient?.id??"",
-                        "mobile_number": widget.patientModel.patient?.telephone1??"",
-                        "order_start_date": "${dateTime.toIso8601String()}",
-                        "order_status": "routed to company",
-                        "status": true,
-                        "instruments": instruments,
-                      };
-                      log("body=> ${jsonEncode(body)}");
-                      await requestInstrumentsData.requestInstrumentsOrder(context, body);
-                    },
+                  Center(
+                    child: DefaultButton(
+                      title: "Confirm Request",
+                      onTap: () async{
+                        if(requestInstrumentsData.selectedInstrumentsList.isEmpty){
+                          CustomToast.showSnackBar(context, "Please select instruments first!", backgroundColor: Colors.redAccent);
+                          return;
+                        }
+                        List<dynamic> instruments = requestInstrumentsData.selectedInstrumentsList
+                            .map((item) => {
+                          "id": item.sId,
+                          "quantity":item.quantity,
+                        }).toList();
+                        Map<String, dynamic> body = {
+                          "doctor_id": widget.patientModel.patient?.surgeonId?.sId??"",
+                          "company_id": requestInstrumentsData.selectedCompany?.sId??"",
+                          "patient_id": widget.patientModel.patient?.id??"",
+                          "mobile_number": widget.patientModel.patient?.telephone1??"",
+                          "order_start_date": "${dateTime.toIso8601String()}",
+                          "order_status": "routed to company",
+                          "status": true,
+                          "instruments": instruments,
+                        };
+                        log("body=> ${jsonEncode(body)}");
+                        await requestInstrumentsData.requestInstrumentsOrder(context, body);
+                      },
+                    ),
                   ),
                 ],
               ],

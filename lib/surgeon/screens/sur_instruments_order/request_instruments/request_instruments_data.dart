@@ -37,6 +37,9 @@ class RequestInstrumentsData {
   List<InstrumentModel> trsReinForced = [];
   List<InstrumentModel> reinforcement = [];
   List<InstrumentModel> vesselSealing = [];
+  List<InstrumentModel> access = [];
+  List<InstrumentModel> stapling = [];
+  List<InstrumentModel> energy = [];
   late TextEditingController nameController;
   late TextEditingController mobileController;
   String? selectedDate;
@@ -94,14 +97,25 @@ class RequestInstrumentsData {
           case "Vessel Sealing":
             vesselSealing.add(element);
             break;
+          case "ACCESS":
+            access.add(element);
+            break;
+          case "STAPLING":
+            stapling.add(element);
+            break;
+          case "ENERGY":
+            energy.add(element);
+            break;
         }
     });
-    log("Handles=> ${handles.length}");
     compAllInstruments.add(CompInstrumentsModel(headerTitle: "Handles", instruments: handles));
     compAllInstruments.add(CompInstrumentsModel(headerTitle: "Reloads", instruments: reloads));
     compAllInstruments.add(CompInstrumentsModel(headerTitle: "Trocars", instruments: trocars));
     compAllInstruments.add(CompInstrumentsModel(headerTitle: "Reinforcement", instruments: reinforcement));
     compAllInstruments.add(CompInstrumentsModel(headerTitle: "Vessel Sealing", instruments: vesselSealing));
+    compAllInstruments.add(CompInstrumentsModel(headerTitle: "Access", instruments: access));
+    compAllInstruments.add(CompInstrumentsModel(headerTitle: "Energy", instruments: energy));
+    compAllInstruments.add(CompInstrumentsModel(headerTitle: "Stapling", instruments: stapling));
     log("compAllInstruments==> ${compAllInstruments.length}");
     companyInstrumentsCubit.onUpdateData(compAllInstruments);
   }
