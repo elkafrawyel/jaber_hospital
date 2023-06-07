@@ -5,8 +5,8 @@ import '../../../../../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
-import '../../../comp_instruments_orders/widgets/order_widget.dart';
-import '../../../models/orders_response.dart';
+import '../../../models/order_model.dart';
+import '../../widgets/medication_order_widget.dart';
 import 'inProgress_orders_data.dart';
 
 class InProgressMedicationOrders extends StatefulWidget {
@@ -29,8 +29,8 @@ class _InProgressOrdersState extends State<InProgressMedicationOrders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<GenericBloc<OrdersResponse?>,
-          GenericState<OrdersResponse?>>(
+      body: BlocBuilder<GenericBloc<List<OrderModel>?>,
+          GenericState<List<OrderModel>?>>(
         bloc: ordersData.inProgressOrdersCubit,
         builder: (context, state) {
           if (state is GenericUpdateState) {
@@ -53,7 +53,7 @@ class _InProgressOrdersState extends State<InProgressMedicationOrders> {
                     scrollDirection: Axis.vertical,
                     physics: const BouncingScrollPhysics(),
                     itemCount: ordersData.inProgressOrders?.length ?? 0,
-                    itemBuilder: (context, index) => OrderItemWidget(
+                    itemBuilder: (context, index) => MedicationOrderWidget(
                       index: index,
                       order: ordersData.inProgressOrders![index],
                     ),

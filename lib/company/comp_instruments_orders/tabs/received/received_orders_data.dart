@@ -25,9 +25,9 @@ class ReceivedOrdersData{
 
   Future<void> fetchCompanyOrders(BuildContext context) async {
     receivedOrders = [];
-    OrdersResponse? result = await CompanyRepository(context).getCompInstrumentsOrders();
+    OrdersResponse? result = await CompanyRepository(context).getCompInstrumentsRoutedOrders();
     result?.orders?.forEach((element) {
-      if(element.orderStatus == "roundedToCompany"){
+      if(element.orderStatus == "routed to company"){
         receivedOrders?.add(element);
       }
     });

@@ -4,6 +4,7 @@ import 'package:base_flutter/company/resources/CompanyRepository.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
+import '../../../models/comp_home_orders_response.dart';
 import '../../../models/order_model.dart';
 import '../../../models/orders_response.dart';
 
@@ -12,26 +13,21 @@ class InProgressOrdersData{
   static final InProgressOrdersData _instance = InProgressOrdersData._();
   factory InProgressOrdersData() => _instance;
 
-  late GenericBloc<OrdersResponse?> inProgressOrdersCubit;
+  late GenericBloc<List<OrderModel>?> inProgressOrdersCubit;
   late GenericBloc<bool> loadingHome;
   List<OrderModel>? inProgressOrders = [];
 
 
   void init(BuildContext context) {
-    this.inProgressOrdersCubit = GenericBloc<OrdersResponse?>(null);
+    this.inProgressOrdersCubit = GenericBloc<List<OrderModel>?>([]);
     fetchCompInProgressOrders(context);
   }
 
   Future<void> fetchCompInProgressOrders(BuildContext context) async {
     inProgressOrders= [];
-    OrdersResponse? result = await CompanyRepository(context).getCompMedicationOrders();
-    result?.orders?.forEach((element) {
-    if(element.orderStatus == "inprogress"){
-        inProgressOrders?.add(element);
-      }
-    });
-    log("orders=> ${result?.orders?.length}");
+    CompOrdersResponse? result = await  CompanyRepository(context).getCompHomeOrders();
+    inProgressOrders = result?.data?.companyOrdersInProgress??[];
     log("inProgressOrders=> ${inProgressOrders?.length}");
-    inProgressOrdersCubit.onUpdateData(result);
+    inProgressOrdersCubit.onUpdateData(inProgressOrders);
   }
 }

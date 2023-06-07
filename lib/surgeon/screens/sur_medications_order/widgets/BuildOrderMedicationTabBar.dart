@@ -14,7 +14,9 @@ class BuildOrderMedicationTabBar extends StatelessWidget {
           controller: SurMedicationsOrderData().tabController,
           onTap: (index) {
             SurMedicationsOrderData().tabSelect.onUpdateData(index);
-            SurMedicationsOrderData().getMedicationsOrders(context);
+            String status = SurMedicationsOrderData().orderNumType;
+            log("status==> $status");
+            SurMedicationsOrderData().getMedicationsOrders(context, status);
           },
           indicatorColor: MyColors.primary,
           labelColor: MyColors.primary,

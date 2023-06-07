@@ -25,7 +25,7 @@ class CompletedOrdersData{
 
   Future<void> fetchCompCompletedOrders(BuildContext context) async {
     completedOrders = [];
-    OrdersResponse? result = await CompanyRepository(context).getCompInstrumentsOrders();
+    OrdersResponse? result = await CompanyRepository(context).getCompInstrumentsCompletedOrders();
     result?.orders?.forEach((element) {
       if(element.orderStatus == "completed"){
         completedOrders?.add(element);

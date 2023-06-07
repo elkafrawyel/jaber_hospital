@@ -68,6 +68,7 @@ class _ReceivedOrdersState extends State<ReceivedOrders> {
                           ),
                         ),
                 ),
+                const SizedBox(height: 16,),
               ],
             );
           } else {

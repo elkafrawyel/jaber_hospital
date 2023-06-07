@@ -20,7 +20,9 @@ class CompanyRepository {
 
   Future<bool> updateCompProfile(Map<String, dynamic> body)=> _companyHttpMethods.updateCompanyProfile(body);
 
-  Future<OrdersResponse?> getCompInstrumentsOrders()=> _companyHttpMethods.fetchCompInstrumentsOrders();
+  Future<OrdersResponse?> getCompInstrumentsRoutedOrders()=> _companyHttpMethods.fetchCompInstrumentsRoutedOrders();
+  Future<OrdersResponse?> getCompInstrumentsProgressOrders()=> _companyHttpMethods.fetchCompInstrumentsInProgressOrders();
+  Future<OrdersResponse?> getCompInstrumentsCompletedOrders()=> _companyHttpMethods.fetchCompInstrumentsCompletedOrders();
 
   Future<OrdersResponse?> getCompMedicationOrders()=> _companyHttpMethods.fetchCompMedicationOrders();
 

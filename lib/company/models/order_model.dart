@@ -2,6 +2,8 @@ import '../../general/models/company_model.dart';
 import '../../general/models/doctor_model.dart';
 import '../../general/models/instrument_model.dart';
 import '../../general/models/patient_model.dart';
+import '../../surgeon/models/instrument_order_model.dart';
+import '../../surgeon/models/medication_model.dart';
 
 class OrderModel{
   String? sId;
@@ -9,7 +11,10 @@ class OrderModel{
   DoctorId? doctorId;
   CompanyId? companyId;
   PatientId? patientId;
+  List<MedicationInfo>? medications;
   List<InstrumentModel>? instruments;
+  List<MedicationsDetails>? medicationsDetails;
+  List<MedicationsDetails>? instrumentsDetails;
   String? orderStartDate;
   String? orderCompletedDate;
   String? orderStatus;
@@ -49,10 +54,28 @@ class OrderModel{
     patientId = json['patient_id'] != null
         ? new PatientId.fromJson(json['patient_id'])
         : null;
+    if (json['medications'] != null) {
+      medications = <MedicationInfo>[];
+      json['medications'].forEach((v) {
+        medications!.add(MedicationInfo.fromJson(v));
+      });
+    }
     if (json['instruments'] != null) {
       instruments = <InstrumentModel>[];
       json['instruments'].forEach((v) {
-        instruments!.add(new InstrumentModel.fromJson(v));
+        instruments!.add(InstrumentModel.fromJson(v));
+      });
+    }
+    if (json['medications_details'] != null) {
+      medicationsDetails = <MedicationsDetails>[];
+      json['medications_details'].forEach((v) {
+        medicationsDetails!.add(new MedicationsDetails.fromJson(v));
+      });
+    }
+    if (json['instruments_details'] != null) {
+      instrumentsDetails = <MedicationsDetails>[];
+      json['instruments_details'].forEach((v) {
+        instrumentsDetails!.add(MedicationsDetails.fromJson(v));
       });
     }
     orderStartDate = json['order_start_date'];
@@ -79,8 +102,19 @@ class OrderModel{
     if (this.patientId != null) {
       data['patient_id'] = this.patientId!.toJson();
     }
+    if (this.medications != null) {
+      data['medications'] = this.medications!.map((v) => v.toJson()).toList();
+    }
     if (this.instruments != null) {
       data['instruments'] = this.instruments!.map((v) => v.toJson()).toList();
+    }
+    if (this.medicationsDetails != null) {
+      data['medications_details'] =
+          this.medicationsDetails!.map((v) => v.toJson()).toList();
+    }
+    if (this.instrumentsDetails != null) {
+      data['instruments_details'] =
+          this.instrumentsDetails!.map((v) => v.toJson()).toList();
     }
     data['order_start_date'] = this.orderStartDate;
     data['order_completed_date'] = this.orderCompletedDate;

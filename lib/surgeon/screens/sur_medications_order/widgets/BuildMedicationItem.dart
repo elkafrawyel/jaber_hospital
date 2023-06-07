@@ -66,11 +66,21 @@ class BuildMedicationItem extends StatelessWidget {
                       const SizedBox(height: 8),
                       Wrap(
                         children: [
-                          ...List.generate(model.medications!.length, (index) => MyText(
-                            title: model.medications?[index].medicationName??""+", ",
-                            size: 10,
-                            color: Colors.black87,
-                          ),)
+                          ...List.generate(model.medications!.length, (index) => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              MyText(
+                                title: model.medications?[index].medicationName??""+",",
+                                size: 10,
+                                color: Colors.black87,
+                              ),
+                              // MyText(
+                              //   title: (model.medications?[index].quantity??0).toString(),
+                              //   size: 10,
+                              //   color: Colors.black87,
+                              // ),
+                            ],
+                          ))
                         ],
                       ),
                       const SizedBox(height: 4),

@@ -54,7 +54,7 @@ class MedicationsOrdersModel {
     if (json['medications'] != null) {
       medications = <Medications>[];
       json['medications'].forEach((v) {
-        medications!.add(new Medications.fromJson(v));
+        medications!.add(Medications.fromJson(v));
       });
     }
     if (json['instruments'] != null) {
@@ -123,13 +123,16 @@ class Medications {
   String? description;
   bool? status;
   String? companyId;
+  int? quantity;
 
   Medications(
       {this.sId,
         this.medicationName,
         this.description,
         this.status,
-        this.companyId});
+        this.companyId,
+        this.quantity
+      });
 
   Medications.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -137,6 +140,7 @@ class Medications {
     description = json['description'];
     status = json['status'];
     companyId = json['company_id'];
+    quantity = json['quantity'];
   }
 
   Map<String, dynamic> toJson() {
@@ -146,6 +150,7 @@ class Medications {
     data['description'] = this.description;
     data['status'] = this.status;
     data['company_id'] = this.companyId;
+    data['quantity'] = this.quantity;
     return data;
   }
 }

@@ -154,7 +154,7 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: "${widget.instrumentOrderModel.medicationsDetails?.length ?? 0}",
+                      title: "${widget.instrumentOrderModel.instruments?.length ?? 0}",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),

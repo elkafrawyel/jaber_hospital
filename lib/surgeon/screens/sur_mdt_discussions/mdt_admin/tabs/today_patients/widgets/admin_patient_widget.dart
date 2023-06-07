@@ -115,7 +115,7 @@ class AdminPatientWidget extends StatelessWidget {
                     //   builder: (context) =>
                     //       BuildBookTimesDialog(),
                     // );
-                    await MdtTodaysPatientsData().rescheduleMdtPatient(context, patientModel.id??"", index);
+                    // await MdtTodaysPatientsData().rescheduleMdtPatient(context, patientModel.id??"", index);
                   },
                   child: MyText(
                     title: '(Change)',

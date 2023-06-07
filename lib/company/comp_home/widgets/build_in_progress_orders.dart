@@ -38,17 +38,18 @@ class BuildInProgressOrders extends StatelessWidget {
           ],
         ),
         Container(
-          height: 110,
+          height: 128,
           child: BlocBuilder<GenericBloc<CompOrdersResponse?>, GenericState<CompOrdersResponse?>>(
             bloc: CompHomeData().homeCubit,
             builder: (context, state) {
               if(state is GenericUpdateState){
-                if(state.data!.data!.companyOrdersCompleted!.isNotEmpty){
+                if(state.data!.data!.companyOrdersInProgress!.isNotEmpty){
                   return ListView.builder(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.data?.data?.companyOrdersCompleted?.length??0,
-                    itemBuilder: (context, index) => HorizontalOrderWidget(index: index,orderModel: state.data?.data?.companyOrdersCompleted?[index]),
+                    itemCount: state.data?.data?.companyOrdersInProgress?.length??0,
+                    itemBuilder: (context, index) =>
+                        HorizontalOrderWidget(index: index,orderModel: state.data?.data?.companyOrdersInProgress?[index]),
                   );
                 }else{
                   return Center(

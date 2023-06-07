@@ -96,7 +96,7 @@ class SurgeonRepository {
         // clinicName,
       );
 
-  Future<List<MedicationsOrdersModel>> getMedicationOrders(int index) => _surgeonHttpMethods.getMedicationOrders(index);
+  Future<List<MedicationsOrdersModel>> getMedicationOrders(String status) => _surgeonHttpMethods.getMedicationOrders(status);
 
   Future<InstrumentOrdersResponse> getInstrumentsRoutedOrders() => _surgeonHttpMethods.getInstrumentsRoutedOrders();
 

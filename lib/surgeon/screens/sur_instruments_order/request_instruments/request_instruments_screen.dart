@@ -7,7 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tf_validator/tf_validator.dart';
 
+import '../../../../general/blocks/user_cubit/user_cubit.dart';
 import '../../../../general/constants/MyColors.dart';
+import '../../../../general/models/UserModel.dart';
 import '../../../../general/models/company_model.dart';
 import '../../../../general/utilities/http/dio/modals/LoadingDialog.dart';
 import '../../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
@@ -230,13 +232,16 @@ class _RequestInstrumentsScreenState extends State<RequestInstrumentsScreen> {
                           CustomToast.showSnackBar(context, "Please select instruments first!", backgroundColor: Colors.redAccent);
                           return;
                         }
+                        UserModel? users = context.read<UserCubit>().state.model;
+                        String docId = users.userData?[0].sId??"";
+                        log("docId==> $docId");
                         List<dynamic> instruments = requestInstrumentsData.selectedInstrumentsList
                             .map((item) => {
                           "id": item.sId,
                           "quantity":item.quantity,
                         }).toList();
                         Map<String, dynamic> body = {
-                          "doctor_id": widget.patientModel.patient?.surgeonId?.sId??"",
+                          "doctor_id": docId,
                           "company_id": requestInstrumentsData.selectedCompany?.sId??"",
                           "patient_id": widget.patientModel.patient?.id??"",
                           "mobile_number": widget.patientModel.patient?.telephone1??"",

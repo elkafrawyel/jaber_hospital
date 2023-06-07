@@ -7,11 +7,12 @@ class SurMedicationOrder extends StatefulWidget {
   State<SurMedicationOrder> createState() => _SurMedicationOrderState();
 }
 
-class _SurMedicationOrderState extends State<SurMedicationOrder>
-    with SingleTickerProviderStateMixin {
+class _SurMedicationOrderState extends State<SurMedicationOrder> with SingleTickerProviderStateMixin {
+  SurMedicationsOrderData surMedicationsOrderData = SurMedicationsOrderData();
+
   @override
   void initState() {
-    SurMedicationsOrderData().init(context, this);
+    surMedicationsOrderData.init(context, this);
     super.initState();
   }
 
@@ -25,17 +26,17 @@ class _SurMedicationOrderState extends State<SurMedicationOrder>
           children: [
             Expanded(
               child: BlocBuilder<GenericBloc<bool>, GenericState<bool>>(
-                bloc: SurMedicationsOrderData().loading,
+                bloc: surMedicationsOrderData.loading,
                 builder: (context, state) {
                   if(!state.data){
                     return BlocBuilder<GenericBloc<List<MedicationsOrdersModel>>,
                         GenericState<List<MedicationsOrdersModel>>>(
-                      bloc: SurMedicationsOrderData().medicationsOrdersCubit,
+                      bloc: surMedicationsOrderData.medicationsOrdersCubit,
                       builder: (context, state) {
                         if (state is GenericUpdateState<
                             List<MedicationsOrdersModel>>) {
                           return RefreshIndicator(
-                            onRefresh: ()=> SurMedicationsOrderData().getMedicationsOrders(context),
+                            onRefresh: ()=> surMedicationsOrderData.getMedicationsOrders(context, surMedicationsOrderData.ordersStatus),
                             child: Column(
                               children: [
                                 BuildOrderMedicationTabBar(),
@@ -63,7 +64,6 @@ class _SurMedicationOrderState extends State<SurMedicationOrder>
             DefaultButton(
               title: "Order Medications",
               onTap: () =>Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
-              // onTap: () =>Nav.navigateTo(SurOrderMedications(), navigatorType: NavigatorType.push),
               margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
             ),
           ],

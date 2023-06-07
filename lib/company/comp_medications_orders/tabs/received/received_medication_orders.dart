@@ -7,7 +7,9 @@ import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/widgets/loading_widget.dart';
 import '../../../../../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../../comp_instruments_orders/widgets/order_widget.dart';
+import '../../../models/order_model.dart';
 import '../../../models/orders_response.dart';
+import '../../widgets/medication_order_widget.dart';
 import 'received_orders_data.dart';
 
 class ReceivedMedicationOrders extends StatefulWidget {
@@ -30,8 +32,8 @@ class _ReceivedOrdersState extends State<ReceivedMedicationOrders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<GenericBloc<OrdersResponse?>,
-          GenericState<OrdersResponse?>>(
+      body: BlocBuilder<GenericBloc<List<OrderModel>?>,
+          GenericState<List<OrderModel>?>>(
         bloc: ordersData.ordersCubit,
         builder: (context, state) {
           if (state is GenericUpdateState) {
@@ -54,7 +56,7 @@ class _ReceivedOrdersState extends State<ReceivedMedicationOrders> {
                           scrollDirection: Axis.vertical,
                           physics: const BouncingScrollPhysics(),
                           itemCount: ordersData.receivedOrders?.length ?? 0,
-                          itemBuilder: (context, index) => OrderItemWidget(
+                          itemBuilder: (context, index) => MedicationOrderWidget(
                             index: index,
                             order: ordersData.receivedOrders![index],
                           ),

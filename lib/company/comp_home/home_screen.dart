@@ -32,7 +32,7 @@ class _ComHomeScreenState extends State<ComHomeScreen> {
       appBar: BuildComHomeAppBar(),
       drawer: BuildCompHomeDrawer(),
       body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         children: [
           BuildNewOrders(),
           const SizedBox(height: 8.0),

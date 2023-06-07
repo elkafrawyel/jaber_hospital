@@ -4,6 +4,7 @@ import 'package:base_flutter/company/resources/CompanyRepository.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
+import '../../../models/comp_home_orders_response.dart';
 import '../../../models/order_model.dart';
 import '../../../models/orders_response.dart';
 
@@ -13,26 +14,21 @@ class ReceivedOrdersData{
   static final ReceivedOrdersData _instance = ReceivedOrdersData._();
   factory ReceivedOrdersData() => _instance;
 
-  late GenericBloc<OrdersResponse?> ordersCubit;
+  late GenericBloc<List<OrderModel>?> ordersCubit;
   late GenericBloc<bool> loadingHome;
   List<OrderModel>? receivedOrders = [];
 
 
   void init(BuildContext context) {
-    this.ordersCubit = GenericBloc<OrdersResponse?>(null);
+    this.ordersCubit = GenericBloc<List<OrderModel>?>([]);
     fetchCompMedicationOrders(context);
   }
 
   Future<void> fetchCompMedicationOrders(BuildContext context) async {
     receivedOrders = [];
-    OrdersResponse? result = await CompanyRepository(context).getCompMedicationOrders();
-    result?.orders?.forEach((element) {
-      if(element.orderStatus == "routed to company"){
-        receivedOrders?.add(element);
-      }
-    });
-    log("orders=> ${result?.orders?.length}");
+    CompOrdersResponse? result = await  CompanyRepository(context).getCompHomeOrders();
+    receivedOrders = result?.data?.routedToCompanyOrders??[];
     log("receivedOrders=> ${receivedOrders?.length}");
-    ordersCubit.onUpdateData(result);
+    ordersCubit.onUpdateData(receivedOrders);
   }
 }

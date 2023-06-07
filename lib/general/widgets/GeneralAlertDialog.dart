@@ -59,8 +59,7 @@ class GeneralAlertDialog extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
         ),
-        padding: padding ??
-            const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+        padding: padding ?? const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(

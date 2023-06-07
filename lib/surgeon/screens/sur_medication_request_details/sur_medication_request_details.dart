@@ -11,14 +11,28 @@ class SurMedicationRequestDetails extends StatefulWidget {
       _SurMedicationRequestDetailsState();
 }
 
-class _SurMedicationRequestDetailsState
-    extends State<SurMedicationRequestDetails> {
+class _SurMedicationRequestDetailsState extends State<SurMedicationRequestDetails> {
   SurMedicationsOrderData surMedicationsOrderData = SurMedicationsOrderData();
+  late MedicationsOrdersModel model;
+  int quantity = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    model = surMedicationsOrderData.medicationsOrdersCubit.state.data[widget.index];
+    log("element==> ${model.orderNum??0}");
+    log("medications==> ${model.medications?.length}");
+    quantity = 0;
+    model.medications!.map((element) {
+      quantity = quantity + (element.quantity??0);
+      log("quantity==> $quantity");
+    }).toList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var model =
-        surMedicationsOrderData.medicationsOrdersCubit.state.data[widget.index];
+
     return GeneralScaffold(
         CustomTitle: Row(
           children: [
@@ -167,7 +181,7 @@ class _SurMedicationRequestDetailsState
                   fontWeight: FontWeight.bold,
                 ),
                 MyText(
-                  title: "${model.medicationsDetails?.length ?? 0}",
+                  title: quantity.toString(),
                   size: 12,
                   color: MyColors.blackOpacity,
                 ),

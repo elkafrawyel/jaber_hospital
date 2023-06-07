@@ -22,7 +22,7 @@ class SurInstrumentsOrdersData {
     tabSelect = GenericBloc<int>(0);
     loading = GenericBloc<bool>(false);
     medicationsOrdersCubit = GenericBloc<List<MedicationsOrdersModel>>([]);
-    getInstrumentsOrders(context);
+    // getInstrumentsOrders(context);
   }
 
   String get orderNumType => _setOrderNumType();
@@ -37,21 +37,20 @@ class SurInstrumentsOrdersData {
     }
   }
 
-  void getInstrumentsOrders(BuildContext context) async {
-    loading.onUpdateData(true);
-    var response = await SurgeonRepository(context)
-        .getMedicationOrders(tabSelect.state.data);
-    medicationsOrdersCubit.onUpdateData(response);
-    loading.onUpdateData(false);
-  }
+  // void getInstrumentsOrders(BuildContext context) async {
+  //   loading.onUpdateData(true);
+  //   var response = await SurgeonRepository(context).getInstrumentsRoutedOrders();
+  //   medicationsOrdersCubit.onUpdateData(response);
+  //   loading.onUpdateData(false);
+  // }
 
   Future<bool> cancelOrder(BuildContext context,
       {required String orderId}) async {
     var response = await SurgeonRepository(context)
         .cancelInstrumentOrder(orderId: orderId);
     if (response) {
-      getInstrumentsOrders(context);
-      navigationKey.currentState!.pop();
+      // getInstrumentsOrders(context);
+      // navigationKey.currentState!.pop();
       navigationKey.currentState!.pop();
       return response;
     }

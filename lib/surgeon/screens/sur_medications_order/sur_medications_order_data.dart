@@ -16,31 +16,37 @@ class SurMedicationsOrderData {
   late GenericBloc<List<MedicationModel>?> companyMedicationsCubit;
   List<MedicationModel> medications = [];
   CompanyId? selectedCompany;
+  String ordersStatus = "routed to company";
 
   void init(BuildContext context, SingleTickerProviderStateMixin ticker) {
     tabController = TabController(length: 3, vsync: ticker);
     tabSelect = GenericBloc<int>(0);
     loading = GenericBloc<bool>(false);
     medicationsOrdersCubit = GenericBloc<List<MedicationsOrdersModel>>([]);
-    getMedicationsOrders(context);
+    getMedicationsOrders(context, ordersStatus);
   }
 
   String get orderNumType => _setOrderNumType();
 
   String _setOrderNumType() {
     if (tabSelect.state.data == 0) {
-      return " Pending Orders";
+      ordersStatus = "routed to company";
+      return ordersStatus;
+      // return " Pending Orders";
     } else if (tabSelect.state.data == 1) {
-      return " In Progress Orders";
+      ordersStatus = "inprogress";
+      return ordersStatus;
+      // return " In Progress Orders";
     } else {
-      return " Completed Orders";
+      ordersStatus = "completed";
+      return ordersStatus;
+      // return " Completed Orders";
     }
   }
 
-  Future<void> getMedicationsOrders(BuildContext context) async {
+  Future<void> getMedicationsOrders(BuildContext context, String status) async {
     loading.onUpdateData(true);
-    var response = await SurgeonRepository(context)
-        .getMedicationOrders(tabSelect.state.data);
+    var response = await SurgeonRepository(context).getMedicationOrders(ordersStatus);
     medicationsOrdersCubit.onUpdateData(response);
     loading.onUpdateData(false);
   }
@@ -50,7 +56,7 @@ class SurMedicationsOrderData {
     var response = await SurgeonRepository(context)
         .cancelMedicationOrder(orderId: orderId);
     if (response) {
-      getMedicationsOrders(context);
+      getMedicationsOrders(context, ordersStatus);
       navigationKey.currentState!.pop();
       navigationKey.currentState!.pop();
       return response;

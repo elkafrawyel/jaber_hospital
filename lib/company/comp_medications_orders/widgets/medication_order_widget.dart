@@ -5,11 +5,12 @@ import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../../res/res.dart';
 import '../../models/order_model.dart';
+import '../../order_details/medications_order_details.dart';
 import '../../order_details/order_details_screen.dart';
 import '../../../general/utilities/utils_functions/Navigator.dart';
 
-class OrderItemWidget extends StatelessWidget {
-  const OrderItemWidget({Key? key, required this.index, required this.order}) : super(key: key);
+class MedicationOrderWidget extends StatelessWidget {
+  const MedicationOrderWidget({Key? key, required this.index, required this.order}) : super(key: key);
   final int index;
   final OrderModel order;
 
@@ -17,7 +18,7 @@ class OrderItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: ()=> Nav.navigateTo(OrderDetailsScreen(orderModel: order), navigatorType: NavigatorType.push),
+      onTap: ()=> Nav.navigateTo(MedicationsOrderDetailsScreen(orderModel: order), navigatorType: NavigatorType.push),
       child: Container(
         width: size.width,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -60,13 +61,13 @@ class OrderItemWidget extends StatelessWidget {
                   const SizedBox(height: 4),
                   Wrap(
                     children: [
-                      ...List.generate(order.instruments?.length??0, (index) => Column(
+                      ...List.generate(order.medications?.length??0, (index) => Column(
                         children: [
                           MyText(
-                              title: "${order.instruments?[index].description}, ",
+                              title: "${order.medications?[index].medicationName}, ",
                               color: MyColors.grey,
                               size: 10,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold)
                         ],
                       )),
                     ],

@@ -52,8 +52,9 @@ class Message {
 class Data {
   List<OrderModel>? companyOrdersCompleted;
   List<OrderModel>? companyOrdersInProgress;
+  List<OrderModel>? routedToCompanyOrders;
 
-  Data({this.companyOrdersCompleted, this.companyOrdersInProgress});
+  Data({this.companyOrdersCompleted, this.companyOrdersInProgress, this.routedToCompanyOrders});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['company_orders_completed'] != null) {
@@ -68,6 +69,12 @@ class Data {
         companyOrdersInProgress!.add(new OrderModel.fromJson(v));
       });
     }
+    if (json['routed_to_company_orders'] != null) {
+      routedToCompanyOrders = <OrderModel>[];
+      json['routed_to_company_orders'].forEach((v) {
+        routedToCompanyOrders!.add(new OrderModel.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -79,6 +86,10 @@ class Data {
     if (this.companyOrdersInProgress != null) {
       data['company_orders_in_progress'] =
           this.companyOrdersInProgress!.map((v) => v.toJson()).toList();
+    }
+    if (this.routedToCompanyOrders != null) {
+      data['routed_to_company_orders'] =
+          this.routedToCompanyOrders!.map((v) => v.toJson()).toList();
     }
     return data;
   }

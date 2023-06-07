@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+
 import '../../general/constants/MyColors.dart';
 import '../../general/utilities/http/dio/http/GenericHttp.dart';
 import '../../general/utilities/http/dio/modals/LoadingDialog.dart';
@@ -8,23 +11,19 @@ import '../../general/utilities/utils_functions/ApiNames.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../general/widgets/GenScaffold.dart';
 import '../../general/widgets/modal_bottom_sheet.dart';
-import '../instruments/widgets/header_widget.dart';
-import '../instruments/widgets/instrument_list_item.dart';
 import '../models/order_model.dart';
-import 'dart:developer';
-
 import '../models/update_order_status_response.dart';
 
-class OrderDetailsScreen extends StatefulWidget {
-  const OrderDetailsScreen({Key? key, required this.orderModel})
+class MedicationsOrderDetailsScreen extends StatefulWidget {
+  const MedicationsOrderDetailsScreen({Key? key, required this.orderModel})
       : super(key: key);
   final OrderModel orderModel;
 
   @override
-  State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
+  State<MedicationsOrderDetailsScreen> createState() => _OrderDetailsScreenState();
 }
 
-class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -85,22 +84,31 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     ),
                   ),
                   ListView.builder(
-                      padding: const EdgeInsets.symmetric(vertical: 6.0),
+                      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8),
                       shrinkWrap: true,
-                      itemCount: widget.orderModel.instruments?.length,
+                      itemCount: widget.orderModel.medications?.length,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
                         return Column(
                           children: [
-                            HeaderWidget(
-                              title:
-                                  widget.orderModel.instruments?[index].code ??
-                                      "",
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5.0),
+                              child: Row(
+                                children: [
+                                  MyText(
+                                      title: widget.orderModel.medications?[index].medicationName?? "",
+                                      color:Colors.black87,
+                                      size: 11,
+                                      fontWeight: FontWeight.w600),
+                                  const SizedBox(width: 5,),
+                                  MyText(
+                                      title: widget.orderModel.medications?[index]
+                                          .description ?? "",
+                                      color:Colors.grey,
+                                      size: 11, fontWeight: FontWeight.w600),
+                                ],
+                              ),
                             ),
-                            InstrumentsItemWidget(
-                                itemDesc: widget.orderModel.instruments?[index]
-                                        .description ??
-                                    ""),
                           ],
                         );
                       })

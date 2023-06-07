@@ -94,5 +94,7 @@ class ApiNames{
   static const String instrumentsRoutedOrdersPath = "instrument_routed_orders";
   static const String instrumentsProgressOrdersPath = "instrument_inprogress_orders";
   static const String instrumentsCompletedOrdersPath = "instrument_completed_orders";
+  static const String medicationsOrdersPath = "doctor_medications_orders";
   static const String mdtAvailableSlots = "/mdt_taken_slots";
+  static const String updateMdtPatientTime = "patient_mdt_time";
 }

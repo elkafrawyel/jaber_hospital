@@ -24,7 +24,7 @@ class InProgressOrdersData{
 
   Future<void> fetchCompInProgressOrders(BuildContext context) async {
     inProgressOrders= [];
-    OrdersResponse? result = await CompanyRepository(context).getCompInstrumentsOrders();
+    OrdersResponse? result = await CompanyRepository(context).getCompInstrumentsProgressOrders();
     result?.orders?.forEach((element) {
     if(element.orderStatus == "inprogress"){
         inProgressOrders?.add(element);

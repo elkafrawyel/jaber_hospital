@@ -20,7 +20,6 @@ class CompanyHttpMethods {
   CompanyHttpMethods(this.context);
 
   Future<CompOrdersResponse?> fetchCompHomeOrders() async {
-    log('fetchHomeCompOrders called...');
      final data = await GenericHttp<CompOrdersResponse>(context).callApi(
       name: ApiNames.companyHomeOrders,
       returnType: ReturnType.Model,
@@ -62,10 +61,34 @@ class CompanyHttpMethods {
     }
   }
 
-  Future<OrdersResponse?> fetchCompInstrumentsOrders() async {
+  Future<OrdersResponse?> fetchCompInstrumentsRoutedOrders() async {
     log('fetchCompOrders called...');
     final data = await GenericHttp<OrdersResponse>(context).callApi(
-      name: ApiNames.compInstrumentsOrders,
+      name: ApiNames.instrumentsRoutedOrdersPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => OrdersResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<OrdersResponse?> fetchCompInstrumentsInProgressOrders() async {
+    log('fetchCompOrders called...');
+    final data = await GenericHttp<OrdersResponse>(context).callApi(
+      name: ApiNames.instrumentsProgressOrdersPath,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => OrdersResponse.fromJson(json),
+    );
+    return data;
+  }
+
+  Future<OrdersResponse?> fetchCompInstrumentsCompletedOrders() async {
+    log('fetchCompOrders called...');
+    final data = await GenericHttp<OrdersResponse>(context).callApi(
+      name: ApiNames.instrumentsCompletedOrdersPath,
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,

@@ -5,7 +5,6 @@ import '../../general/models/patient_model.dart';
 import 'medication_model.dart';
 
 class InstrumentOrderModel {
-  List<Null>? instrumentsDetails;
   String? sId;
   DoctorId? doctorId;
   CompanyId? companyId;
@@ -13,6 +12,7 @@ class InstrumentOrderModel {
   List<MedicationInfo>? medications;
   List<InstrumentModel>? instruments;
   List<MedicationsDetails>? medicationsDetails;
+  List<MedicationsDetails>? instrumentsDetails;
   String? orderStartDate;
   String? orderCompletedDate;
   String? orderStatus;
@@ -47,12 +47,6 @@ class InstrumentOrderModel {
         this.mobileNumber});
 
   InstrumentOrderModel.fromJson(Map<String, dynamic> json) {
-    // if (json['instruments_details'] != null) {
-    //   instrumentsDetails = <Null>[];
-    //   json['instruments_details'].forEach((v) {
-    //     instrumentsDetails!.add(new Null.fromJson(v));
-    //   });
-    // }
     sId = json['_id'];
     doctorId = json['doctor_id'] != null
         ? new DoctorId.fromJson(json['doctor_id'])
@@ -81,6 +75,12 @@ class InstrumentOrderModel {
         medicationsDetails!.add(new MedicationsDetails.fromJson(v));
       });
     }
+    if (json['instruments_details'] != null) {
+      instrumentsDetails = <MedicationsDetails>[];
+      json['instruments_details'].forEach((v) {
+        instrumentsDetails!.add(MedicationsDetails.fromJson(v));
+      });
+    }
     orderStartDate = json['order_start_date'];
     orderCompletedDate = json['order_completed_date'];
     orderStatus = json['order_status'];
@@ -96,10 +96,10 @@ class InstrumentOrderModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    // if (this.instrumentsDetails != null) {
-    //   data['instruments_details'] =
-    //       this.instrumentsDetails!.map((v) => v.toJson()).toList();
-    // }
+    if (this.instrumentsDetails != null) {
+      data['instruments_details'] =
+          this.instrumentsDetails!.map((v) => v.toJson()).toList();
+    }
     data['_id'] = this.sId;
     if (this.doctorId != null) {
       data['doctor_id'] = this.doctorId!.toJson();
