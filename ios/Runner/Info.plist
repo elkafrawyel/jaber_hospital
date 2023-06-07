@@ -43,7 +43,7 @@
 		<key>NSMotionUsageDescription</key>
 		<string>This app needs to be able to access your motion use</string>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>This app needs access to photo library to add user photo and service images.</string>
+	    <string>Access to photos is needed to upload user profile picture</string>
 		<key>NSSpeechRecognitionUsageDescription</key>
 		<string>recognize speech</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
