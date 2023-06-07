@@ -161,7 +161,11 @@ class SurAddPatientData {
     patientAge = TextEditingController(text: patientDetailsModel?.patient?.age?.toString() ?? '');
     patientWeight = TextEditingController(text: patientDetailsModel?.patient?.weight?.toString() ?? '');
     patientHeight = TextEditingController(text: patientDetailsModel?.patient?.height?.toString() ?? '');
-    BMI = TextEditingController(text: patientDetailsModel?.patient?.bmi?.toString() ?? '');
+    if ((patientDetailsModel?.patient?.bmi?.toString() ?? '').isEmpty) {
+      calculateBMI();
+    } else {
+      BMI = TextEditingController(text: patientDetailsModel?.patient?.bmi?.toString() ?? '');
+    }
     otherNotes = TextEditingController(text: patientDetailsModel?.patient?.otherNotes?.toString() ?? '');
     refSelectionCubit = GenericBloc(patientDetailsModel?.patient?.reflux ?? false);
     medicationsCubit = GenericBloc((patientDetailsModel?.patient?.refluxMedRegular ?? false)
