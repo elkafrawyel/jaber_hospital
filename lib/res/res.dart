@@ -87,7 +87,10 @@ class Res {
   static const String imagesLocation = 'assets/images/location.png';
   static const String imagesLockIcon = 'assets/images/lockIcon.png';
   static const String imagesLogo = 'assets/images/logo.png';
+  static const String imagesLogo4 = 'assets/images/logo4.svg';
   static const String imagesLogoBlue = 'assets/images/LogoBlue.png';
+  // static const String imagesLogoIcon = 'assets/images/logoIcon.png';
+  // static const String imagesLogoIcon1 = 'assets/images/logoIcon1.png';
   static const String imagesLogoTeal = 'assets/images/LogoTeal.png';
   static const String imagesLogoWhite = 'assets/images/logoWhite.png';
   static const String imagesLogout = 'assets/images/logout.png';
