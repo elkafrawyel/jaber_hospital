@@ -673,7 +673,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
               state.data?.patient?.operationStatus == "Post-op")
             Row(
               children: [
-                MyText(title: "Operation Done On:", size: 12, fontWeight: FontWeight.bold),
+                MyText(title: "Operation Date:", size: 12, fontWeight: FontWeight.bold),
                 SizedBox(width: 10),
                 MyText(
                   title: DateFormat("E ,d MMM y hh:mm a").format(dateTime),
@@ -1020,6 +1020,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
                         (state.data?.patient?.feedback ?? '') != 'Clear'))
                   DefaultButton(
+                    fontSize: 12,
                     title: "Add Appointment",
                     onTap: () {
                       showDialog(
@@ -1031,6 +1032,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Dietitian' &&
                     (state.data?.patient?.dietation_feedback_decision ?? '') != 'Clear')
                   DefaultButton(
+                    fontSize: 12,
                     title: (state.data?.patient?.dietation_feedback_decision ?? '').isEmpty
                         ? "Add Diet Plan"
                         : 'Edit Diet Plan',
@@ -1129,6 +1131,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'physiotherapist' &&
                     (state.data?.patient?.feedback ?? '') != 'Clear')
                   DefaultButton(
+                    fontSize: 12,
                     title: "Add Physiotherapy Data",
                     onTap: () async {
                       await Nav.navigateTo(
@@ -1230,6 +1233,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                             context.read<UserCubit>().state.model.userData![0].sId ==
                                 SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId)))
                   DefaultButton(
+                    fontSize: 12,
                     title: "Request Instruments",
                     color: Color(0xff00116E),
                     onTap: () => Nav.navigateTo(
@@ -1244,6 +1248,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                             context.read<UserCubit>().state.model.userData![0].sId ==
                                 SurPatientDetailsData().patientDetailsCubit.state.data?.patient?.surgeon2Id?.sId)))
                   DefaultButton(
+                    fontSize: 12,
                     title: dateTime == null ? "Book Operation" : "Edit Operation",
                     onTap: () => SurPatientDetailsData().bookOperation(context),
                   ),
