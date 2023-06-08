@@ -9,9 +9,11 @@ import 'package:intl/intl.dart';
 
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/utilities/utils_functions/LoadingDialog.dart';
+import '../../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../../general/widgets/loading_widget.dart';
 import '../../../models/mdt_patient_model.dart';
 import '../../../models/mdt_patients_response.dart';
+import '../../sur_patient_details/SurPatientDetailsImports.dart';
 import '../SurMdtDiscussionsImports.dart';
 import '../widgets/SurMdtDiscussionsWImports.dart';
 import 'booked_mdt/booked_mdt_data.dart';

@@ -101,7 +101,7 @@ class CompanyHttpMethods {
     log('fetchCompOrders called...');
     UserModel user = context.read<UserCubit>().state.model;
     final data = await GenericHttp<OrdersResponse>(context).callApi(
-      name: "${ApiNames.compMedicationOrders}?company_id=${user.userData?[0].sId}",
+      name: "${ApiNames.compMedicationOrders}?user_id=${user.userData?[0].sId}",
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,

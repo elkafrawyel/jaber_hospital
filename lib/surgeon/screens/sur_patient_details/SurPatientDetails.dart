@@ -1008,6 +1008,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: Wrap(
+              alignment: WrapAlignment.center,
               children: [
                 if (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
                         (context.read<UserCubit>().state.model.userData![0].sId ==

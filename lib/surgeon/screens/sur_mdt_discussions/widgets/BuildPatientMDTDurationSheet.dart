@@ -4,10 +4,10 @@ part of 'SurMdtDiscussionsWImports.dart';
 class BuildPatientMDTDurationSheet extends StatelessWidget {
   const BuildPatientMDTDurationSheet({
     Key? key, required this.patient,
-    required this.index
+    this.onlyChangeDate = false,
   }) : super(key: key);
   final MdtPatientModel patient;
-  final int index;
+  final bool onlyChangeDate;
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +40,12 @@ class BuildPatientMDTDurationSheet extends StatelessWidget {
                 title: Text("5 Minutes"),
                 onChanged: (val){
                   log("pickedVal=> $val");
+                  SurMdtDiscussionsData().mdtDurationCubit.onUpdateData(5);
                   navigationKey.currentState!.pop();
                   SurMdtDiscussionsData().setNextMonday(context);
                   showDialog(
                     context: context,
-                    builder: (context) => BuildBookTimesDialog(patient: patient, isReady: true),
+                    builder: (context) => BuildBookTimesDialog(patient: patient, onlyChangeReadyDate: onlyChangeDate),
                   );
                 },
                 // onChanged: (val) => SurMdtDiscussionsData().navigateToTimeDialog(val, context),
@@ -56,12 +57,13 @@ class BuildPatientMDTDurationSheet extends StatelessWidget {
                 title: Text("10 Minutes"),
                 onChanged: (val){
                   log("pickedVal=> $val");
+                  SurMdtDiscussionsData().mdtDurationCubit.onUpdateData(10);
                   navigationKey.currentState!.pop();
                   SurMdtDiscussionsData().setNextMonday(context);
                   showDialog(
                     context: context,
                     builder: (context) =>
-                        BuildBookTimesDialog(patient: patient, isReady: true),
+                        BuildBookTimesDialog(patient: patient, onlyChangeReadyDate: onlyChangeDate),
                   );
                 },
                 // onChanged: (val) => SurMdtDiscussionsData().navigateToTimeDialog(val, context),

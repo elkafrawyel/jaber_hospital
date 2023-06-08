@@ -16,7 +16,7 @@ class ReceivedOrdersData{
 
   late GenericBloc<List<OrderModel>?> ordersCubit;
   late GenericBloc<bool> loadingHome;
-  List<OrderModel>? receivedOrders = [];
+  List<OrderModel> receivedOrders = [];
 
 
   void init(BuildContext context) {
@@ -26,9 +26,14 @@ class ReceivedOrdersData{
 
   Future<void> fetchCompMedicationOrders(BuildContext context) async {
     receivedOrders = [];
-    CompOrdersResponse? result = await  CompanyRepository(context).getCompHomeOrders();
-    receivedOrders = result?.data?.routedToCompanyOrders??[];
-    log("receivedOrders=> ${receivedOrders?.length}");
+    OrdersResponse? result = await  CompanyRepository(context).getCompMedicationOrders();
+    List<OrderModel>? orders = result?.orders??[];
+    orders.forEach((order) {
+      if(order.orderStatus=="routed to company"){
+        receivedOrders.add(order);
+      }
+    });
+    log("receivedOrders=> ${receivedOrders.length}");
     ordersCubit.onUpdateData(receivedOrders);
   }
 }

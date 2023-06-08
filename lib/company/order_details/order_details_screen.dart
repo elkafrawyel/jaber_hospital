@@ -10,6 +10,7 @@ import '../../general/widgets/GenScaffold.dart';
 import '../../general/widgets/modal_bottom_sheet.dart';
 import '../instruments/widgets/header_widget.dart';
 import '../instruments/widgets/instrument_list_item.dart';
+import '../models/comp_order_model.dart';
 import '../models/order_model.dart';
 import 'dart:developer';
 

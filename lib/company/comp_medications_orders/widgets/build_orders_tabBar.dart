@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/utils/WidgetUtils.dart';
+import '../medications_orders_data.dart';
 
 class BuildMedicationsOrdersTabBar extends StatelessWidget {
   const BuildMedicationsOrdersTabBar({
@@ -11,6 +12,7 @@ class BuildMedicationsOrdersTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TabBar(
+       controller: MedicationsOrdersData().tabController,
         onTap: (index) {},
         indicatorColor: MyColors.primary,
         labelColor: MyColors.primary,

@@ -7,6 +7,7 @@ import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../general/utilities/utils_functions/Navigator.dart';
 import '../../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../../res/res.dart';
+import '../../models/comp_order_model.dart';
 import '../../order_details/medications_order_details.dart';
 import '../../order_details/order_details_screen.dart';
 
@@ -119,8 +120,7 @@ class HorizontalOrderWidget extends StatelessWidget {
                             Expanded(
                               child: MyText(
                                 // title: orderModel?.orderStartDate??"",
-                                title: Utils.getDate(
-                                    orderModel?.orderStartDate ?? ""),
+                                title: Utils.getDate(orderModel?.orderStartDate ?? ""),
                                 overflow: TextOverflow.ellipsis,
                                 size: 9,
                                 color: MyColors.primary,

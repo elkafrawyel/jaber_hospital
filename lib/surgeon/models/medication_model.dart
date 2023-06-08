@@ -71,7 +71,7 @@ class MedicationInfo {
   String? medicationName;
   String? description;
   bool? status;
-  String? companyId;
+  // CompanyId? companyId;
   String? dose;
   String? adminCreatedId;
   String? createdAt;
@@ -86,7 +86,6 @@ class MedicationInfo {
     this.medicationName,
     this.description,
     this.status,
-    this.companyId,
     this.dose,
     this.adminCreatedId,
     this.createdAt,
@@ -102,7 +101,6 @@ class MedicationInfo {
     medicationName = json['medication_name'];
     description = json['description'];
     status = json['status'];
-    companyId = json['company_id'];
     dose = json['dose'];
     adminCreatedId = json['admin_created_id'];
     createdAt = json['createdAt'];
@@ -119,8 +117,6 @@ class MedicationInfo {
     data['medication_name'] = this.medicationName;
     data['description'] = this.description;
     data['status'] = this.status;
-
-    data['company_id'] = this.companyId;
     data['dose'] = this.dose;
     data['admin_created_id'] = this.adminCreatedId;
     data['createdAt'] = this.createdAt;

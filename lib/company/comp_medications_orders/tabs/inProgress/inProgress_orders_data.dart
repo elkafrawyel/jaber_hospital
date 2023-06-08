@@ -15,7 +15,7 @@ class InProgressOrdersData{
 
   late GenericBloc<List<OrderModel>?> inProgressOrdersCubit;
   late GenericBloc<bool> loadingHome;
-  List<OrderModel>? inProgressOrders = [];
+  List<OrderModel> inProgressOrders = [];
 
 
   void init(BuildContext context) {
@@ -25,9 +25,14 @@ class InProgressOrdersData{
 
   Future<void> fetchCompInProgressOrders(BuildContext context) async {
     inProgressOrders= [];
-    CompOrdersResponse? result = await  CompanyRepository(context).getCompHomeOrders();
-    inProgressOrders = result?.data?.companyOrdersInProgress??[];
-    log("inProgressOrders=> ${inProgressOrders?.length}");
+    OrdersResponse? result = await  CompanyRepository(context).getCompMedicationOrders();
+    List<OrderModel>? orders = result?.orders??[];
+    orders.forEach((order) {
+      if(order.orderStatus=="inprogress"){
+        inProgressOrders.add(order);
+      }
+    });
+    log("inProgressOrders=> ${inProgressOrders.length}");
     inProgressOrdersCubit.onUpdateData(inProgressOrders);
   }
 }

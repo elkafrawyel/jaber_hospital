@@ -3,15 +3,13 @@ class Medications {
   String? medicationName;
   String? description;
   bool? status;
-  String? companyId;
-  dynamic quantity;
+  int? quantity;
 
   Medications(
       {this.sId,
         this.medicationName,
         this.description,
         this.status,
-        this.companyId,
         this.quantity});
 
   Medications.fromJson(Map<String, dynamic> json) {
@@ -19,7 +17,6 @@ class Medications {
     medicationName = json['medication_name'];
     description = json['description'];
     status = json['status'];
-    companyId = json['company_id'];
     quantity = json['quantity'];
   }
 
@@ -29,7 +26,6 @@ class Medications {
     data['medication_name'] = this.medicationName;
     data['description'] = this.description;
     data['status'] = this.status;
-    data['company_id'] = this.companyId;
     data['quantity'] = this.quantity;
     return data;
   }

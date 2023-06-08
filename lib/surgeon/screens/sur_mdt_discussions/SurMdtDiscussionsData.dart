@@ -11,13 +11,15 @@ class SurMdtDiscussionsData {
   late GenericBloc<DateTime> selectBookDateCubit  ;
   late GenericBloc<String> selectBookTimeCubit  ;
   late GenericBloc<int> selectMDTResultCubit  ;
-  late GenericBloc<List<TimeSlot>> dayTimesCubit  ;
+  late GenericBloc<List<String>> dayTimesCubit  ;
+  // late GenericBloc<List<TimeSlot>> dayTimesCubit  ;
   late TabController  tabController;
   late TextEditingController reason ;
   DateTime next = DateTime.now();
   final DateFormat dateFormat = new DateFormat('dd-MMMM-yyyy');
   String curMonDay = "";
   var monday=1;
+  List<String> dayAvailableTimes = [];
 
   void init (BuildContext context, SingleTickerProviderStateMixin ticker){
     reason = TextEditingController();
@@ -26,7 +28,7 @@ class SurMdtDiscussionsData {
     this.mdtDurationCubit = GenericBloc(0);
     this.selectBookTimeCubit = GenericBloc("");
     this.selectMDTResultCubit = GenericBloc(-1);
-    this.dayTimesCubit = GenericBloc<List<TimeSlot>>([]);
+    this.dayTimesCubit = GenericBloc<List<String>>([]);
     this.tabController = TabController(length: 3, vsync: ticker);
     setNextMonday(context);
   }
@@ -98,10 +100,66 @@ class SurMdtDiscussionsData {
   }
 
   Future<void> fetchMdtAvailableSlots(BuildContext context, String isoDate) async {
+    dayTimesCubit.onUpdateToInitState([]);
     TimeSlotsModelResponse? result = await SurgeonRepository(context).fetchMdtAvailableSlots(isoDate);
     log("Times==> ${result?.times?.length}");
     List<TimeSlot> times = result?.times??[];
-    dayTimesCubit.onUpdateData(times);
+    if(times.isEmpty){
+      if(mdtDurationCubit.state.data==5){
+        dayAvailableTimes = timesOf5Minutes;
+      } else{
+        dayAvailableTimes = timesOf10Minutes;
+      }
+    } else{
+      /// filter times
+      dayAvailableTimes = filterDayTimes(times);
+    }
+    log("dayAvailableTimes==> $dayAvailableTimes");
+    dayTimesCubit.onUpdateData(dayAvailableTimes);
   }
+
+  List<String> filterDayTimes(List<TimeSlot> times){
+    List<String> takenTimes = [];
+    times.forEach((element) {
+      takenTimes.add(DateFormat("hh:mm a").format(DateTime.parse(element.mdtDateTime??"")));
+    });
+    log("takenTimes==> $takenTimes");
+    if(mdtDurationCubit.state.data==5){
+      takenTimes.forEach((element) {
+        timesOf5Minutes.removeWhere((time) => element == time);
+      });
+      return timesOf5Minutes;
+    }else{
+      takenTimes.forEach((element) {
+        timesOf10Minutes.removeWhere((time) => element == time);
+      });
+      return timesOf10Minutes;
+    }
+  }
+
+//list of strings starts with 11:00 AM and encreased by 5 minutes to 11:55 AM
+List<String> timesOf5Minutes = [
+  "11:00 AM",
+  "11:05 AM",
+  "11:10 AM",
+  "11:15 AM",
+  "11:20 AM",
+  "11:25 AM",
+  "11:30 AM",
+  "11:35 AM",
+  "11:40 AM",
+  "11:45 AM",
+  "11:50 AM",
+  "11:55 AM",
+];
+
+  List<String> timesOf10Minutes = [
+    "11:00 AM",
+    "11:10 AM",
+    "11:20 AM",
+    "11:30 AM",
+    "11:40 AM",
+    "11:50 AM",
+  ];
 }
 

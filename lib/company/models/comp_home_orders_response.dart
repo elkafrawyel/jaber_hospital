@@ -1,3 +1,4 @@
+import 'comp_order_model.dart';
 import 'order_model.dart';
 
 class CompOrdersResponse {
@@ -60,19 +61,19 @@ class Data {
     if (json['company_orders_completed'] != null) {
       companyOrdersCompleted = <OrderModel>[];
       json['company_orders_completed'].forEach((v) {
-        companyOrdersCompleted!.add(new OrderModel.fromJson(v));
+        companyOrdersCompleted!.add(OrderModel.fromJson(v));
       });
     }
     if (json['company_orders_in_progress'] != null) {
       companyOrdersInProgress = <OrderModel>[];
       json['company_orders_in_progress'].forEach((v) {
-        companyOrdersInProgress!.add(new OrderModel.fromJson(v));
+        companyOrdersInProgress!.add(OrderModel.fromJson(v));
       });
     }
     if (json['routed_to_company_orders'] != null) {
       routedToCompanyOrders = <OrderModel>[];
       json['routed_to_company_orders'].forEach((v) {
-        routedToCompanyOrders!.add(new OrderModel.fromJson(v));
+        routedToCompanyOrders!.add(OrderModel.fromJson(v));
       });
     }
   }

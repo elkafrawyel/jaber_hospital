@@ -16,7 +16,7 @@ class CompletedOrdersData{
 
   late GenericBloc<List<OrderModel>?> completedOrdersCubit;
   late GenericBloc<bool> loadingHome;
-  List<OrderModel>? completedOrders = [];
+  List<OrderModel> completedOrders = [];
 
 
   void init(BuildContext context) {
@@ -26,10 +26,14 @@ class CompletedOrdersData{
 
   Future<void> fetchCompCompletedOrders(BuildContext context) async {
     completedOrders = [];
-    CompOrdersResponse? result = await  CompanyRepository(context).getCompHomeOrders();
-    completedOrders = result?.data?.companyOrdersCompleted??[];
-
-    log("completedOrders=> ${completedOrders?.length}");
+    OrdersResponse? result = await  CompanyRepository(context).getCompMedicationOrders();
+    List<OrderModel>? orders = result?.orders??[];
+    orders.forEach((order) {
+      if(order.orderStatus=="completed"){
+        completedOrders.add(order);
+      }
+    });
+    log("completedOrders=> ${completedOrders.length}");
     completedOrdersCubit.onUpdateData(completedOrders);
   }
 }

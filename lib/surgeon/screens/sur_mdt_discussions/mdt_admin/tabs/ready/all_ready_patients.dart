@@ -7,7 +7,7 @@ import '../../../../../../general/utilities/tf_custom_widgets/widgets/MyText.dar
 import '../../../../../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../../../../models/mdt_patient_model.dart';
 import 'all_ready_patients_data.dart';
-import 'widgets/patient_ready_item.dart';
+import 'widgets/mdt_admin_ready_patient.dart';
 
 class AllReadyPatients extends StatefulWidget {
   const AllReadyPatients({Key? key}) : super(key: key);
@@ -34,21 +34,26 @@ class _AllReadyPatientsState extends State<AllReadyPatients> {
         bloc: allReadyPatientsData.readyMdtCubit,
         builder: (context, state) {
           if (state is GenericUpdateState) {
-            return state.data!.isNotEmpty?Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                  child: MyText(
-                    title: '${state.data?.length} Patients',
-                    size: 13,
-                    fontWeight: FontWeight.bold,
+            return state.data!.isNotEmpty?RefreshIndicator(
+              onRefresh: ()async{
+                await allReadyPatientsData.fetchMdtReadyPatients(context);
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                    child: MyText(
+                      title: '${state.data?.length} Patients',
+                      size: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Expanded(child: ListView.builder(
-                  itemCount: state.data?.length,
-                  itemBuilder: (context, index) => PatientReadyWidget(patientModel: state.data![index],),),),
-              ],
+                  Expanded(child: ListView.builder(
+                    itemCount: state.data?.length,
+                    itemBuilder: (context, index) => MdtAdminReadyPatientWidget(patientModel: state.data![index],),),),
+                ],
+              ),
             ): Center(
               child: MyText(
                 title: 'No patients founded',

@@ -50,7 +50,8 @@ class ApiNames{
   static const String companyHomeOrders = "company_orders_completed_inProgress";
   static const String updateCompProfile = "update_company_profile";
   static const String compInstrumentsOrders = "company_orders";
-  static const String compMedicationOrders = "company_medications_orders";
+  static const String compMedicationOrders = "user_medication_order";
+  // static const String compMedicationOrders = "company_medications_orders";
   static const String compInstrument = "instrument";
   static const String updateCompOrderStatus = "update_order_status";
   static const String compNotifications = "company_notification";

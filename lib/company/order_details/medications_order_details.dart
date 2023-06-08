@@ -11,6 +11,8 @@ import '../../general/utilities/utils_functions/ApiNames.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../general/widgets/GenScaffold.dart';
 import '../../general/widgets/modal_bottom_sheet.dart';
+import '../comp_medications_orders/medications_orders_data.dart';
+import '../models/comp_order_model.dart';
 import '../models/order_model.dart';
 import '../models/update_order_status_response.dart';
 
@@ -237,11 +239,11 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
               if(result?.success??false){
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
-                // if(nStatus == "inprogress"){
-                //
-                // }else{
-                //
-                // }
+                if(nStatus == "inprogress"){
+                  MedicationsOrdersData().tabController.index = 1;
+                }else{
+                  MedicationsOrdersData().tabController.index = 2;
+                }
                 CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
               } else{
                 CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
