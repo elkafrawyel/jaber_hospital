@@ -25,7 +25,7 @@ class SurAddPatientData {
   late TextEditingController patientAge;
   late TextEditingController patientWeight;
   late TextEditingController patientHeight;
-  late TextEditingController BMI;
+  late TextEditingController BMI = TextEditingController();
 
   /// second page
   late GenericBloc<bool> RespiratoryDiseaseSelectionCubit;
@@ -164,7 +164,7 @@ class SurAddPatientData {
     if ((patientDetailsModel?.patient?.bmi?.toString() ?? '').isEmpty) {
       calculateBMI();
     } else {
-      BMI = TextEditingController(text: patientDetailsModel?.patient?.bmi?.toString() ?? '');
+      BMI.text = patientDetailsModel?.patient?.bmi?.toString() ?? '';
     }
     otherNotes = TextEditingController(text: patientDetailsModel?.patient?.otherNotes?.toString() ?? '');
     refSelectionCubit = GenericBloc(patientDetailsModel?.patient?.reflux ?? false);
@@ -283,7 +283,7 @@ class SurAddPatientData {
     EGDCubit = GenericBloc(patientDetailsModel?.patient?.egd ?? false);
     NormalOesophagusCubit = GenericBloc(patientDetailsModel?.patient?.egdOesophagusNormal ?? false);
     oesophagusCubit = GenericBloc(patientDetailsModel?.patient?.egdOesophagusOesophagitis ?? false);
-    // oesophagusGradeCubit = GenericBloc(patientDetailsModel?.patient?.egdOesophagusGrade ?? false);
+    oesophagusGradeCubit = GenericBloc(patientDetailsModel?.patient?.egdOesophagusGrade ?? false);
     oesophagusGradeTypeCubit = GenericBloc(patientDetailsModel?.patient?.egdOesophagusGradeType ?? "");
     barretOesophagusCubit = GenericBloc(patientDetailsModel?.patient?.egdOesophagusBarrets ?? false);
     HiatusHerniaCubit = GenericBloc(patientDetailsModel?.patient?.egdStomachHaitus ?? false);
