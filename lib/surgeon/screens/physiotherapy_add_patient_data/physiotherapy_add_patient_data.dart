@@ -352,11 +352,10 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                 ],
               ),
               Divider(),
-
               DefaultButton(
                 title: "Add Physiotherapy Data",
                 onTap: addPhysiotherapyData,
-                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 80),
+                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               ),
             ],
           ),
