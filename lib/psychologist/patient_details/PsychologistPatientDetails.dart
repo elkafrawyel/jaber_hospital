@@ -778,14 +778,12 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
         data: CupertinoThemeData(
           brightness: Brightness.light,
           textTheme: CupertinoTextThemeData(primaryColor: Theme.of(context).primaryColor),
-          // scaffoldBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
           primaryContrastingColor: Theme.of(context).primaryColor,
         ),
         child: CupertinoActionSheet(
           cancelButton: CupertinoButton(
             onPressed: () async {
               if (appointmentDate != null) {
-                log("bookedDate==> ${psychologistPatientDetailsData.dateBloc.state.data}");
                 Map<String, dynamic> body = {
                   "doctor_id": psychologistPatientDetailsData.patSurgeonId ?? '',
                   "patient_id": widget.patientModel.sId ?? "",
