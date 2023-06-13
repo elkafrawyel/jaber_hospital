@@ -259,7 +259,7 @@ class SurgeonHttpMethods {
 
   Future<List<MedicationsOrdersModel>> getMedicationOrders(String status) async {
     UserModel? users = context.read<UserCubit>().state.model;
-    String docId = users.userData?[0].sId??"";
+    String docId = users.userData?[0].sId ?? "";
     dynamic data = await GenericHttp<MedicationsOrdersModel>(context).callApi(
       name: "${ApiNames.medicationsOrdersPath}?doctor_id=$docId&order_status=$status",
       returnType: ReturnType.List,
