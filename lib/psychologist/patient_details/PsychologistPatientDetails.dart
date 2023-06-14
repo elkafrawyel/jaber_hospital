@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tf_validator/tf_validator.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -526,11 +527,12 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                 const SizedBox(height: 10),
                 BlocBuilder<GenericBloc<QuesAnswerResponse?>, GenericState<QuesAnswerResponse?>>(
                   bloc: psychologistPatientDetailsData.patScoreCubit,
-                  builder: (context, state) {
-                    if (state is GenericUpdateState) {
-                      if (state.data!.data!.isNotEmpty) {
+                  builder: (context, assState) {
+                    if (assState is GenericUpdateState) {
+                      if (assState.data!.data!.isNotEmpty) {
                         return Column(
                           mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
@@ -540,7 +542,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 ),
                                 Expanded(
                                   child: MyText(
-                                    title: state.data!.data![0].depressionScore ?? '',
+                                    title: assState.data!.data![0].depressionScore ?? '',
                                     size: 12,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
@@ -557,7 +559,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 ),
                                 Expanded(
                                   child: MyText(
-                                    title: state.data!.data![0].depressionScoreLevel ?? '',
+                                    title: assState.data!.data![0].depressionScoreLevel ?? '',
                                     size: 12,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
@@ -575,7 +577,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 Expanded(
                                   child: MyText(
                                     //convert date to 12 aug 2021
-                                    title: state.data!.data![0].anxietyScore ?? '',
+                                    title: assState.data!.data![0].anxietyScore ?? '',
                                     size: 12,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
@@ -592,7 +594,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 ),
                                 Expanded(
                                   child: MyText(
-                                    title: state.data!.data![0].anxietyScoreLevel ?? '',
+                                    title: assState.data!.data![0].anxietyScoreLevel ?? '',
                                     size: 12,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
@@ -609,7 +611,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 ),
                                 Expanded(
                                   child: MyText(
-                                    title: widget.patientModel.finalFeedback ?? '',
+                                    title: (widget.patientModel.finalFeedback ?? '').replaceAll('_', ' '),
                                     size: 12,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
@@ -617,7 +619,131 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                 ),
                               ],
                             ),
-                            const Divider(thickness: 1, height: 16),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: MyText(
+                                title:
+                                    "Upcoming Appointment With\n${'${context.read<UserCubit>().state.model.userData![0].firstNameEn ?? ''} ${context.read<UserCubit>().state.model.userData![0].lastNameEn ?? ''}'}",
+                                size: 14,
+                                color: MyColors.primary,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            if (state.data!.appointments!.isNotEmpty)
+                              SizedBox(
+                                height: 130,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: state.data?.appointments?.length ?? 0,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    DateTime? dateTime =
+                                        DateTime.tryParse(state.data!.appointments![index].appointmentDate!);
+                                    return Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                      constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.80),
+                                      decoration: BoxDecoration(
+                                        color: MyColors.textFields,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: MyColors.greyWhite,
+                                            spreadRadius: .1,
+                                            blurRadius: 1,
+                                            offset: const Offset(0, 1), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          CachedImage(
+                                            url: state.data?.patient?.image ?? "",
+                                            height: 56,
+                                            width: 50,
+                                            borderRadius: BorderRadius.circular(5),
+                                          ),
+                                          const SizedBox(width: 10),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                MyText(
+                                                  title:
+                                                      '${state.data?.patient?.fNameEn ?? ''} ${state.data?.patient?.lNameEn ?? ''}',
+                                                  size: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                const SizedBox(height: 4),
+                                                MyText(
+                                                  title: (state.data?.appointments?[index].comments ?? '').isNotEmpty
+                                                      ? state.data!.appointments![index].comments!
+                                                      : 'Scheduled Appointment',
+                                                  color: MyColors.grey,
+                                                  size: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                const SizedBox(height: 4),
+                                                if (dateTime != null)
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            Res.imagesVector,
+                                                            scale: 3,
+                                                          ),
+                                                          const SizedBox(width: 5),
+                                                          MyText(
+                                                            title: DateFormat("E ,d MMM y").format(dateTime),
+                                                            overflow: TextOverflow.ellipsis,
+                                                            size: 10,
+                                                            color: MyColors.primary,
+                                                            fontWeight: FontWeight.bold,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(width: 15),
+                                                      Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            Res.imagesClockIcon,
+                                                            scale: 3,
+                                                          ),
+                                                          const SizedBox(width: 5),
+                                                          MyText(
+                                                            title: DateFormat("hh:mm a").format(dateTime),
+                                                            size: 10,
+                                                            overflow: TextOverflow.ellipsis,
+                                                            color: MyColors.primary,
+                                                            fontWeight: FontWeight.bold,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            if (state.data!.appointments!.isEmpty)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                                child: MyText(
+                                  alien: TextAlign.center,
+                                  title: "No Upcoming Appointments",
+                                  size: 10,
+                                  color: MyColors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             widget.patientModel.finalFeedback != "Clear"
                                 ? Row(
                                     children: [
@@ -659,7 +785,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                                         const SizedBox(height: 10.0),
                                                         RadioListTile(
                                                           title: Text("Not Clear"),
-                                                          value: "Not Clear",
+                                                          value: "Not_Clear",
                                                           groupValue: feedbackStatus,
                                                           onChanged: (value) {
                                                             log("value=> $value");
@@ -713,9 +839,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                                           },
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 6.0,
-                                      ),
+                                      const SizedBox(width: 6.0),
                                       Expanded(
                                         child: DefaultButton(
                                           title: "Book Appointment",
@@ -733,7 +857,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                       } else {
                         return Center(
                           child: MyText(
-                            title: """Patient patient didn't submit his answers""",
+                            title: "Patient didn't submit his answers",
                             size: 12,
                             color: MyColors.grey,
                           ),
@@ -801,6 +925,7 @@ class _SurPatientDetailsState extends State<PsychologistPatientDetails> {
                 if (result?.success ?? false) {
                   Navigator.of(context).pop();
                   CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
+                  psychologistPatientDetailsData.getPatientDetails(context, widget.patientId);
                 } else {
                   CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
                 }
@@ -855,11 +980,12 @@ class buildAddAppointmentSheet extends StatelessWidget {
           shrinkWrap: true,
           children: [
             MyText(
-                title: "Add Appointment",
-                size: 14,
-                alien: TextAlign.center,
-                color: MyColors.primary,
-                fontWeight: FontWeight.bold),
+              title: "Add Appointment",
+              size: 14,
+              alien: TextAlign.center,
+              color: MyColors.primary,
+              fontWeight: FontWeight.bold,
+            ),
             const SizedBox(height: 10),
             MyText(title: "Appointment Date", size: 12, fontWeight: FontWeight.bold),
             BlocConsumer<GenericBloc<String?>, GenericState<String?>>(

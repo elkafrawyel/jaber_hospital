@@ -603,7 +603,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
                 SizedBox(width: 10),
                 MyText(
-                  title: state.data?.patient?.dietation_feedback_decision ?? '',
+                  title: (state.data?.patient?.dietation_feedback_decision ?? '').replaceAll('_', ' '),
                   size: 12,
                   color: MyColors.primary,
                   fontWeight: FontWeight.bold,
@@ -634,7 +634,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 ),
                 SizedBox(width: 10),
                 MyText(
-                  title: state.data?.patient?.feedback ?? '',
+                  title: (state.data?.patient?.feedback ?? '').replaceAll('_', ' '),
                   size: 12,
                   color: MyColors.primary,
                   fontWeight: FontWeight.bold,
@@ -1073,7 +1073,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                     ),
                                     RadioListTile(
                                       title: Text("Need Visit"),
-                                      value: "Need Visit",
+                                      value: "Need_Visit",
                                       groupValue: feedbackStatus,
                                       onChanged: (value) {
                                         setState(() {
@@ -1083,7 +1083,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                     ),
                                     RadioListTile(
                                       title: Text("Need Second Visit"),
-                                      value: "Need Second Visit",
+                                      value: "Need_Second_Visit",
                                       groupValue: feedbackStatus,
                                       onChanged: (value) {
                                         setState(() {
@@ -1132,7 +1132,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                     (state.data?.patient?.feedback ?? '') != 'Clear')
                   DefaultButton(
                     fontSize: 12,
-                    title: "Add Physiotherapy Data",
+                    title: "Add Data",
                     onTap: () async {
                       await Nav.navigateTo(
                         PhysiotherapyAddPatientData(patient: state.data!.patient!),
@@ -1169,8 +1169,8 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                                       },
                                     ),
                                     RadioListTile(
-                                      title: Text("Not Clear"),
-                                      value: "Not Clear",
+                                      title: Text("NotClear"),
+                                      value: "Not_Clear",
                                       groupValue: physiotherapyFeedbackStatus,
                                       onChanged: (value) {
                                         setState(() {

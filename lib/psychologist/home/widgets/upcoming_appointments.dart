@@ -16,18 +16,15 @@ class UpcomingAppointments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Appointments>? list = PsychologistHomeData().homeCubit.state.data?.appointments ;
+    List<Appointments>? list = PsychologistHomeData().homeCubit.state.data?.appointments;
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            MyText(
-                title: 'Upcoming Appointments',
-                size: 12,
-                fontWeight: FontWeight.bold),
+            MyText(title: 'Upcoming Appointments', size: 12, fontWeight: FontWeight.bold),
             InkWell(
-              onTap: ()=> Nav.navigateTo(SurAppointments(), navigatorType: NavigatorType.push),
+              onTap: () => Nav.navigateTo(SurAppointments(), navigatorType: NavigatorType.push),
               child: MyText(
                 title: 'See All',
                 size: 10,
@@ -39,20 +36,20 @@ class UpcomingAppointments extends StatelessWidget {
           ],
         ),
         Container(
-          height: 100,
+          height: 120,
           child: BlocBuilder<GenericBloc<SurgeonHomeModel?>, GenericState<SurgeonHomeModel?>>(
             bloc: PsychologistHomeData().homeCubit,
             builder: (context, state) {
-              if(state is GenericUpdateState){
-                if(state.data!.appointments!.isNotEmpty){
+              if (state is GenericUpdateState) {
+                if (state.data!.appointments!.isNotEmpty) {
                   return ListView.builder(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.data?.appointments?.length??0,
+                    itemCount: state.data?.appointments?.length ?? 0,
                     itemBuilder: (context, index) =>
                         UpComingAppointmentWidget(index: index, appointment: state.data!.appointments![index]),
                   );
-                }else{
+                } else {
                   return Center(
                     child: MyText(
                       title: 'No Upcoming Appointments',
@@ -61,9 +58,8 @@ class UpcomingAppointments extends StatelessWidget {
                     ),
                   );
                 }
-
-              }else{
-                return  Shimmer.fromColors(
+              } else {
+                return Shimmer.fromColors(
                   baseColor: Colors.white,
                   highlightColor: MyColors.greyWhite,
                   child: Container(
