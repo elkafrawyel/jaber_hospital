@@ -13,7 +13,7 @@ class InstrumentsBody extends StatelessWidget {
     return Column(
       children: [
         HeaderWidget(title: instrumentModel.code),
-        InstrumentsItemWidget(itemDesc: instrumentModel.description),
+        InstrumentsItemWidget(itemDesc: instrumentModel.description, itemQuantity: (instrumentModel.quantity??0).toString(),),
         // ListView.builder(
         //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
         //   shrinkWrap: true,

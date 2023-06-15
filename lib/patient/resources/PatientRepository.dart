@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../surgeon/models/patient_details_model.dart';
 import '../models/appointments_response.dart';
 import '../models/notifications_response.dart';
 import '../models/questionaire_model.dart';
@@ -17,6 +18,7 @@ class PatientRepository {
   /// Patient
   Future<AppointmentsResponse?> getComingAppointments()=> _patientHttpMethods.fetchComingPatientAppointments();
   Future<AppointmentsResponse?> getPastAppointments()=> _patientHttpMethods.fetchPastPatientAppointments();
+  Future<PatientDetailsModel?> getPatientDetails(String patId)=> _patientHttpMethods.fetchPatientDetails(patId);
   Future<NotificationsResponse?> getPatientNotifications()=> _patientHttpMethods.fetchPatientNotifications();
   Future<UpdateConsentResponse?> updateConsent()=> _patientHttpMethods.updateConsent();
   Future<QuestionnaireResponse?> getPatientQuestionnaire(int page)=> _patientHttpMethods.fetchPatientQuestionnaire(page);

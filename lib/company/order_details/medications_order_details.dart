@@ -8,9 +8,11 @@ import '../../general/utilities/http/dio/modals/LoadingDialog.dart';
 import '../../general/utilities/tf_custom_widgets/widgets/DefaultButton.dart';
 import '../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../general/utilities/utils_functions/ApiNames.dart';
+import '../../general/utilities/utils_functions/Navigator.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../general/widgets/GenScaffold.dart';
 import '../../general/widgets/modal_bottom_sheet.dart';
+import '../comp_home/home_screen.dart';
 import '../comp_medications_orders/medications_orders_data.dart';
 import '../models/comp_order_model.dart';
 import '../models/order_model.dart';
@@ -26,6 +28,18 @@ class MedicationsOrderDetailsScreen extends StatefulWidget {
 }
 
 class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
+  int quantity = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    widget.orderModel.medicationsDetails!.forEach((order) =>
+    quantity+=(order.quantity??0),
+    );
+    log("quantity==> $quantity");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -76,6 +90,15 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
                       color: Colors.grey,
                     ),
                   ),
+                  _buildRowItem(
+                      title: "Quantity",
+                      value: quantity.toString()),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6.0),
+                    child: Divider(
+                      color: Colors.grey,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: MyText(
@@ -103,11 +126,21 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
                                       size: 11,
                                       fontWeight: FontWeight.w600),
                                   const SizedBox(width: 5,),
-                                  MyText(
-                                      title: widget.orderModel.medications?[index]
-                                          .description ?? "",
-                                      color:Colors.grey,
-                                      size: 11, fontWeight: FontWeight.w600),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      MyText(
+                                          title: widget.orderModel.medications?[index]
+                                              .description ?? "",
+                                          color:Colors.grey,
+                                          size: 11, fontWeight: FontWeight.w600),
+                                      MyText(
+                                          title: (widget.orderModel.medicationsDetails?[index]
+                                              .quantity ??0).toString(),
+                                          color:Colors.grey,
+                                          size: 11, fontWeight: FontWeight.w600),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
@@ -238,13 +271,9 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
               log("data=> ${result?.toJson()}");
               if(result?.success??false){
                 Navigator.of(context).pop();
-                Navigator.of(context).pop();
-                if(nStatus == "inprogress"){
-                  MedicationsOrdersData().tabController.index = 1;
-                }else{
-                  MedicationsOrdersData().tabController.index = 2;
-                }
+                // Navigator.of(context).pop();
                 CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
+                Nav.navigateTo(ComHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
               } else{
                 CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
               }

@@ -5,10 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../general/blocks/user_cubit/user_cubit.dart';
 import '../../general/models/UserModel.dart';
+import '../../general/models/patient_model.dart';
 import '../../general/utilities/http/dio/http/GenericHttp.dart';
 import '../../general/utilities/utils_functions/ApiNames.dart';
 import '../../general/utilities/utils_functions/LoadingDialog.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
+import '../../surgeon/models/patient_details_model.dart';
 import '../models/appointments_response.dart';
 import '../models/notifications_response.dart';
 import '../models/questionaire_model.dart';
@@ -72,6 +74,21 @@ class PatientHttpMethods {
       toJsonFunc: (json) => AppointmentsResponse.fromJson(json),
     );
     return data;
+  }
+
+  Future<PatientDetailsModel?> fetchPatientDetails(String patId) async {
+    dynamic data = await GenericHttp<PatientDetailsModel>(context).callApi(
+      name: ApiNames.patientDetails + "/$patId",
+      returnType: ReturnType.Model,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data["data"],
+      toJsonFunc: (json) => PatientDetailsModel.fromJson(json),
+    );
+    if (data != null) {
+      return data;
+    } else {
+      return null;
+    }
   }
 
   Future<UpdateConsentResponse?> updateConsent() async {

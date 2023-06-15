@@ -24,6 +24,17 @@ class SurInstrumentRequestDetails extends StatefulWidget {
 
 class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetails> {
   SurInstrumentsOrdersData surInstrumentsOrdersData = SurInstrumentsOrdersData();
+  int quantity = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    widget.instrumentOrderModel.instrumentsDetails!.forEach((order) =>
+        quantity+=(order.quantity??0),
+    );
+    log("quantity==> $quantity");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +165,7 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: "${widget.instrumentOrderModel.instruments?.length ?? 0}",
+                      title: quantity.toString(),
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -194,7 +205,7 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                     textColor: Colors.red,
                     margin: const EdgeInsets.symmetric(
                         horizontal: 100, vertical: 20),
-                  )
+                  ),
               ],
             )
           ],

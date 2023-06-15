@@ -1,12 +1,15 @@
+import 'package:base_flutter/general/utilities/utils_functions/UtilsImports.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../res/res.dart';
+import '../../../surgeon/models/patient_details_model.dart';
 
 class OperationWidget extends StatelessWidget {
-  const OperationWidget({Key? key, required this.index}) : super(key: key);
-  final int index;
+  const OperationWidget({Key? key, required this.patientInfo}) : super(key: key);
+  final PatientDetailsModel? patientInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -49,16 +52,22 @@ class OperationWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                   const SizedBox(width: 5.0),
                   MyText(
-                    title: "15 أغسطس 2022",
+                    title: Utils.getDate(patientInfo?.patient?.operationDate??""),
                     overflow: TextOverflow.ellipsis,
-                    size: 9,
+                    size: 13,
                     color: MyColors.primary,
                   ),
                 ],
               ),
-              const SizedBox(height: 5.0),
-              MyText(
-                  title: 'د/محمد محسن', size: 13, fontWeight: FontWeight.bold),
+              const SizedBox(height: 4.0),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MyText(title: patientInfo?.patient?.surgeonId?.firstNameEn??"", size: 13, fontWeight: FontWeight.bold),
+                  MyText(title: patientInfo?.patient?.surgeonId?.lastNameEn??"", size: 13, fontWeight: FontWeight.bold),
+                ],
+              ),
+
             ],
           ),
         ],

@@ -25,16 +25,16 @@ class BuildInProgressOrders extends StatelessWidget {
                 title: 'Orders In Progress',
                 size: 12,
                 fontWeight: FontWeight.bold),
-            InkWell(
-              onTap: ()=> Nav.navigateTo(CompOrdersScreen(initialIndex: 1), navigatorType: NavigatorType.push),
-              child: MyText(
-                title: 'See All',
-                size: 10,
-                fontWeight: FontWeight.bold,
-                color: MyColors.primary,
-                decoration: TextDecoration.underline,
-              ),
-            ),
+            // InkWell(
+            //   onTap: ()=> Nav.navigateTo(CompOrdersScreen(initialIndex: 1), navigatorType: NavigatorType.push),
+            //   child: MyText(
+            //     title: 'See All',
+            //     size: 10,
+            //     fontWeight: FontWeight.bold,
+            //     color: MyColors.primary,
+            //     decoration: TextDecoration.underline,
+            //   ),
+            // ),
           ],
         ),
         Container(

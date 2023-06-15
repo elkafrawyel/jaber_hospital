@@ -4,8 +4,9 @@ import '../../../general/constants/MyColors.dart';
 import '../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 
 class InstrumentsItemWidget extends StatelessWidget {
-  const InstrumentsItemWidget({Key? key, required this.itemDesc}) : super(key: key);
+  const InstrumentsItemWidget({Key? key, required this.itemDesc, required this.itemQuantity}) : super(key: key);
   final String? itemDesc;
+  final String? itemQuantity;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +23,24 @@ class InstrumentsItemWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10.0,),
-          MyText(
-              title: itemDesc??"",
-              color:Colors.black,
-              size: 12,
-              fontWeight: FontWeight.bold),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: MyText(
+                      title: itemDesc??"",
+                      color:Colors.black,
+                      size: 12,
+                      fontWeight: FontWeight.bold),
+                ),
+                MyText(
+                    title: itemQuantity??"",
+                    color:MyColors.primary,
+                    size: 13,
+                    fontWeight: FontWeight.bold),
+            ],),
+          )
         ],
       ),
     );

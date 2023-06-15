@@ -5,9 +5,11 @@ import '../../general/utilities/http/dio/modals/LoadingDialog.dart';
 import '../../general/utilities/tf_custom_widgets/widgets/DefaultButton.dart';
 import '../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../general/utilities/utils_functions/ApiNames.dart';
+import '../../general/utilities/utils_functions/Navigator.dart';
 import '../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../general/widgets/GenScaffold.dart';
 import '../../general/widgets/modal_bottom_sheet.dart';
+import '../comp_home/home_screen.dart';
 import '../instruments/widgets/header_widget.dart';
 import '../instruments/widgets/instrument_list_item.dart';
 import '../models/comp_order_model.dart';
@@ -26,6 +28,18 @@ class OrderDetailsScreen extends StatefulWidget {
 }
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+  int quantity = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    widget.orderModel.instrumentsDetails!.forEach((order) =>
+    quantity+=(order.quantity??0),
+    );
+    log("quantity==> $quantity");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -76,6 +90,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       color: Colors.grey,
                     ),
                   ),
+                  _buildRowItem(
+                      title: "Quantity",
+                      value: quantity.toString()),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6.0),
+                    child: Divider(
+                      color: Colors.grey,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: MyText(
@@ -100,8 +123,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             ),
                             InstrumentsItemWidget(
                                 itemDesc: widget.orderModel.instruments?[index]
-                                        .description ??
-                                    ""),
+                                        .description ?? "", itemQuantity: (widget.orderModel.instrumentsDetails?[index]
+                                .quantity??0).toString() ,),
                           ],
                         );
                       })
@@ -229,12 +252,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               log("data=> ${result?.toJson()}");
               if(result?.success??false){
                 Navigator.of(context).pop();
-                Navigator.of(context).pop();
-                // if(nStatus == "inprogress"){
-                //
-                // }else{
-                //
-                // }
+                // Navigator.of(context).pop();
+                Nav.navigateTo(ComHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
                 CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
               } else{
                 CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
