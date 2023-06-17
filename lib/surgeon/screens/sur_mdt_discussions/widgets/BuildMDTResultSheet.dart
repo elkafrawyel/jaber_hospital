@@ -1,11 +1,7 @@
-part  of 'SurMdtDiscussionsWImports.dart';
-
+part of 'SurMdtDiscussionsWImports.dart';
 
 class BuildMDTResultSheet extends StatelessWidget {
-  const BuildMDTResultSheet({
-    Key? key, required this.patient,
-    required this.index
-  }) : super(key: key);
+  const BuildMDTResultSheet({Key? key, required this.patient, required this.index}) : super(key: key);
   final MdtPatientModel? patient;
   final int? index;
 
@@ -19,8 +15,7 @@ class BuildMDTResultSheet extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: BlocBuilder<GenericBloc<int>,
-          GenericState<int>>(
+      child: BlocBuilder<GenericBloc<int>, GenericState<int>>(
         bloc: SurMdtDiscussionsData().selectMDTResultCubit,
         builder: (context, state) {
           return ListView(
@@ -43,20 +38,19 @@ class BuildMDTResultSheet extends StatelessWidget {
                   color: MyColors.black,
                   fontWeight: FontWeight.bold,
                 ),
-                onChanged: (val) => SurMdtDiscussionsData().onSelectResult(val, context, patient?.id??"", index??0),
+                onChanged: (val) => SurMdtDiscussionsData().onSelectResult(val, context, patient?.id ?? "", index ?? 0),
               ),
               const Divider(),
               RadioListTile(
                 value: 2,
                 groupValue: state.data,
                 title: MyText(
-                title: "Refuse",
+                  title: "Refuse",
                   fontWeight: FontWeight.bold,
                   size: 12,
-          color: MyColors.black,
-          ),
-                onChanged: (val) =>
-                    SurMdtDiscussionsData().onSelectResult(val, context,patient?.id??"", index??0),
+                  color: MyColors.black,
+                ),
+                onChanged: (val) => SurMdtDiscussionsData().onSelectResult(val, context, patient?.id ?? "", index ?? 0),
               ),
               const Divider(),
               RadioListTile(
@@ -68,8 +62,7 @@ class BuildMDTResultSheet extends StatelessWidget {
                   size: 12,
                   color: MyColors.black,
                 ),
-                onChanged: (val) =>
-                    SurMdtDiscussionsData().onSelectResult(val, context, patient?.id??"", index??0),
+                onChanged: (val) => SurMdtDiscussionsData().onSelectResult(val, context, patient?.id ?? "", index ?? 0),
               ),
             ],
           );

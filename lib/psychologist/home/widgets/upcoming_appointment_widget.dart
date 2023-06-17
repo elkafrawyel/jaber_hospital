@@ -7,7 +7,11 @@ import '../../../res/res.dart';
 import '../../../surgeon/models/surgeon_home_model.dart';
 
 class UpComingAppointmentWidget extends StatelessWidget {
-  const UpComingAppointmentWidget({Key? key, required this.index, required this.appointment}) : super(key: key);
+  const UpComingAppointmentWidget({
+    Key? key,
+    required this.index,
+    required this.appointment,
+  }) : super(key: key);
   final int index;
   final Appointments appointment;
 
@@ -17,7 +21,7 @@ class UpComingAppointmentWidget extends StatelessWidget {
     return InkWell(
       // onTap: ()=> Nav.navigateTo(EducationScreen(), navigatorType: NavigatorType.push),
       child: Container(
-        width: size.width * 0.80,
+        width: size.width * 0.70,
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
         margin: const EdgeInsets.symmetric(horizontal: 6.0),
         decoration: BoxDecoration(
@@ -35,10 +39,11 @@ class UpComingAppointmentWidget extends StatelessWidget {
         child: Row(
           children: [
             CachedImage(
-                url: appointment.patientId?.image ?? 'https://picsum.photos/201',
-                height: 68,
-                width: 68,
-                borderRadius: BorderRadius.circular(5)),
+              url: appointment.patientId?.image ?? 'https://picsum.photos/201',
+              height: 68,
+              width: 68,
+              borderRadius: BorderRadius.circular(5),
+            ),
             const SizedBox(width: 8),
             Expanded(
               child: Column(
@@ -49,10 +54,7 @@ class UpComingAppointmentWidget extends StatelessWidget {
                     size: 13,
                     fontWeight: FontWeight.bold,
                   ),
-                  MyText(
-                      title: appointment.patientId?.operationType ?? '',
-                      size: 12,
-                      color: Colors.grey),
+                  MyText(title: appointment.patientId?.operationType ?? '', size: 12, color: Colors.grey),
                   const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

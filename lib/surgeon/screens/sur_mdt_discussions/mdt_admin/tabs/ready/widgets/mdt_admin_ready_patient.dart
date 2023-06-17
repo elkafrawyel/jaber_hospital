@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../../../../../../general/constants/MyColors.dart';
 import '../../../../../../../general/utilities/tf_custom_widgets/widgets/CachedImage.dart';
 import '../../../../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
@@ -10,23 +11,20 @@ import '../../../../SurMdtDiscussionsImports.dart';
 import '../../../../widgets/SurMdtDiscussionsWImports.dart';
 
 class MdtAdminReadyPatientWidget extends StatelessWidget {
-  const MdtAdminReadyPatientWidget({Key? key, required this.patientModel})
-      : super(key: key);
+  const MdtAdminReadyPatientWidget({Key? key, required this.patientModel}) : super(key: key);
   final MdtPatientModel patientModel;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Nav.navigateTo(
-        SurPatientDetails(
-            patientId: patientModel.id?? ""),
+        SurPatientDetails(patientId: patientModel.id ?? ""),
         navigatorType: NavigatorType.push,
       ),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-            color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
+        decoration: BoxDecoration(color: Color(0xfff2f2f2), borderRadius: BorderRadius.circular(15)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,8 +48,7 @@ class MdtAdminReadyPatientWidget extends StatelessWidget {
                           children: [
                             Expanded(
                               child: MyText(
-                                title:
-                                    "${patientModel.firstNameEn} ${patientModel.lastNameEn}",
+                                title: "${patientModel.firstNameEn ?? ''} ${patientModel.lastNameEn ?? ''}",
                                 size: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -68,7 +65,7 @@ class MdtAdminReadyPatientWidget extends StatelessWidget {
                             ),
                             MyText(
                               title:
-                                  "${patientModel.surgeonId?.firstNameEn} ${patientModel.surgeonId?.lastNameEn}",
+                                  "${patientModel.surgeonId?.firstNameEn ?? ''} ${patientModel.surgeonId?.lastNameEn ?? ''}",
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -84,7 +81,7 @@ class MdtAdminReadyPatientWidget extends StatelessWidget {
                             ),
                             MyText(
                               title:
-                                  "${patientModel.dietationId?.firstNameEn} ${patientModel.dietationId?.lastNameEn}",
+                                  "${patientModel.dietationId?.firstNameEn ?? ''} ${patientModel.dietationId?.lastNameEn ?? ''}",
                               size: 11,
                               color: MyColors.grey,
                             ),
@@ -109,21 +106,21 @@ class MdtAdminReadyPatientWidget extends StatelessWidget {
                   ),
                   Expanded(
                     child: MyText(
-                      title: patientModel.mdtDateTime ?? "",
+                      title: DateTime.tryParse(patientModel.mdtDateTime!) == null
+                          ? patientModel.mdtDateTime ?? ''
+                          : DateFormat("E ,d MMM y").format(DateTime.parse(patientModel.mdtDateTime!)),
                       size: 11,
                       color: MyColors.primary,
                     ),
                   ),
                   InkWell(
                     onTap: () async {
-                      SurMdtDiscussionsData()
-                          .mdtDurationCubit
-                          .onUpdateData(0);
+                      SurMdtDiscussionsData().mdtDurationCubit.onUpdateData(0);
                       showModalBottomSheet(
-                          backgroundColor: Colors.transparent,
-                          context: context,
-                          builder: (context) =>
-                              BuildPatientMDTDurationSheet(patient: patientModel, onlyChangeDate: true));
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (context) => BuildPatientMDTDurationSheet(patient: patientModel, onlyChangeDate: true),
+                      );
                       // showDialog(
                       //   context: context,
                       //   builder: (context) =>

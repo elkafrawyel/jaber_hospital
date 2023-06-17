@@ -18,9 +18,10 @@ class ComingAppointmentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return InkWell(
-      onTap:()=> Nav.navigateTo(AppointmentDetailsScreen(appointmentModel: appointmentModel),navigatorType: NavigatorType.push),
+      onTap: () => Nav.navigateTo(AppointmentDetailsScreen(appointmentModel: appointmentModel),
+          navigatorType: NavigatorType.push),
       child: Container(
-        width: size.width * 0.80,
+        width: size.width * 0.7,
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
         margin: const EdgeInsets.symmetric(horizontal: 6.0),
         decoration: BoxDecoration(
@@ -41,9 +42,17 @@ class ComingAppointmentWidget extends StatelessWidget {
               width: 68,
               height: 76,
               decoration: BoxDecoration(
-                  color: MyColors.primaryLightBg,
-                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
-              child: Image.asset(Res.doctorImage, width: double.infinity, height: double.infinity, fit: BoxFit.cover,),
+                color: MyColors.primaryLightBg,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(8.0),
+                ),
+              ),
+              child: Image.asset(
+                Res.doctorImage,
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(width: 8),
             Expanded(
@@ -51,10 +60,11 @@ class ComingAppointmentWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MyText(
-                      title: "${appointmentModel.doctorId?.firstNameAr} ${appointmentModel.doctorId?.lastNameAr}",
-                      size: 13,
-                      fontWeight: FontWeight.bold),
-                  MyText(title:appointmentModel.doctorId?.title??"", size: 12, color: Colors.grey),
+                    title: "${appointmentModel.doctorId?.firstNameAr} ${appointmentModel.doctorId?.lastNameAr}",
+                    size: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  MyText(title: appointmentModel.doctorId?.title ?? "", size: 12, color: Colors.grey),
                   const SizedBox(height: 3),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,9 +78,11 @@ class ComingAppointmentWidget extends StatelessWidget {
                           ),
                           const SizedBox(width: 2),
                           MyText(
-                            title: DateFormat("E ,d MMM").format(DateTime.parse(appointmentModel.appointmentDate??"")),
+                            title: DateFormat("E ,d MMM y", 'ar').format(
+                              DateTime.parse(appointmentModel.appointmentDate ?? ""),
+                            ),
                             overflow: TextOverflow.ellipsis,
-                            size: 9,
+                            size: 11,
                             color: MyColors.primary,
                           ),
                         ],
@@ -84,8 +96,10 @@ class ComingAppointmentWidget extends StatelessWidget {
                           ),
                           const SizedBox(width: 2),
                           MyText(
-                            title: DateFormat("hh:mm a").format(DateTime.parse(appointmentModel.appointmentDate??"")),
-                            size: 9,
+                            title: DateFormat("hh:mm a", 'ar').format(
+                              DateTime.parse(appointmentModel.appointmentDate ?? ""),
+                            ),
+                            size: 10,
                             overflow: TextOverflow.ellipsis,
                             color: MyColors.primary,
                           ),
