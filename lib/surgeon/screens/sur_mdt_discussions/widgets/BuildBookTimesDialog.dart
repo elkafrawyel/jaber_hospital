@@ -79,11 +79,11 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                             log("previous");
                             _surMdtDiscussionsData.getPreviousMonday();
                             _debouncer.run(() async {
-                              // put the code that you want to debounce
-                              // example: calling an API, adding a BLoC event
-                              log('selectBookDate==> ${_surMdtDiscussionsData.selectBookDateCubit.state.data}');
+                              selectedTime = "";
                               await _surMdtDiscussionsData.fetchMdtAvailableSlots(
-                                  context, _surMdtDiscussionsData.selectBookDateCubit.state.data.toIso8601String());
+                                context,
+                                _surMdtDiscussionsData.selectBookDateCubit.state.data.toIso8601String(),
+                              );
                             });
                           },
                           child: RotatedBox(
@@ -125,22 +125,23 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                           width: 12.0,
                         ),
                         InkWell(
-                            onTap: () {
-                              log("isLast icon");
-                              _surMdtDiscussionsData.getNextMonday();
-                              _debouncer.run(() async {
-                                // put the code that you want to debounce
-                                // example: calling an API, adding a BLoC event
-                                log('selectBookDate==> ${_surMdtDiscussionsData.selectBookDateCubit.state.data}');
-                                await _surMdtDiscussionsData.fetchMdtAvailableSlots(
-                                    context, _surMdtDiscussionsData.selectBookDateCubit.state.data.toIso8601String());
-                              });
-                            },
-                            child: Icon(
-                              Icons.forward,
-                              size: 28,
-                              color: MyColors.primary,
-                            )),
+                          onTap: () {
+                            log("isLast icon");
+                            _surMdtDiscussionsData.getNextMonday();
+                            _debouncer.run(() async {
+                              selectedTime = "";
+                              await _surMdtDiscussionsData.fetchMdtAvailableSlots(
+                                context,
+                                _surMdtDiscussionsData.selectBookDateCubit.state.data.toIso8601String(),
+                              );
+                            });
+                          },
+                          child: Icon(
+                            Icons.forward,
+                            size: 28,
+                            color: MyColors.primary,
+                          ),
+                        ),
                       ],
                     ),
                   );
@@ -182,7 +183,7 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                                     child: MyText(
                                       title: state.data[index],
                                       size: 10,
-                                      color: selectedTime == state.data[index] ? Colors.white : Colors.black,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -199,22 +200,21 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                               }
                               log("selectedTime==> $selectedTime");
                               Map<String, dynamic> body = {
-                                "mdt_time":selectedTime,
+                                "mdt_time": selectedTime,
                                 "mdt_date_time":
                                     _surMdtDiscussionsData.selectBookDateCubit.state.data.toIso8601String(),
                                 "mdt_session_duration": _surMdtDiscussionsData.mdtDurationCubit.state.data.toString(),
                               };
-                              log("isReady=> ${widget.onlyChangeReadyDate}");
                               log("bookingBody=> $body");
+
+                              await SurgeonRepository(context).confirmMdtBooking(body, widget.patient.id ?? "");
                               if (!widget.onlyChangeReadyDate) {
                                 await ReadyMdtData().updateReadyMdtStatus(context, "booked", widget.patient.id ?? "");
-                                await SurgeonRepository(context).confirmMdtBooking(body, widget.patient.id ?? "");
                                 navigationKey.currentState?.pop();
                                 SurMdtDiscussionsData().tabController.animateTo(1);
                               } else {
                                 /// for change date
                                 log("not ready, this for change date only");
-                                await SurgeonRepository(context).confirmMdtBooking(body, widget.patient.id ?? "");
                                 navigationKey.currentState?.pop();
                                 await AllReadyPatientsData().fetchMdtReadyPatients(context);
                               }
@@ -230,7 +230,7 @@ class _BuildBookTimesDialogState extends State<BuildBookTimesDialog> {
                       child: Center(
                         child: MyText(
                           title: "No times available",
-                          size: 11,
+                          size: 14,
                           color: Colors.black,
                         ),
                       ),

@@ -30,14 +30,14 @@ class BookedMdtData {
     bookedPatients = result?.patients ?? [];
     bookedCubit.onUpdateData(bookedPatients);
   }
-
-  Future<void> confirmBooking(BuildContext context, Map<String, dynamic> body, int index, String patientId) async {
-    UpdateConsentResponse? result = await SurgeonRepository(context).confirmMdtBooking(body, patientId);
-    if (result?.success ?? false) {
-      bookedPatients?.removeAt(index);
-      bookedCubit.onUpdateData(bookedPatients);
-    } else {
-      CustomToast.showToastNotification(result?.message?.messageEn ?? "");
-    }
-  }
+  //
+  // Future<void> confirmBooking(BuildContext context, Map<String, dynamic> body, int index, String patientId) async {
+  //   UpdateConsentResponse? result = await SurgeonRepository(context).confirmMdtBooking(body, patientId);
+  //   if (result?.success ?? false) {
+  //     bookedPatients?.removeAt(index);
+  //     bookedCubit.onUpdateData(bookedPatients);
+  //   } else {
+  //     CustomToast.showToastNotification(result?.message?.messageEn ?? "");
+  //   }
+  // }
 }

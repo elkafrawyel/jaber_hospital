@@ -485,7 +485,7 @@ class SurgeonHttpMethods {
 
   Future<UpdateConsentResponse?> confirmMdtBooking(Map<String, dynamic> body, String patientId) async {
     final data = await GenericHttp<UpdateConsentResponse>(context).callApi(
-      name: "${ApiNames.confirmMdtBookingPath}?user_id=$patientId",
+      name: "${ApiNames.confirmMdtBookingPath}/$patientId",
       returnType: ReturnType.Model,
       methodType: MethodType.Put,
       jsonBody: body,

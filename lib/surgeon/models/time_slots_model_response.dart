@@ -55,18 +55,21 @@ class Message {
 class TimeSlot {
   String? sId;
   String? mdtDateTime;
+  String? mdtTime;
 
-  TimeSlot({this.sId, this.mdtDateTime});
+  TimeSlot({this.sId, this.mdtDateTime,this.mdtTime});
 
   TimeSlot.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     mdtDateTime = json['mdt_date_time'];
+    mdtTime = json['mdt_time'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['mdt_date_time'] = this.mdtDateTime;
+    data['mdt_time'] = this.mdtTime;
     return data;
   }
 }

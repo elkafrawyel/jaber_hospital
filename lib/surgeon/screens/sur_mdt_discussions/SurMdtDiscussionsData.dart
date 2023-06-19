@@ -44,16 +44,12 @@ class SurMdtDiscussionsData {
     while (next.weekday != monday) {
       next = next.add(new Duration(days: 1));
     }
-    log('Recent monday $next');
-    // log("formattedDay==> ${next.day} - ${next.month} - ${next.year}");
     curMonDay = dateFormat.format(next);
-    log("formattedDay==> $curMonDay");
     this.selectBookDateCubit = GenericBloc(next);
     await fetchMdtAvailableSlots(context, next.toIso8601String());
   }
 
   void navigateToTimeDialog(int? val, BuildContext context) {
-    log("mdtDuration==> $val");
     SurMdtDiscussionsData().mdtDurationCubit.onUpdateData(val!);
     navigationKey.currentState?.pop();
   }
@@ -92,9 +88,7 @@ class SurMdtDiscussionsData {
 
   void getNextMonday() {
     next = next.add(Duration(days: 7));
-    log("next==> ${next.toIso8601String()}");
     curMonDay = dateFormat.format(next);
-    // log("formattedDay==> $curMonDay");
     selectBookDateCubit.onUpdateData(next);
   }
 
@@ -103,12 +97,9 @@ class SurMdtDiscussionsData {
     while (nextMonday.weekday != monday) {
       nextMonday = nextMonday.add(new Duration(days: 1));
     }
-    // log('Recent monday $next');
     if (next.difference(nextMonday).inDays > 0) {
       next = next.subtract(Duration(days: 7));
-      // log("next==> $next");
       curMonDay = dateFormat.format(next);
-      // log("formattedDay==> $curMonDay");
       selectBookDateCubit.onUpdateData(next);
     }
   }
@@ -119,44 +110,29 @@ class SurMdtDiscussionsData {
 
   Future<void> fetchMdtAvailableSlots(BuildContext context, String isoDate) async {
     dayTimesCubit.onUpdateToInitState([]);
-    TimeSlotsModelResponse? result = await SurgeonRepository(context).fetchMdtAvailableSlots(isoDate);
-    log("Times==> ${result?.times?.length}");
-    List<TimeSlot> times = result?.times ?? [];
+    List<TimeSlot> times = (await SurgeonRepository(context).fetchMdtAvailableSlots(isoDate))?.times ?? [];
     if (times.isEmpty) {
-      if (mdtDurationCubit.state.data == 5) {
-        dayAvailableTimes = timesOf5Minutes;
-      } else {
-        dayAvailableTimes = timesOf10Minutes;
-      }
+      log("All Times Available");
+      dayAvailableTimes = mdtDurationCubit.state.data == 5 ? timesOf5Minutes : timesOf10Minutes;
     } else {
-      /// filter times
+      log("Filtering Times");
       dayAvailableTimes = filterDayTimes(times);
     }
-    log("dayAvailableTimes==> $dayAvailableTimes");
     dayTimesCubit.onUpdateData(dayAvailableTimes);
   }
 
   List<String> filterDayTimes(List<TimeSlot> times) {
-    List<String> takenTimes = [];
-    times.forEach((element) {
-      takenTimes.add(DateFormat("hh:mm a").format(DateTime.parse(element.mdtDateTime ?? "")));
-    });
+    List<String> takenTimes = times.map((e) => e.mdtTime!).toList();
     log("takenTimes==> $takenTimes");
-    if (mdtDurationCubit.state.data == 5) {
-      takenTimes.forEach((element) {
-        timesOf5Minutes.removeWhere((time) => element == time);
-      });
-      return timesOf5Minutes;
-    } else {
-      takenTimes.forEach((element) {
-        timesOf10Minutes.removeWhere((time) => element == time);
-      });
-      return timesOf10Minutes;
-    }
+    List<String> availableTimes = [];
+    availableTimes.addAll(mdtDurationCubit.state.data == 5 ? timesOf5Minutes : timesOf10Minutes);
+    takenTimes.forEach((element) {
+      availableTimes.removeWhere((time) => element == time);
+    });
+    return availableTimes;
   }
 
-//list of strings starts with 11:00 AM and encreased by 5 minutes to 11:55 AM
-  List<String> timesOf5Minutes = [
+  final List<String> timesOf5Minutes = [
     "11:00 AM",
     "11:05 AM",
     "11:10 AM",
@@ -171,7 +147,7 @@ class SurMdtDiscussionsData {
     "11:55 AM",
   ];
 
-  List<String> timesOf10Minutes = [
+  final List<String> timesOf10Minutes = [
     "11:00 AM",
     "11:10 AM",
     "11:20 AM",
