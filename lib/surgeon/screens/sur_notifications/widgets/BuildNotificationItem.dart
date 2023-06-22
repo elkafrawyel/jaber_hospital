@@ -32,7 +32,7 @@ class BuildNotificationItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MyText(
-                  title: "${notification?.notifcationDoctorEn}",
+                  title: "${notification?.notifcationCompanyEn}",
                   size: 12,
                   color: MyColors.black,
                 ),

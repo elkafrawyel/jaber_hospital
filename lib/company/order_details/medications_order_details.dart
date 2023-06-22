@@ -19,8 +19,7 @@ import '../models/order_model.dart';
 import '../models/update_order_status_response.dart';
 
 class MedicationsOrderDetailsScreen extends StatefulWidget {
-  const MedicationsOrderDetailsScreen({Key? key, required this.orderModel})
-      : super(key: key);
+  const MedicationsOrderDetailsScreen({Key? key, required this.orderModel}) : super(key: key);
   final OrderModel orderModel;
 
   @override
@@ -33,8 +32,8 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    widget.orderModel.medicationsDetails!.forEach((order) =>
-    quantity+=(order.quantity??0),
+    widget.orderModel.medicationsDetails!.forEach(
+      (order) => quantity += (order.quantity ?? 0),
     );
     log("quantity==> $quantity");
     super.initState();
@@ -48,13 +47,9 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
         title: 'Order# ${widget.orderModel.orderNum}',
         actions: [
           if (widget.orderModel.orderStatus == "completed") ...[
-            _buildOrderStatus(
-                status: widget.orderModel.orderStatus ?? "",
-                txtColor: MyColors.green),
+            _buildOrderStatus(status: widget.orderModel.orderStatus ?? "", txtColor: MyColors.green),
           ] else ...[
-            _buildOrderStatus(
-                status: widget.orderModel.orderStatus ?? "",
-                txtColor: MyColors.orange),
+            _buildOrderStatus(status: widget.orderModel.orderStatus ?? "", txtColor: MyColors.orange),
           ]
         ],
         body: Column(
@@ -72,9 +67,7 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
                       color: Colors.grey,
                     ),
                   ),
-                  _buildRowItem(
-                      title: "Patient Mobile",
-                      value: widget.orderModel.patientId?.mobile?? ""),
+                  _buildRowItem(title: "Patient Mobile", value: widget.orderModel.patientId?.mobile ?? ""),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: Divider(
@@ -83,16 +76,15 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
                   ),
                   _buildRowItem(
                       title: "Request Time",
-                      value: "${Utils.getDate(widget.orderModel.orderStartDate??"")}, ${Utils.getTimeFromStringTimeStamp(widget.orderModel.orderStartDate??"")}"),
+                      value:
+                          "${Utils.getDate(widget.orderModel.orderStartDate ?? "")}, ${Utils.getTimeFromStringTimeStamp(widget.orderModel.orderStartDate ?? "")}"),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: Divider(
                       color: Colors.grey,
                     ),
                   ),
-                  _buildRowItem(
-                      title: "Quantity",
-                      value: quantity.toString()),
+                  _buildRowItem(title: "Quantity", value: quantity.toString()),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: Divider(
@@ -108,80 +100,81 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
                       color: MyColors.blackHeader,
                     ),
                   ),
-                  ListView.builder(
-                      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8),
-                      shrinkWrap: true,
-                      itemCount: widget.orderModel.medications?.length,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
-                              child: Row(
-                                children: [
-                                  MyText(
-                                      title: widget.orderModel.medications?[index].medicationName?? "",
-                                      color:Colors.black87,
+                  ...(widget.orderModel.medications ?? [])
+                      .map((e) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                                child: Wrap(
+                                  children: [
+                                    MyText(
+                                      title: e.medicationName ?? "",
+                                      color: Colors.black87,
                                       size: 11,
-                                      fontWeight: FontWeight.w600),
-                                  const SizedBox(width: 5,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      MyText(
-                                          title: widget.orderModel.medications?[index]
-                                              .description ?? "",
-                                          color:Colors.grey,
-                                          size: 11, fontWeight: FontWeight.w600),
-                                      MyText(
-                                          title: (widget.orderModel.medicationsDetails?[index]
-                                              .quantity ??0).toString(),
-                                          color:Colors.grey,
-                                          size: 11, fontWeight: FontWeight.w600),
-                                    ],
-                                  )
-                                ],
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    MyText(
+                                      title: e.description ?? "",
+                                      color: Colors.grey,
+                                      size: 11,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    MyText(
+                                      title: (e.quantity ?? 0).toString(),
+                                      color: Colors.grey,
+                                      size: 11,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      })
+                            ],
+                          ))
+                      .toList(),
                 ],
               ),
             ),
-            if (widget.orderModel.orderStatus == "routed to company")...[
-              DefaultButton(title: "Respond to Order", onTap: () {
-                // UpdateAccountData().saveCompProfile(context);
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  isDismissible: false,
-                  builder: (BuildContext context) {
-                    return ModelBottomSheet(
-                      child: _buildBottomChangeStatus(widget.orderModel.orderStatus??""),
-                      sheetHeight: size.height * 0.38,
-                    );
-                  },
-                );
-              },margin: const EdgeInsets.symmetric(horizontal: 100,vertical: 5),),
-            ] else if(widget.orderModel.orderStatus == "inprogress")...[
-              DefaultButton(title: "Respond to Order", onTap: () {
-                // UpdateAccountData().saveCompProfile(context);
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  isDismissible: false,
-                  builder: (BuildContext context) {
-                    return ModelBottomSheet(
-                      child: _buildBottomChangeStatus(widget.orderModel.orderStatus??""),
-                      sheetHeight: size.height * 0.38,
-                    );
-                  },
-                );
-              },margin: const EdgeInsets.symmetric(horizontal: 100,vertical: 5),),
+            if (widget.orderModel.orderStatus == "routed to company") ...[
+              DefaultButton(
+                title: "Respond to Order",
+                onTap: () {
+                  // UpdateAccountData().saveCompProfile(context);
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    isDismissible: false,
+                    builder: (BuildContext context) {
+                      return ModelBottomSheet(
+                        child: _buildBottomChangeStatus(widget.orderModel.orderStatus ?? ""),
+                        sheetHeight: size.height * 0.38,
+                      );
+                    },
+                  );
+                },
+                margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+              ),
+            ] else if (widget.orderModel.orderStatus == "inprogress") ...[
+              DefaultButton(
+                title: "Respond to Order",
+                onTap: () {
+                  // UpdateAccountData().saveCompProfile(context);
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    isDismissible: false,
+                    builder: (BuildContext context) {
+                      return ModelBottomSheet(
+                        child: _buildBottomChangeStatus(widget.orderModel.orderStatus ?? ""),
+                        sheetHeight: size.height * 0.38,
+                      );
+                    },
+                  );
+                },
+                margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+              ),
             ],
             const SizedBox(
               height: 16.0,
@@ -231,16 +224,18 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
             ),
           ),
           const SizedBox(height: 16.0),
-          status=="inprogress"? const SizedBox.shrink():RadioListTile(
-            title: Text("In Progress"),
-            value: "inprogress",
-            groupValue: nStatus,
-            onChanged: (value) {
-              setInnerState(() {
-                nStatus = value.toString();
-              });
-            },
-          ),
+          status == "inprogress"
+              ? const SizedBox.shrink()
+              : RadioListTile(
+                  title: Text("In Progress"),
+                  value: "inprogress",
+                  groupValue: nStatus,
+                  onChanged: (value) {
+                    setInnerState(() {
+                      nStatus = value.toString();
+                    });
+                  },
+                ),
           RadioListTile(
             title: Text("Completed"),
             value: "completed",
@@ -255,9 +250,9 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
           DefaultButton(
             height: 38,
             title: "Update",
-            onTap: () async{
+            onTap: () async {
               log('fetchHomeCompOrders called...');
-              Map<String, dynamic> body ={
+              Map<String, dynamic> body = {
                 "order_status": nStatus,
               };
               UpdateOrderStatusResponse? result = await GenericHttp<UpdateOrderStatusResponse>(context).callApi(
@@ -269,13 +264,13 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
                 toJsonFunc: (json) => UpdateOrderStatusResponse.fromJson(json),
               );
               log("data=> ${result?.toJson()}");
-              if(result?.success??false){
+              if (result?.success ?? false) {
                 Navigator.of(context).pop();
                 // Navigator.of(context).pop();
-                CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
+                CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
                 Nav.navigateTo(ComHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
-              } else{
-                CustomToast.showSimpleToast(msg: result?.message?.messageEn??"");
+              } else {
+                CustomToast.showSimpleToast(msg: result?.message?.messageEn ?? "");
               }
             },
             margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),

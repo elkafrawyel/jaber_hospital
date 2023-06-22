@@ -77,7 +77,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
                           MyText(
                             title: Utils.getDate(appointmentModel.appointmentDate??""),
                             overflow: TextOverflow.ellipsis,
-                            size: 9,
+                            size: 12,
                             color: MyColors.primary,
                           ),
                         ],

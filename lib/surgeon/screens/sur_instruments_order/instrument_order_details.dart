@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../general/MyApp.dart';
 import '../../../general/constants/MyColors.dart';
@@ -16,6 +17,7 @@ import 'tabs/routed_to_company/routed_to_company_data.dart';
 class SurInstrumentRequestDetails extends StatefulWidget {
   final int index;
   final InstrumentOrderModel instrumentOrderModel;
+
   const SurInstrumentRequestDetails({Key? key, required this.index, required this.instrumentOrderModel});
 
   @override
@@ -29,8 +31,8 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
   @override
   void initState() {
     // TODO: implement initState
-    widget.instrumentOrderModel.instrumentsDetails!.forEach((order) =>
-        quantity+=(order.quantity??0),
+    widget.instrumentOrderModel.instrumentsDetails!.forEach(
+      (order) => quantity += (order.quantity ?? 0),
     );
     log("quantity==> $quantity");
     super.initState();
@@ -52,8 +54,7 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
             if (widget.instrumentOrderModel.orderStatus != "routed to company")
               Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                   decoration: BoxDecoration(
                       color: widget.instrumentOrderModel.orderStatus == "inprogress"
                           ? Color(0xffFFF2D9)
@@ -62,9 +63,7 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                   child: MyText(
                     title: widget.instrumentOrderModel.orderStatus ?? '',
                     size: 12,
-                    color: widget.instrumentOrderModel.orderStatus == "inprogress"
-                        ? Color(0xffEB7826)
-                        : Colors.green,
+                    color: widget.instrumentOrderModel.orderStatus == "inprogress" ? Color(0xffEB7826) : Colors.green,
                   ))
           ],
         ),
@@ -85,8 +84,8 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: "${widget.instrumentOrderModel.patientId?.firstNameEn} "
-                          "${widget.instrumentOrderModel.patientId?.lastNameEn}",
+                      title: "${widget.instrumentOrderModel.patientId?.firstNameEn ?? ''} "
+                          "${widget.instrumentOrderModel.patientId?.lastNameEn ?? ''}",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -102,7 +101,7 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: widget.instrumentOrderModel.patientId?.mobile ?? "",
+                      title: widget.instrumentOrderModel.mobileNumber ?? "",
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -118,7 +117,8 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                       fontWeight: FontWeight.bold,
                     ),
                     MyText(
-                      title: Utils.getDate(widget.instrumentOrderModel.orderStartDate ?? ""),
+                      title:
+                          DateFormat('E ,d MMM y').format(DateTime.parse(widget.instrumentOrderModel.orderStartDate!)),
                       size: 12,
                       color: MyColors.blackOpacity,
                     ),
@@ -148,12 +148,15 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                   fontWeight: FontWeight.bold,
                 ),
                 Wrap(
-                  children: widget.instrumentOrderModel.instruments!.map((e) =>
-                      MyText(
-                        title: "${e.code} (${e.description}), ",
-                        size: 12,
-                        color: MyColors.blackOpacity,
-                      ),).toList(),
+                  children: widget.instrumentOrderModel.instruments!
+                      .map(
+                        (e) => MyText(
+                          title: "${e.code} (${e.description}), ",
+                          size: 12,
+                          color: MyColors.blackOpacity,
+                        ),
+                      )
+                      .toList(),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -178,33 +181,34 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                       showDialog(
                           context: context,
                           builder: (_) => GeneralAlertDialog(
-                            alertButtonType: AlertButtonType.dueButton,
-                            alertTextType: AlertContentType.title,
-                            alertImageType: AlertImageType.noImg,
-                            headTitle: "Are you sure you want to cancel ?",
-                            rightButtonTitle: "Yes",
-                            leftButtonTitle: "No",
-                            onTapLeftButton: () {
-                              navigationKey.currentState!.pop();
-                            },
-                            onTapRightButton: () async {
-                              bool result = await SurInstrumentsOrdersData()
-                                  .cancelOrder(context, orderId: widget.instrumentOrderModel.sId.toString(),);
-                              if (result) {
-                                log("index=> ${widget.index}");
-                                RoutedToCompanyData().routedCompanyInstruments?.removeAt(widget.index);
-                                RoutedToCompanyData()
-                                    .routedCompanyCubit
-                                    .onUpdateData(RoutedToCompanyData().routedCompanyInstruments);
-                              }
-                            },
-                          ));
+                                alertButtonType: AlertButtonType.dueButton,
+                                alertTextType: AlertContentType.title,
+                                alertImageType: AlertImageType.noImg,
+                                headTitle: "Are you sure you want to cancel ?",
+                                rightButtonTitle: "Yes",
+                                leftButtonTitle: "No",
+                                onTapLeftButton: () {
+                                  navigationKey.currentState!.pop();
+                                },
+                                onTapRightButton: () async {
+                                  bool result = await SurInstrumentsOrdersData().cancelOrder(
+                                    context,
+                                    orderId: widget.instrumentOrderModel.sId.toString(),
+                                  );
+                                  if (result) {
+                                    log("index=> ${widget.index}");
+                                    RoutedToCompanyData().routedCompanyInstruments?.removeAt(widget.index);
+                                    RoutedToCompanyData()
+                                        .routedCompanyCubit
+                                        .onUpdateData(RoutedToCompanyData().routedCompanyInstruments);
+                                  }
+                                },
+                              ));
                     },
                     borderColor: Colors.red,
                     color: Colors.white,
                     textColor: Colors.red,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 100, vertical: 20),
+                    margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                   ),
               ],
             )

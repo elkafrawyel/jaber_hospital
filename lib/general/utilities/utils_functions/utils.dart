@@ -12,7 +12,7 @@ class Utils {
     var strUser = prefs.get("user");
     if (strUser != null) {
       UserModel data = UserModel.fromJson(json.decode("$strUser"));
-      GlobalState.instance.set("token", data.accessToken??'');
+      GlobalState.instance.set("token", data.accessToken ?? '');
       changeLanguage("en", context);
       setCurrentUserData(data, context);
     } else {
@@ -65,8 +65,7 @@ class Utils {
                 padding: padding));
   }
 
-  static Future<bool> manipulateLoginData(
-      BuildContext context, dynamic data) async {
+  static Future<bool> manipulateLoginData(BuildContext context, dynamic data) async {
     if (data != null) {
       bool verified = data["data"]["user"][0]["verified"];
       if (verified == true) {
@@ -79,8 +78,7 @@ class Utils {
         CustomToast.showSimpleToast(msg: 'Signed in successfully');
         Utils.setCurrentUserData(user, context);
       } else if (verified == false) {
-        CustomToast.showSnackBar(context, "please verify your account first",
-            backgroundColor: Colors.deepOrangeAccent);
+        CustomToast.showSnackBar(context, "please verify your account first", backgroundColor: Colors.deepOrangeAccent);
       }
       return true;
     }
@@ -91,25 +89,29 @@ class Utils {
     context.read<UserCubit>().onUpdateUserData(model);
     if (model.userData?[0].role == "doctor") {
       WidgetUtils.lang = "en";
-      if(model.userData?[0].doctorRoleId?.roleNameEn=="Surgeon"){
+      if (model.userData?[0].doctorRoleId?.roleNameEn == "Surgeon") {
         log("role==> ${model.userData?[0].doctorRoleId?.roleNameEn}");
         Nav.navigateTo(SurHome(), navigatorType: NavigatorType.pushAndPopUntil);
-      } else if(model.userData?[0].doctorRoleId?.roleNameEn=="Psychologist"){
+      } else if (model.userData?[0].doctorRoleId?.roleNameEn == "Psychologist") {
         log("role==> ${model.userData?[0].doctorRoleId?.roleNameEn}");
         Nav.navigateTo(PsychologistHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
-      } else{
+      } else {
         log("roleOther==> ${model.userData?[0].doctorRoleId?.roleNameEn}");
         Nav.navigateTo(SurHome(), navigatorType: NavigatorType.pushAndPopUntil);
       }
-    } else if(model.userData?[0].role == "company"){
+    } else if (model.userData?[0].role == "company") {
       WidgetUtils.lang = "en";
       Nav.navigateTo(ComHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
-    } else if(model.userData?[0].role == "patient"){
+    } else if (model.userData?[0].role == "patient") {
       WidgetUtils.lang = "ar";
       Nav.navigateTo(PatientHomeScreen(), navigatorType: NavigatorType.pushAndPopUntil);
-    } else{
+    } else {
       WidgetUtils.lang = "en";
-      Nav.navigateTo(Home(index: 0,), navigatorType: NavigatorType.pushAndPopUntil);
+      Nav.navigateTo(
+          Home(
+            index: 0,
+          ),
+          navigatorType: NavigatorType.pushAndPopUntil);
     }
   }
 
@@ -253,8 +255,7 @@ class Utils {
     return null;
   }
 
-  static void copToClipboard(
-      {required String text, required GlobalKey<ScaffoldState> scaffold}) {
+  static void copToClipboard({required String text, required GlobalKey<ScaffoldState> scaffold}) {
     if (text.trim().isEmpty) {
       CustomToast.showToastNotification("لا يوجد بيانات للنسخ");
       return;
@@ -285,9 +286,7 @@ class Utils {
     }
 
     if (permission == LocationPermission.deniedForever) {
-      CustomToast.showSimpleToast(
-          msg:
-              'Location permissions are permanently denied, we cannot request permissions');
+      CustomToast.showSimpleToast(msg: 'Location permissions are permanently denied, we cannot request permissions');
       return null;
     }
 
@@ -295,9 +294,7 @@ class Utils {
   }
 
   static void navigateToMapWithDirection(
-      {required String lat,
-      required String lng,
-      required BuildContext context}) async {
+      {required String lat, required String lng, required BuildContext context}) async {
     if (lat == "0") return;
     try {
       final coords = Coords(double.parse(lat), double.parse(lng));
@@ -339,8 +336,7 @@ class Utils {
 
   static Future<String> getAddress(LatLng latLng, BuildContext context) async {
     try {
-      List<Placemark> placeMarks =
-          await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+      List<Placemark> placeMarks = await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
 
       // List<geocoding.Placemark> placeMarks = await geocoding
       //     .placemarkFromCoordinates(latLng.latitude, latLng.longitude);
@@ -352,6 +348,7 @@ class Utils {
       return "";
     }
   }
+
   // static Future<String> getAddress(LatLng latLng, BuildContext context) async {
   //   GeoCode geoCode = GeoCode();
   //
@@ -417,15 +414,13 @@ class Utils {
     return sb.toString();
   }
 
-  static void navigateToLocationAddress(
-      BuildContext context, LocationCubit locCubit) async {
+  static void navigateToLocationAddress(BuildContext context, LocationCubit locCubit) async {
     FocusScope.of(context).requestFocus(FocusNode());
     LoadingDialog.showLoadingDialog();
     var current = await Utils.getCurrentLocation();
     LocationModel locationModel = locCubit.state.model!;
     if (current != null) {
-      locationModel = LocationModel(
-          lat: current.latitude, lng: current.longitude, address: "");
+      locationModel = LocationModel(lat: current.latitude, lng: current.longitude, address: "");
     }
     double lat = locationModel.lat;
     double lng = locationModel.lng;
@@ -443,26 +438,19 @@ class Utils {
     );
   }
 
-  static String getDate(String createAt){
+  static String getDate(String createAt) {
     DateTime dt = DateTime.parse(createAt);
-    // DateFormat formatter = DateFormat('MMM'); // create a formatter to get months 3 character
-    // String monthAbbr = formatter.format(dt);
-    return "${dt.day}/${dt.month}/${dt.year}";
+    return DateFormat("E ,d MMM y").format(dt);
   }
 
-  String getCurrentData(){
-    final now = new DateTime.now();
-    String currentDate = DateFormat('yMMMd').format(now);
-    return currentDate;
-  }
-
-  static String getTimeFromStringTimeStamp(String createAt){
+  static String getTimeFromStringTimeStamp(String createAt) {
     DateTime dt = DateTime.parse(createAt);
-    return "${dt.hour}:${dt.minute}";
+    return DateFormat("hh:mm a").format(dt);
   }
 }
 
 extension StringCasingExtension on String {
-  String toCapitalized() => length > 0 ?'${this[0].toUpperCase()}${substring(1).toLowerCase()}':'';
+  String toCapitalized() => length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+
   String toTitleCase() => replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(' ');
 }

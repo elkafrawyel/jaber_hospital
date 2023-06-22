@@ -122,7 +122,7 @@ class HorizontalOrderWidget extends StatelessWidget {
                                 // title: orderModel?.orderStartDate??"",
                                 title: Utils.getDate(orderModel?.orderStartDate ?? ""),
                                 overflow: TextOverflow.ellipsis,
-                                size: 9,
+                                size: 12,
                                 color: MyColors.primary,
                               ),
                             ),

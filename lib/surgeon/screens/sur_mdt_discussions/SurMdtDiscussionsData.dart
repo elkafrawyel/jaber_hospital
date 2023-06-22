@@ -112,10 +112,8 @@ class SurMdtDiscussionsData {
     dayTimesCubit.onUpdateToInitState([]);
     List<TimeSlot> times = (await SurgeonRepository(context).fetchMdtAvailableSlots(isoDate))?.times ?? [];
     if (times.isEmpty) {
-      log("All Times Available");
       dayAvailableTimes = mdtDurationCubit.state.data == 5 ? timesOf5Minutes : timesOf10Minutes;
     } else {
-      log("Filtering Times");
       dayAvailableTimes = filterDayTimes(times);
     }
     dayTimesCubit.onUpdateData(dayAvailableTimes);

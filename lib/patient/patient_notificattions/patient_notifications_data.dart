@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import '../../general/utilities/tf_custom_widgets/utils/generic_cubit/generic_cubit.dart';
-import '../models/notification_model.dart';
+import '../../../general/models/notification_model.dart';
 import '../models/notifications_response.dart';
 import '../resources/PatientRepository.dart';
 

@@ -66,11 +66,42 @@ class SurPatientDetailsData {
         notes.text,
         // clinicName.text,
       );
+
+      await createNotification(context, date: startDate, patientId: patientId);
+
       if (res) {
         navigationKey.currentState!.pop();
         navigationKey.currentState!.pop();
         navigationKey.currentState!.push(MaterialPageRoute(builder: (_) => SurPatientDetails(patientId: patientId)));
       }
+    }
+  }
+
+  Future<void> createNotification(
+    BuildContext context, {
+    dynamic patientId,
+    required DateTime date,
+  }) async {
+    Map<String, dynamic> body = {
+      "status": true,
+      "notifcation_patient_ar": "تم تحديد موعد جديد لك مع دكتور ",
+      "patient_id": patientId ?? '',
+      "doctor_id": context.read<UserCubit>().state.model.userData?.first.sId,
+      "created_date": date.toIso8601String(),
+      "is_read": false,
+    };
+    UpdateConsentResponse data = await GenericHttp<UpdateConsentResponse>(context).callApi(
+      name: ApiNames.createNotification,
+      returnType: ReturnType.Model,
+      methodType: MethodType.Post,
+      jsonBody: body,
+      returnDataFun: (data) => data,
+      toJsonFunc: (json) => UpdateConsentResponse.fromJson(json),
+    );
+    if (data.success ?? false) {
+      CustomToast.showSimpleToast(msg: data.message?.messageEn ?? "");
+    } else {
+      CustomToast.showSimpleToast(msg: data.message?.messageEn ?? "");
     }
   }
 

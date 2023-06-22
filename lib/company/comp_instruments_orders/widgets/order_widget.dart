@@ -87,7 +87,7 @@ class OrderItemWidget extends StatelessWidget {
                             MyText(
                               title: Utils.getDate(order.orderStartDate??""),
                               overflow: TextOverflow.ellipsis,
-                              size: 9,
+                              size: 12,
                               color: MyColors.primary,
                             ),
                           ],

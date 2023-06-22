@@ -109,7 +109,7 @@ class PatientHttpMethods {
 
   Future<NotificationsResponse?> fetchPatientNotifications() async {
     final data = await GenericHttp<NotificationsResponse>(context).callApi(
-      name: ApiNames.patientNotificationPath,
+      name: ApiNames.patientNotificationPath+"?patient_id=${context.read<UserCubit>().state.model.userData?.first.sId}",
       returnType: ReturnType.Model,
       methodType: MethodType.Get,
       returnDataFun: (data) => data,

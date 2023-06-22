@@ -18,7 +18,7 @@ class MedicationOrderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: ()=> Nav.navigateTo(MedicationsOrderDetailsScreen(orderModel: order), navigatorType: NavigatorType.push),
+      onTap: () => Nav.navigateTo(MedicationsOrderDetailsScreen(orderModel: order), navigatorType: NavigatorType.push),
       child: Container(
         width: size.width,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -43,7 +43,11 @@ class MedicationOrderWidget extends StatelessWidget {
                 color: MyColors.primaryLightBg,
                 shape: BoxShape.circle,
               ),
-              child: Image.asset(Res.imagesOrder, width: 36, height: 36,),
+              child: Image.asset(
+                Res.imagesOrder,
+                width: 36,
+                height: 36,
+              ),
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -53,23 +57,28 @@ class MedicationOrderWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      MyText(title: "${order.patientId?.firstNameEn} ${order.patientId?.lastNameEn}",
-                          size: 13, fontWeight: FontWeight.bold, color: MyColors.primary),
+                      MyText(
+                          title: "${order.patientId?.firstNameEn} ${order.patientId?.lastNameEn}",
+                          size: 13,
+                          fontWeight: FontWeight.bold,
+                          color: MyColors.primary),
                       MyText(title: 'Order# ${order.orderNum}', size: 13, fontWeight: FontWeight.bold),
                     ],
                   ),
                   const SizedBox(height: 4),
                   Wrap(
                     children: [
-                      ...List.generate(order.medications?.length??0, (index) => Column(
-                        children: [
-                          MyText(
-                              title: "${order.medications?[index].medicationName}, ",
-                              color: MyColors.grey,
-                              size: 10,
-                              fontWeight: FontWeight.bold)
-                        ],
-                      )),
+                      ...List.generate(
+                          order.medications?.length ?? 0,
+                          (index) => Column(
+                                children: [
+                                  MyText(
+                                      title: "${order.medications?[index].medicationName}, ",
+                                      color: MyColors.grey,
+                                      size: 10,
+                                      fontWeight: FontWeight.bold)
+                                ],
+                              )),
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -86,9 +95,9 @@ class MedicationOrderWidget extends StatelessWidget {
                             ),
                             const SizedBox(width: 5),
                             MyText(
-                              title: Utils.getDate(order.orderStartDate??""),
+                              title: Utils.getDate(order.orderStartDate ?? ""),
                               overflow: TextOverflow.ellipsis,
-                              size: 9,
+                              size: 12,
                               color: MyColors.primary,
                             ),
                           ],
@@ -102,7 +111,7 @@ class MedicationOrderWidget extends StatelessWidget {
                             ),
                             const SizedBox(width: 5),
                             MyText(
-                              title: Utils.getTimeFromStringTimeStamp(order.orderStartDate??""),
+                              title: Utils.getTimeFromStringTimeStamp(order.orderStartDate ?? ""),
                               size: 9,
                               overflow: TextOverflow.ellipsis,
                               color: MyColors.primary,
@@ -112,7 +121,6 @@ class MedicationOrderWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-
                 ],
               ),
             )

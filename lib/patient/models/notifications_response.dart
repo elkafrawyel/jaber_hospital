@@ -1,4 +1,4 @@
-import 'notification_model.dart';
+import '../../../general/models/notification_model.dart';
 
 class NotificationsResponse {
   int? code;
@@ -16,22 +16,9 @@ class NotificationsResponse {
     if (json['data'] != null) {
       notifications = <NotificationModel>[];
       json['data'].forEach((v) {
-        // data!.add(new Null.fromJson(v));
+        notifications!.add(NotificationModel.fromJson(v));
       });
     }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
-    if (this.message != null) {
-      data['message'] = this.message!.toJson();
-    }
-    data['success'] = this.success;
-    if (this.notifications != null) {
-      // data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    return data;
   }
 }
 

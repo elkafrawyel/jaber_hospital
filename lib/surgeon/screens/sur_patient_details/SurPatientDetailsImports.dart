@@ -23,6 +23,7 @@ import '../../../general/utilities/http/dio/modals/LoadingDialog.dart';
 import '../../../general/utilities/tf_custom_widgets/Inputs/GenericTextField.dart';
 import '../../../general/utilities/utils_functions/ApiNames.dart';
 import '../../../general/widgets/modal_bottom_sheet.dart';
+import '../../../patient/models/update_consent_response.dart';
 import '../../models/patient_details_model.dart';
 import '../sur_instruments_order/request_instruments/request_instruments_screen.dart';
 import '../sur_order_medications/sur_order_medications_imports.dart';

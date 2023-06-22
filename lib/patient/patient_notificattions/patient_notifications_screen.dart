@@ -32,45 +32,44 @@ class _PatientNotificationsScreenState extends State<PatientNotificationsScreen>
     return Directionality(
       textDirection: TextDirection.rtl,
       child: GeneralScaffold(
-          back: true,
-          title: "الإشعارات",
-          body: BlocBuilder<GenericBloc<NotificationsResponse?>, GenericState<NotificationsResponse?>>(
-            bloc: PatientNotificationsData().notificationsCubit,
-            builder: (context, state) {
-              if(state is GenericUpdateState){
-                if(state.data!.notifications!.isNotEmpty){
-                  return ListView.builder(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: state.data?.notifications?.length??0,
-                    itemBuilder: (context, index) => PatientNotificationItem(),
-                  );
-                }else{
-                  return Center(
-                    child: MyText(
-                      title: 'لا يوجد إشعارات حالية',
-                      size: 14,
-                      color: MyColors.black,
-                    ),
-                  );
-                }
-              }else{
-                return  Shimmer.fromColors(
-                  baseColor: Colors.white,
-                  highlightColor: MyColors.greyWhite,
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                    height: MediaQuery.of(context).size.height / 6,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: MyColors.white,
-                    ),
+        back: true,
+        title: "الإشعارات",
+        body: BlocBuilder<GenericBloc<NotificationsResponse?>, GenericState<NotificationsResponse?>>(
+          bloc: PatientNotificationsData().notificationsCubit,
+          builder: (context, state) {
+            if (state is GenericUpdateState) {
+              if (state.data!.notifications!.isNotEmpty) {
+                return ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  itemCount: state.data?.notifications?.length ?? 0,
+                  itemBuilder: (context, index) => PatientNotificationItem(item:state.data!.notifications![index]),
+                );
+              } else {
+                return Center(
+                  child: MyText(
+                    title: 'لا يوجد إشعارات حالية',
+                    size: 14,
+                    color: MyColors.black,
                   ),
                 );
               }
-            },
-          ),
+            } else {
+              return Shimmer.fromColors(
+                baseColor: Colors.white,
+                highlightColor: MyColors.greyWhite,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  height: MediaQuery.of(context).size.height / 6,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: MyColors.white,
+                  ),
+                ),
+              );
+            }
+          },
+        ),
       ),
     );
   }

@@ -30,8 +30,7 @@ class _RoutedToCompanyViewState extends State<RoutedToCompanyView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GenericBloc<List<InstrumentOrderModel>?>,
-        GenericState<List<InstrumentOrderModel>?>>(
+    return BlocBuilder<GenericBloc<List<InstrumentOrderModel>?>, GenericState<List<InstrumentOrderModel>?>>(
       bloc: routedToCompanyData.routedCompanyCubit,
       builder: (context, state) {
         log("state=> $state");
@@ -40,8 +39,7 @@ class _RoutedToCompanyViewState extends State<RoutedToCompanyView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 child: MyText(
                   title: '${state.data?.length} Orders',
                   size: 13,
@@ -51,26 +49,24 @@ class _RoutedToCompanyViewState extends State<RoutedToCompanyView> {
               Expanded(
                 child: state.data!.isNotEmpty
                     ? ListView.builder(
-                  itemCount: state.data?.length,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) =>
-                      SurInstrumentOrderWidget(
-                        index: index,
-                        ordersModel: state.data![index],
-                      ),
-                )
+                        itemCount: state.data?.length,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) => SurInstrumentOrderWidget(
+                          index: index,
+                          ordersModel: state.data![index],
+                        ),
+                      )
                     : Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: MyText(
-                      title:
-                      'No orders founded',
-                      size: 14,
-                      color: MyColors.grey,
-                      alien: TextAlign.center,
-                    ),
-                  ),
-                ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: MyText(
+                            title: 'No orders founded',
+                            size: 14,
+                            color: MyColors.grey,
+                            alien: TextAlign.center,
+                          ),
+                        ),
+                      ),
               ),
             ],
           );

@@ -25,38 +25,33 @@ class InstrumentOrderModel {
   String? adminUpdatedId;
   String? mobileNumber;
 
-  InstrumentOrderModel(
-      {this.instrumentsDetails,
-        this.sId,
-        this.doctorId,
-        this.companyId,
-        this.patientId,
-        this.medications,
-        this.instruments,
-        this.medicationsDetails,
-        this.orderStartDate,
-        this.orderCompletedDate,
-        this.orderStatus,
-        this.notes,
-        this.status,
-        this.orderNum,
-        this.createdAt,
-        this.updatedAt,
-        this.iV,
-        this.adminUpdatedId,
-        this.mobileNumber});
+  InstrumentOrderModel({
+    this.instrumentsDetails,
+    this.sId,
+    this.doctorId,
+    this.companyId,
+    this.patientId,
+    this.medications,
+    this.instruments,
+    this.medicationsDetails,
+    this.orderStartDate,
+    this.orderCompletedDate,
+    this.orderStatus,
+    this.notes,
+    this.status,
+    this.orderNum,
+    this.createdAt,
+    this.updatedAt,
+    this.iV,
+    this.adminUpdatedId,
+    this.mobileNumber,
+  });
 
   InstrumentOrderModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    doctorId = json['doctor_id'] != null
-        ? new DoctorId.fromJson(json['doctor_id'])
-        : null;
-    companyId = json['company_id'] != null
-        ? new CompanyId.fromJson(json['company_id'])
-        : null;
-    patientId = json['patient_id'] != null
-        ? new PatientId.fromJson(json['patient_id'])
-        : null;
+    doctorId = json['doctor_id'] != null ? new DoctorId.fromJson(json['doctor_id']) : null;
+    companyId = json['company_id'] != null ? new CompanyId.fromJson(json['company_id']) : null;
+    patientId = json['patient_id'] != null ? new PatientId.fromJson(json['patient_id']) : null;
     if (json['medications'] != null) {
       medications = <MedicationInfo>[];
       json['medications'].forEach((v) {
@@ -97,8 +92,7 @@ class InstrumentOrderModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.instrumentsDetails != null) {
-      data['instruments_details'] =
-          this.instrumentsDetails!.map((v) => v.toJson()).toList();
+      data['instruments_details'] = this.instrumentsDetails!.map((v) => v.toJson()).toList();
     }
     data['_id'] = this.sId;
     if (this.doctorId != null) {
@@ -117,8 +111,7 @@ class InstrumentOrderModel {
       data['instruments'] = this.instruments!.map((v) => v.toJson()).toList();
     }
     if (this.medicationsDetails != null) {
-      data['medications_details'] =
-          this.medicationsDetails!.map((v) => v.toJson()).toList();
+      data['medications_details'] = this.medicationsDetails!.map((v) => v.toJson()).toList();
     }
     data['order_start_date'] = this.orderStartDate;
     data['order_completed_date'] = this.orderCompletedDate;

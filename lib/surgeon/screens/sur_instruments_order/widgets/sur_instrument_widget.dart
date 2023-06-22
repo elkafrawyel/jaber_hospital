@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
@@ -10,23 +11,27 @@ import '../instrument_order_details.dart';
 
 class SurInstrumentOrderWidget extends StatelessWidget {
   const SurInstrumentOrderWidget({Key? key, required this.index, required this.ordersModel}) : super(key: key);
-  final int  index ;
+  final int index;
+
   final InstrumentOrderModel ordersModel;
 
   @override
   Widget build(BuildContext context) {
     // var model = SurMedicationsOrderData().medicationsOrdersCubit.state.data[index];
     return InkWell(
-      onTap: () =>Nav.navigateTo(SurInstrumentRequestDetails(index: index,instrumentOrderModel: ordersModel,), navigatorType: NavigatorType.push),
+      onTap: () => Nav.navigateTo(
+          SurInstrumentRequestDetails(
+            index: index,
+            instrumentOrderModel: ordersModel,
+          ),
+          navigatorType: NavigatorType.push),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
             color: Color(0xffF2F2F2),
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(color: MyColors.grey, spreadRadius: 1, blurRadius: 5)
-            ]),
+            boxShadow: [BoxShadow(color: MyColors.grey, spreadRadius: 1, blurRadius: 5)]),
         child: Column(
           children: [
             Row(
@@ -34,8 +39,7 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                 Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                        color: MyColors.primary.withOpacity(.1),
-                        borderRadius: BorderRadius.circular(100)),
+                        color: MyColors.primary.withOpacity(.1), borderRadius: BorderRadius.circular(100)),
                     child: Image.asset(
                       Res.imagesOrdersDrawer,
                       color: MyColors.primary,
@@ -53,7 +57,8 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                         children: [
                           Expanded(
                             child: MyText(
-                              title: '${ordersModel.patientId?.firstNameEn?? ''} ${ordersModel.patientId?.lastNameEn?? ''}',
+                              title:
+                                  '${ordersModel.patientId?.firstNameEn ?? ''} ${ordersModel.patientId?.lastNameEn ?? ''}',
                               size: 14,
                               color: MyColors.primary,
                               fontWeight: FontWeight.bold,
@@ -62,7 +67,9 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const SizedBox(width: 16,),
+                          const SizedBox(
+                            width: 16,
+                          ),
                           MyText(
                             title: "Order #${ordersModel.orderNum}",
                             size: 12,
@@ -74,12 +81,15 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                       const SizedBox(height: 8),
                       Wrap(
                         children: [
-                          ...List.generate(ordersModel.instruments!.length, (index) => MyText(
-                            title: ordersModel.instruments?[index].description??""+", ",
-                            size: 10,
-                            color: Colors.black87,
-                            // color: MyColors.blackOpacity,
-                          ),)
+                          ...List.generate(
+                            ordersModel.instruments!.length,
+                            (index) => MyText(
+                              title: ordersModel.instruments?[index].description ?? "" + ", ",
+                              size: 10,
+                              color: Colors.black87,
+                              // color: MyColors.blackOpacity,
+                            ),
+                          )
                         ],
                       ),
                       const SizedBox(height: 6),
@@ -89,12 +99,11 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Image.asset(Res.imagesCalendar,
-                                    scale: 3, color: MyColors.primary),
+                                Image.asset(Res.imagesCalendar, scale: 3, color: MyColors.primary),
                                 const SizedBox(width: 4),
                                 Expanded(
                                   child: MyText(
-                                    title: Utils.getDate(ordersModel.orderStartDate??''),
+                                    title: DateFormat('E ,d MMM y').format(DateTime.parse(ordersModel.orderStartDate!)),
                                     size: 10,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
