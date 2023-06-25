@@ -70,6 +70,7 @@ class ApiNames{
   static const String bookAppointmentDate = "appointment";
   static const String feedbackStatus = "patient_psychologist";
   /// surgeon
+  static const String doctor = "doctor";
   static const String doctorRoutedOrders = "doctor_routed_orders";
   static const String doctorInProgressOrders = "doctor_inprogress_orders";
   static const String doctorCompleatedOrders = "doctor_completed_orders";

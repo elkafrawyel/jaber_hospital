@@ -5,7 +5,7 @@ class GeneralHttpMethods {
 
   GeneralHttpMethods(this.context);
 
-  Future<bool> userLogin(String email, String pass,String role) async {
+  Future<bool> userLogin(String email, String pass, String role) async {
     Map<String, dynamic> body = {
       "email": "$email",
       "role": "$role",
@@ -24,7 +24,7 @@ class GeneralHttpMethods {
     return Utils.manipulateLoginData(context, data);
   }
 
-  Future<bool> patientLogin(String civilId, String pass,String role) async {
+  Future<bool> patientLogin(String civilId, String pass, String role) async {
     Map<String, dynamic> body = {
       "file_id": "$civilId",
       "role": "$role",
@@ -43,15 +43,52 @@ class GeneralHttpMethods {
     return Utils.manipulateLoginData(context, data);
   }
 
+  Future<bool> doctorRegister({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required String gender,
+  }) async {
+    Map<String, dynamic> body = {
+      "first_name_en": firstName,
+      "last_name_en": lastName,
+      "gender": gender,
+      "email": email,
+      "password": "$password",
+      "file_id": "222222222222",
+      "role": "surgeon",
+    };
+    var data = await GenericHttp<dynamic>(context).callApi(
+      name: ApiNames.doctor,
+      jsonBody: body,
+      returnType: ReturnType.Type,
+      methodType: MethodType.Post,
+      returnDataFun: (data) => data,
+      showLoader: false,
+    );
+    log("loginResponse=> $data");
+    return Utils.manipulateLoginData(context, data);
+  }
+
   Future<List<QuestionModel>> frequentQuestions() async {
     return await GenericHttp<QuestionModel>(context).callApi(
-            name: ApiNames.repeatedQuestions,
-            returnType: ReturnType.List,
-            showLoader: false,
-            methodType: MethodType.Get,
-            returnDataFun: (data) => data["data"],
-            toJsonFunc: (json) => QuestionModel.fromJson(json))
-        as List<QuestionModel>;
+        name: ApiNames.repeatedQuestions,
+        returnType: ReturnType.List,
+        showLoader: false,
+        methodType: MethodType.Get,
+        returnDataFun: (data) => data["data"],
+        toJsonFunc: (json) => QuestionModel.fromJson(json)) as List<QuestionModel>;
+  }
+
+  Future<bool> registerButton() async {
+    return await GenericHttp<bool>(context).callApi(
+      name: "system/register",
+      returnType: ReturnType.Type,
+      showLoader: false,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data["data"]["register"],
+    );
   }
 
   Future<bool> sendCode(String code, String userId) async {
@@ -64,14 +101,14 @@ class GeneralHttpMethods {
       methodType: MethodType.Post,
       // returnDataFun: (data) => HandleData.instance.handlePostData(data, context,showMsg: true,fullData: true),
     );
-    if(data!=null){
-      HandleData.instance.handlePostData(data, context,showMsg: true,fullData: true);
+    if (data != null) {
+      HandleData.instance.handlePostData(data, context, showMsg: true, fullData: true);
       return true;
     }
     return false;
   }
 
-  Future<bool> resendCode(String userId,String email) async {
+  Future<bool> resendCode(String userId, String email) async {
     Map<String, dynamic> body = {
       "userId": userId,
       "email": email,
@@ -82,9 +119,9 @@ class GeneralHttpMethods {
       returnType: ReturnType.Type,
       showLoader: false,
       methodType: MethodType.Post,
-      returnDataFun: (data) => HandleData.instance.handlePostData(data, context,showMsg: true),
+      returnDataFun: (data) => HandleData.instance.handlePostData(data, context, showMsg: true),
     );
-    if(data!=null){
+    if (data != null) {
       return true;
     }
     return false;
@@ -133,16 +170,16 @@ class GeneralHttpMethods {
       HandleData.instance.handlePostData(result, context, showMsg: true);
       Nav.navigateTo(
           ConfirmPassword(
-            userId: result["data"]["user_id"], email: result["data"]["email"],
+            userId: result["data"]["user_id"],
+            email: result["data"]["email"],
           ),
           navigatorType: NavigatorType.push);
-    return true;
+      return true;
     }
     return false;
   }
 
-  Future<bool> resetUserPassword(
-      String userId ,String pass) async {
+  Future<bool> resetUserPassword(String userId, String pass) async {
     Map<String, dynamic> body = {
       "id": "$userId",
       "password": "$pass",
@@ -154,8 +191,8 @@ class GeneralHttpMethods {
       showLoader: false,
       methodType: MethodType.Post,
     );
-    if(data!=null){
-      HandleData.instance.handlePostData(data, context,fullData: true,showMsg: true);
+    if (data != null) {
+      HandleData.instance.handlePostData(data, context, fullData: true, showMsg: true);
       return true;
     }
     return false;
@@ -177,7 +214,6 @@ class GeneralHttpMethods {
     return (data != null);
   }
 
-
   Future<bool> logOut() async {
     LoadingDialog.showLoadingDialog();
     var data = await GenericHttp<dynamic>(context).callApi(
@@ -192,8 +228,7 @@ class GeneralHttpMethods {
       GlobalState.instance.set("token", "");
       Nav.navigateTo(Login(), navigatorType: NavigatorType.pushAndPopUntil);
       context.read<AuthCubit>().onUpdateAuth(false);
-      CustomToast.showSimpleToast(
-          msg: 'Sign Out Successfully', color: MyColors.primary);
+      CustomToast.showSimpleToast(msg: 'Sign Out Successfully', color: MyColors.primary);
       context.read<LangCubit>().onUpdateLanguage("en");
       return true;
     }
@@ -201,11 +236,9 @@ class GeneralHttpMethods {
     return false;
   }
 
-
   Future<bool> changePass(String password) async {
     Map<String, dynamic> body = {
       "password": "$password",
-
     };
     dynamic data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.changePassword,
@@ -214,8 +247,8 @@ class GeneralHttpMethods {
       showLoader: false,
       methodType: MethodType.Post,
     );
-    if(data!=null){
-      HandleData.instance.handlePostData(data, context,fullData: true,showMsg: true);
+    if (data != null) {
+      HandleData.instance.handlePostData(data, context, fullData: true, showMsg: true);
       return true;
     }
     return false;
