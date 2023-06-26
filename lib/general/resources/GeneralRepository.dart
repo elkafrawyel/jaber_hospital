@@ -30,6 +30,52 @@ class GeneralRepository {
         password: password,
       );
 
+  Future<bool> companyRegister({
+    required String name,
+    required String email,
+    required String password,
+    required String address,
+    required String contactPerson,
+    required String contactMobile,
+  }) =>
+      _generalHttpMethods.companyRegister(
+        name: name,
+        password: password,
+        email: email,
+        address: address,
+        contactMobile: contactMobile,
+        contactPerson: contactPerson,
+      );
+
+  Future<bool> patientRegister({
+    required String firstNameEn,
+    required String firstNameAr,
+    required String lastNameEn,
+    required String lastNameAr,
+    required String email,
+    required String password,
+    required String age,
+    required String gender,
+    required String mobile,
+    required String weight,
+    required String height,
+    required String fileId,
+  }) =>
+      _generalHttpMethods.patientRegister(
+        firstNameEn: firstNameEn,
+        lastNameEn: lastNameEn,
+        firstNameAr: lastNameAr,
+        lastNameAr: lastNameAr,
+        email: email,
+        password: password,
+        mobile: mobile,
+        age: age,
+        gender: gender,
+        weight: weight,
+        height: height,
+        fileId: fileId,
+      );
+
   Future<bool> sendCode({required String code, required String userId}) => _generalHttpMethods.sendCode(code, userId);
 
   Future<bool> resendCode({required String userId, required String email}) =>

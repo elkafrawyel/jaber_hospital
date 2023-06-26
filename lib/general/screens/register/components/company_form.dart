@@ -56,11 +56,11 @@ class _CompanyFormState extends State<CompanyForm> {
             controller: registerData.companyPassword,
             validate: (value) => value!.validatePassword(context),
             type: TextInputType.text,
-            action: TextInputAction.done,
+            action: TextInputAction.next,
           ),
           GenericTextField(
             hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
-            fieldTypes: FieldTypes.password,
+            fieldTypes: FieldTypes.normal,
             fillColor: MyColors.textFields,
             hint: "Contact person",
             margin: const EdgeInsets.symmetric(vertical: 10),
@@ -69,11 +69,11 @@ class _CompanyFormState extends State<CompanyForm> {
               return value!.isEmpty ? "Contact Person Is Required" : null;
             },
             type: TextInputType.text,
-            action: TextInputAction.done,
+            action: TextInputAction.next,
           ),
           GenericTextField(
             hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
-            fieldTypes: FieldTypes.password,
+            fieldTypes: FieldTypes.normal,
             fillColor: MyColors.textFields,
             hint: "Address",
             margin: const EdgeInsets.symmetric(vertical: 10),
@@ -82,11 +82,11 @@ class _CompanyFormState extends State<CompanyForm> {
               return value!.isEmpty ? "Address Is Required" : null;
             },
             type: TextInputType.text,
-            action: TextInputAction.done,
+            action: TextInputAction.next,
           ),
           GenericTextField(
             hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
-            fieldTypes: FieldTypes.password,
+            fieldTypes: FieldTypes.normal,
             fillColor: MyColors.textFields,
             hint: "Mobile",
             margin: const EdgeInsets.symmetric(vertical: 10),

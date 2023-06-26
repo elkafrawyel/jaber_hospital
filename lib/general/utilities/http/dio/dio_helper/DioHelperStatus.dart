@@ -302,8 +302,8 @@ class DioHelper {
             });
           } else {
             CustomToast.showToastNotification(DioUtils.lang == "en"
-                ? data["message"]["message_en"].toString()
-                : data["message"]["message_ar"].toString());
+                ? (data["message"]?["message_en"]?.toString()) ?? ["message_en"].toString()
+                : data["message"]?["message_ar"].toString() ?? ["message_ar"].toString());
           }
           break;
         case 401:

@@ -37,16 +37,13 @@ class RegisterData {
   late TextEditingController patientFirstNameAr;
   late TextEditingController patientLastNameAr;
   late TextEditingController patientEmail;
+  late TextEditingController patientFileNumber;
   late TextEditingController patientPassword;
   late TextEditingController patientMobile;
   late TextEditingController patientAge;
   late TextEditingController patientWeight;
   late TextEditingController patientHeight;
   late GenericBloc<bool> patientGenderMaleBloc;
-
-
-
-
 
   late GenericBloc<int> selectAuthType;
   late GlobalKey<CustomButtonState> btnKey;
@@ -78,18 +75,13 @@ class RegisterData {
     patientFirstNameAr = TextEditingController();
     patientLastNameAr = TextEditingController();
     patientEmail = TextEditingController();
+    patientFileNumber = TextEditingController();
     patientPassword = TextEditingController();
     patientMobile = TextEditingController();
     patientAge = TextEditingController();
     patientWeight = TextEditingController();
     patientHeight = TextEditingController();
     patientGenderMaleBloc = GenericBloc(true);
-
-
-
-
-
-
 
     btnKey = GlobalKey<CustomButtonState>();
   }
@@ -98,7 +90,7 @@ class RegisterData {
 
   String get getAuthType => authTypesList[selectAuthType.state.data].toLowerCase();
 
-  void doctorRegisterLogin(BuildContext context) async {
+  void doctorRegister(BuildContext context) async {
     FocusScope.of(context).requestFocus(FocusNode());
     if (selectAuthType.state.data == -1) {
       CustomToast.showSnackBar(context, "Please select your Account Type", backgroundColor: Colors.redAccent);
@@ -125,7 +117,7 @@ class RegisterData {
     btnKey.currentState!.animateReverse();
   }
 
-  void companyRegisterLogin(BuildContext context) async {
+  void companyRegister(BuildContext context) async {
     FocusScope.of(context).requestFocus(FocusNode());
     if (selectAuthType.state.data == -1) {
       CustomToast.showSnackBar(context, "Please select your Account Type", backgroundColor: Colors.redAccent);
@@ -133,12 +125,47 @@ class RegisterData {
     }
     if (doctorFormKey.currentState!.validate()) {
       btnKey.currentState!.animateForward();
-      var result = await GeneralRepository(context).doctorRegister(
-        firstName: doctorFirstName.text,
-        lastName: doctorLastName.text,
-        email: doctorEmail.text,
-        gender: doctorGenderMaleBloc.state.data ? 'male' : 'female',
-        password: doctorPassword.text,
+      var result = await GeneralRepository(context).companyRegister(
+        name: companyName.text,
+        email: companyEmail.text,
+        password: companyPassword.text,
+        address: companyAddress.text,
+        contactPerson: companyContactPerson.text,
+        contactMobile: companyMobile.text,
+      );
+      if (result) {
+        btnKey.currentState!.animateReverse();
+        Nav.navigateTo(
+          Login(),
+          navigatorType: NavigatorType.pushAndPopUntil,
+        );
+      }
+      btnKey.currentState!.animateReverse();
+    }
+    btnKey.currentState!.animateReverse();
+  }
+
+  void patientRegister(BuildContext context) async {
+    FocusScope.of(context).requestFocus(FocusNode());
+    if (selectAuthType.state.data == -1) {
+      CustomToast.showSnackBar(context, "Please select your Account Type", backgroundColor: Colors.redAccent);
+      return;
+    }
+    if (doctorFormKey.currentState!.validate()) {
+      btnKey.currentState!.animateForward();
+      var result = await GeneralRepository(context).patientRegister(
+        firstNameAr: patientFirstNameAr.text,
+        firstNameEn: patientFirstNameEn.text,
+        lastNameAr: patientLastNameAr.text,
+        lastNameEn: patientLastNameEn.text,
+        email: patientEmail.text,
+        password: patientPassword.text,
+        age: patientAge.text,
+        weight: patientWeight.text,
+        height: patientHeight.text,
+        fileId: patientFileNumber.text,
+        gender: patientGenderMaleBloc.state.data ? 'male' : 'female',
+        mobile: patientMobile.text,
       );
       if (result) {
         btnKey.currentState!.animateReverse();
@@ -155,12 +182,13 @@ class RegisterData {
   register(BuildContext context) {
     switch (selectAuthType.state.data) {
       case 0:
-        doctorRegisterLogin(context);
+        doctorRegister(context);
         break;
       case 1:
+        patientRegister(context);
         break;
       case 2:
-        companyRegisterLogin(context);
+        companyRegister(context);
         break;
     }
   }

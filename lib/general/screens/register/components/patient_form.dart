@@ -87,6 +87,19 @@ class PatientForm extends StatelessWidget {
             hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
             fieldTypes: FieldTypes.normal,
             fillColor: MyColors.textFields,
+            hint: "File number ex:(AB-1000100)",
+            controller: registerData.patientFileNumber,
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            action: TextInputAction.next,
+            type: TextInputType.text,
+            validate: (value) {
+              return value!.isEmpty ? "File number is required" : null;
+            },
+          ),
+          GenericTextField(
+            hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
+            fieldTypes: FieldTypes.normal,
+            fillColor: MyColors.textFields,
             hint: "Age",
             controller: registerData.patientAge,
             margin: const EdgeInsets.symmetric(vertical: 10),

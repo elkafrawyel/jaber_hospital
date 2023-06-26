@@ -50,25 +50,112 @@ class GeneralHttpMethods {
     required String password,
     required String gender,
   }) async {
+    var doctorRole = await GenericHttp<dynamic>(context).callApi(
+      name: "surgeon-role",
+      returnType: ReturnType.Type,
+      methodType: MethodType.Get,
+      returnDataFun: (data) => data['data']["_id"],
+      showLoader: false,
+    );
+
+    print('=================>$doctorRole');
     Map<String, dynamic> body = {
       "first_name_en": firstName,
       "last_name_en": lastName,
       "gender": gender,
       "email": email,
       "password": "$password",
-      "file_id": "222222222222",
-      "role": "surgeon",
+      "civil_id": "222222222222",
+      "doctor_role_id": doctorRole,
     };
+
     var data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.doctor,
       jsonBody: body,
       returnType: ReturnType.Type,
       methodType: MethodType.Post,
-      returnDataFun: (data) => data,
+      returnDataFun: (data) => data['code'],
       showLoader: false,
     );
     log("loginResponse=> $data");
-    return Utils.manipulateLoginData(context, data);
+    return data == 200;
+  }
+
+  Future<bool> companyRegister({
+    required String name,
+    required String email,
+    required String password,
+    required String address,
+    required String contactPerson,
+    required String contactMobile,
+  }) async {
+    Map<String, dynamic> body = {
+      "email": email,
+      "password": password,
+      "company_name_en": name,
+      "status": true,
+      "company_address": address,
+      "company_contact_person": contactPerson,
+      "company_contact_mobile": contactMobile
+    };
+    var data = await GenericHttp<dynamic>(context).callApi(
+      name: "mobile/${ApiNames.companiesPath}",
+      jsonBody: body,
+      returnType: ReturnType.Type,
+      methodType: MethodType.Post,
+      returnDataFun: (data) => data['code'],
+      showLoader: false,
+    );
+    log("loginResponse=> $data");
+    return data == 200;
+  }
+
+  Future<bool> patientRegister({
+    required String firstNameEn,
+    required String firstNameAr,
+    required String lastNameEn,
+    required String lastNameAr,
+    required String email,
+    required String password,
+    required String age,
+    required String gender,
+    required String mobile,
+    required String weight,
+    required String height,
+    required String fileId,
+  }) async {
+    String bmi = '';
+    if (weight.isNotEmpty && height.isNotEmpty) {
+      double weightD = double.parse(weight);
+      double heightD = double.parse(height);
+      bmi = (((weightD / heightD) / heightD) * 10000).toString();
+    }
+    Map<String, dynamic> body = {
+      "email": email,
+      "password": password,
+      "first_name_ar": firstNameAr,
+      "first_name_en": firstNameEn,
+      "last_name_ar": lastNameAr,
+      "last_name_en": lastNameEn,
+      "gender": gender,
+      "civil_id": "3209654323765",
+      "telephone_1": mobile,
+      "age": age,
+      "weight": weight,
+      "height": height,
+      "bmi": bmi,
+      "file_id": fileId
+    };
+    var data = await GenericHttp<dynamic>(context).callApi(
+      name: "mobile/patient_basicInfo",
+      jsonBody: body,
+      returnType: ReturnType.Type,
+      methodType: MethodType.Post,
+      returnDataFun: (data) => data['code'],
+      showLoader: false,
+    );
+    log("loginResponse=> $data");
+    return data == 200;
   }
 
   Future<List<QuestionModel>> frequentQuestions() async {
