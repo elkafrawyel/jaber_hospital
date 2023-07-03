@@ -67,7 +67,7 @@ class BuildUpcomingAppointmentItem extends StatelessWidget {
                           MyText(
                             title: DateFormat("E ,d MMM").format(DateTime.parse(appointment.appointmentDate!)),
                             overflow: TextOverflow.ellipsis,
-                            size: 11,
+                            size: 9,
                             color: MyColors.primary,
                           ),
                         ],

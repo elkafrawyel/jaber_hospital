@@ -20,10 +20,7 @@ class BuildNewOrders extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            MyText(
-                title: 'New Orders',
-                size: 12,
-                fontWeight: FontWeight.bold),
+            MyText(title: 'New Orders', size: 12, fontWeight: FontWeight.bold),
             // InkWell(
             //   onTap: ()=> Nav.navigateTo(CompOrdersScreen(initialIndex: 0), navigatorType: NavigatorType.push),
             //   child: MyText(
@@ -41,16 +38,18 @@ class BuildNewOrders extends StatelessWidget {
           child: BlocBuilder<GenericBloc<CompOrdersResponse?>, GenericState<CompOrdersResponse?>>(
             bloc: CompHomeData().homeCubit,
             builder: (context, state) {
-              if(state is GenericUpdateState){
-                if(state.data!.data!.routedToCompanyOrders!.isNotEmpty){
+              if (state is GenericUpdateState) {
+                if (state.data!.data!.routedToCompanyOrders!.isNotEmpty) {
                   return ListView.builder(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.data?.data?.routedToCompanyOrders?.length??0,
-                    itemBuilder: (context, index) =>
-                        HorizontalOrderWidget(index: index,orderModel: state.data?.data?.routedToCompanyOrders?[index],),
+                    itemCount: state.data?.data?.routedToCompanyOrders?.length ?? 0,
+                    itemBuilder: (context, index) => HorizontalOrderWidget(
+                      index: index,
+                      orderModel: state.data?.data?.routedToCompanyOrders?[index],
+                    ),
                   );
-                }else{
+                } else {
                   return Center(
                     child: MyText(
                       title: 'No New Orders',
@@ -59,8 +58,8 @@ class BuildNewOrders extends StatelessWidget {
                     ),
                   );
                 }
-              }else{
-                return  Shimmer.fromColors(
+              } else {
+                return Shimmer.fromColors(
                   baseColor: Colors.white,
                   highlightColor: MyColors.greyWhite,
                   child: Container(

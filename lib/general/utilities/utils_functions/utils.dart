@@ -439,12 +439,14 @@ class Utils {
   }
 
   static String getDate(String createAt) {
-    DateTime dt = DateTime.parse(createAt);
+    DateTime? dt = DateTime.tryParse(createAt);
+    if (dt == null) return "";
     return DateFormat("E ,d MMM y").format(dt);
   }
 
   static String getTimeFromStringTimeStamp(String createAt) {
-    DateTime dt = DateTime.parse(createAt);
+    DateTime? dt = DateTime.tryParse(createAt);
+    if (dt == null) return "";
     return DateFormat("hh:mm a").format(dt);
   }
 }

@@ -104,7 +104,7 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                                 Expanded(
                                   child: MyText(
                                     title: DateFormat('E ,d MMM y').format(DateTime.parse(ordersModel.orderStartDate!)),
-                                    size: 10,
+                                    size: 9,
                                     color: MyColors.primary,
                                     fontWeight: FontWeight.bold,
                                   ),

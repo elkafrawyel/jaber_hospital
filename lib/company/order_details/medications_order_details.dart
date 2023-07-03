@@ -27,17 +27,6 @@ class MedicationsOrderDetailsScreen extends StatefulWidget {
 }
 
 class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
-  int quantity = 0;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    widget.orderModel.medicationsDetails!.forEach(
-      (order) => quantity += (order.quantity ?? 0),
-    );
-    log("quantity==> $quantity");
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +56,7 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
                       color: Colors.grey,
                     ),
                   ),
-                  _buildRowItem(title: "Patient Mobile", value: widget.orderModel.patientId?.mobile ?? ""),
+                  _buildRowItem(title: "Patient Mobile", value: widget.orderModel.mobileNumber ?? ""),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: Divider(
@@ -84,13 +73,7 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
                       color: Colors.grey,
                     ),
                   ),
-                  _buildRowItem(title: "Quantity", value: quantity.toString()),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6.0),
-                    child: Divider(
-                      color: Colors.grey,
-                    ),
-                  ),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: MyText(
@@ -100,37 +83,42 @@ class _OrderDetailsScreenState extends State<MedicationsOrderDetailsScreen> {
                       color: MyColors.blackHeader,
                     ),
                   ),
-                  ...(widget.orderModel.medications ?? [])
-                      .map((e) => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                                child: Wrap(
-                                  children: [
-                                    MyText(
-                                      title: e.medicationName ?? "",
-                                      color: Colors.black87,
-                                      size: 11,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    MyText(
-                                      title: e.description ?? "",
-                                      color: Colors.grey,
-                                      size: 11,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    MyText(
-                                      title: (e.quantity ?? 0).toString(),
-                                      color: Colors.grey,
-                                      size: 11,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ],
-                                ),
+
+                  ...widget.orderModel.medications!
+                      .map(
+                        (e) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 8.0),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: 7,
+                              height: 7,
+                              decoration: BoxDecoration(
+                                color: MyColors.primary,
+                                shape: BoxShape.circle,
                               ),
-                            ],
-                          ))
+                            ),
+                          ),
+                          Expanded(
+                            child: MyText(
+                              title: e.medicationName ?? '',
+                              size: 11,
+                              color: MyColors.primary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          MyText(
+                            title: e.quantity?.toString() ?? '',
+                            size: 12,
+                            fontWeight: FontWeight.bold,
+                            color: MyColors.primary,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                       .toList(),
                 ],
               ),

@@ -26,17 +26,6 @@ class SurInstrumentRequestDetails extends StatefulWidget {
 
 class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetails> {
   SurInstrumentsOrdersData surInstrumentsOrdersData = SurInstrumentsOrdersData();
-  int quantity = 0;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    widget.instrumentOrderModel.instrumentsDetails!.forEach(
-      (order) => quantity += (order.quantity ?? 0),
-    );
-    log("quantity==> $quantity");
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,38 +131,49 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
                 ),
                 const SizedBox(height: 10),
                 MyText(
-                  title: "Instrument: ",
+                  title: "Instruments:",
                   size: 12,
                   color: MyColors.black,
                   fontWeight: FontWeight.bold,
                 ),
-                Wrap(
-                  children: widget.instrumentOrderModel.instruments!
-                      .map(
-                        (e) => MyText(
-                          title: "${e.code} (${e.description}), ",
-                          size: 12,
-                          color: MyColors.blackOpacity,
-                        ),
-                      )
-                      .toList(),
-                ),
                 const SizedBox(height: 10),
-                Row(
-                  children: [
-                    MyText(
-                      title: "Quantity: ",
-                      size: 12,
-                      color: MyColors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    MyText(
-                      title: quantity.toString(),
-                      size: 12,
-                      color: MyColors.blackOpacity,
-                    ),
-                  ],
-                ),
+                ...widget.instrumentOrderModel.instruments!
+                    .map(
+                      (e) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 7,
+                                height: 7,
+                                decoration: BoxDecoration(
+                                  color: MyColors.primary,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: MyText(
+                                title: e.description ?? '',
+                                size: 11,
+                                color: MyColors.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            MyText(
+                              title: e.quantity?.toString() ?? '',
+                              size: 12,
+                              fontWeight: FontWeight.bold,
+                              color: MyColors.primary,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                    .toList(),
+                const SizedBox(height: 10),
                 if (widget.instrumentOrderModel.orderStatus != "completed")
                   DefaultButton(
                     title: "Cancel Order",

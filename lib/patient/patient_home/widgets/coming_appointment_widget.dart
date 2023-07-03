@@ -82,7 +82,7 @@ class ComingAppointmentWidget extends StatelessWidget {
                               DateTime.parse(appointmentModel.appointmentDate ?? ""),
                             ),
                             overflow: TextOverflow.ellipsis,
-                            size: 11,
+                            size: 9,
                             color: MyColors.primary,
                           ),
                         ],
@@ -99,7 +99,7 @@ class ComingAppointmentWidget extends StatelessWidget {
                             title: DateFormat("hh:mm a", 'ar').format(
                               DateTime.parse(appointmentModel.appointmentDate ?? ""),
                             ),
-                            size: 10,
+                            size: 9,
                             overflow: TextOverflow.ellipsis,
                             color: MyColors.primary,
                           ),

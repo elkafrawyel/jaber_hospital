@@ -5,7 +5,7 @@ import '../../general/models/patient_model.dart';
 import '../../surgeon/models/instrument_order_model.dart';
 import '../../surgeon/models/medication_model.dart';
 
-class OrderModel{
+class OrderModel {
   String? sId;
   int? orderNum;
   DoctorId? doctorId;
@@ -24,36 +24,33 @@ class OrderModel{
   String? updatedAt;
   int? iV;
   String? adminUpdatedId;
+  String? mobileNumber;
 
-  OrderModel(
-      {this.sId,
-        this.orderNum,
-        this.doctorId,
-        this.companyId,
-        this.patientId,
-        this.instruments,
-        this.orderStartDate,
-        this.orderCompletedDate,
-        this.orderStatus,
-        this.notes,
-        this.status,
-        this.createdAt,
-        this.updatedAt,
-        this.iV,
-        this.adminUpdatedId});
+  OrderModel({
+    this.sId,
+    this.orderNum,
+    this.doctorId,
+    this.companyId,
+    this.patientId,
+    this.instruments,
+    this.orderStartDate,
+    this.orderCompletedDate,
+    this.orderStatus,
+    this.notes,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+    this.iV,
+    this.adminUpdatedId,
+    this.mobileNumber,
+  });
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     orderNum = json['order_num'];
-    doctorId = json['doctor_id'] != null
-        ? new DoctorId.fromJson(json['doctor_id'])
-        : null;
-    companyId = json['company_id'] != null
-        ? new CompanyId.fromJson(json['company_id'])
-        : null;
-    patientId = json['patient_id'] != null
-        ? new PatientId.fromJson(json['patient_id'])
-        : null;
+    doctorId = json['doctor_id'] != null ? new DoctorId.fromJson(json['doctor_id']) : null;
+    companyId = json['company_id'] != null ? new CompanyId.fromJson(json['company_id']) : null;
+    patientId = json['patient_id'] != null ? new PatientId.fromJson(json['patient_id']) : null;
     if (json['medications'] != null) {
       medications = <MedicationInfo>[];
       json['medications'].forEach((v) {
@@ -87,6 +84,8 @@ class OrderModel{
     updatedAt = json['updatedAt'];
     iV = json['__v'];
     adminUpdatedId = json['admin_updated_id'];
+    mobileNumber = json['mobile_number'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -109,12 +108,10 @@ class OrderModel{
       data['instruments'] = this.instruments!.map((v) => v.toJson()).toList();
     }
     if (this.medicationsDetails != null) {
-      data['medications_details'] =
-          this.medicationsDetails!.map((v) => v.toJson()).toList();
+      data['medications_details'] = this.medicationsDetails!.map((v) => v.toJson()).toList();
     }
     if (this.instrumentsDetails != null) {
-      data['instruments_details'] =
-          this.instrumentsDetails!.map((v) => v.toJson()).toList();
+      data['instruments_details'] = this.instrumentsDetails!.map((v) => v.toJson()).toList();
     }
     data['order_start_date'] = this.orderStartDate;
     data['order_completed_date'] = this.orderCompletedDate;

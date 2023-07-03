@@ -74,7 +74,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   ),
                   _buildRowItem(
                       title: "Patient Mobile",
-                      value: widget.orderModel.patientId?.mobile?? ""),
+                      value: widget.orderModel.mobileNumber?? ""),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: Divider(

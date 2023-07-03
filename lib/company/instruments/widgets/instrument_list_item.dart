@@ -17,29 +17,21 @@ class InstrumentsItemWidget extends StatelessWidget {
           Container(
             width: 10.0,
             height: 10.0,
-            decoration: BoxDecoration(
-              color: MyColors.primary,
-              shape: BoxShape.circle
-            ),
+            decoration: BoxDecoration(color: MyColors.primary, shape: BoxShape.circle),
           ),
-          const SizedBox(width: 10.0,),
+          const SizedBox(
+            width: 10.0,
+          ),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: MyText(
-                      title: itemDesc??"",
-                      color:Colors.black,
-                      size: 12,
-                      fontWeight: FontWeight.bold),
+                  child: MyText(title: itemDesc ?? "", color: Colors.black, size: 12, fontWeight: FontWeight.bold),
                 ),
-                MyText(
-                    title: itemQuantity??"",
-                    color:MyColors.primary,
-                    size: 13,
-                    fontWeight: FontWeight.bold),
-            ],),
+                MyText(title: itemQuantity ?? "", color: MyColors.primary, size: 13, fontWeight: FontWeight.bold),
+              ],
+            ),
           )
         ],
       ),

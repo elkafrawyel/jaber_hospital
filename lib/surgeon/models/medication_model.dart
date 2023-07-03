@@ -107,7 +107,6 @@ class MedicationInfo {
     updatedAt = json['updatedAt'];
     iV = json['__v'];
     adminUpdatedId = json['admin_updated_id'];
-    quantity = 1;
     isSelected = false;
   }
 

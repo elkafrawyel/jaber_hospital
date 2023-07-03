@@ -20,37 +20,34 @@ class MedicationsOrdersModel {
   String? updatedAt;
   int? iV;
   String? adminUpdatedId;
+  String? mobileNumber;
 
-  MedicationsOrdersModel(
-      {this.sId,
-        this.doctorId,
-        this.companyId,
-        this.patientId,
-        this.medications,
-        this.instruments,
-        this.medicationsDetails,
-        this.orderStartDate,
-        this.orderCompletedDate,
-        this.orderStatus,
-        this.notes,
-        this.status,
-        this.orderNum,
-        this.createdAt,
-        this.updatedAt,
-        this.iV,
-        this.adminUpdatedId});
+  MedicationsOrdersModel({
+    this.sId,
+    this.doctorId,
+    this.companyId,
+    this.patientId,
+    this.medications,
+    this.instruments,
+    this.medicationsDetails,
+    this.orderStartDate,
+    this.orderCompletedDate,
+    this.orderStatus,
+    this.notes,
+    this.status,
+    this.orderNum,
+    this.createdAt,
+    this.updatedAt,
+    this.iV,
+    this.adminUpdatedId,
+    this.mobileNumber,
+  });
 
   MedicationsOrdersModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    doctorId = json['doctor_id'] != null
-        ? new DoctorId.fromJson(json['doctor_id'])
-        : null;
-    companyId = json['company_id'] != null
-        ? new CompanyId.fromJson(json['company_id'])
-        : null;
-    patientId = json['patient_id'] != null
-        ? new PatientId.fromJson(json['patient_id'])
-        : null;
+    doctorId = json['doctor_id'] != null ? new DoctorId.fromJson(json['doctor_id']) : null;
+    companyId = json['company_id'] != null ? new CompanyId.fromJson(json['company_id']) : null;
+    patientId = json['patient_id'] != null ? new PatientId.fromJson(json['patient_id']) : null;
     if (json['medications'] != null) {
       medications = <Medications>[];
       json['medications'].forEach((v) {
@@ -79,6 +76,7 @@ class MedicationsOrdersModel {
     updatedAt = json['updatedAt'];
     iV = json['__v'];
     adminUpdatedId = json['admin_updated_id'];
+    mobileNumber = json['mobile_number'];
   }
 
   Map<String, dynamic> toJson() {
@@ -100,8 +98,7 @@ class MedicationsOrdersModel {
       data['instruments'] = this.instruments!.map((v) => v.toJson()).toList();
     }
     if (this.medicationsDetails != null) {
-      data['medications_details'] =
-          this.medicationsDetails!.map((v) => v.toJson()).toList();
+      data['medications_details'] = this.medicationsDetails!.map((v) => v.toJson()).toList();
     }
     data['order_start_date'] = this.orderStartDate;
     data['order_completed_date'] = this.orderCompletedDate;
@@ -125,14 +122,7 @@ class Medications {
   String? companyId;
   int? quantity;
 
-  Medications(
-      {this.sId,
-        this.medicationName,
-        this.description,
-        this.status,
-        this.companyId,
-        this.quantity
-      });
+  Medications({this.sId, this.medicationName, this.description, this.status, this.companyId, this.quantity});
 
   Medications.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];

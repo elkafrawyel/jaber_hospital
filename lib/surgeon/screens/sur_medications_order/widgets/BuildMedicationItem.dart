@@ -86,28 +86,22 @@ class BuildMedicationItem extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
+                          Image.asset(Res.imagesCalendar, scale: 3, color: MyColors.primary),
+                          const SizedBox(width: 5),
                           Expanded(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Image.asset(Res.imagesCalendar, scale: 3, color: MyColors.primary),
-                                const SizedBox(width: 5),
-                                Expanded(
-                                  child: MyText(
-                                    title: DateFormat('E ,d MMM y').format(DateTime.parse(model.orderStartDate!)),
-                                    // title: model.orderStartDate??'',
-                                    size: 10,
-                                    color: MyColors.primary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            child: MyText(
+                              title: Utils.getDate(model.orderStartDate!),
+                              // title: model.orderStartDate??'',
+                              size: 9,
+                              color: MyColors.primary,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(width: 16),
                         ],
                       ),
+                      const SizedBox(width: 16),
                     ],
                   ),
                 )

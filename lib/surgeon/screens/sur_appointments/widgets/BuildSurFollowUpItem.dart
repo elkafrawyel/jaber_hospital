@@ -67,7 +67,7 @@ class BuildSurFollowUpItem extends StatelessWidget {
                               MyText(
                                 title:
                                     DateFormat("E ,d MMM y").format(DateTime.parse(appointmentModel.appointmentDate!)),
-                                size: 11,
+                                size: 9,
                                 color: MyColors.primary,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -79,7 +79,7 @@ class BuildSurFollowUpItem extends StatelessWidget {
                               const SizedBox(width: 5),
                               MyText(
                                 title: DateFormat("hh:mm a").format(DateTime.parse(appointmentModel.appointmentDate!)),
-                                size: 11,
+                                size: 9,
                                 color: MyColors.primary,
                                 fontWeight: FontWeight.bold,
                               ),
