@@ -64,11 +64,11 @@ class ComingAppointmentWidget extends StatelessWidget {
                     size: 13,
                     fontWeight: FontWeight.bold,
                   ),
-                  MyText(
-                      title:
-                          "${appointmentModel.doctorId?.title?? ""}",
-                      size: 12,
-                      color: Colors.grey),
+                  // MyText(
+                  //     title:
+                  //         "${appointmentModel.doctorId?.title?? ""}",
+                  //     size: 12,
+                  //     color: Colors.grey),
                   const SizedBox(height: 3),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

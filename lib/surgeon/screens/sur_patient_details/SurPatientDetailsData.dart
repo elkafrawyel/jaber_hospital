@@ -26,6 +26,8 @@ class SurPatientDetailsData {
     getPatientDetails(context, patientId);
   }
 
+  List<Appointments> appointments = [];
+
   void getPatientDetails(BuildContext context, String patientId) async {
     PatientDetailsModel? data = await SurgeonRepository(context).getPatientDetails(patientId);
     patientDetailsCubit.onUpdateData(data);
