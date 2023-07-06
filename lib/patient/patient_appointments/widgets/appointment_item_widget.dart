@@ -57,10 +57,15 @@ class AppointmentItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MyText(
-                      title: "${appointmentModel.doctorId?.firstNameAr} ${appointmentModel.doctorId?.lastNameAr}",
-                      size: 13,
-                      fontWeight: FontWeight.bold),
-                  MyText(title: appointmentModel.doctorId?.gender ?? "", size: 12, color: Colors.grey),
+                    title: "${appointmentModel.doctorId?.firstNameAr} ${appointmentModel.doctorId?.lastNameAr}",
+                    size: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  // MyText(
+                  //   title: "${appointmentModel.doctorId?.firstNameAr} ${appointmentModel.doctorId?.lastNameAr}",
+                  //   size: 12,
+                  //   color: Colors.grey,
+                  // ),
                   const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,7 +82,7 @@ class AppointmentItemWidget extends StatelessWidget {
                               DateTime.parse(appointmentModel.appointmentDate ?? ""),
                             ),
                             overflow: TextOverflow.ellipsis,
-                            size: 12,
+                            size: 9,
                             color: MyColors.primary,
                           ),
                         ],
@@ -94,7 +99,7 @@ class AppointmentItemWidget extends StatelessWidget {
                             title: DateFormat("hh:mm a", 'ar').format(
                               DateTime.parse(appointmentModel.appointmentDate ?? ""),
                             ),
-                            size: 12,
+                            size: 9,
                             overflow: TextOverflow.ellipsis,
                             color: MyColors.primary,
                           ),

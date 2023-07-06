@@ -68,7 +68,7 @@ class SurPatientDetailsData {
       );
 
       await createNotification(context, date: startDate, patientId: patientId);
-
+      SurHomeData().getHome(context);
       if (res) {
         navigationKey.currentState!.pop();
         navigationKey.currentState!.pop();

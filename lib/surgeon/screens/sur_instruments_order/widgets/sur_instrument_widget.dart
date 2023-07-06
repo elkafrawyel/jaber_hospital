@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import '../../../../general/constants/MyColors.dart';
 import '../../../../general/utilities/tf_custom_widgets/widgets/MyText.dart';
 import '../../../../general/utilities/utils_functions/Navigator.dart';
-import '../../../../general/utilities/utils_functions/UtilsImports.dart';
 import '../../../../res/res.dart';
 import '../../../models/instrument_order_model.dart';
 import '../instrument_order_details.dart';
@@ -17,21 +16,28 @@ class SurInstrumentOrderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var model = SurMedicationsOrderData().medicationsOrdersCubit.state.data[index];
     return InkWell(
       onTap: () => Nav.navigateTo(
-          SurInstrumentRequestDetails(
-            index: index,
-            instrumentOrderModel: ordersModel,
-          ),
-          navigatorType: NavigatorType.push),
+        SurInstrumentRequestDetails(
+          index: index,
+          instrumentOrderModel: ordersModel,
+        ),
+        navigatorType: NavigatorType.push,
+      ),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
-            color: Color(0xffF2F2F2),
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [BoxShadow(color: MyColors.grey, spreadRadius: 1, blurRadius: 5)]),
+          color: Color(0xffF2F2F2),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: MyColors.grey,
+              spreadRadius: 1,
+              blurRadius: 5,
+            ),
+          ],
+        ),
         child: Column(
           children: [
             Row(
@@ -94,40 +100,21 @@ class SurInstrumentOrderWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: 6),
                       Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
+                          Image.asset(Res.imagesCalendar, scale: 3, color: MyColors.primary),
+                          const SizedBox(width: 4),
                           Expanded(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Image.asset(Res.imagesCalendar, scale: 3, color: MyColors.primary),
-                                const SizedBox(width: 4),
-                                Expanded(
-                                  child: MyText(
-                                    title: DateFormat('E ,d MMM y').format(DateTime.parse(ordersModel.orderStartDate!)),
-                                    size: 9,
-                                    color: MyColors.primary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            child: MyText(
+                              title: DateFormat('E ,d MMM y').format(DateTime.parse(ordersModel.orderStartDate!)),
+                              size: 9,
+                              color: MyColors.primary,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(width: 16),
-                          // Row(
-                          //   children: [
-                          //     Image.asset(Res.imagesTime,
-                          //         scale: 2, color: MyColors.primary),
-                          //     const SizedBox(width: 2),
-                          //     MyText(
-                          //       title: "14:30 PM",
-                          //       size: 10,
-                          //       color: MyColors.primary,
-                          //       fontWeight: FontWeight.bold,
-                          //     ),
-                          //   ],
-                          // ),
                         ],
                       ),
+                      const SizedBox(width: 16),
                     ],
                   ),
                 )

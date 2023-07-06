@@ -42,18 +42,18 @@ class _SurInstrumentRequestDetailsState extends State<SurInstrumentRequestDetail
             ),
             if (widget.instrumentOrderModel.orderStatus != "routed to company")
               Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                  decoration: BoxDecoration(
-                      color: widget.instrumentOrderModel.orderStatus == "inprogress"
-                          ? Color(0xffFFF2D9)
-                          : Color(0xffB2FFC3),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: MyText(
-                    title: widget.instrumentOrderModel.orderStatus ?? '',
-                    size: 12,
-                    color: widget.instrumentOrderModel.orderStatus == "inprogress" ? Color(0xffEB7826) : Colors.green,
-                  ))
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                decoration: BoxDecoration(
+                    color:
+                        widget.instrumentOrderModel.orderStatus == "inprogress" ? Color(0xffFFF2D9) : Color(0xffB2FFC3),
+                    borderRadius: BorderRadius.circular(10)),
+                child: MyText(
+                  title: widget.instrumentOrderModel.orderStatus ?? '',
+                  size: 12,
+                  color: widget.instrumentOrderModel.orderStatus == "inprogress" ? Color(0xffEB7826) : Colors.green,
+                ),
+              )
           ],
         ),
         back: true,

@@ -33,14 +33,9 @@ class _SurHomeState extends State<SurHome> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: MyText(title: 'Operation Types Statistics', size: 12, fontWeight: FontWeight.bold),
             ),
-            SvgPicture.asset(
-              Res.surBarChartSvg,
-              fit: BoxFit.fill,
-            ),
+            SvgPicture.asset(Res.surBarChartSvg, fit: BoxFit.fill),
             // Image.asset(Res.imagesSurBarChart, fit: BoxFit.fill,),
-            const SizedBox(
-              height: 28,
-            ),
+            const SizedBox(height: 28),
           ],
         ),
       ),
