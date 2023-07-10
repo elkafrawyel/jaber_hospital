@@ -11,9 +11,11 @@ import '../models/appointments_response.dart';
 import '../models/patient_appointment_model.dart';
 import '../resources/PatientRepository.dart';
 
-class PatientHomeData{
+class PatientHomeData {
   PatientHomeData._();
+
   static final PatientHomeData _instance = PatientHomeData._();
+
   factory PatientHomeData() => _instance;
 
   late GenericBloc<PatientDetailsModel?> patInfoCubit;
@@ -22,7 +24,7 @@ class PatientHomeData{
   late GenericBloc<bool> loadingHome;
   List<PatientAppointmentModel> pastAppointments = [];
 
-  void init(BuildContext context) async{
+  void init(BuildContext context) async {
     this.homeCubit = GenericBloc<AppointmentsResponse?>(null);
     this.pastVisitsCubit = GenericBloc<List<PatientAppointmentModel>?>(null);
     this.patInfoCubit = GenericBloc<PatientDetailsModel?>(null);
@@ -34,22 +36,22 @@ class PatientHomeData{
   Future<void> fetchPatientDetails(BuildContext context) async {
     UserModel user = context.read<UserCubit>().state.model;
     log("userId==> ${user.userData?[0].sId}");
-    PatientDetailsModel? result = await  PatientRepository(context).getPatientDetails(user.userData?[0].sId??"");
+    PatientDetailsModel? result = await PatientRepository(context).getPatientDetails(user.userData?[0].sId ?? "");
     log("operationDate=> ${result?.patient?.operationDate}");
     log("patientName=> ${result?.patient?.fNameAr} ${result?.patient?.lNameAr}");
     patInfoCubit.onUpdateData(result);
   }
 
   Future<void> fetchComingAppointments(BuildContext context) async {
-    AppointmentsResponse? result = await  PatientRepository(context).getComingAppointments();
+    AppointmentsResponse? result = await PatientRepository(context).getComingAppointments();
     log("comingAppointments=> ${result?.appointments?.length}");
     homeCubit.onUpdateData(result);
   }
 
   Future<void> fetchPastAppointments(BuildContext context) async {
-    AppointmentsResponse? result = await  PatientRepository(context).getPastAppointments();
+    AppointmentsResponse? result = await PatientRepository(context).getPastAppointments();
     log("PastAppointments=> ${result?.appointments?.length}");
-    pastAppointments = result?.appointments??[];
+    pastAppointments = result?.appointments ?? [];
     pastVisitsCubit.onUpdateData(pastAppointments);
   }
 }

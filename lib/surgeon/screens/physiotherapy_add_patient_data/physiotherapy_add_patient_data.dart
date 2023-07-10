@@ -80,7 +80,12 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                 fontWeight: FontWeight.bold,
               ),
               GenericTextField(
-                hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
+                hintColor: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.color
+                    ?.withOpacity(.8),
                 fieldTypes: FieldTypes.clickable,
                 fillColor: MyColors.textFields,
                 hint: "Patient weight (KG)",
@@ -97,7 +102,12 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                 fontWeight: FontWeight.bold,
               ),
               GenericTextField(
-                hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
+                hintColor: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.color
+                    ?.withOpacity(.8),
                 fieldTypes: FieldTypes.clickable,
                 fillColor: MyColors.textFields,
                 hint: "Patient height (CM)",
@@ -115,7 +125,12 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
               ),
               //automatically set
               GenericTextField(
-                hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
+                hintColor: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.color
+                    ?.withOpacity(.8),
                 fieldTypes: FieldTypes.clickable,
                 fillColor: MyColors.textFields,
                 hint: "XX",
@@ -131,7 +146,12 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                 fontWeight: FontWeight.bold,
               ),
               GenericTextField(
-                hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
+                hintColor: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.color
+                    ?.withOpacity(.8),
                 fieldTypes: FieldTypes.normal,
                 fillColor: MyColors.textFields,
                 hint: "Physical limitation notes",
@@ -150,7 +170,12 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
               ),
 
               GenericTextField(
-                hintColor: Theme.of(context).textTheme.titleMedium?.color?.withOpacity(.8),
+                hintColor: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.color
+                    ?.withOpacity(.8),
                 fieldTypes: FieldTypes.normal,
                 fillColor: MyColors.textFields,
                 hint: "Please enter the patient’s average step count",
@@ -175,7 +200,7 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                     groupValue: physicalFitness,
                     onChanged: (value) {
                       setState(
-                        () {
+                            () {
                           physicalFitness = 'Low';
                         },
                       );
@@ -194,7 +219,7 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                     groupValue: physicalFitness,
                     onChanged: (value) {
                       setState(
-                        () {
+                            () {
                           physicalFitness = 'Moderate';
                         },
                       );
@@ -213,7 +238,7 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                     groupValue: physicalFitness,
                     onChanged: (value) {
                       setState(
-                        () {
+                            () {
                           physicalFitness = 'High';
                         },
                       );
@@ -238,7 +263,7 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                     groupValue: cardiovascularFitness,
                     onChanged: (value) {
                       setState(
-                        () {
+                            () {
                           cardiovascularFitness = 'Low';
                         },
                       );
@@ -257,7 +282,7 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                     groupValue: cardiovascularFitness,
                     onChanged: (value) {
                       setState(
-                        () {
+                            () {
                           cardiovascularFitness = 'Moderate';
                         },
                       );
@@ -276,7 +301,7 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                     groupValue: cardiovascularFitness,
                     onChanged: (value) {
                       setState(
-                        () {
+                            () {
                           cardiovascularFitness = 'High';
                         },
                       );
@@ -301,7 +326,7 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                     groupValue: lungEndurance,
                     onChanged: (value) {
                       setState(
-                        () {
+                            () {
                           lungEndurance = 'Low';
                         },
                       );
@@ -320,7 +345,7 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                     groupValue: lungEndurance,
                     onChanged: (value) {
                       setState(
-                        () {
+                            () {
                           lungEndurance = 'Moderate';
                         },
                       );
@@ -339,7 +364,7 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
                     groupValue: lungEndurance,
                     onChanged: (value) {
                       setState(
-                        () {
+                            () {
                           lungEndurance = 'High';
                         },
                       );
@@ -355,9 +380,12 @@ class _PhysiotherapyAddPatientDataState extends State<PhysiotherapyAddPatientDat
 
               Center(
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width/2,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width / 2,
                   child: DefaultButton(
-                    title: "Add Physiotherapy Data",
+                    title: "Add Data",
                     onTap: addPhysiotherapyData,
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   ),

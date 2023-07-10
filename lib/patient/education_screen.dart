@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:base_flutter/patient/patient_home/home_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
@@ -143,6 +144,8 @@ class _EducationScreenState extends State<EducationScreen> {
     if(data.success??false){
       CustomToast.showSimpleToast(msg: data.message?.messageAr??"");
       Navigator.of(context).pop();
+      PatientHomeData().fetchPatientDetails(context);
+
     } else{
       CustomToast.showSimpleToast(msg: data.message?.messageAr??"");
     }

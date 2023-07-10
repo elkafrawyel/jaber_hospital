@@ -657,7 +657,7 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                 MyText(title: "Operation Type: ", size: 12, fontWeight: FontWeight.bold),
                 SizedBox(width: 10),
                 MyText(
-                  title: state.data?.patient?.operationType ?? '',
+                  title: state.data?.patient?.operationType?.replaceAll('_', ' ').toTitleCase() ?? '',
                   size: 12,
                   color: MyColors.primary,
                   fontWeight: FontWeight.bold,
