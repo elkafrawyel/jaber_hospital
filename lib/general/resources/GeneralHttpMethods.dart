@@ -302,7 +302,6 @@ class GeneralHttpMethods {
   }
 
   Future<bool> logOut() async {
-    LoadingDialog.showLoadingDialog();
     var data = await GenericHttp<dynamic>(context).callApi(
       name: ApiNames.logout,
       returnType: ReturnType.Type,

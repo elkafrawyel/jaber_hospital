@@ -27,7 +27,7 @@ class Utils {
       primary: MyColors.primary,
       language: lang,
       dismissFunc: EasyLoading.dismiss,
-      showLoadingFunc: LoadingDialog.showLoadingDialog,
+      showLoadingFunc: (){},
       branch: ApiNames.branch,
       authClick: () {},
       authLink: '',
@@ -218,7 +218,6 @@ class Utils {
   }
 
   static void shareApp(url) {
-    LoadingDialog.showLoadingDialog();
     Share.share(url).whenComplete(() {
       EasyLoading.dismiss();
     });
@@ -416,7 +415,6 @@ class Utils {
 
   static void navigateToLocationAddress(BuildContext context, LocationCubit locCubit) async {
     FocusScope.of(context).requestFocus(FocusNode());
-    LoadingDialog.showLoadingDialog();
     var current = await Utils.getCurrentLocation();
     LocationModel locationModel = locCubit.state.model!;
     if (current != null) {

@@ -24,7 +24,6 @@ class PatientHttpMethods {
 
   Future<bool> updatePatientProfile(Map<String, dynamic> body) async {
     body.removeWhere((key, value) => value == null);
-    LoadingDialog.showLoadingDialog();
     dynamic data = await GenericHttp<bool>(context).callApi(
       name: ApiNames.updateCompProfile,
       returnType: ReturnType.Type,
