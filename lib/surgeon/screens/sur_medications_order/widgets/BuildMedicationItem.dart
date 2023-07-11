@@ -122,7 +122,7 @@ class BuildMedicationItem extends StatelessWidget {
                           const SizedBox(width: 5),
                           MyText(
                             title:
-                                "Changed to ${SurMedicationsOrderData().orderNumType.split("Orders").first} on ${model.orderCompletedDate} ",
+                                "Changed to ${SurMedicationsOrderData().orderNumType.split("Orders").first} on ${model.orderCompletedDate??''} ",
                             size: 10,
                             color: MyColors.primary,
                             fontWeight: FontWeight.bold,

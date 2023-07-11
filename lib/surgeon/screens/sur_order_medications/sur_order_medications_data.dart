@@ -21,6 +21,7 @@ class SurOrderMedicationsData {
   late PaginationDto<MedicationInfo> paginationDto;
   late GenericBloc<List<MedicationInfo>> medicationCubit;
   late GenericBloc<List<MedicationInfo>> selectedMedicationCubit;
+
   // late ScrollController scrollController;
 
   List<CompanyId> companies = [];
@@ -28,6 +29,7 @@ class SurOrderMedicationsData {
   late GenericBloc<List<MedicationInfo>> companyMedicationsCubit;
   List<MedicationInfo> medications = [];
   CompanyId? selectedCompany;
+
   // late DateTime dateTime;
   late String curDate;
 
@@ -38,7 +40,7 @@ class SurOrderMedicationsData {
     formKey = GlobalKey<FormState>();
     patientName = TextEditingController();
     PatientMobileNumber = TextEditingController();
-    dateController= TextEditingController();
+    dateController = TextEditingController();
     Medication = TextEditingController();
     search = TextEditingController();
     dateBloc = GenericBloc(null);
@@ -77,7 +79,7 @@ class SurOrderMedicationsData {
     this.companyMedicationsCubit = GenericBloc<List<MedicationInfo>>([]);
     this.selectedMedicationCubit = GenericBloc<List<MedicationInfo>>([]);
     CompMedicationsResponse? result = await SurgeonRepository(context).fetchCompanyMedications(companyId);
-    List<MedicationInfo> compMedications = result?.medications??[];
+    List<MedicationInfo> compMedications = result?.medications ?? [];
     log("compMedications==> ${compMedications.length}");
     companyMedicationsCubit.onUpdateData(compMedications);
   }
@@ -90,8 +92,7 @@ class SurOrderMedicationsData {
   void _getListMedication(BuildContext context,
       {int pageNumber = 1, bool firstTime = false, bool refresh = true}) async {
     final _ = paginationDto;
-    var result = await SurgeonRepository(context)
-        .getListMedication(pageNumber.toString());
+    var result = await SurgeonRepository(context).getListMedication(pageNumber.toString());
     _.currentPage = result?.pageInfo?.page ?? 1;
     _.nextPage = result?.pageInfo?.hasNext ?? false;
     if (firstTime == true) {
@@ -123,10 +124,10 @@ class SurOrderMedicationsData {
   void onChangeCounter({required int index, required bool isAdd}) {
     var model = companyMedicationsCubit.state.data;
     if (isAdd) {
-      model![index].quantity = model[index].quantity! + 1;
+      model[index].quantity = (model[index].quantity ?? 0 )+ 1;
     } else {
-      if (model![index].quantity! > 1) {
-        model[index].quantity = model[index].quantity! - 1;
+      if ((model[index].quantity ?? 0) > 1) {
+        model[index].quantity =( model[index].quantity ?? 0) - 1;
       }
     }
     companyMedicationsCubit.onUpdateData(model);
@@ -151,8 +152,7 @@ class SurOrderMedicationsData {
   }
 
   void getPatientName(BuildContext context) async {
-    List<PatientNameModel> result =
-        await SurgeonRepository(context).getPatientNames();
+    List<PatientNameModel> result = await SurgeonRepository(context).getPatientNames();
     fullPatientList = result;
     patientNameBloc.onUpdateData(result);
   }
@@ -174,12 +174,11 @@ class SurOrderMedicationsData {
 
   void onSelectPatientName(BuildContext context) {
     if (patientName.text.isEmpty) {
-      CustomToast.showSnackBar(context, "Please choose patient name",
-          backgroundColor: Colors.red);
+      CustomToast.showSnackBar(context, "Please choose patient name", backgroundColor: Colors.red);
     } else {
       log("data=> ${patientNameBloc.state.data}");
-      selectedPatientModel = patientNameBloc.state.data.firstWhere((element) =>
-          "${element.firstNameEn} ${element.lastNameEn}" == patientName.text);
+      selectedPatientModel = patientNameBloc.state.data
+          .firstWhere((element) => "${element.firstNameEn} ${element.lastNameEn}" == patientName.text);
       navigationKey.currentState!.pop();
       log(selectedPatientModel?.firstNameEn.toString() ?? '');
     }
@@ -190,9 +189,10 @@ class SurOrderMedicationsData {
       DioUtils.showLoadingDialog();
       List<dynamic> medications = selectedMedicationCubit.state.data
           .map((item) => {
-        "id": item.sId,
-        "quantity":item.quantity,
-      }).toList();
+                "id": item.sId,
+                "quantity": item.quantity,
+              })
+          .toList();
       Map<String, dynamic> body = {
         "doctor_id": "${context.read<UserCubit>().state.model.userData?[0].sId}",
         "company_id": "${selectedCompany?.sId}",
@@ -204,18 +204,22 @@ class SurOrderMedicationsData {
         "medications": medications,
       };
       log("medicationOrderBody==> $body");
-      final response = await ApiService.post(ApiNames.requestMedicationOrder, body: body,);
+      final response = await ApiService.post(
+        ApiNames.requestMedicationOrder,
+        body: body,
+      );
       InstrumentsOrderResponse medicationsOrderResponse = InstrumentsOrderResponse.fromJson(response.data);
       log("responseData==> ${response.data}");
       DioUtils.dismissDialog();
-      if(medicationsOrderResponse.code==200){
-        await SurNotificationsData().createNotification(context,
+      if (medicationsOrderResponse.code == 200) {
+        await SurNotificationsData().createNotification(
+          context,
           orderData: medicationsOrderResponse.orderData,
         );
         CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
         // navigationKey.currentState!.pop();
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SurMedicationOrder()));
-      } else{
+      } else {
         CustomToast.showSnackBar(context, response.data["message"]["message_en"]);
       }
     }
