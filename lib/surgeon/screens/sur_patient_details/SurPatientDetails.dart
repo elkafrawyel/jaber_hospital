@@ -1220,16 +1220,6 @@ class _SurPatientDetailsState extends State<SurPatientDetails> {
                       // }
                     },
                   ),
-                // if (state.data!.appointments!.isNotEmpty && state.data?.patient?.operationStatus == "Pre-op")
-                //   Expanded(
-                //     child: DefaultButton(
-                //       title: "Order Instruments",
-                //       onTap: () => Nav.navigateTo(
-                //         RequestInstrumentsScreen(patientModel: state.data!),
-                //         navigatorType: NavigatorType.push,
-                //       ),
-                //     ),
-                //   ),
                 if (state.data?.patient?.mdtResults?.toLowerCase() == 'accept' &&
                     (state.data?.patient?.operationDate ?? '').isNotEmpty &&
                     (context.read<UserCubit>().state.model.userData![0].doctorRoleId?.roleNameEn == 'Surgeon' &&
