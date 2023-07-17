@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import '../utilities/http/dio/utils/GlobalState.dart';
 
 class ApiService {
-  static const baseUrl = 'http://34.163.160.147/backend/api/';
+  static const baseUrl = 'http://157.241.40.200:5000/api/';
 
   static Dio dioClient(){
     String? token = GlobalState.instance.get("token");

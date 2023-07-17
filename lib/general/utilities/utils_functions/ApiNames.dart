@@ -1,5 +1,5 @@
 class ApiNames{
-  static const String baseUrl = "http://34.163.160.147/backend/api/";
+  static const String baseUrl = "http://157.241.40.200:5000/api/";
   static const String branch = "1";
 
   static const String aboutApp = "AboutApp";
